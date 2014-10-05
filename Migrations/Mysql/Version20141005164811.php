@@ -25,7 +25,6 @@ class Version20141005164811 extends AbstractMigration {
 		$this->addSql("CREATE TABLE achimfritz_documents_domain_solr_facetcontainer (persistence_object_identifier VARCHAR(40) NOT NULL, facets VARCHAR(255) NOT NULL, countofdocuments INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(persistence_object_identifier)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB");
 		$this->addSql("ALTER TABLE achimfritz_documents_domain_model_category_documents_join ADD CONSTRAINT FK_8771F2886FD5975E FOREIGN KEY (documents_category) REFERENCES achimfritz_documents_domain_model_category (persistence_object_identifier)");
 		$this->addSql("ALTER TABLE achimfritz_documents_domain_model_category_documents_join ADD CONSTRAINT FK_8771F288B1F004E9 FOREIGN KEY (documents_document) REFERENCES achimfritz_documents_domain_model_document (persistence_object_identifier)");
-		$this->addSql("DROP TABLE achimfritz_tank_domain_model_foo");
 	}
 
 	/**
@@ -38,7 +37,6 @@ class Version20141005164811 extends AbstractMigration {
 		
 		$this->addSql("ALTER TABLE achimfritz_documents_domain_model_category_documents_join DROP FOREIGN KEY FK_8771F2886FD5975E");
 		$this->addSql("ALTER TABLE achimfritz_documents_domain_model_category_documents_join DROP FOREIGN KEY FK_8771F288B1F004E9");
-		$this->addSql("CREATE TABLE achimfritz_tank_domain_model_foo (persistence_object_identifier VARCHAR(40) NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(persistence_object_identifier)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB");
 		$this->addSql("DROP TABLE achimfritz_documents_domain_model_category");
 		$this->addSql("DROP TABLE achimfritz_documents_domain_model_category_documents_join");
 		$this->addSql("DROP TABLE achimfritz_documents_domain_model_containerdiff");
