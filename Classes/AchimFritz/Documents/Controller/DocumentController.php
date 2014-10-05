@@ -26,8 +26,7 @@ class DocumentController extends AbstractDocumentController {
 	 */
 	public function updateAction(Document $document) {
 		$this->updateDocument($document);
-		return 'foo' . $document->getName() . get_class($document);
-		$this->redirect('show', NULL, NULL, array('document' => $document));
+		$this->redirect('list', NULL, NULL, array('document' => $document));
 	}
 
 	/**

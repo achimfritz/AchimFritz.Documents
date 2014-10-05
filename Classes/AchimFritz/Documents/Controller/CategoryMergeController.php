@@ -14,7 +14,7 @@ use \AchimFritz\Documents\Domain\Model\Category;
  *
  * @Flow\Scope("singleton")
  */
-class CategoryDiffController extends AbstractCategoryController {
+class CategoryMergeController extends AbstractCategoryController {
 
 	/**
 	 * @Flow\Inject
@@ -34,7 +34,8 @@ class CategoryDiffController extends AbstractCategoryController {
 	 * @param \AchimFritz\Documents\Domain\Model\Category $category
 	 * @return void
 	 */
-	public function updateAction(Category $category) {
+	public function createAction(Category $category) {
+		return 'foo';
 		$format = $this->request->getFormat();
 		$existingCategory = $this->categoryRepository->findOneByPath($category->getPath());
 		if (!$existingCategory instanceof Category) {

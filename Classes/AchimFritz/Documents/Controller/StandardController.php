@@ -21,7 +21,7 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @param string $search
 	 * @return void
 	 */
-	public function indexAction($search = '*:*') {
+	public function listAction($search = '*:*') {
 		$this->view->assign('search', $search);
 	}
 

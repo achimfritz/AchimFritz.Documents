@@ -1,10 +1,15 @@
-{namespace af=AchimFritz\Documents\ViewHelpers}
-<div class="documentList">
-	<ul>
+	<table class="table table-striped">
 		<f:for each="{documents}" as="document">
-			<li data-doc='{af:documentJson(document:document)}' class="selectable">
-				<f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
-			</li>
+			<tr>
+				<td>
+					<f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
+				</td>
+				<td>
+					<f:form action="index" arguments="{document: document}">
+						<f:form.hidden name="__method" value="DELETE" />
+						<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+					</f:form>
+				</td>
+			</tr>
 		</f:for>
-	</ul>
-</div>
+	</table>

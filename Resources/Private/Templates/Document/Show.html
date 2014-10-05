@@ -6,17 +6,13 @@
 	<div class="row">
 		<span class="span8">
 			<f:render partial="Document/Show" arguments="{document: document}" />
+			<f:render partial="Document/Delete" arguments="{document: document}" />
 		</span>
 		<span class="span4">
-			<h5>edit</h5>
+			<h3>edit</h3>
 			<f:render partial="Document/Edit" arguments="{document: document}" />
-			<f:link.action class="btn" action="index">Back</f:link.action>
-			<f:render partial="Document/Delete" arguments="{document: document}" />
-			<h5>add to category</h5>
-			<div class="transferedElements documentList">
-				<f:render partial="Document/List" arguments="{documents: {0: document}}" />
-			</div>
-			<f:render partial="Category/New" />
+			<h3>add to category</h3>
+			<f:render partial="Document/AddToCategory" arguments="{document: document}" />
 		</span>
 	</div>
 </f:section>

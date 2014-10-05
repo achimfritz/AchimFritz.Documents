@@ -52,7 +52,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->add($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document created');
-		} catch (\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->addErrorMessage('cannot create document');
 			$this->handleException($e);
 		}
@@ -67,7 +67,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->remove($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document deleted');
-		} catch (\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->addErrorMessage('cannot delete document');
 			$this->handleException($e);
 		}
@@ -82,7 +82,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->update($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document updated');
-		} catch (\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->addErrorMessage('cannot update document');
 			$this->handleException($e);
 		}

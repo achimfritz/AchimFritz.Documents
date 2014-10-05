@@ -1,14 +1,15 @@
-	<table class="table">
-			<tr>
-				<td>Name</td>
-				<td>{document.name}</td>
-			</tr>
-	</table>
-
-<h6>Categories</h6>
-				<ul>
-				<f:for each="{document.categories}" as="category">
-					<li>{category.path}</li>	
-				</f:for>
-				</ul>
+	<h2>{document.name}</h2>
+	<h3>Categories</h3>
+	<f:if condition="{document.categories}">
+		<f:then>
+			<ul>
+			<f:for each="{document.categories}" as="category">
+				<li>{category.path}</li>	
+			</f:for>
+			</ul>
+		</f:then>
+		<f:else>
+			<p>no categories</p>
+		</f:else>
+	</f:if>
 
