@@ -1,0 +1,13 @@
+<![CDATA[{]]>
+	"documents": [<f:for each="{paginatedDocuments}" as="document" iteration="iteration">
+	<![CDATA[{]]>
+	      "path": "{document.name}",
+			"links": [
+				<![CDATA[{]]>
+					"rel": "self",
+					"href": "{f:uri.action(arguments: '{document: document}', absolute: 1, controller: 'Document', action: 'show', format: 'json')}"
+				}
+			]
+	}{f:if(condition: iteration.isLast, else: ',')}</f:for>
+	]
+}

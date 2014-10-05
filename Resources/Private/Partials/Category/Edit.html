@@ -1,0 +1,15 @@
+<h4>edit</h4>
+<f:form action="index" object="{category}" name="category">
+	<f:form.hidden name="__method" value="PUT" />
+	<div class="control-group">	
+		<label for="path" class="control-label">Path</label>
+		<div class="controls">
+			<f:form.textfield property="path" class="path pathAutosearch"id="path" />
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<f:form.submit value="Update" class="btn" />
+		</div>
+	</div>
+</f:form>

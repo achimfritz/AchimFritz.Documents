@@ -1,0 +1,7 @@
+<f:layout name="Default" />
+<f:section name="Content">
+	<f:render partial="Category/Show" arguments="{category: category}" />
+	<f:render partial="Category/Delete" arguments="{category: category}" />
+	<f:render partial="Category/Edit" arguments="{category: category}" />
+	<f:link.action action="index" class="btn">List</f:link.action>
+</f:section>

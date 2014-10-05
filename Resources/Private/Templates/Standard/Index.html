@@ -1,0 +1,71 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+		<span class="span3">
+			<div class="row">
+				<h5>TODO</h5>
+					<ul>
+						<li>rename Category</li>
+						<li>copy Categroy</li>
+					</ul>
+			</div>
+			<div class="row">
+				<h5>Filter</h5>
+				<div id="currentSearch"></div>
+			</div>
+			<div class="row">
+				<h5>Navigation</h5>
+				<div id="navigation"></div>
+			</div>
+			<div class="row">
+				<h5>Paths</h5>
+				<div id="paths"></div>
+			</div>
+		</span>
+		
+		<span class="span9">
+			<div class="row">
+					<div id="query">
+						<f:form action="index" class="form-search">
+							search: <f:form.textfield  class="searchField" name="query_q" value="{search}" />
+							results: <f:form.textfield name="query_rows" value="50" class="input-mini"  />
+							filters: <f:form.textfield name="query_facet_limit" value="10" class="input-mini" />
+							<f:form.submit name="submit" value="submit" class="btn"/>
+						</f:form>	
+					</div>
+			</div>
+			<div class="row">
+					<ul id="pager" class="inline"></ul>
+				
+			</div>
+			<div class="row">
+				<span class="span6">
+					<div id="docs" class="documentList">docs</div>
+				</span>
+				<span class="span3">
+					<div class="row">
+						<h5>new Document</h5>
+						<f:form action="index" controller="document" name="document" class="form">
+							<f:form.hidden name="__method" value="POST" />
+							<div class="control-group">
+									<label for="name" class="control-label">Name</label>
+									<div class="controls">
+										<f:form.textfield property="name" id="name" />
+									</div>
+									<div class="controls">
+										<f:form.submit value="Create" class="btn" />
+									</div>
+							</div>
+						</f:form>
+					</div>
+					<div class="row">
+						<h5>new Category</h5>
+						<f:render partial="TransferableArea" />
+						<f:render partial="Category/New" />
+						<f:render partial="CategoryPath/Delete" />
+					</div>
+				</span>
+			</div>
+		</span>
+</f:section>
+

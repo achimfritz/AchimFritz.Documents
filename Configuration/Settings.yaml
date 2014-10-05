@@ -1,0 +1,11 @@
+AchimFritz:
+  Documents:
+    Solr:
+      hostname: a1
+      port: 8080
+      path: solr/documents
+      servlet: select
+    Mongo:
+      server: mongodb://localhost:27017
+      db: f3_flow
+      collection: documents

@@ -1,0 +1,7 @@
+<f:form controller="CategoryPath" action="index" class="app-deleteCategoryPath" name="path">
+	<f:form.hidden name="path" class="transferCategory path" />
+	<f:form.hidden name="__method" value="DELETE" />
+	<f:form.submit value="Delete" class="btn" />
+	<f:link.action class="btn app-cancel" action="index" arguments="{path: path}">Cancel</f:link.action>
+</f:form>
+

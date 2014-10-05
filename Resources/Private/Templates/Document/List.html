@@ -1,0 +1,23 @@
+
+<f:layout name="Default" />
+
+<f:section name="Title">A list of documents</f:section>
+
+<f:section name="Content">
+<f:if condition="{documents}">
+		<f:then>
+			<f:widget.paginate objects="{documents}" as="paginatedDocuments" configuration="{itemsPerPage: 5, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
+				<f:render partial="Document/List" arguments="{documents: paginatedDocuments}" />
+			</f:widget.paginate>
+		</f:then>
+		<f:else>
+			<p>No documents created yet.</p>
+		</f:else>
+	</f:if>
+	<f:form action="index" name="document">
+				<f:form.hidden name="__method" value="POST" />
+				<label for="name">Name</label>
+				<f:form.textfield property="name" id="name" />
+				<f:form.submit value="Create" class="btn" />
+	</f:form>
+</f:section>

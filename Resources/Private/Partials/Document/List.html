@@ -1,0 +1,10 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
+<div class="documentList">
+	<ul>
+		<f:for each="{documents}" as="document">
+			<li data-doc='{af:documentJson(document:document)}' class="selectable">
+				<f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
+			</li>
+		</f:for>
+	</ul>
+</div>

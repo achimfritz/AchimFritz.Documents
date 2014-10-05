@@ -1,0 +1,10 @@
+<h2>{category.path}</h2>
+<h3>documents</h3>
+<f:if condition="{category.documents}">
+	<f:then>
+		<f:render partial="Document/List" arguments="{documents: category.documents}" />
+	</f:then>
+	<f:else>
+		<p>no documents</p>
+	</f:else>
+</f:if>

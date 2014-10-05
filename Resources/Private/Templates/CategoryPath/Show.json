@@ -1,0 +1,12 @@
+<![CDATA[{]]>
+	"category":
+	<![CDATA[{]]>
+	      "path": "{category.path}",
+			"links": [
+				<![CDATA[{]]>
+					"rel": "self",
+					"href": "{f:uri.action(arguments: '{path: category.path}', absolute: 1, controller: 'CategoryPath', action: 'show', format: 'json')}"
+				}
+			]
+	}
+}

@@ -1,0 +1,7 @@
+				<ul>
+					<f:for each="{categories}" as="category">
+						<li>
+							<f:link.action controller="Category" action="show" arguments="{category: category}">{category.path}</f:link.action>
+						</li>
+					</f:for>
+				</ul>
