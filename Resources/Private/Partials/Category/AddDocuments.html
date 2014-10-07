@@ -1,8 +1,8 @@
 <f:form action="index" object="{category}" name="category">
 	<f:form.hidden name="__method" value="PUT" />
 	<div class="form-group">
-		<label class="control-label" for="path">Path</label>
-		<f:form.textfield property="path" class="form-control" id="path" />
+		<label class="control-label" for="documents">Documents</label>
+		<f:form.select class="form-control" multiple="true" property="documents" options="{documents}" id="documents" />
 	</div>
 	<div class="form-group">
 		<f:form.submit value="Update" class="btn btn-default"/>

@@ -22,6 +22,12 @@ class CategoryController extends AbstractCategoryController {
 	protected $resourceArgumentName = 'category';
 
 	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
+	 */
+	protected $documentRepository;
+
+	/**
 	 * @return void
 	 */
 	public function initializeCreateAction() {
@@ -61,6 +67,8 @@ class CategoryController extends AbstractCategoryController {
 	 * @return void
 	 */
 	public function showAction(Category $category) {
+		// TODO findLimited
+		$this->view->assign('documents', $this->documentRepository->findAll());
 		$this->view->assign('category', $category);
 	}
 
@@ -72,7 +80,7 @@ class CategoryController extends AbstractCategoryController {
 	 */
 	public function createAction(Category $category) {
 		$category = $this->createCategory($category);
-		$this->redirect('show', NULL, NULL, array('category' => $category));
+		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
 
 	/**
@@ -83,7 +91,7 @@ class CategoryController extends AbstractCategoryController {
 	 */
 	public function updateAction(Category $category) {
 		$category = $this->updateCategory($category);
-		$this->redirect('show', NULL, NULL, array('category' => $category));
+		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
 
 	/**
@@ -94,7 +102,7 @@ class CategoryController extends AbstractCategoryController {
 	 */
 	public function deleteAction(Category $category) {
 		$this->deleteCategory($category);
-		$this->redirect('list');
+		$this->redirect('index');
 	}
 
 }

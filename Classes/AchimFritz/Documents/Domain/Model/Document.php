@@ -20,7 +20,7 @@ class Document {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Category>
-	 * @ORM\ManyToMany(mappedBy="documents", cascade={"persist"})
+	 * @ORM\ManyToMany(mappedBy="documents", cascade={"persist", "merge", "detach"})
 	 */
 	protected $categories;
 
@@ -38,6 +38,34 @@ class Document {
 	 */
 	public function __construct() {
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
+	/**
+	 * addCategory 
+	 * 
+	 * @param Category $category 
+	 * @return void
+	 */
+	public function addCategory(Category $category) {
+		$this->categories->add($category);
+		#if ($category->hasDocument($this) === FALSE) {
+		#	$category->addDocument($this);
+		#}
+	}
+
+	/**
+	 * removeCategory 
+	 * 
+	 * @param Category $category 
+	 * @return void
+	 */
+	public function removeCategory(Category $category) {
+		#var_dump(count($this->categories));
+		$this->categories->removeElement($category);
+		#var_dump(count($this->categories));
+		#if ($category->hasDocument($this) === TRUE) {
+		#	$category->removeDocument($this);
+		#}
 	}
 
 	/**
@@ -78,33 +106,6 @@ class Document {
 		$this->categories = $categories;
 	}
 
-	/**
-	 * addCategory 
-	 * 
-	 * @param Category $category 
-	 * @return void
-	 */
-	public function addCategory(Category $category) {
-		$this->categories->add($category);
-		if ($category->hasDocument($this) === FALSE) {
-			$category->addDocument($this);
-		}
-	}
-
-	/**
-	 * removeCategory 
-	 * 
-	 * @param Category $category 
-	 * @return void
-	 */
-	public function removeCategory(Category $category) {
-		#var_dump(count($this->categories));
-		$this->categories->removeElement($category);
-		#var_dump(count($this->categories));
-		if ($category->hasDocument($this) === TRUE) {
-			$category->removeDocument($this);
-		}
-	}
 
 	/**
 	 * hasCategory 

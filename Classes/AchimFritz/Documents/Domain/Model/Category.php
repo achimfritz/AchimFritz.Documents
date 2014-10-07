@@ -29,7 +29,7 @@ class Category {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document>
-	 * @ORM\ManyToMany(inversedBy="categories", cascade={"persist"})
+	 * @ORM\ManyToMany(inversedBy="categories", cascade={"persist", "merge", "detach"})
 	 */
 	protected $documents;
 
@@ -42,6 +42,31 @@ class Category {
 		$this->documents = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
+	/**
+	 * addDocument 
+	 * 
+	 * @param Document $document 
+	 * @return void
+	 */
+	public function addDocument(Document $document) {
+		$this->documents->add($document);
+		#if ($document->hasCategory($this) === FALSE) {
+			$document->addCategory($this);
+		#}
+	}
+
+	/**
+	 * removeDocument 
+	 * 
+	 * @param Document $document 
+	 * @return void
+	 */
+	public function removeDocument(Document $document) {
+		$this->documents->removeElement($document);
+		#if ($document->hasCategory($this) === TRUE) {
+			$document->removeCategory($this);
+		#}
+	}
 	/**
 	 * getPath
 	 *
@@ -156,31 +181,6 @@ class Category {
 		$this->documents = $documents;
 	}
 
-	/**
-	 * addDocument 
-	 * 
-	 * @param Document $document 
-	 * @return void
-	 */
-	public function addDocument(Document $document) {
-		$this->documents->add($document);
-		if ($document->hasCategory($this) === FALSE) {
-			$document->addCategory($this);
-		}
-	}
-
-	/**
-	 * removeDocument 
-	 * 
-	 * @param Document $document 
-	 * @return void
-	 */
-	public function removeDocument(Document $document) {
-		$this->documents->removeElement($document);
-		if ($document->hasCategory($this) === TRUE) {
-			$document->removeCategory($this);
-		}
-	}
 
 	/**
 	 * hasDocument 

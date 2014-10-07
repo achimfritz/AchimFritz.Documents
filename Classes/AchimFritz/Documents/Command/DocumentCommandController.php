@@ -18,6 +18,7 @@ use AchimFritz\ServiceDescription\ServiceDescriptionInterface;
  */
 class DocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 
+
 	/**
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
 	 * @Flow\Inject
@@ -41,6 +42,20 @@ class DocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	protected $solrQueryString = '*:*';
 
+	/**
+	 * @return void
+	 */
+	public function testCommand() {
+		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
+		$document = new Document();
+		$document->setName('foo');
+		$this->documentRepository->add($document);
+		$this->documentsPersistenceManager->persistAll();
+		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
+		$this->documentRepository->remove($document);
+		$this->documentsPersistenceManager->persistAll();
+		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
+	}
 	/**
 	 * cleanSolrCommand 
 	 * 
