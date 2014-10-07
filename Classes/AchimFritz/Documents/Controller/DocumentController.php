@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Document;
+use AchimFritz\Documents\Exception;
 
 class DocumentController extends AbstractDocumentController {
 
@@ -17,7 +18,7 @@ class DocumentController extends AbstractDocumentController {
 	 */
 	public function createAction(Document $document) {
 		$this->createDocument($document);
-		$this->redirect('show', NULL, NULL, array('document' => $document));
+		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
 	/**
@@ -26,7 +27,7 @@ class DocumentController extends AbstractDocumentController {
 	 */
 	public function updateAction(Document $document) {
 		$this->updateDocument($document);
-		$this->redirect('list', NULL, NULL, array('document' => $document));
+		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
 	/**
@@ -35,7 +36,7 @@ class DocumentController extends AbstractDocumentController {
 	 */
 	public function deleteAction(Document $document) {
 		$this->deleteDocument($document);
-		$this->redirect('list');
+		$this->redirect('index');
 	}
 
 }

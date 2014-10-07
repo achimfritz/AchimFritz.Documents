@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Document;
+use AchimFritz\Documents\Exception;
 
 abstract class AbstractDocumentController extends AbstractActionController {
 
@@ -52,7 +53,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->add($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document created');
-		} catch (\AchimFritz\Documents\Exception $e) {
+		} catch (Exception $e) {
 			$this->addErrorMessage('cannot create document');
 			$this->handleException($e);
 		}
@@ -67,7 +68,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->remove($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document deleted');
-		} catch (\AchimFritz\Documents\Exception $e) {
+		} catch (Exception $e) {
 			$this->addErrorMessage('cannot delete document');
 			$this->handleException($e);
 		}
@@ -82,7 +83,7 @@ abstract class AbstractDocumentController extends AbstractActionController {
 			$this->documentRepository->update($document);
 			$this->documentsPersistenceManager->persistAll();
 			$this->addOkMessage('document updated');
-		} catch (\AchimFritz\Documents\Exception $e) {
+		} catch (Exception $e) {
 			$this->addErrorMessage('cannot update document');
 			$this->handleException($e);
 		}

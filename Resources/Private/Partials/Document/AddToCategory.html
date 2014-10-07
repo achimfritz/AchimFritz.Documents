@@ -1,6 +1,6 @@
 <f:form package="AchimFritz.Documents" action="index" controller="CategoryMerge" name="category">
 	<f:form.hidden name="__method" value="POST" />
-	<f:form.hidden property="documents" value="{document}" />
+	<f:form.select multiple="true" property="documents" options="{0: document}" selectAllByDefault="true" />
 	<div class="form-group">
 		<label class="control-label" for="name">Path</label>
 		<f:form.textfield property="path" class="form-control" id="path" />

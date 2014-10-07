@@ -5,7 +5,7 @@
 					<f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
 				</td>
 				<td>
-					<f:form action="index" arguments="{document: document}">
+					<f:form action="index" controller="Document" arguments="{document: document}">
 						<f:form.hidden name="__method" value="DELETE" />
 						<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
 					</f:form>

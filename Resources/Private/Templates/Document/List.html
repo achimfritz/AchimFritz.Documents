@@ -4,7 +4,7 @@
 
 <f:section name="Content">
 	<h3>list</h3>
-<f:if condition="{documents}">
+	<f:if condition="{documents}">
 		<f:then>
 			<f:widget.paginate objects="{documents}" as="paginatedDocuments" configuration="{itemsPerPage: 5, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
 				<f:render partial="Document/List" arguments="{documents: paginatedDocuments}" />

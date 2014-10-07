@@ -1,7 +1,7 @@
 AchimFritz:
   Documents:
     Solr:
-      hostname: a1
+      hostname: localhost
       port: 8080
       path: solr/documents
       servlet: select

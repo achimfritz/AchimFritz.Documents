@@ -22,7 +22,7 @@ class CategoryController extends AbstractCategoryController {
 	protected $resourceArgumentName = 'category';
 
 	/**
-	 * Allow creation of resources in createAction()                                                                                              *                                                                                                                                            * @return void
+	 * @return void
 	 */
 	public function initializeCreateAction() {
 		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
@@ -34,7 +34,7 @@ class CategoryController extends AbstractCategoryController {
 	}
 
 	/**
-	 * Allow creation of resources in updateAction()                                                                                              *                                                                                                                                            * @return void
+	 * @return void
 	 */
 	public function initializeUpdateAction() {
 		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
@@ -71,15 +71,8 @@ class CategoryController extends AbstractCategoryController {
 	 * @return void
 	 */
 	public function createAction(Category $category) {
-		$format = $this->request->getFormat();
-		// we cannot create if category with same path already exists -> merge
 		$category = $this->createCategory($category);
-		if ($format === 'html') {
-			$this->redirect('show', NULL, NULL, array('category' => $category));
-		} else {
-			$this->view->assign('category', $category);
-			$this->response->setStatus(201);
-		}
+		$this->redirect('show', NULL, NULL, array('category' => $category));
 	}
 
 	/**
@@ -89,15 +82,8 @@ class CategoryController extends AbstractCategoryController {
 	 * @return void
 	 */
 	public function updateAction(Category $category) {
-		$format = $this->request->getFormat();
-		// we cannot update if category with same path already exists -> merge and delete
 		$category = $this->updateCategory($category);
-		if ($format === 'html') {
-			$this->redirect('show', NULL, NULL, array('category' => $category));
-		} else {
-			$this->view->assign('category', $category);
-			$this->response->setStatus(200);
-		}
+		$this->redirect('show', NULL, NULL, array('category' => $category));
 	}
 
 	/**

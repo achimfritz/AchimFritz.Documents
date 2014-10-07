@@ -7,7 +7,8 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use \AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Exception;
 
 /**
  * Category controller for the AchimFritz.Documents package 
@@ -35,29 +36,30 @@ class CategoryMergeController extends AbstractCategoryController {
 	 * @return void
 	 */
 	public function createAction(Category $category) {
-		return 'foo';
-		$format = $this->request->getFormat();
 		$existingCategory = $this->categoryRepository->findOneByPath($category->getPath());
-		if (!$existingCategory instanceof Category) {
-			$this->addWarningMessage('category not found ' . $category->getPath());
-		} else {
-			$existingCategory->removeAllDocumentsFromCategory($category);
+		if ($existingCategory instanceof Category) {
+			$existingCategory->addAllDocumentsFromCategory($category);
 			try {
-				$documents = $category->getDocuments();
-				foreach ($documents as $document) {
-					$this->documentRepository->update($document);
-				}
 				$this->categoryRepository->update($existingCategory);
 				$this->documentsPersistenceManager->persistAll();
-				$this->addOkMessage('category updated ' . $existingCategory->getPath());
-			} catch (\Exception $e) {
+				$this->addOkMessage('category merged into ' . $existingCategory->getPath());
+				$this->redirect('index', 'Category', NULL, array('category' => $existingCategory));
+			} catch (Exception $e) {
 				$this->addErrorMessage('cannot update category ' . $existingCategory->getPath());
 				$this->handleException($e);
 			}
+		} else {
+			try {
+				$this->categoryRepository->add($category);
+				$this->documentsPersistenceManager->persistAll();
+				$this->addOkMessage('category created ' . $category->getPath());
+				$this->redirect('index', 'Category', NULL, array('category' => $category));
+			} catch (Exception $e) {
+				$this->addErrorMessage('cannot create category ' . $category->getPath());
+				$this->handleException($e);
+			}
 		}
-		if ($format === 'html') {
-			$this->redirect('show', 'Category', NULL, array('category' => $existingCategory));
-		}
+		$this->redirect('index', 'Category');
 	}
 
 }
