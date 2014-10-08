@@ -1,0 +1,14 @@
+<![CDATA[{]]>
+	"categories": [<f:for each="{categories}" as="category" iteration="iteration">
+	<![CDATA[{]]>
+	      "path": "{category.path}",
+			"links": [
+				<![CDATA[{]]>
+					"rel": "self",
+					"href": "{f:uri.action(arguments: '{category: category}', absolute: 1, controller: 'Category', action: 'show', format: 'json')}"
+				}
+			]
+	}{f:if(condition: iteration.isLast, else: ',')}</f:for>
+	]
+	
+}

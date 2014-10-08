@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Edit document "{document.name}"</f:section>
+
+<f:section name="Content">
+	<f:form action="update" object="{document}" objectName="document">
+		<ol>
+			<li>
+				<label for="categories">Categories</label>
+				<f:form.textfield property="categories" id="categories" />
+			</li>
+		
+			<li>
+				<f:form.submit value="Update" />
+			</li>
+		</ol>
+	</f:form>
+</f:section>

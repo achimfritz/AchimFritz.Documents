@@ -1,0 +1,9 @@
+<f:layout name="Default" />
+<f:section name="Content">
+	<f:render partial="Category/Show" arguments="{category: category}" />
+	<f:render partial="Category/Delete" arguments="{category: category}" />
+	<h3>edit</h3>
+	<f:render partial="Category/Edit" arguments="{category: category}" />
+	<h3>add documents</h3>
+	<f:render partial="Category/AddDocuments" arguments="{category: category, documents: documents}" />
+</f:section>

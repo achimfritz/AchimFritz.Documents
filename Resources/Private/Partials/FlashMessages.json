@@ -1,0 +1,10 @@
+		<f:flashMessages as="flashMessages">
+		<f:for each="{flashMessages}" as="flashMessage" iteration="iteration">
+			<![CDATA[{]]>
+				"severity": "{flashMessage.severity}",
+				"title": "{flashMessage.title}",
+				"message": "{flashMessage}",
+				"code": "{flashMessage.code}"
+			}{f:if(condition: iteration.isLast, else: ',')}
+		</f:for>
+		</f:flashMessages>

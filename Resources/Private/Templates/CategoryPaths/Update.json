@@ -1,0 +1,6 @@
+<![CDATA[{]]>
+	"messages": [
+		{f:render(partial: 'FlashMessages')}
+	],
+	"href": "{f:uri.action(arguments: '{path: path}', absolute: 1, controller: 'CategoryPath', action: 'show')}"
+}

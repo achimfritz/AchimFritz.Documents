@@ -1,0 +1,5 @@
+.documentList li.selected {
+	/*padding: 2px;*/
+	border: 1px solid black;
+}
+

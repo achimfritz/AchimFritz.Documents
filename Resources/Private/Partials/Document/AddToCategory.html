@@ -1,0 +1,11 @@
+<f:form package="AchimFritz.Documents" action="index" controller="Category" name="category">
+	<f:form.hidden name="__method" value="POST" />
+	<f:form.select multiple="true" property="documents" options="{0: document}" selectAllByDefault="true" />
+	<div class="form-group">
+		<label class="control-label" for="name">Path</label>
+		<f:form.textfield property="path" class="form-control" id="path" />
+	</div>
+	<div class="form-group">
+		<f:form.submit value="Add to Category" class="btn btn-default"/>
+	</div>
+</f:form>

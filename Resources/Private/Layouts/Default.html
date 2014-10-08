@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>AchimFritz.Documents</title>
+		<f:render partial="Resources" />
+		<script src="{f:uri.resource(path: 'JavaScript/Selectable.js')}" type="text/javascript"></script>
+		<script src="{f:uri.resource(path: 'JavaScript/App.js')}" type="text/javascript"></script>
+		<script src="{f:uri.resource(path: 'JavaScript/Autocomplete.js')}" type="text/javascript"></script>
+		<script src="{f:uri.resource(path: 'JavaScript/Solr.js')}" type="text/javascript"></script>
+		<link rel="stylesheet" href="{f:uri.resource(path: 'Css/Bootstrap.css')}" type="text/css" media="all" />
+		<link rel="stylesheet" href="{f:uri.resource(path: 'Css/Selectable.css')}" type="text/css" media="all" />
+		<f:base />
+	</head>
+	<body>
+		<f:render partial="Loader" />
+		<div class="container">
+			<div id="settings" data-settings='{f:format.json(value:settings)}'></div>
+			<div class="row">
+				<span class="span12">
+				<f:link.action action="Index" controller="Navigation" package="AchimFritz.ServiceDescription" arguments="{filter: 'Application/AchimFritz/.*Doc.*/Controller/.*Controller:listAction'}">navi</f:link.action>
+				</span>
+			</div>
+			<div class="row">
+				<span class="span12">
+					<f:render partial="ValidationErrors" />
+				</span>
+			</div>
+			<div class="row">
+				<span class="span12" id="flashMessages">
+					<f:render partial="FlashMessages" />
+				</span>
+			</div>
+			<div class="row">
+				<f:render section="Content" />
+			</div>
+		</div>
+	</body>
+</html>
