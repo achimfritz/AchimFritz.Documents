@@ -26,6 +26,12 @@ class DocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentRepository;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
+	 * @Flow\Inject
+	 */
+	protected $categoryRepository;
+
+	/**
 	 * @var \AchimFritz\Documents\Domain\Solr\Repository
 	 * @Flow\Inject
 	 */
@@ -47,14 +53,31 @@ class DocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function testCommand() {
 		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
+		$this->outputLine('cnt of categories: ' . count($this->categoryRepository->findAll()));
+
+		$dName = 'd' . time();
+		$cName = 'foo/c' . time();
 		$document = new Document();
-		$document->setName('foo');
+		$document->setName($dName);
+		$category = new Category();
+		$category->setPath($cName);
+
+		$document->addCategory($category);
+
 		$this->documentRepository->add($document);
 		$this->documentsPersistenceManager->persistAll();
 		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
-		$this->documentRepository->remove($document);
+		$this->outputLine('cnt of categories: ' . count($this->categoryRepository->findAll()));
+		$pDoc = $this->documentRepository->findOneByName($dName);
+		$pCat = $this->categoryRepository->findOneByPath($cName);
+		$this->outputLine('found persisted ' . $pDoc->getName());
+		$this->outputLine('cnt of document.categories ' . count($pDoc->getCategories()));
+		$this->outputLine('cnt of category.documents ' . count($pCat->getDocuments()));
+		$this->documentRepository->remove($pDoc);
+		$this->categoryRepository->remove($pCat);
 		$this->documentsPersistenceManager->persistAll();
 		$this->outputLine('cnt of documents: ' . count($this->documentRepository->findAll()));
+		$this->outputLine('cnt of categories: ' . count($this->categoryRepository->findAll()));
 	}
 	/**
 	 * cleanSolrCommand 

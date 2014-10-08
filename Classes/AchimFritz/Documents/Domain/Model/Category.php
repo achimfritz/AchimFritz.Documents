@@ -50,9 +50,9 @@ class Category {
 	 */
 	public function addDocument(Document $document) {
 		$this->documents->add($document);
-		#if ($document->hasCategory($this) === FALSE) {
+		if ($document->hasCategory($this) === FALSE) {
 			$document->addCategory($this);
-		#}
+		}
 	}
 
 	/**
@@ -63,9 +63,9 @@ class Category {
 	 */
 	public function removeDocument(Document $document) {
 		$this->documents->removeElement($document);
-		#if ($document->hasCategory($this) === TRUE) {
+		if ($document->hasCategory($this) === TRUE) {
 			$document->removeCategory($this);
-		#}
+		}
 	}
 	/**
 	 * getPath

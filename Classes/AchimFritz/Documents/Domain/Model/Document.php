@@ -48,9 +48,9 @@ class Document {
 	 */
 	public function addCategory(Category $category) {
 		$this->categories->add($category);
-		#if ($category->hasDocument($this) === FALSE) {
-		#	$category->addDocument($this);
-		#}
+		if ($category->hasDocument($this) === FALSE) {
+			$category->addDocument($this);
+		}
 	}
 
 	/**
@@ -63,9 +63,9 @@ class Document {
 		#var_dump(count($this->categories));
 		$this->categories->removeElement($category);
 		#var_dump(count($this->categories));
-		#if ($category->hasDocument($this) === TRUE) {
-		#	$category->removeDocument($this);
-		#}
+		if ($category->hasDocument($this) === TRUE) {
+			$category->removeDocument($this);
+		}
 	}
 
 	/**
