@@ -3,17 +3,40 @@
 <f:section name="Title">A list of categories</f:section>
 
 <f:section name="Content">
-	<h3>list</h3>
 	<f:if condition="{categories}">
 		<f:then>
-			<f:widget.paginate objects="{categories}" as="paginatedCategories" configuration="{itemsPerPage: 5, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
-				<f:render partial="Category/List" arguments="{categories: paginatedCategories}" />
-			</f:widget.paginate>
+			<table class="table table-striped">
+				<f:for each="{categories}" as="category">
+					<tr>
+						<td><f:link.action action="index" arguments="{category: category}">{category.path}</f:link.action></td>
+						<td><f:form action="index" arguments="{category: category}">
+							<f:form.hidden name="__method" value="DELETE" />
+							<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+						</f:form></td>
+					</tr>
+				</f:for>
+			</table>
 		</f:then>
 		<f:else>
-			<p>No categories created yet.</p>
+			<div class="alert alert-info" role="alert">No categories created yet.</div>
 		</f:else>
 	</f:if>
-	<h3>new</h3>
-	<f:render partial="Category/New" />
+	
+	<h3>create new category</h3>
+	<f:form action="index" objectName="category">
+		<input type="hidden" name="__method" value="POST" />
+		
+			<div class="form-group">
+				<label class="control-label" for="path">Path</label>
+					
+							<f:form.textfield property="path" class="form-control" id="path" />
+						
+			</div>
+		
+			<div class="form-group">
+				<f:form.submit value="Create" class="btn btn-default"/>
+			</div>
+	</f:form>
+
 </f:section>
+

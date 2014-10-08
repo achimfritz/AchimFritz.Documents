@@ -1,5 +1,0 @@
-<![CDATA[{]]>
-	"messages": [
-		{f:render(partial: 'FlashMessages')}
-	]
-}

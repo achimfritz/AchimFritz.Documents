@@ -7,19 +7,15 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use \AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Domain\Model\Category;
 
-/**
- * Category controller for the AchimFritz.Documents package 
- *
- * @Flow\Scope("singleton")
- */
-class CategoryController extends AbstractCategoryController {
+class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**
-	 * @var string
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
 	 */
-	protected $resourceArgumentName = 'category';
+	protected $categoryRepository;
 
 	/**
 	 * @Flow\Inject
@@ -28,32 +24,11 @@ class CategoryController extends AbstractCategoryController {
 	protected $documentRepository;
 
 	/**
-	 * @return void
+	 * @var string
 	 */
-	public function initializeCreateAction() {
-		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
-		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-		$propertyMappingConfiguration->allowAllProperties();
-		$propertyMappingConfiguration->forProperty('documents');
-		$sub = $propertyMappingConfiguration->getConfigurationFor('documents');
-		$sub->allowAllProperties();
-	}
+	protected $resourceArgumentName = 'category';
 
 	/**
-	 * @return void
-	 */
-	public function initializeUpdateAction() {
-		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
-		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-		$propertyMappingConfiguration->allowAllProperties();
-		$propertyMappingConfiguration->forProperty('documents');
-		$sub = $propertyMappingConfiguration->getConfigurationFor('documents');
-		$sub->allowAllProperties();
-	}
-
-	/**
-	 * Shows a list of categories
-	 *
 	 * @return void
 	 */
 	public function listAction() {
@@ -61,50 +36,49 @@ class CategoryController extends AbstractCategoryController {
 	}
 
 	/**
-	 * Shows a single category object
-	 *
-	 * @param \AchimFritz\Documents\Domain\Model\Category $category The category to show
+	 * @param \AchimFritz\Documents\Domain\Model\Category $category
 	 * @return void
 	 */
 	public function showAction(Category $category) {
-		// TODO findLimited
-		$this->view->assign('documents', $this->documentRepository->findAll());
+		$documents = $this->documentRepository->findByCategory($category);
+		$this->view->assign('documents', $documents);
 		$this->view->assign('category', $category);
 	}
 
 	/**
-	 * Adds the given new category object to the category repository
-	 *
-	 * @param \AchimFritz\Documents\Domain\Model\Category $newCategory A new category to add
+	 * @param \AchimFritz\Documents\Domain\Model\Category $category
 	 * @return void
 	 */
 	public function createAction(Category $category) {
-		$category = $this->createCategory($category);
+		$this->categoryRepository->add($category);
+		$this->addFlashMessage('Created a new category.');
 		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
 
 	/**
-	 * Updates the given category object
-	 *
-	 * @param \AchimFritz\Documents\Domain\Model\Category $category The category to update
+	 * @param \AchimFritz\Documents\Domain\Model\Category $category
 	 * @return void
 	 */
 	public function updateAction(Category $category) {
-		$category = $this->updateCategory($category);
+		$this->categoryRepository->update($category);
+		$this->addFlashMessage('Updated the category.');
 		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
 
 	/**
-	 * Removes the given category object from the category repository
-	 *
-	 * @param \AchimFritz\Documents\Domain\Model\Category $category The category to delete
+	 * @param \AchimFritz\Documents\Domain\Model\Category $category
 	 * @return void
 	 */
 	public function deleteAction(Category $category) {
-		$this->deleteCategory($category);
-		$this->redirect('index');
+		$documents = $this->documentRepository->findByCategory($category);
+		if (count($documents) > 0) {
+			$this->addFlashMessage('cannot delete category because in used by documents.');
+			$this->redirect('index', NULL, NULL, array('category' => $category));
+		} else {
+			$this->categoryRepository->remove($category);
+			$this->addFlashMessage('Deleted a category.');
+			$this->redirect('index');
+		}
 	}
 
 }
-
-?>
