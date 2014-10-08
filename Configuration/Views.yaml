@@ -1,7 +1,0 @@
-- 
-  requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html")'
-  options:
-    partialRootPaths: [resource://AchimFritz.Documents/Private/Partials, resource://AchimFritz.Resources/Private/Partials]
-    layoutRootPaths: [resource://AchimFritz.Documents/Private/Layouts, resource://AchimFritz.Resources/Private/Layouts]
-
-
