@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			<f:render section="Title" />
+		</title>
+		<f:render partial="Resources" />
+		<f:base />
+	</head>
+	<body>
+		<f:render partial="Loader" />
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<ul>
+						<li>
+							<f:link.action action="index" controller="Document">Documents</f:link.action>
+						</li>
+						<li>
+							<f:link.action action="index" controller="Category">Categories</f:link.action>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<h1><f:render section="Title" /></h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<f:render partial="ValidationErrors" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<f:render partial="FlashMessages" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+				<f:render section="Content" />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

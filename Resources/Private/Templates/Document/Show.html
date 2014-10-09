@@ -53,18 +53,28 @@
 	</f:form>
 
 	<h3>add to category</h3>
-	<f:form action="index" objectName="documentCollection" controller="DocumentCollection">
+	<f:form action="index" objectName="documentCollection" controller="DocumentCollectionMerge">
 		<input type="hidden" name="__method" value="POST" />
 			<f:form.select multiple="true" class="form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
 			<div class="form-group">
 				<label class="control-label" for="category">Category</label>
-					
-							<f:form.textfield property="category.path" class="form-control" id="category" />
-						
+					<f:form.textfield property="category.path" class="form-control" id="category" />
 			</div>
-		
 			<div class="form-group">
 				<f:form.submit value="Create" class="btn btn-default"/>
+			</div>
+	</f:form>
+
+	<h3>remove from category</h3>
+	<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
+		<input type="hidden" name="__method" value="POST" />
+			<f:form.select multiple="true" class="form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+			<div class="form-group">
+				<label class="control-label" for="category">Category</label>
+				<f:form.textfield property="category.path" class="form-control" id="category" />
+			</div>
+			<div class="form-group">
+				<f:form.submit value="Remove" class="btn btn-danger"/>
 			</div>
 	</f:form>
 

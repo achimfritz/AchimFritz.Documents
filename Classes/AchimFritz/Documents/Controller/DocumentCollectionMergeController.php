@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 
-class DocumentCollectionController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**
 	 * @Flow\Inject
@@ -46,21 +46,6 @@ class DocumentCollectionController extends \AchimFritz\Rest\Controller\RestContr
 				$document->addCategory($category);
 				$this->documentRepository->update($document);
 			}
-		}
-		$this->addFlashMessage(count($documents) . ' Documents updated.');
-		$this->redirect('index', 'Category', NULL, array('category' => $category));
-	}
-
-	/**
-	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
-	 * @return void
-	 */
-	public function deleteAction(DocumentCollection $documentCollection) {
-		$category = $documentCollection->getCategory();
-		$documents = $documentCollection->getDocuments();
-		foreach ($documents AS $document) {
-			$document->removeCategory($category);
-			$this->documentRepository->update($document);
 		}
 		$this->addFlashMessage(count($documents) . ' Documents updated.');
 		$this->redirect('index', 'Category', NULL, array('category' => $category));
