@@ -14,6 +14,35 @@ use TYPO3\Flow\Persistence\Repository;
  */
 class CategoryRepository extends Repository {
 
-	// add customized methods here
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
+	 */   
+	protected $documentRepository;
+
+	/**
+	 * @param object $object The object to remove
+	 * @return void
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @api
+	 */
+	public function remove($object) {
+		$category = $object;
+		$documents = $this->documentRepository->findByCategory($category);
+		foreach ($documents AS $document) {
+			$document->removeCategory($category);
+			$this->documentRepository->update($document);
+		}
+		return $this->parentRemove($category);
+	}
+
+	/**
+	 * @param mixed $object 
+	 * @return void
+	 */
+	protected function parentRemove($object) {
+		return parent::remove($object);
+	}
+
 
 }

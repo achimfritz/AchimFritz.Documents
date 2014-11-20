@@ -3,9 +3,5 @@ AchimFritz:
     Solr:
       hostname: localhost
       port: 8080
-      path: solr/documents
+      path: solr/documents2
       servlet: select
-    Mongo:
-      server: mongodb://localhost:27017
-      db: f3_flow
-      collection: documents

@@ -14,15 +14,9 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
+	 * @var \AchimFritz\Documents\Domain\Service\DocumentCollectionService
 	 */
-	protected $documentRepository;
-
-	/**
-	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
-	 */
-	protected $categoryRepository;
+	protected $documentCollectionService;
 
 	/**
 	 * @var string
@@ -34,21 +28,9 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 	 * @return void
 	 */
 	public function createAction(DocumentCollection $documentCollection) {
-		$category = $documentCollection->getCategory();
-		// already persisted?
-		$persistedCategory = $this->categoryRepository->findOneByPath($category->getPath());
-		if ($persistedCategory instanceof Category) {
-			$category = $persistedCategory;
-		}
-		$documents = $documentCollection->getDocuments();
-		foreach ($documents AS $document) {
-			if ($document->hasCategory($category) === FALSE) {
-				$document->addCategory($category);
-				$this->documentRepository->update($document);
-			}
-		}
-		$this->addFlashMessage(count($documents) . ' Documents updated.');
-		$this->redirect('index', 'Category', NULL, array('category' => $category));
+		$cnt = $this->documentCollectionService->merge($documentCollection);
+		$this->addFlashMessage($cnt . ' Documents updated.');
+		$this->redirectToRequest($this->request->getReferringRequest());
 	}
 
 }

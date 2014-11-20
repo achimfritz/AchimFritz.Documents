@@ -18,22 +18,14 @@
                <f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
             </td>
             <td>
-               <f:form action="index" controller="Document" arguments="{document: document}">
-                  <f:form.hidden name="__method" value="DELETE" />
-                  <f:form.submit value="Delete" class="btn btn-danger btn-xs" />
-               </f:form>
-            </td>
-            <td>
 					<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
 						<input type="hidden" name="__method" value="POST" />
-							<f:form.select multiple="true" class="form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
-							<div class="form-group">
-								<label class="control-label" for="category">Category</label>
-								<f:form.textfield property="category.path" class="form-control" id="category" value="{category.path}" />
-							</div>
-							<div class="form-group">
-								<f:form.submit value="Remove" class="btn btn-danger"/>
-							</div>
+						<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+						<div class="form-group">
+							<label class="control-label" for="category">{category.path}</label>
+							<f:form.hidden property="category.path" class="form-control" id="category" value="{category.path}" />
+							<f:form.submit value="Remove" class="btn btn-xs btn-danger"/>
+						</div>
 					</f:form>
             </td>
          </tr>

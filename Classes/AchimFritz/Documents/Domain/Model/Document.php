@@ -33,6 +33,13 @@ class Document {
 	protected $documentCollection;
 
 	/**
+	 * @return void
+	 */
+	public function __construct() {
+		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getName() {

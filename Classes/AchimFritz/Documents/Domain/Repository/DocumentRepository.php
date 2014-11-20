@@ -7,8 +7,8 @@ namespace AchimFritz\Documents\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
 use AchimFritz\Documents\Domain\Model\Category;
+use TYPO3\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")

@@ -16,16 +16,12 @@
                      <f:link.action action="index" controller="Category" arguments="{category: category}">{category.path}</f:link.action>
                   </td>
                   <td>
-                     <f:form action="index" controller="Category" arguments="{category: category}">
-                        <f:form.hidden name="__method" value="DELETE" />
-                        <f:form.submit value="Delete" class="btn btn-danger btn-xs" />
-                     </f:form>
-                  </td>
-                  <td>
-                     <f:form action="index" controller="Category" arguments="{category: category}">
-                        <f:form.hidden name="__method" value="DELETE" />
-                        <f:form.submit value="Remove TODO" class="btn btn-danger btn-xs" />
-                     </f:form>
+							<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
+								<input type="hidden" name="__method" value="POST" />
+								<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+								<f:form.hidden property="category.path" class="form-control" id="category" value="{category.path}" />
+								<f:form.submit value="Remove" class="btn btn-danger btn-xs"/>
+							</f:form>
                   </td>
                </tr>
             </f:for>
@@ -42,9 +38,7 @@
 		
 			<div class="form-group">
 				<label class="control-label" for="name">Name</label>
-					
-							<f:form.textfield property="name" class="form-control" id="name" />
-						
+				<f:form.textfield property="name" class="form-control" id="name" />
 			</div>
 		
 			<div class="form-group">
@@ -55,7 +49,7 @@
 	<h3>add to category</h3>
 	<f:form action="index" objectName="documentCollection" controller="DocumentCollectionMerge">
 		<input type="hidden" name="__method" value="POST" />
-			<f:form.select multiple="true" class="form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+			<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
 			<div class="form-group">
 				<label class="control-label" for="category">Category</label>
 					<f:form.textfield property="category.path" class="form-control" id="category" />
@@ -68,7 +62,7 @@
 	<h3>remove from category</h3>
 	<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
 		<input type="hidden" name="__method" value="POST" />
-			<f:form.select multiple="true" class="form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+			<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
 			<div class="form-group">
 				<label class="control-label" for="category">Category</label>
 				<f:form.textfield property="category.path" class="form-control" id="category" />

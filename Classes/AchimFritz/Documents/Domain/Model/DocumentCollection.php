@@ -26,6 +26,12 @@ class DocumentCollection {
 	 */
 	protected $category;
 
+	/**
+	 * @return void
+	 */
+	public function __construct() {
+		$this->documents = new \Doctrine\Common\Collections\ArrayCollection();
+	}
 
 	/**
 	 * @return \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document
@@ -40,6 +46,14 @@ class DocumentCollection {
 	 */
 	public function setDocuments(\Doctrine\Common\Collections\Collection $documents) {
 		$this->documents = $documents;
+	}
+
+	/**
+	 * @param Document $document 
+	 * @return void
+	 */
+	public function addDocument(Document $document) {
+		$this->documents->add($document);
 	}
 
 	/**
