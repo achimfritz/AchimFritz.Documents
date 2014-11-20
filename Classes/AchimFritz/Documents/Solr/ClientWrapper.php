@@ -42,14 +42,11 @@ class ClientWrapper {
 	 * @return mixed
 	 */
 	public function __call($method, $arguments) {
-		return call_user_func_array(array($this->solrClient, $method), $arguments);
-	}
-
-	/**
-	 * @param array<\SolrInputDocument> $solrInputDocuments 
-	 * @return \SolrUpdateResponse
-	 */
-	public function addDocuments(array $solrInputDocuments) {
-		return $this->solrClient->addDocuments($solrInputDocuments);
+		if (count($arguments) === 1) {
+			return $this->solrClient->$method($arguments[0]);
+		} else {
+			// TODO throw exception ...
+			return call_user_func_array(array($this->solrClient, $method), $arguments);
+		}
 	}
 }

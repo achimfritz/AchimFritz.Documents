@@ -35,8 +35,6 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 
 	/**
-	 * cleanSolrCommand 
-	 * 
 	 * @access public
 	 * @return void
 	 */
@@ -51,8 +49,6 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 		
 	/**
-	 * updateSolrCommand 
-	 * 
 	 * @return void
 	 */
 	public function updateCommand() {
@@ -66,6 +62,21 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->solrClientWrapper->addDocuments($solrInputDocuments);
 			$this->solrClientWrapper->commit();
 			$this->outputLine('SUCCESS: update ' . count($documents) . ' documents'); 
+		} catch (\SolrException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	public function integrityCommand() {
+		$documents = $this->documentRepository->findAll();
+		$query = new \SolrQuery();
+		$query->setQuery('*:*')->setRows(0)->setStart(0);
+		try {
+			$queryResponse = $this->solrClientWrapper->query($query);
+			$this->outputLine('found ' . $queryResponse->getResponse()->response->numFound . ' solr documents and ' . count($documents) . ' persisted documents');
 		} catch (\SolrException $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
