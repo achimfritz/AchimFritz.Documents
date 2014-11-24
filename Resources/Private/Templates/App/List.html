@@ -1,6 +1,9 @@
 <f:layout name="App" />
 
 <f:section name="Content">
-aa
+<a class="btn btn-default" nodrag ng-click="reload()" >reload</a>
+<ul ng-repeat="doc in results.response.docs">
+	<li>{{doc.name}}</li>
+</ul>
 </f:section>
 
