@@ -8,30 +8,30 @@
    <f:form.submit value="Delete" class="btn btn-danger " />
 </f:form>
 
-
-<f:if condition="{documents}">
+<f:if condition="{f:count(subject: documents) > 0}">
    <f:then>
-   <table class="table table-striped">
-      <f:for each="{documents}" as="document">
-         <tr>
-            <td>
-               <f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
-            </td>
-            <td>
-					<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
-						<input type="hidden" name="__method" value="POST" />
-						<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
-						<div class="form-group">
-							<label class="control-label" for="category">{category.path}</label>
-							<f:form.hidden property="category.path" class="form-control" id="category" value="{category.path}" />
-							<f:form.submit value="Remove" class="btn btn-xs btn-danger"/>
-						</div>
-					</f:form>
-            </td>
-         </tr>
-      </f:for>
-   </table>
-
+		<table class="table table-striped">
+			<f:widget.paginate objects="{documents}" as="paginatedDocuments" configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
+				<f:for each="{paginatedDocuments}" as="document">
+					<tr>
+						<td>
+							<f:link.action action="index" controller="Document" arguments="{document: document}">{document.name}</f:link.action>
+						</td>
+						<td>
+							<f:form action="index" objectName="documentCollection" controller="DocumentCollectionRemove">
+								<input type="hidden" name="__method" value="POST" />
+								<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+								<div class="form-group">
+									<label class="control-label" for="category">{category.path}</label>
+									<f:form.hidden property="category.path" class="form-control" id="category" value="{category.path}" />
+									<f:form.submit value="Remove" class="btn btn-xs btn-danger"/>
+								</div>
+							</f:form>
+						</td>
+					</tr>
+				</f:for>
+			</f:widget.paginate>
+		</table>
    </f:then>
    <f:else>
          <div class="alert alert-info" role="alert">no documents</div>

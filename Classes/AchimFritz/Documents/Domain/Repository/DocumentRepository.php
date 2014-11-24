@@ -26,5 +26,30 @@ class DocumentRepository extends Repository {
 		)->execute();
 	}
 
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $categories
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findInAllCategories(\Doctrine\Common\Collections\Collection $categories) {
+		$query = $this->createQuery();
+		$constraints = [];
+		foreach ($categories AS $category) {
+			$constraints[] = $query->contains('categories', $category);
+		}
+		return $query->matching($query->logicalAnd($constraints))->execute();
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $categories
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findInOneCategories(\Doctrine\Common\Collections\Collection $categories) {
+		$query = $this->createQuery();
+		$constraints = [];
+		foreach ($categories AS $category) {
+			$constraints[] = $query->contains('categories', $category);
+		}
+		return $query->matching($query->logicalOr($constraints))->execute();
+	}
 
 }

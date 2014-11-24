@@ -6,15 +6,17 @@
 	<f:if condition="{documents}">
 		<f:then>
 			<table class="table table-striped">
-				<f:for each="{documents}" as="document">
-					<tr>
-						<td><f:link.action action="index" arguments="{document: document}">{document.name}</f:link.action></td>
-						<td><f:form action="index" arguments="{document: document}">
-							<f:form.hidden name="__method" value="DELETE" />
-							<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
-						</f:form></td>
-					</tr>
-				</f:for>
+				<f:widget.paginate objects="{documents}" as="paginatedDocuments" configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
+					<f:for each="{paginatedDocuments}" as="document">
+						<tr>
+							<td><f:link.action action="index" arguments="{document: document}">{document.name}</f:link.action></td>
+							<td><f:form action="index" arguments="{document: document}">
+								<f:form.hidden name="__method" value="DELETE" />
+								<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+							</f:form></td>
+						</tr>
+					</f:for>
+				</f:widget.paginate>
 			</table>
 		</f:then>
 		<f:else>

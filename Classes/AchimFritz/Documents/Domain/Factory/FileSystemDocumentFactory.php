@@ -1,0 +1,37 @@
+<?php
+namespace AchimFritz\Documents\Domain\Factory;
+
+/*                                                                        *
+ * This script belongs to the TYPO3 Flow package "AchimFritz.FileSystemDocuments".*
+ *                                                                        *
+ *                                                                        */
+
+use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Service\PathService;
+use AchimFritz\Documents\Domain\Model\FileSystemDocument;
+
+/**
+ * @Flow\Scope("singleton")
+ */
+class FileSystemDocumentFactory {
+
+	/**
+	 * @param string $name 
+	 * @param string $mountPoint 
+	 * @return \AchimFritz\Documents\Domain\Model\FileSystemDocument
+	 */
+	public function create($name, $mountPoint = PathService::PATH_DELIMITER) {
+		$document = new FileSystemDocument();
+		$document->setName($name);
+		$document->setMountPoint($mountPoint);
+		$mDateTime = new \DateTime();
+		if ($document->getSplFileInfo()->isFile() === TRUE) {
+			$mDateTime = new \DateTime('@' . $document->getSplFileInfo()->getMTime());
+		}
+		$document->setMDateTime($mDateTime);
+		return $document;
+	}
+
+
+}
+?>

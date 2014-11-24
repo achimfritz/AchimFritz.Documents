@@ -6,15 +6,17 @@
 	<f:if condition="{categories}">
 		<f:then>
 			<table class="table table-striped">
-				<f:for each="{categories}" as="category">
-					<tr>
-						<td><f:link.action action="index" arguments="{category: category}">{category.path}</f:link.action></td>
-						<td><f:form action="index" arguments="{category: category}">
-							<f:form.hidden name="__method" value="DELETE" />
-							<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
-						</f:form></td>
-					</tr>
-				</f:for>
+			<f:widget.paginate objects="{categories}" as="paginatedCategories" configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
+					<f:for each="{paginatedCategories}" as="category">
+						<tr>
+							<td><f:link.action action="index" arguments="{category: category}">{category.path}</f:link.action></td>
+							<td><f:form action="index" arguments="{category: category}">
+								<f:form.hidden name="__method" value="DELETE" />
+								<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+							</f:form></td>
+						</tr>
+					</f:for>
+				</f:widget.paginate>
 			</table>
 		</f:then>
 		<f:else>

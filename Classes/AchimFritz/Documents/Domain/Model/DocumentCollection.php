@@ -10,19 +10,17 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Flow\Entity
+ * @Flow\Scope("prototype")
  */
 class DocumentCollection {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document>
-	 * @ORM\OneToMany(mappedBy="documentCollection")
 	 */
 	protected $documents;
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Category
-	 * @ORM\ManyToOne
 	 */
 	protected $category;
 

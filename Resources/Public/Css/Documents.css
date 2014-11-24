@@ -1,3 +1,15 @@
 .hidden {
 	display: none;
 }
+
+ul.typo3-widget-paginator {
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	padding: 0px;
+	margin: 0px;
+}
+
+ul.typo3-widget-paginator li {
+	display: inline;
+}

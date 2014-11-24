@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Category;
 
 class CategoryController extends \AchimFritz\Rest\Controller\RestController {
@@ -70,15 +71,15 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 	 * @return void
 	 */
 	public function deleteAction(Category $category) {
-	#	$documents = $this->documentRepository->findByCategory($category);
-	#	if (count($documents) > 0) {
-	#		$this->addFlashMessage('cannot delete category because in used by documents.');
-	#		$this->redirect('index', NULL, NULL, array('category' => $category));
-	#	} else {
+		$documents = $this->documentRepository->findByCategory($category);
+		if (count($documents) > 0) {
+			$this->addFlashMessage('cannot delete category because in used by documents.', '', Message::SEVERITY_WARNING);
+			$this->redirect('index', NULL, NULL, array('category' => $category));
+		} else {
 			$this->categoryRepository->remove($category);
 			$this->addFlashMessage('Deleted a category.');
 			$this->redirect('index');
-	#	}
+		}
 	}
 
 }

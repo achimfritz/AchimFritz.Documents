@@ -76,7 +76,12 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$query->setQuery('*:*')->setRows(0)->setStart(0);
 		try {
 			$queryResponse = $this->solrClientWrapper->query($query);
-			$this->outputLine('found ' . $queryResponse->getResponse()->response->numFound . ' solr documents and ' . count($documents) . ' persisted documents');
+			$solrCnt = $queryResponse->getResponse()->response->numFound;
+			if ($solrCnt === count($documents)) {
+				$this->outputLine('SUCCESS: found ' . $solrCnt . ' solr documents and ' . count($documents) . ' persisted documents');
+			} else {
+				$this->outputLine('WARNIING: found ' . $solrCnt . ' solr documents and ' . count($documents) . ' persisted documents');
+			}
 		} catch (\SolrException $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}

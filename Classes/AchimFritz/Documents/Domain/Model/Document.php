@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\InheritanceType("JOINED")
  */
 class Document {
 
@@ -25,12 +26,6 @@ class Document {
 	 * @ORM\ManyToMany(cascade={"persist"})
 	 */
 	protected $categories;
-
-	/**
-	 * @var \AchimFritz\Documents\Domain\Model\DocumentCollection>
-	 * @ORM\ManyToOne
-	 */
-	protected $documentCollection;
 
 	/**
 	 * @return void
@@ -91,6 +86,19 @@ class Document {
 	 */
 	public function hasCategory(Category $category) {
 		return $this->categories->contains($category);
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $categories 
+	 * @return boolean
+	 */
+	public function hasAllCategories(\Doctrine\Common\Collections\Collection $categories) {
+		foreach ($categories AS $category) {
+			if ($this->hasCategory($category) === FALSE) {
+				return FALSE;
+			}
+		}
+		return TRUE;
 	}
 
 
