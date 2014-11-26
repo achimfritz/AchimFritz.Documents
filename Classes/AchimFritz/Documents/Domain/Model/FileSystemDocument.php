@@ -9,16 +9,12 @@ namespace AchimFritz\Documents\Domain\Model;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 use AchimFritz\Documents\Domain\Service\PathService;
+use AchimFritz\Documents\Domain\FileSystemInterface;
 
 /**
  * @Flow\Entity
  */
 class FileSystemDocument extends Document {
-
-	/**
-	 * @var string
-	 */
-	protected $mountPoint = PathService::PATH_DELIMITER;
 
 	/**
 	 * @var \DateTime
@@ -50,22 +46,31 @@ class FileSystemDocument extends Document {
 	}
 
 	/**
-	 * @return string mountPoint
+	 * @return void
 	 */
 	public function getMountPoint() {
-		return $this->mountPoint;
+		return FileSystemInterface::MOUNT_POINT;
 	}
 
 	/**
-	 * @param string $mountPoint
-	 * @return void
+	 * @return string
 	 */
-	public function setMountPoint($mountPoint) {
-		$this->mountPoint = $mountPoint;
-	} 
-
 	public function getAbsolutePath() {
-		return $this->mountPoint . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getMountPoint() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileName() {
+		return $this->getSplFileInfo()->getBasename();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDirectoryName() {
+		return $this->getSplFileInfo()->getPathInfo()->getBasename();
 	}
 
 	/**

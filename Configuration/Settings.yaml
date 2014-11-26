@@ -5,7 +5,3 @@ AchimFritz:
       port: 8080
       path: solr/documents2
       servlet: select
-    ImageDocument:
-      mountPoint: /bilder/main
-      export: /bilder/export
-      thumbs: /bilder/thumbs

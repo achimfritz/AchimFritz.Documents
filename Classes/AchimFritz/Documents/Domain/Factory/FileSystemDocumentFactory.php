@@ -23,7 +23,6 @@ class FileSystemDocumentFactory {
 	public function create($name, $mountPoint = PathService::PATH_DELIMITER) {
 		$document = new FileSystemDocument();
 		$document->setName($name);
-		$document->setMountPoint($mountPoint);
 		$mDateTime = new \DateTime();
 		if ($document->getSplFileInfo()->isFile() === TRUE) {
 			$mDateTime = new \DateTime('@' . $document->getSplFileInfo()->getMTime());
