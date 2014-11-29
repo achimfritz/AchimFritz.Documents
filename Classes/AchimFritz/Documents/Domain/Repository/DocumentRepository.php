@@ -16,6 +16,18 @@ use TYPO3\Flow\Persistence\Repository;
 class DocumentRepository extends Repository {
 
 	/**
+	 * @var \AchimFritz\Documents\Solr\ClientWrapper
+	 * @Flow\Inject
+	 */
+	protected $solrClientWrapper;
+
+	/**
+	 * @var \AchimFritz\Documents\Solr\InputDocumentFactory
+	 * @Flow\Inject
+	 */
+	protected $solrInputDocumentFactory;
+
+	/**
 	 * @param Category $category 
 	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
 	 */
@@ -51,5 +63,51 @@ class DocumentRepository extends Repository {
 		}
 		return $query->matching($query->logicalOr($constraints))->execute();
 	}
+
+	/**
+	 * Adds an object to this repository.
+	 *
+	 * @param object $object The object to add
+	 * @return void
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \SolrClientException
+	 * @api
+	 */
+	public function add($object) {
+		parent::add($object);
+		$solrInputDocument = $this->solrInputDocumentFactory->create($object);
+		$this->solrClientWrapper->addDocument($solrInputDocument);
+	}
+
+	/**
+	 * Removes an object from this repository.
+	 *
+	 * @param object $object The object to remove
+	 * @return void
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \SolrClientException
+	 * @api
+	 */
+	public function remove($object) {
+		parent::remove($object);
+		$identifier = $this->persistenceManager->getIdentifierByObject($object);
+		$this->solrClientWrapper->deleteById($identifier);
+	}
+
+	/**
+	 * Schedules a modified object for persistence.
+	 *
+	 * @param object $object The modified object
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \SolrClientException
+	 * @api
+	 */
+	public function update($object) {
+		parent::update($object);
+		$solrInputDocument = $this->solrInputDocumentFactory->create($object);
+		$this->solrClientWrapper->addDocument($solrInputDocument);
+	}
+
+
 
 }

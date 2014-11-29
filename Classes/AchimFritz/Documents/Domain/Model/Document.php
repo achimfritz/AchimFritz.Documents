@@ -18,6 +18,7 @@ class Document {
 	/**
 	 * @var string
 	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Identity
 	 */
 	protected $name;
 

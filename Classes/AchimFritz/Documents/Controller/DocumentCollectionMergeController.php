@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
+use TYPO3\Flow\Error\Message;
 
 class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\RestController {
 
@@ -17,6 +18,12 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 	 * @var \AchimFritz\Documents\Domain\Service\DocumentCollectionService
 	 */
 	protected $documentCollectionService;
+
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
 
 	/**
 	 * @var string
@@ -29,7 +36,12 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 	 */
 	public function createAction(DocumentCollection $documentCollection) {
 		$cnt = $this->documentCollectionService->merge($documentCollection);
-		$this->addFlashMessage($cnt . ' Documents updated.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage($cnt . ' Documents updated.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirectToRequest($this->request->getReferringRequest());
 	}
 

@@ -17,6 +17,12 @@ use AchimFritz\Documents\Domain\FileSystemInterface;
 class FileSystemDocument extends Document {
 
 	/**
+	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
+	 */
+	protected $name;
+
+	/**
 	 * @var \DateTime
 	 */
 	protected $mDateTime;

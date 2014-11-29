@@ -21,7 +21,7 @@ class FileSystemDocumentFactory {
 	 * @return \AchimFritz\Documents\Domain\Model\FileSystemDocument
 	 */
 	public function create($name, $mountPoint = PathService::PATH_DELIMITER) {
-		$document = new FileSystemDocument();
+		$document = $this->getDocument();
 		$document->setName($name);
 		$mDateTime = new \DateTime();
 		if ($document->getSplFileInfo()->isFile() === TRUE) {
@@ -29,6 +29,13 @@ class FileSystemDocumentFactory {
 		}
 		$document->setMDateTime($mDateTime);
 		return $document;
+	}
+
+	/**
+	 * @return \AchimFritz\Documents\Domain\Model\FileSystemDocument
+	 */
+	protected function getDocument() {
+		return new FileSystemDocument();
 	}
 
 

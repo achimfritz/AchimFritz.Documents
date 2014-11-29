@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
+use TYPO3\Flow\Error\Message;
 
 class DocumentCollectionRemoveController extends \AchimFritz\Rest\Controller\RestController {
 
@@ -29,7 +30,12 @@ class DocumentCollectionRemoveController extends \AchimFritz\Rest\Controller\Res
 	 */
 	public function createAction(DocumentCollection $documentCollection) {
 		$cnt = $this->documentCollectionService->remove($documentCollection);
-		$this->addFlashMessage($cnt . ' Documents updated.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage($cnt . ' Documents updated.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirectToRequest($this->request->getReferringRequest());
 	}
 

@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Document;
 
 class DocumentController extends \AchimFritz\Rest\Controller\RestController {
@@ -16,6 +17,12 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
 	 */
 	protected $documentRepository;
+
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
 
 	/**
 	 * @var string
@@ -43,7 +50,12 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function createAction(Document $document) {
 		$this->documentRepository->add($document);
-		$this->addFlashMessage('Created a new document.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Created a new document.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Create a new document with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
@@ -53,7 +65,12 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function updateAction(Document $document) {
 		$this->documentRepository->update($document);
-		$this->addFlashMessage('Updated the document.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Updated the document.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Update the document with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
@@ -63,7 +80,12 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function deleteAction(Document $document) {
 		$this->documentRepository->remove($document);
-		$this->addFlashMessage('Deleted a document.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Deleted a document.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Delete a document with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirect('index');
 	}
 
