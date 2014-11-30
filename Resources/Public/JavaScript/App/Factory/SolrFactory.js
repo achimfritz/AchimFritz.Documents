@@ -28,10 +28,7 @@
 								wrapper.manager.store.addByValue('sort', 'fileName asc');
 
 								wrapper.addByValue = function(key, value) {
-												//wrapper.manager.store.addByValue('sort', 'fileName desc');
 												wrapper.manager.store.addByValue(key, value);
-												//manager.store.addByValue('fq', facet + ':' + key);
-												
 								};
 								wrapper.getData = function() {
 												var itemsDefer=$q.defer();
@@ -63,9 +60,8 @@
 																apiData = {};
 																running = false;
 												},
-            addByValue: function (key, facet) {
-																wrapper.addByValue(key, facet);
-                //return this.fq(key, facet);
+            addByValue: function (key, value) {
+																wrapper.addByValue(key, value);
             }
         };
 
