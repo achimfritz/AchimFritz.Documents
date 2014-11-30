@@ -2,6 +2,16 @@
 	display: none;
 }
 
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.iso-item {
+	padding: 2px;
+}
+
+
 ul.typo3-widget-paginator {
 	list-style-image:none;
 	list-style-position:outside;
@@ -13,3 +23,43 @@ ul.typo3-widget-paginator {
 ul.typo3-widget-paginator li {
 	display: inline;
 }
+
+/*
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+*/
+
+
+/* ---- isotope ---- */
+
+/*
+.isotope {
+  background: #DDD;
+  max-width: 800px;
+}
+
+.isotope:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.item {
+  float: left;
+  width: 324px;
+  height: 264px;
+  background: #0D8;
+  border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.item.is-upright{ width: 184px; }
+
+*/

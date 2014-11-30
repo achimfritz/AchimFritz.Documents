@@ -78,6 +78,7 @@ class InputDocumentFactory {
 	 */
 	protected function addImageFields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof ImageDocument === TRUE) {
+			$inputDocument->addField('fileName', $document->getFileName());
 			$inputDocument->addField('mainDirectoryName', $document->getDirectoryName());
 			$inputDocument->addField('webPath', $document->getWebPath());
 			$inputDocument->addField('webPreviewPath', $document->getWebPreviewPath());
@@ -87,6 +88,12 @@ class InputDocumentFactory {
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());
+			$imageSize = getimagesize($document->getAbsolutePath());
+			if ($imageSize[0] < $imageSize[1]) {
+				$inputDocument->addField('isUpright', TRUE);
+			} else {
+				$inputDocument->addField('isUpright', FALSE);
+			}
 		}
 		return $inputDocument;
 	}

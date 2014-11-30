@@ -1,9 +1,20 @@
 <f:layout name="App" />
 
 <f:section name="Content">
-<a class="btn btn-default" nodrag ng-click="reload()" >reload</a>
+<!--
 <ul ng-repeat="doc in results.response.docs">
 	<li>{{doc.name}}</li>
 </ul>
+-->
+
+<div ng-controller="NavigationController">
+	<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.mainDirectoryName">
+		<li ng-click="addFacet(key, 'mainDirectoryName')">{{key}} ({{value}})</li>
+	</ul>
+</div>
+<div id="items" ng-controller="ListController">
+    <div class="container-full" data-iso-container="collection"></div>
+</div>
+
 </f:section>
 

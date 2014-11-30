@@ -35,6 +35,58 @@ class ImageDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentPersistenceManager;
 
 	/**
+	 * @param string $directoryName 
+	 * @return void
+	 */
+	public function listCommand($directoryName) {
+		$documents = $this->documentRepository->findByHead($directoryName);
+		foreach ($documents AS $document) {
+			$this->outputLine($document->getName());
+		}
+	}
+
+	/**
+	 * @param boolean $confiremed
+	 * @return void
+	 */
+	public function deleteAllCommand($confirmed = FALSE) {
+		$documents = $this->documentRepository->findAll();
+		$cnt = count($documents);
+		if ($confirmed === TRUE) {
+			foreach ($documents AS $document) {
+				$this->documentRepository->remove($document);
+			}
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->outputLine('SUCCESS: delete ' . $cnt . ' documents');
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage());
+			}
+		} else {
+			$this->outputLine('WARNING: will realy delete ' . $cnt . ' documents from persistence layer');
+		}
+	}
+
+
+	/**
+	 * @param string $directoryName 
+	 * @return void
+	 */
+	public function deleteCommand($directoryName) {
+		$documents = $this->documentRepository->findByHead($directoryName);
+		$cnt = count($documents);
+		foreach ($documents AS $document) {
+			$this->documentRepository->remove($document);
+		}
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: delete ' . $cnt . ' documents');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage());
+		}
+	}
+
+	/**
 	 * @param string $directoryName
 	 * @return void
 	 */

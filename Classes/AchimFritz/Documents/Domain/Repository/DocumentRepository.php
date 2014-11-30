@@ -28,6 +28,17 @@ class DocumentRepository extends Repository {
 	protected $solrInputDocumentFactory;
 
 	/**
+	 * @param string $head
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findByHead($head) {
+		$query = $this->createQuery();
+		return $query->matching(
+			$query->like('name', $head . '/%', FALSE)
+		)->execute();
+	}
+
+	/**
 	 * @param Category $category 
 	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
 	 */
