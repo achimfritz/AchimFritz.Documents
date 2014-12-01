@@ -30,7 +30,7 @@
 																			$timeout(function(){
 																								//element.isotope( 'reloadItems' ).isotope(); 
 																								element.isotope('reloadItems').isotope(options);
-																			}, 100);
+																			}, 500);
 																},true);
 																
 																scope.logHello = function(){

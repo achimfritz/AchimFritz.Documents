@@ -9,17 +9,17 @@
 
 				function SettingsController($scope, SolrFactory) {
 
-								//$scope.settings = {rows: 10};
+								$scope.settings = {
+												'rows': SolrFactory.getByValue('rows'),
+												'facetLimit': SolrFactory.getByValue('facet.limit')
+								};
 
 								$scope.update = function() {
 												//SolrFactory
 												SolrFactory.addByValue('rows', $scope.settings.rows);
-												//console.log($scope.settings.rows);
+												SolrFactory.addByValue('facet.limit', $scope.settings.facetLimit);
 												SolrFactory.resetApiData();
 								}
-
-
-								//$scope.settings = {};
 
 				}
 }());

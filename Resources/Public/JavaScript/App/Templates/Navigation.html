@@ -1,3 +1,6 @@
 <ul ng-repeat="(key, value) in results.facet_counts.facet_fields.mainDirectoryName">
 	<li ng-click="addFacet(key, 'mainDirectoryName')">{{key}} ({{value}})</li>
 </ul>
+<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.navigation">
+	<li ng-click="addFacet(key, 'navigation')">{{key}} ({{value}})</li>
+</ul>

@@ -39,15 +39,10 @@ class CategoryRepository extends Repository {
 	 * @api
 	 */
 	public function remove($object) {
-		// TODO see also CategoryController should this be allowed?
-		// -> no
-		// -> Test
-		// yet it is allowd by the Controller will not call remove if category has documents, this is inconsistent
 		$category = $object;
 		$documents = $this->documentRepository->findByCategory($category);
-		foreach ($documents AS $document) {
-			$document->removeCategory($category);
-			$this->documentRepository->update($document);
+		if (count($documents) > 0) {
+			throw new Exception('category has documents', 1417447460);
 		}
 		return $this->parentRemove($category);
 	}
