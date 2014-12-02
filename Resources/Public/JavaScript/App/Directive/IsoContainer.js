@@ -12,7 +12,9 @@
 								return {
 
 												scope: {
-																items: '=isoContainer'
+																items: '=isoContainer',
+																total: '@',
+																itemsPerPage: '@'
 												},
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html',
