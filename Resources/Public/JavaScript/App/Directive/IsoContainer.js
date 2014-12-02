@@ -7,15 +7,15 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout) {
+				function IsoContainer($timeout, DocumentFactory) {
 
 								return {
 
 												scope: {
 																items: '=isoContainer'
 												},
-												//template:'<div class="item" ng-click="logHello()" ng-repeat="item in items | orderBy:\'fileName\'"><img src="{{item.webPreviewPath}}" /></div>',
-												template:'<div><div class="iso-item" ng-click="logHello()" ng-repeat="item in items" ><img src="{{item.webPreviewPath}}" /></div></div>',
+
+												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html',
 												
 
 											link: function(scope, element, attr) {
@@ -30,13 +30,29 @@
 																			$timeout(function(){
 																								//element.isotope( 'reloadItems' ).isotope(); 
 																								element.isotope('reloadItems').isotope(options);
+																								//SelectableService.init();
 																			}, 500);
 																},true);
+
+																scope.toggleItem = function(item, el) {
+																				if (item.selected === 'selected') {
+																								item.selected = '';
+																								DocumentFactory.rmDoc(item);
+																				} else {
+																								item.selected = 'selected';
+																								DocumentFactory.addDoc(item);
+																				}
+																};
+																scope.toggleClipboardItem = function(item, el) {
+																				if (item.selected === 'selected') {
+																								item.selected = '';
+																				} else {
+																								item.selected = 'selected';
+																				}
+																};
 																
-																scope.logHello = function(){
-																		console.log("hello world")
-																}
-											}
+												},
+
 								};
 
 				}

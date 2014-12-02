@@ -2,8 +2,14 @@
 
 (function () {
     'use strict';
-				angular.module('documentApp', ['ngRoute'])
+				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination'])
+				.config(paginationConfiguration)
 				.config(routeConfiguration);
+
+				/* @ngInject */
+				function paginationConfiguration(paginationTemplateProvider) {
+								paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Resources/Vendor/angular-utils-pagination/dirPagination.tpl.html');
+				}
 
 				/* @ngInject */
     function routeConfiguration($routeProvider) {

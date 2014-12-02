@@ -8,8 +8,14 @@
 }
 
 .iso-item {
-	padding: 2px;
+	padding: 3px;
 }
+
+.iso-item.selected {
+	padding: 1px;
+	border: 2px solid black;
+}
+
 
 
 ul.typo3-widget-paginator {

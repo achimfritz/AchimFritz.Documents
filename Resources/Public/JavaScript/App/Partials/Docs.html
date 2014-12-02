@@ -1,0 +1,12 @@
+<ul>
+    <li dir-paginate="item in items | itemsPerPage: 1">{{ item.identifier }}</li>
+	 </ul>
+
+	 <dir-pagination-controls></dir-pagination-controls>
+<div class="clearfix"></div>
+
+<div style="position: relative" >
+	<div class="iso-item {{item.selected}}"  ng-click="toggleItem(item)" data-doc=\'{{item}}\' ng-repeat="item in items" >
+		<img src="{{item.webPreviewPath}}" />
+	</div>
+</div>
