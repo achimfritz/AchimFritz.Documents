@@ -7,11 +7,18 @@
 				.module('documentApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, DocumentFactory) {
+				function ClipboardController($scope, DocumentFactory, SolrFactory) {
 								$scope.collection = DocumentFactory.getDocs();
 				
 								$scope.transfer = function() {
-												//var docs = SelectableService.getSelected();
+												SolrFactory.getData().then(function(data) {
+																jQuery.each(data.data.response.docs, function(i, el) {
+																				if (el.selected === 'selected') {
+																								DocumentFactory.addDoc(el);
+																				}
+																});
+																$scope.collection = DocumentFactory.getDocs();
+												});
 								}
 				}
 }());

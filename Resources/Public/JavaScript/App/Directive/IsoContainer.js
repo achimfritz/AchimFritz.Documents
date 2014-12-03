@@ -14,10 +14,12 @@
 												scope: {
 																items: '=isoContainer',
 																total: '@',
-																itemsPerPage: '@'
+																itemsPerPage: '@',
+																pageChanged: '&',
+																testFoo: '&'
 												},
 
-												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html',
+												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html?x',
 												
 
 											link: function(scope, element, attr) {
@@ -39,10 +41,10 @@
 																scope.toggleItem = function(item, el) {
 																				if (item.selected === 'selected') {
 																								item.selected = '';
-																								DocumentFactory.rmDoc(item);
+																								//DocumentFactory.rmDoc(item);
 																				} else {
 																								item.selected = 'selected';
-																								DocumentFactory.addDoc(item);
+																								//DocumentFactory.addDoc(item);
 																				}
 																};
 																scope.toggleClipboardItem = function(item, el) {

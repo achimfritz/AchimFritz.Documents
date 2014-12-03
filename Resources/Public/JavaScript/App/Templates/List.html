@@ -1,4 +1,4 @@
-Total {{itemsPerPage}}
+<span ng-click="pageChanged(1)">direct page change</span>
 <div class="items">
-	<div class="container-full" total="{{total}}" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>
+	<div class="container-full" total="{{total}}" page-changed="pageChanged(newPageNumber)" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>
 </div>
