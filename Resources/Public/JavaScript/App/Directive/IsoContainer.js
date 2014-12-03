@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, DocumentFactory) {
+				function IsoContainer($timeout) {
 
 								return {
 
@@ -16,7 +16,9 @@
 																total: '@',
 																itemsPerPage: '@',
 																pageChanged: '&',
-																testFoo: '&'
+																//collection: '=collection'
+																// same name
+																collection: '='
 												},
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html?x',
@@ -27,6 +29,22 @@
 																				itemSelector: '.iso-item',
 																				layoutMode: 'fitRows'
 																};
+																				var strgPressed = false;
+																				var shiftPressed = false;
+																				var newItems = [];
+																				jQuery(document).keyup(function(e) {
+																								shiftPressed = false;
+																								strgPressed = false;
+																				});
+																				jQuery(document).keydown(function(e) {
+																								console.log('keydown');
+																								if (e.keyCode == 16) {
+																												shiftPressed = true;
+																								}
+																								if (e.keyCode == 17) {
+																												strgPressed = true;
+																								}
+																				});
 																				
 																element.isotope(options);
 
@@ -38,23 +56,27 @@
 																			}, 500);
 																},true);
 
-																scope.toggleItem = function(item, el) {
-																				if (item.selected === 'selected') {
-																								item.selected = '';
-																								//DocumentFactory.rmDoc(item);
-																				} else {
-																								item.selected = 'selected';
-																								//DocumentFactory.addDoc(item);
-																				}
-																};
-																scope.toggleClipboardItem = function(item, el) {
+																scope.toggleItem = function(item, items) {
 																				if (item.selected === 'selected') {
 																								item.selected = '';
 																				} else {
+																								if (strgPressed === false) {
+																												angular.forEach(items, function(val, key) {
+																																if (item.identifier !== val.identifier) {
+																																				val.selected = '';
+																																}
+																																newItems.push(val);
+																												});
+																												//scope.collection = newItems;
+																												// rm all others
+																								} else if (shiftPressed === true) {
+																												// select all from last selected
+																								}
+
+																								// add all me
 																								item.selected = 'selected';
 																				}
 																};
-																
 												},
 
 								};

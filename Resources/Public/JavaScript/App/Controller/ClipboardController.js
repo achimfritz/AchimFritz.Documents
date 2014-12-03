@@ -7,18 +7,25 @@
 				.module('documentApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, DocumentFactory, SolrFactory) {
-								$scope.collection = DocumentFactory.getDocs();
+				function ClipboardController($scope, ClipboardFactory) {
+								$scope.collection = ClipboardFactory.getDocs();
+
+								$scope.transferAll = function() {
+												 ClipboardFactory.transferAll();
+												$scope.collection = ClipboardFactory.getDocs();
+								};
+								$scope.empty = function() {
+												ClipboardFactory.empty();
+												$scope.collection = ClipboardFactory.getDocs();
+								};
+								$scope.deleteSelected = function() {
+												ClipboardFactory.deleteSelected();
+												$scope.collection = ClipboardFactory.getDocs();
+								};
 				
-								$scope.transfer = function() {
-												SolrFactory.getData().then(function(data) {
-																jQuery.each(data.data.response.docs, function(i, el) {
-																				if (el.selected === 'selected') {
-																								DocumentFactory.addDoc(el);
-																				}
-																});
-																$scope.collection = DocumentFactory.getDocs();
-												});
-								}
+								$scope.transferSelected = function() {
+												ClipboardFactory.transferSelected();
+												$scope.collection = ClipboardFactory.getDocs();
+								};
 				}
 }());

@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.controller('ListController', ListController);
 
-				function ListController($scope, SolrFactory, DocumentFactory) {
+				function ListController($scope, SolrFactory ) {
 
 								$scope.collection = [];
 								$scope.total = 0;

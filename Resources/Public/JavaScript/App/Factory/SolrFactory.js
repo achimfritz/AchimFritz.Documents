@@ -20,7 +20,7 @@
 								wrapper.manager.init();
 								wrapper.manager.store.addByValue('q', '*:*');
 								wrapper.manager.store.addByValue('start', 0);
-								wrapper.manager.store.addByValue('rows', 2);
+								wrapper.manager.store.addByValue('rows', 10);
 								wrapper.manager.store.addByValue('facet', true);
 								wrapper.manager.store.addByValue('json.nl', 'map');
 								wrapper.manager.store.addByValue('facet.mincount', 1);

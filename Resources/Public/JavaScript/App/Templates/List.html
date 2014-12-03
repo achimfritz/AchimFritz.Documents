@@ -1,4 +1,5 @@
 <span ng-click="pageChanged(1)">direct page change</span>
 <div class="items">
-	<div class="container-full" total="{{total}}" page-changed="pageChanged(newPageNumber)" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>
+<!-- TODO collection to directive two way binding, s. http://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-2-isolate-scope -->
+	<div class="container-full" total="{{total}}" collection="collection" page-changed="pageChanged(newPageNumber)" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>
 </div>
