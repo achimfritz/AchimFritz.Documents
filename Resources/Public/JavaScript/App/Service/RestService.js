@@ -9,16 +9,41 @@
 
 				function RestService($http) {
 
-								this.merge = function(category, docs) {
+								var buildRequest = function(category, docs) {
+												var documents = [];
+												angular.forEach(docs, function (val, key) {
+																documents.push(val.identifier);
+												});
 
-												var url = 'achimfritz.documents/documentcollectionmerge/';
-												var data = {};
-												data {
-																'category' => category
-
+												var data = {
+																'documentCollection':{
+																				'category': {
+																								'path': category
+																				},
+																				'documents': documents
+																}
 												};
+												return data;
+								};
+
+								this.remove= function(category, docs) {
+												var url = 'achimfritz.documents/documentcollectionremove/';
+												var data = buildRequest(category, docs);
 												return $http({
-																method: 'GET',
+																method: 'POST',
+																url: url,
+																data: data,
+																headers: {
+																				'Content-Type': 'application/json',
+																				'Accept': 'application/json'
+																}
+												})
+								};
+								this.merge = function(category, docs) {
+												var url = 'achimfritz.documents/documentcollectionmerge/';
+												var data = buildRequest(category, docs);
+												return $http({
+																method: 'POST',
 																url: url,
 																data: data,
 																headers: {

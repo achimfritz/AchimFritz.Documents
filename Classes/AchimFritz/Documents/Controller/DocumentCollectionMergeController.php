@@ -10,6 +10,8 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Error\Message;
+use TYPO3\Flow\Mvc\Controller\ActionRequest;
+use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\RestController {
 
@@ -31,6 +33,25 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 	protected $resourceArgumentName = 'documentCollection';
 
 	/**
+	 * @return void
+	 */
+	public function initializeCreateAction() {
+		parent::initializeCreateAction();
+		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
+
+		// category
+		$propertyMappingConfiguration->forProperty('category');
+		$sub = $propertyMappingConfiguration->getConfigurationFor('category');
+		$sub->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		$sub->allowAllProperties();
+
+		// documents
+		$propertyMappingConfiguration->forProperty('documents');
+		$sub = $propertyMappingConfiguration->getConfigurationFor('documents');
+		$sub->allowAllProperties();
+	}
+
+	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
 	 * @return void
 	 */
@@ -38,11 +59,15 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 		$cnt = $this->documentCollectionService->merge($documentCollection);
 		try {
 			$this->documentPersistenceManager->persistAll();
-			$this->addFlashMessage($cnt . ' Documents updated.');
+			$this->addFlashMessage($cnt . ' Documents added to ' . $documentCollection->getCategory()->getPath());
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}
-		$this->redirectToRequest($this->request->getReferringRequest());
+		if ($this->request->getReferringRequest() instanceof ActionRequest) {
+			$this->redirectToRequest($this->request->getReferringRequest());
+		} else {
+			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+		}
 	}
 
 }

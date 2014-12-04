@@ -1,22 +1,20 @@
-<button class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
-<button class="btn btn-default" ng-click="transferAll()">transfer all</button>
-<button ng-show="collection" class="btn btn-default" ng-click="empty()">empty</button>
-TODO ng-show = collection
-<button class="btn btn-default" ng-click="empty()">empty</button>
-<button class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
-<div class="clearfix"></div>
-<div class="col-xs-4 col-md-4 col-sm-12">
-	<form novalidate class="simple-form">
+<div class="col-md-3">
+<button ng-hide="collection.length" class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
+<button ng-hide="collection.length" class="btn btn-default" ng-click="transferAll()">transfer all</button>
+<button ng-show="collection.length" class="btn btn-default" ng-click="empty()">empty</button>
+<button ng-show="collection.length" class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
+</div>
+<div ng-show="collection.length" class="col-md-9">
+	<form novalidate class="form-horizontal">
 		<div class="form-group">
-			<label class="control-label" for="category">Category: </label>
-			<input class="form-control" id="category" type="text" data-ng-model="category" />
-		</div>
-		<div class="form-group">
-			<div class="col-xs-6 col-md-6 col-sm-12">
-				<input class="form-control" type="submit" ng-click="merge()" value="Merge all Documents into Category" />
+			<div class="col-md-4">
+				<input class="form-control" id="category" type="text" data-ng-model="category" />
 			</div>
-			<div class="col-xs-6 col-md-6 col-sm-12">
-				<input class="form-control" type="submit" ng-click="remove()" value="Remove all Documents from Category" />
+			<div class="col-md-4">
+				<input class="form-control btn btn-danger" type="submit" ng-click="merge()" value="Merge all Documents into Category" />
+			</div>
+			<div class="col-md-4">
+				<input class="form-control btn-danger" type="submit" ng-click="remove()" value="Remove all Documents from Category" />
 			</div>
 		</div>
 	</form>

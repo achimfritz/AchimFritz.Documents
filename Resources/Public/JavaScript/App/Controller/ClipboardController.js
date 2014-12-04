@@ -18,7 +18,7 @@
 								};
 
 								$scope.remove = function() {
-												RestService.merge($scope.category, $scope.collection).then(function(data) {
+												RestService.remove($scope.category, $scope.collection).then(function(data) {
 																console.log(data);
 												});
 								};
