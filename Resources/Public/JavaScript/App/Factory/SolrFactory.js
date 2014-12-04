@@ -37,7 +37,7 @@
 												return param.val();
 								};
 								wrapper.getData = function() {
-												var itemsDefer=$q.defer();
+												var itemsDefer = $q.defer();
 												if(apiData.status ) {
 																itemsDefer.resolve(apiData);
 												}

@@ -1,7 +1,27 @@
 <button class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
 <button class="btn btn-default" ng-click="transferAll()">transfer all</button>
+<button ng-show="collection" class="btn btn-default" ng-click="empty()">empty</button>
+TODO ng-show = collection
 <button class="btn btn-default" ng-click="empty()">empty</button>
 <button class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
+<div class="clearfix"></div>
+<div class="col-xs-4 col-md-4 col-sm-12">
+	<form novalidate class="simple-form">
+		<div class="form-group">
+			<label class="control-label" for="category">Category: </label>
+			<input class="form-control" id="category" type="text" data-ng-model="category" />
+		</div>
+		<div class="form-group">
+			<div class="col-xs-6 col-md-6 col-sm-12">
+				<input class="form-control" type="submit" ng-click="merge()" value="Merge all Documents into Category" />
+			</div>
+			<div class="col-xs-6 col-md-6 col-sm-12">
+				<input class="form-control" type="submit" ng-click="remove()" value="Remove all Documents from Category" />
+			</div>
+		</div>
+	</form>
+</div>
+<div class="clearfix"></div>
 
 <div id="items">
 	<div class="container-full" data-iso-container="collection"></div>

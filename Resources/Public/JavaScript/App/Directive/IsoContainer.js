@@ -29,22 +29,21 @@
 																				itemSelector: '.iso-item',
 																				layoutMode: 'fitRows'
 																};
-																				var strgPressed = false;
-																				var shiftPressed = false;
-																				var newItems = [];
-																				jQuery(document).keyup(function(e) {
-																								shiftPressed = false;
-																								strgPressed = false;
-																				});
-																				jQuery(document).keydown(function(e) {
-																								console.log('keydown');
-																								if (e.keyCode == 16) {
-																												shiftPressed = true;
-																								}
-																								if (e.keyCode == 17) {
-																												strgPressed = true;
-																								}
-																				});
+																var strgPressed = false;
+																var shiftPressed = false;
+
+																jQuery(document).keyup(function(e) {
+																				shiftPressed = false;
+																				strgPressed = false;
+																});
+																jQuery(document).keydown(function(e) {
+																				if (e.keyCode == 16) {
+																								shiftPressed = true;
+																				}
+																				if (e.keyCode == 17) {
+																								strgPressed = true;
+																				}
+																});
 																				
 																element.isotope(options);
 
@@ -52,7 +51,6 @@
 																			$timeout(function(){
 																								//element.isotope( 'reloadItems' ).isotope(); 
 																								element.isotope('reloadItems').isotope(options);
-																								//SelectableService.init();
 																			}, 500);
 																},true);
 
@@ -61,19 +59,33 @@
 																								item.selected = '';
 																				} else {
 																								if (strgPressed === false) {
+																												// rm all others
 																												angular.forEach(items, function(val, key) {
 																																if (item.identifier !== val.identifier) {
 																																				val.selected = '';
 																																}
-																																newItems.push(val);
 																												});
-																												//scope.collection = newItems;
-																												// rm all others
 																								} else if (shiftPressed === true) {
 																												// select all from last selected
+																												var collect = false;
+																												for (var i = ( items.length - 1 ); i >= 0; i--) {
+																																var el = items[i];
+																																if (el.identifier === item.identifier) {
+																																				console.log('found ' + i);
+																																				collect = true;
+																																}
+																																if (collect === true) {
+																																				if (el.selected === 'selected') {
+																																								collect = false;
+																																				}
+																																				console.log(i);
+																																				el.selected = 'selected';
+																																}
+																																
+																												}
 																								}
 
-																								// add all me
+																								// add always me 
 																								item.selected = 'selected';
 																				}
 																};

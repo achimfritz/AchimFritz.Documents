@@ -7,11 +7,24 @@
 				.module('documentApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, ClipboardFactory) {
+				function ClipboardController($scope, ClipboardFactory, RestService) {
 								$scope.collection = ClipboardFactory.getDocs();
+								$scope.category = '';
+
+								$scope.merge = function() {
+												RestService.merge($scope.category, $scope.collection).then(function(data) {
+																console.log(data);
+												});
+								};
+
+								$scope.remove = function() {
+												RestService.merge($scope.category, $scope.collection).then(function(data) {
+																console.log(data);
+												});
+								};
 
 								$scope.transferAll = function() {
-												 ClipboardFactory.transferAll();
+												ClipboardFactory.transferAll();
 												$scope.collection = ClipboardFactory.getDocs();
 								};
 								$scope.empty = function() {
