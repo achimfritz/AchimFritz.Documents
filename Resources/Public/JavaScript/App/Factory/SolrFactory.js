@@ -7,18 +7,15 @@
 				.module('documentApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, $q, SolrSettingsFactory, $timeout ) {
-								var wrapper = {};
-								var apiData = {};
-								var running = false;
+				function SolrFactory($http, SettingsFactory) {
+								var manager;
 
-								wrapper.manager = new AjaxSolr.Manager({
+								manager = new AjaxSolr.Manager({
 												solrUrl: 'http://localhost:8080/solr/documents2/',
 												servlet: 'select',
 												debug: true
 								});
-								wrapper.manager.init();
-
+								manager.init();
 
 								// solr settings
 								//wrapper.manager.store.addByValue('q', '*:*');
@@ -27,39 +24,29 @@
 								//((wrapper.manager.store.addByValue('sort', 'fileName asc');
 
 								// page browser
-								wrapper.manager.store.addByValue('start', 0);
-
+								manager.store.addByValue('start', 0);
 
 								// defaults:
-								wrapper.manager.store.addByValue('facet', true);
-								wrapper.manager.store.addByValue('json.nl', 'map');
-								wrapper.manager.store.addByValue('facet.mincount', 1);
-
+								manager.store.addByValue('facet', true);
+								manager.store.addByValue('json.nl', 'map');
+								manager.store.addByValue('facet.mincount', 1);
 
 								// simple facets
-								wrapper.manager.store.addByValue('facet.field', 'mainDirectoryName');
-								wrapper.manager.store.addByValue('facet.field', 'year');
+								manager.store.addByValue('facet.field', 'mainDirectoryName');
+								manager.store.addByValue('facet.field', 'year');
 
 								// hierarchical facets
-								wrapper.manager.store.addByValue('facet.field', 'paths');
+								manager.store.addByValue('facet.field', 'paths');
 
 								var buildSolrValues = function() {
-												var settings = SolrSettingsFactory.getModSettings();
+												var settings = SettingsFactory.getSolrSettings();
 												angular.forEach(settings, function(val, key) {
-																wrapper.manager.store.addByValue(key, val);
+																manager.store.addByValue(key, val);
 												});
 								};
 
-								wrapper.addByValue = function(key, value) {
-	//											wrapper.manager.store.addByValue(key, value);
-								};
-								wrapper.getByValue = function(key) {
-												var param = wrapper.manager.store.get(key);
-												return param.val();
-								};
-
 								var getData = function() {
-												var url = wrapper.manager.buildUrl();
+												var url = manager.buildUrl();
 												console.log(url);
 												return $http.jsonp(url);
 								};
@@ -70,19 +57,8 @@
 																buildSolrValues();
 												},
 												getData: function() {
-																//console.log(SolrSettingsFactory.getSettings());
 																return getData();
-												},
-												resetApiData: function() {
-																apiData = {};
-																running = false;
-												},
-            getByValue: function (key) {
-																return wrapper.getByValue(key);
-            },
-            addByValue: function (key, value) {
-																wrapper.addByValue(key, value);
-            }
+												}
         };
 
 				}

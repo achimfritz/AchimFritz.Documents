@@ -2,11 +2,15 @@
 	<form novalidate class="simple-form">
 		<div class="form-group">
 			<label class="control-label" for="rows">rows: </label>
-			<input class="form-control" id="rows" type="text" ng-change="update()" data-ng-model="settings.rows" />
+			<input class="form-control" id="rows" type="text" data-ng-model="settings.rows" />
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="facetLimit">facetLimit: </label>
-			<input class="form-control" id="facetLimit" type="text" ng-change="update()" data-ng-model="settings.facetLimit" />
+			<input class="form-control" id="facetLimit" type="text"  data-ng-model="settings.facet_limit" />
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="sort">sort: </label>
+			<input class="form-control" id="sort" type="text"  data-ng-model="settings.sort" />
 		</div>
 	</form>
 </div>

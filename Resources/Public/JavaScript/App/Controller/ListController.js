@@ -7,13 +7,15 @@
 				.module('documentApp')
 				.controller('ListController', ListController);
 
-				function ListController($scope, SolrFactory ) {
+				function ListController($scope, SolrFactory, SettingsFactory ) {
 
 								SolrFactory.buildSolrValues();
 
+								var settings = SettingsFactory.getSettings();
+
 								$scope.collection = [];
 								$scope.total = 0;
-								$scope.itemsPerPage = SolrFactory.getByValue('rows');
+								$scope.itemsPerPage = settings['rows'];
 
 								$scope.pageChanged = function(newPageNumber) {
 												getResultsPage(newPageNumber);

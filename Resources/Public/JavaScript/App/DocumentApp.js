@@ -27,10 +27,6 @@
                 templateUrl: templatePath + 'Settings.html',
                 controller: 'SettingsController'
             }).
-            when('/solrsettings', {
-                templateUrl: templatePath + 'SolrSettings.html',
-                controller: 'SolrSettingsController'
-            }).
             when('/clipboard', {
                 templateUrl: templatePath + 'Clipboard.html',
                 controller: 'ClipboardController'

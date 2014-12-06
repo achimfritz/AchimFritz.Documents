@@ -5,9 +5,9 @@
 
 				angular
 				.module('documentApp')
-				.factory('SolrSettingsFactory', SolrSettingsFactory);
+				.factory('SettingsFactory', SettingsFactory);
 
-				function SolrSettingsFactory() {
+				function SettingsFactory() {
 								var settings = {
 												'rows': 10,
 												'q': '*:*',
@@ -15,7 +15,7 @@
 												'sort': 'fileName asc'
 								};
 
-								var getModSettings = function() {
+								var getSolrSettings = function() {
 												var res = {};
 												angular.forEach(settings, function (val, key) {
 																var a = key.replace('_', '.');
@@ -30,8 +30,8 @@
 												getSettings: function() {
 																return settings;
 												},
-												getModSettings: function() {
-																return getModSettings();
+												getSolrSettings: function() {
+																return getSolrSettings();
 												}
         };
 
