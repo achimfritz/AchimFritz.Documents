@@ -23,7 +23,6 @@
 												//var newStart = 
 												console.log(pageNumber);
 												SolrFactory.addByValue('start', pageNumber * rows);
-												SolrFactory.resetApiData();
 												SolrFactory.getData().then(function(data) {
 																$scope.total = data.data.response.numFound;
 																$scope.collection = data.data.response.docs;

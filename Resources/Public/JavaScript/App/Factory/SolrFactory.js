@@ -7,10 +7,8 @@
 				.module('documentApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, $q) {
+				function SolrFactory($http, $q, SolrSettingsFactory ) {
 								var wrapper = {};
-								var apiData = {};
-								var running = false;
 
 								wrapper.manager = new AjaxSolr.Manager({
 												solrUrl: 'http://localhost:8080/solr/documents2/',
@@ -26,8 +24,16 @@
 								wrapper.manager.store.addByValue('facet.mincount', 1);
 								wrapper.manager.store.addByValue('facet.limit', 3);
 								wrapper.manager.store.addByValue('facet.field', 'mainDirectoryName');
-								wrapper.manager.store.addByValue('facet.field', 'navigation');
+								wrapper.manager.store.addByValue('facet.field', 'year');
+								wrapper.manager.store.addByValue('facet.field', 'paths');
 								wrapper.manager.store.addByValue('sort', 'fileName asc');
+
+								var buildSolrValues = function() {
+												var settings = SolrSettingsFactory.getSettings();
+												angular.forEach(settings, function(val, key) {
+																wrapper.manager.store.addByValue(key, val);
+												});
+								}
 
 								wrapper.addByValue = function(key, value) {
 												wrapper.manager.store.addByValue(key, value);
@@ -37,34 +43,17 @@
 												return param.val();
 								};
 								wrapper.getData = function() {
-												var itemsDefer = $q.defer();
-												if(apiData.status ) {
-																itemsDefer.resolve(apiData);
-												}
-												else {
-																if (running === false) {
-																				//running = true;
-																				var url = wrapper.manager.buildUrl();
-																				console.log(url);
-																				$http.jsonp(url).then(function(data) {
-																								//return data;
-																								apiData=data;
-																								itemsDefer.resolve(data);
-																								running = false;
-																				});
-																}
-												}
-												return itemsDefer.promise;
+												buildSolrValues();
+												var url = wrapper.manager.buildUrl();
+												console.log(url);
+												return $http.jsonp(url);
 								};
 
         // Public API
         return {
 												getData: function() {
+																//console.log(SolrSettingsFactory.getSettings());
 																return wrapper.getData();
-												},
-												resetApiData: function() {
-																apiData = {};
-																running = false;
 												},
             getByValue: function (key) {
 																return wrapper.getByValue(key);

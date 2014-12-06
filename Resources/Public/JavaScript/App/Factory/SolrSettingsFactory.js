@@ -7,17 +7,12 @@
 				.module('documentApp')
 				.factory('SolrSettingsFactory', SolrSettingsFactory);
 
-				function SolrSettingsFactory(SolrFactory) {
+				function SolrSettingsFactory() {
 								var settings = {
 												'rows': 10,
 												'q': '*:*',
 												'facet.limit': 5,
-												'sort': 'fileName asc',
-												'facet.field': [
-																'mainDirectoryName',
-																'navigation'
-												]
-												
+												'sort': 'fileName asc'
 								};
 
         // Public API

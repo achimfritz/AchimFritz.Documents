@@ -18,7 +18,6 @@
 												//SolrFactory
 												SolrFactory.addByValue('rows', $scope.settings.rows);
 												SolrFactory.addByValue('facet.limit', $scope.settings.facetLimit);
-												SolrFactory.resetApiData();
 								}
 
 				}

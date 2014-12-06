@@ -1,6 +1,12 @@
+<h2>mainDirectoryName</h2>
 <ul ng-repeat="(key, value) in results.facet_counts.facet_fields.mainDirectoryName">
-	<li ng-click="addFacet(key, 'mainDirectoryName')">{{key}} ({{value}})</li>
+	<li ng-click="addFacet('mainDirectoryName', key)">{{key}} ({{value}})</li>
 </ul>
-<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.navigation">
-	<li ng-click="addFacet(key, 'navigation')">{{key}} ({{value}})</li>
+<h2>paths</h2>
+<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.paths">
+	<li ng-click="addFacet('paths', key)">{{key}} ({{value}})</li>
+</ul>
+<h2>year</h2>
+<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.year">
+	<li ng-click="addFacet('year', key)">{{key}} ({{value}})</li>
 </ul>
