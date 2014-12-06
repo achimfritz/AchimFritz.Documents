@@ -21,7 +21,7 @@
 																collection: '='
 												},
 
-												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html?x',
+												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html?xx',
 												
 
 											link: function(scope, element, attr) {

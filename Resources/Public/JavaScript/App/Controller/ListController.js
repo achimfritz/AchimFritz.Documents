@@ -9,6 +9,8 @@
 
 				function ListController($scope, SolrFactory ) {
 
+								SolrFactory.buildSolrValues();
+
 								$scope.collection = [];
 								$scope.total = 0;
 								$scope.itemsPerPage = SolrFactory.getByValue('rows');
@@ -28,6 +30,7 @@
 																$scope.collection = data.data.response.docs;
 												});
 								};
+
 
 								SolrFactory.getData().then(function(data) {
 												$scope.total = data.data.response.numFound;

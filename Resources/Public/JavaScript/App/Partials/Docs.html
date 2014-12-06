@@ -1,9 +1,8 @@
-Total aa {{itemsPerPage}}
-	 <span ng-click="pageChanged('3')">33XXXXX</span>
+	 <span ng-click="pageChanged(3)">page changed (3)</span>
 	 <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 <div class="clearfix"></div>
 
--xx {{itemsPerPage}} x {{total}}  +
+Items per Page: {{itemsPerPage}}, Total: {{total}} 
 
 <div style="position: relative" >
 	<div class="iso-item {{item.selected}}"  ng-click="toggleItem(item, items)" dir-paginate="item in items | itemsPerPage: itemsPerPage" total-items="total" >

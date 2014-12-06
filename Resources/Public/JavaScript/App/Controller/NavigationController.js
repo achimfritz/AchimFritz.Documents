@@ -8,6 +8,8 @@
 				.controller('NavigationController', NavigationController);
 
 				function NavigationController($scope, SolrFactory) {
+								SolrFactory.buildSolrValues();
+
 								SolrFactory.getData().then(function(data) {
 												$scope.results = data.data;
 								});
