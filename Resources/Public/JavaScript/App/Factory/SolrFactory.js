@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, SettingsFactory) {
+				function SolrFactory($http, SettingsFactory, FacetFactory) {
 								var manager;
 
 								manager = new AjaxSolr.Manager({
@@ -32,8 +32,8 @@
 								manager.store.addByValue('facet.mincount', 1);
 
 								// simple facets
-								manager.store.addByValue('facet.field', 'mainDirectoryName');
-								manager.store.addByValue('facet.field', 'year');
+								//manager.store.addByValue('facet.field', 'mainDirectoryName');
+								//manager.store.addByValue('facet.field', 'year');
 
 								// hierarchical facets
 								manager.store.addByValue('facet.field', 'paths');
@@ -42,6 +42,15 @@
 												var settings = SettingsFactory.getSolrSettings();
 												angular.forEach(settings, function(val, key) {
 																manager.store.addByValue(key, val);
+												});
+												var facets = FacetFactory.getFacets();
+												angular.forEach(facets, function(val) {
+																manager.store.addByValue('facet.field', val);
+												});
+												var filterQueries = FacetFactory.getFilterQueries();
+												manager.store.remove('fq');
+												angular.forEach(filterQueries, function(val) {
+																manager.store.addByValue('fq', val);
 												});
 								};
 

@@ -10,3 +10,13 @@
 <ul ng-repeat="(key, value) in results.facet_counts.facet_fields.year">
 	<li ng-click="addFacet('year', key)">{{key}} ({{value}})</li>
 </ul>
+
+<h2>fq</h2>
+<ul ng-repeat="fq in filterQueries">
+   <li ng-click="rmFq(fq)">{{fq}}</li>
+</ul>
+
+
+<div ng-repeat="facet in facets">
+	<h2>{{facet}}</h2>
+</div>
