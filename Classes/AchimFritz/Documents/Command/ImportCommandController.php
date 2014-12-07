@@ -27,6 +27,13 @@ class ImportCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	protected $categoryRepository;
 
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
+
+
 	/**
 	 * @access public
 	 * @return void
@@ -46,11 +53,14 @@ class ImportCommandController extends \TYPO3\Flow\Cli\CommandController {
 		}
 		$content = file_get_contents('/tmp/t1.csv');
 		$lines = explode("\n", $content);
+		$add = 0;
+		$update = 0;
 		foreach ($lines AS $line) {
 			if (trim($line) !== '') {
 				$arr = explode('|', $line);
 				if (count($arr) !== 3) {
-					$this->outputLine('ERROR: line ' . $line);
+					$this->outputLine('WARNING: line ' . $line);
+					continue;
 				}
 				$name = str_replace('/bilder/main/', '', $arr[0]);
 				$mtime = new \DateTime();
@@ -67,16 +77,26 @@ class ImportCommandController extends \TYPO3\Flow\Cli\CommandController {
 					$document = $docs[$name];
 				} else {
 					$document = new ImageDocument();
-					$document->setMountPoint('/bilder/main');
 					$document->setName($name);
 					$document->setMDateTime($mtime);
 					$this->documentRepository->add($document);
+					$docs[$name] = $document;
+					$add++;
 				}
 				if ($document->hasCategory($category) === FALSE) {
 					$document->addCategory($category);
 					$this->documentRepository->update($document);
+					$update++;
 				}
 			}
+		}
+		$this->outputLine('SUCCES: add: ' . $add . ' Documents');
+		$this->outputLine('SUCCES: update: ' . $update . ' Documents');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCES: persisted');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: cannot persist with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 }

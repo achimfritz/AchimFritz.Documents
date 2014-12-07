@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
+use AchimFritz\Documents\Domain\Model\Category;
 
 /**
  * @Flow\Scope("singleton")
@@ -42,7 +43,7 @@ class CategoryRepository extends Repository {
 		$category = $object;
 		$documents = $this->documentRepository->findByCategory($category);
 		if (count($documents) > 0) {
-			throw new Exception('category has documents', 1417447460);
+			throw new Exception('category has documents ' . $category->getPath(), 1417447460);
 		}
 		return $this->parentRemove($category);
 	}
@@ -57,13 +58,50 @@ class CategoryRepository extends Repository {
 	 */
 	public function update($object) {
 		parent::update($object);
-		$documents = $this->documentRepository->findByByCategory($object);
+		$this->updateDocuments($object);
+		$childs = $this->findChilds($object);
+		foreach ($childs AS $category) {
+			$this->updateDocuments($category);
+		}
+		/*
+		$documents = $this->documentRepository->findByCategory($object);
 		$solrInputDocuments = array();
 		foreach ($documents AS $document) {
-			$solrInputDocument = $this->solrInputDocumentFactory->create($object);
+			$solrInputDocument = $this->solrInputDocumentFactory->create($document);
 			$solrInputDocuments[] = $solrInputDocument;
 		}
-		$this->solrClientWrapper->addDocuments($solrInputDocuments);
+		if (count($solrInputDocuments) > 0) {
+			$this->solrClientWrapper->addDocuments($solrInputDocuments);
+		}
+		*/
+	}
+
+	/**
+	 * @param Category $category 
+	 * @return void
+	 */
+	protected function updateDocuments(Category $category) {
+		$documents = $this->documentRepository->findByCategory($object);
+		$solrInputDocuments = array();
+		foreach ($documents AS $document) {
+			$solrInputDocument = $this->solrInputDocumentFactory->create($document);
+			$solrInputDocuments[] = $solrInputDocument;
+		}
+		if (count($solrInputDocuments) > 0) {
+			$this->solrClientWrapper->addDocuments($solrInputDocuments);
+		}
+	}
+
+	/**
+	 * @param Category $category 
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findChilds(Category $category) {
+		$path = $category->getPath();
+		$query = $this->createQuery();
+		return $query->matching(
+			$query->like('path', $path. '/%', FALSE)
+		)->execute();
 	}
 
 

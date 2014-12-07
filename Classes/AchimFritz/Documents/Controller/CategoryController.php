@@ -12,6 +12,12 @@ use AchimFritz\Documents\Domain\Model\Category;
 
 class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
+
 	/**
 	 * @Flow\Inject
 	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
@@ -62,7 +68,12 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function updateAction(Category $category) {
 		$this->categoryRepository->update($category);
-		$this->addFlashMessage('Updated the category.');
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Updated the category.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Update the category ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
 		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
 
@@ -71,15 +82,13 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 	 * @return void
 	 */
 	public function deleteAction(Category $category) {
-		$documents = $this->documentRepository->findByCategory($category);
-		if (count($documents) > 0) {
-			$this->addFlashMessage('cannot delete category because in used by documents.', '', Message::SEVERITY_WARNING);
-			$this->redirect('index', NULL, NULL, array('category' => $category));
-		} else {
+		try {
 			$this->categoryRepository->remove($category);
 			$this->addFlashMessage('Deleted a category.');
-			$this->redirect('index');
+		} catch (\AchimFritz\Documents\Domain\Repository\Exception $e) {
+			$this->addFlashMessage('Cannot Delete category ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}
+		$this->redirect('index');
 	}
 
 }
