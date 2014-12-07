@@ -1,22 +1,13 @@
-<h2>mainDirectoryName</h2>
-<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.mainDirectoryName">
-	<li ng-click="addFacet('mainDirectoryName', key)">{{key}} ({{value}})</li>
-</ul>
-<h2>paths</h2>
-<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.paths">
-	<li ng-click="addFacet('paths', key)">{{key}} ({{value}})</li>
-</ul>
-<h2>year</h2>
-<ul ng-repeat="(key, value) in results.facet_counts.facet_fields.year">
-	<li ng-click="addFacet('year', key)">{{key}} ({{value}})</li>
-</ul>
-
-<h2>fq</h2>
-<ul ng-repeat="fq in filterQueries">
-   <li ng-click="rmFq(fq)">{{fq}}</li>
+<h2>filterQueries</h2>
+<ul ng-repeat="(key, value) in filterQueries" ng-if="value">
+   <li ng-click="rmFilterQuery(key, value)">{{value}}</li>
 </ul>
 
 
-<div ng-repeat="facet in facets">
+
+<div ng-repeat="(facet, result) in facets">
 	<h2>{{facet}}</h2>
+	<ul ng-repeat="(key, value) in result">
+		<li ng-click="addFacet(facet, key)">{{key}} ({{value}})</li>
+	</ul>
 </div>

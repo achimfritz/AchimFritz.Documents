@@ -21,7 +21,7 @@
 								//wrapper.manager.store.addByValue('q', '*:*');
 								//wrapper.manager.store.addByValue('rows', 10);
 								//wrapper.manager.store.addByValue('facet.limit', 3);
-								//((wrapper.manager.store.addByValue('sort', 'fileName asc');
+								//wrapper.manager.store.addByValue('sort', 'fileName asc');
 
 								// page browser
 								manager.store.addByValue('start', 0);
@@ -36,21 +36,39 @@
 								//manager.store.addByValue('facet.field', 'year');
 
 								// hierarchical facets
-								manager.store.addByValue('facet.field', 'paths');
+								//manager.store.addByValue('facet.field', 'paths');
 
 								var buildSolrValues = function() {
+
 												var settings = SettingsFactory.getSolrSettings();
 												angular.forEach(settings, function(val, key) {
 																manager.store.addByValue(key, val);
 												});
+
+												// remove all fq
+												manager.store.remove('fq');
+
 												var facets = FacetFactory.getFacets();
 												angular.forEach(facets, function(val) {
 																manager.store.addByValue('facet.field', val);
 												});
+
+												var hFacets = FacetFactory.getHFacets();
+												angular.forEach(hFacets, function(val) {
+																// remove all facetPrefixes
+																manager.store.remove('f.' + val + '.facet.prefix');
+												});
+
 												var filterQueries = FacetFactory.getFilterQueries();
-												manager.store.remove('fq');
-												angular.forEach(filterQueries, function(val) {
-																manager.store.addByValue('fq', val);
+												angular.forEach(filterQueries, function(val, key) {
+																if (val !== '') {
+																				manager.store.addByValue('fq', key + ':' + val);
+																}
+												});
+
+												var facetPrefixes = FacetFactory.getFacetPrefixes();
+												angular.forEach(facetPrefixes, function(val, key) {
+																manager.store.addByValue('f.' + key + '.facet.prefix', val);
 												});
 								};
 

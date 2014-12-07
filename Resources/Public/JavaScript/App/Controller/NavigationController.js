@@ -8,32 +8,30 @@
 				.controller('NavigationController', NavigationController);
 
 				function NavigationController($scope, SolrFactory, FacetFactory) {
-								SolrFactory.buildSolrValues();
 
-								$scope.facets = FacetFactory.getFacets();
+								function update() {
+												SolrFactory.buildSolrValues();
+												SolrFactory.getData().then(function(data) {
+																var facets = {};
+																angular.forEach(FacetFactory.getFacets(), function(val) {
+																				facets[val] = data.data.facet_counts.facet_fields[val];
+																});
+																$scope.facets = facets;
+												});
+								};
+
+								update();
+
 								$scope.filterQueries = FacetFactory.getFilterQueries();
 
-								SolrFactory.getData().then(function(data) {
-												$scope.results = data.data;
-								});
-
-								$scope.rmFq = function (value) {
-												FacetFactory.rmFq(value);
-												SolrFactory.buildSolrValues();
-												//console.log(value);
-												SolrFactory.getData().then(function(data) {
-																$scope.results = data.data;
-																$scope.filterQueries = FacetFactory.getFilterQueries();
-												});
+								$scope.rmFilterQuery = function (name, value) {
+												FacetFactory.rmFilterQuery(name, value);
+												update();
 								};
 
 								$scope.addFacet = function(facetName, facetValue) {
 												FacetFactory.addFilterQuery(facetName, facetValue);
-												SolrFactory.buildSolrValues();
-												SolrFactory.getData().then(function(data) {
-																$scope.results = data.data;
-												});
-
-								}
+												update();
+								};
 				}
 }());
