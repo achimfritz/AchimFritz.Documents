@@ -34,6 +34,18 @@ class CategoryRepository extends Repository {
 	protected $solrInputDocumentFactory;
 
 	/**
+	 * @Flow\Inject
+	 * @var \Doctrine\Common\Persistence\ObjectManager
+	 */
+	protected $entityManager;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Service\PathService
+	 * @Flow\Inject
+	 */
+	protected $pathService;
+
+	/**
 	 * @param object $object The object to remove
 	 * @return void
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
@@ -52,28 +64,32 @@ class CategoryRepository extends Repository {
 	 * Schedules a modified object for persistence.
 	 *
 	 * @param object $object The modified object
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 * @throws \SolrClientException
 	 * @api
 	 */
 	public function update($object) {
-		parent::update($object);
+		$uow = $this->entityManager->getUnitOfWork();
+		$originalEntityData = $uow->getOriginalEntityData($object);
+		$this->parentUpdate($object);
 		$this->updateDocuments($object);
-		$childs = $this->findChilds($object);
-		foreach ($childs AS $category) {
-			$this->updateDocuments($category);
+
+		if ($originalEntityData['path'] !== $object->getPath()) {
+			$childs = $this->findByPathHead($originalEntityData['path']);
+			foreach ($childs AS $category) {
+				$replacedPath = $this->pathService->replacePath($category->getPath(), $originalEntityData['path'], $object->getPath());
+				$category->setPath($replacedPath);
+				$this->parentUpdate($category);
+				$this->updateDocuments($category);
+			}
 		}
-		/*
-		$documents = $this->documentRepository->findByCategory($object);
-		$solrInputDocuments = array();
-		foreach ($documents AS $document) {
-			$solrInputDocument = $this->solrInputDocumentFactory->create($document);
-			$solrInputDocuments[] = $solrInputDocument;
-		}
-		if (count($solrInputDocuments) > 0) {
-			$this->solrClientWrapper->addDocuments($solrInputDocuments);
-		}
-		*/
+	}
+
+	/**
+	 * @param Category $category 
+	 * @return void
+	 */
+	protected function parentUpdate(Category $category) {
+		parent::update($category);
 	}
 
 	/**
@@ -98,9 +114,17 @@ class CategoryRepository extends Repository {
 	 */
 	public function findChilds(Category $category) {
 		$path = $category->getPath();
+		return $this->findByPathHead($path);
+	}
+
+	/**
+	 * @param string $pathHead
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findByPathHead($pathHead) {
 		$query = $this->createQuery();
 		return $query->matching(
-			$query->like('path', $path. '/%', FALSE)
+			$query->like('path', $pathHead . '/%', FALSE)
 		)->execute();
 	}
 
