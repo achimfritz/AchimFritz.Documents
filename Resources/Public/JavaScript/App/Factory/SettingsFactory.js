@@ -9,7 +9,7 @@
 
 				function SettingsFactory() {
 								var settings = {
-												'rows': 10,
+												'rows': 20,
 												'q': '*:*',
 												'facet_limit': 5,
 												'sort': 'fileName asc'

@@ -21,14 +21,16 @@
 
 								function getResultsPage(pageNumber) {
 												//var start = SolrFactory.getByValue('start');
-												var rows = SolrFactory.getByValue('rows');
+												//var rows = SolrFactory.getByValue('rows');
 												//var newStart = 
 												console.log(pageNumber);
+												/*
 												SolrFactory.addByValue('start', pageNumber * rows);
 												SolrFactory.getData().then(function(data) {
 																$scope.total = data.data.response.numFound;
 																$scope.collection = data.data.response.docs;
 												});
+												*/
 								};
 
 
