@@ -31,6 +31,7 @@
 								manager.store.addByValue('json.nl', 'map');
 								manager.store.addByValue('facet.mincount', 1);
 
+
 								// simple facets
 								//manager.store.addByValue('facet.field', 'mainDirectoryName');
 								//manager.store.addByValue('facet.field', 'year');
@@ -71,6 +72,8 @@
 																manager.store.addByValue('f.' + key + '.facet.prefix', val);
 												});
 								};
+
+								buildSolrValues();
 
 								var getData = function() {
 												var url = manager.buildUrl();

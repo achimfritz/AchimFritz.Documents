@@ -81,7 +81,7 @@ class CategoryRepository extends Repository {
 	 * @return void
 	 */
 	protected function updateDocuments(Category $category) {
-		$documents = $this->documentRepository->findByCategory($object);
+		$documents = $this->documentRepository->findByCategory($category);
 		$solrInputDocuments = array();
 		foreach ($documents AS $document) {
 			$solrInputDocument = $this->solrInputDocumentFactory->create($document);

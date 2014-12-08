@@ -7,9 +7,7 @@
 				.module('documentApp')
 				.controller('ListController', ListController);
 
-				function ListController($scope, SolrFactory, SettingsFactory ) {
-
-								SolrFactory.buildSolrValues();
+				function ListController($scope, SolrFactory, SettingsFactory, ClipboardFactory ) {
 
 								var settings = SettingsFactory.getSettings();
 
@@ -37,6 +35,7 @@
 								SolrFactory.getData().then(function(data) {
 												$scope.total = data.data.response.numFound;
 												$scope.collection = data.data.response.docs;
+												ClipboardFactory.setSolrDocs(data.data.response.docs);
 								});
 				}
 }());

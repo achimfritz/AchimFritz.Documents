@@ -71,14 +71,12 @@
 																												for (var i = ( items.length - 1 ); i >= 0; i--) {
 																																var el = items[i];
 																																if (el.identifier === item.identifier) {
-																																				console.log('found ' + i);
 																																				collect = true;
 																																}
 																																if (collect === true) {
 																																				if (el.selected === 'selected') {
 																																								collect = false;
 																																				}
-																																				console.log(i);
 																																				el.selected = 'selected';
 																																}
 																																

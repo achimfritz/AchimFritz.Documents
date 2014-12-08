@@ -24,6 +24,14 @@ class PathService {
 	}
 
 	/**
+	 * @param string $path 
+	 * @return integer
+	 */
+	public function getPathDepth($path) {
+		return count($this->splitPath($path));
+	}
+
+	/**
 	 * /foo/bar/baz
 	 *
 	 * 0/foo
@@ -62,4 +70,3 @@ class PathService {
 	}
 
 }
-?>
