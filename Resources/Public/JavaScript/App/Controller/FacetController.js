@@ -5,9 +5,9 @@
 
 				angular
 				.module('documentApp')
-				.controller('NavigationController', NavigationController);
+				.controller('FacetController', FacetController);
 
-				function NavigationController($scope, SolrFactory, FacetFactory) {
+				function FacetController($scope, SolrFactory, FacetFactory) {
 
 								function update() {
 												SolrFactory.buildSolrValues();

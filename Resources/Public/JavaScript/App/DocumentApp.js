@@ -2,7 +2,7 @@
 
 (function () {
     'use strict';
-				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination'])
+				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog'])
 				.config(paginationConfiguration)
 				.config(routeConfiguration);
 
@@ -31,9 +31,9 @@
                 templateUrl: templatePath + 'Clipboard.html',
                 controller: 'ClipboardController'
             }).
-            when('/navigation', {
-                templateUrl: templatePath + 'Navigation.html',
-                controller: 'NavigationController'
+            when('/facet', {
+                templateUrl: templatePath + 'Facet.html',
+                controller: 'FacetController'
             }).
 												otherwise({
                 redirectTo: '/'

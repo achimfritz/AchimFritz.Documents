@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout) {
+				function IsoContainer($timeout, ngDialog) {
 
 								return {
 
@@ -85,6 +85,16 @@
 
 																								// add always me 
 																								item.selected = 'selected';
+
+																								scope.item = item;
+																								scope.items = items;
+
+																								// open dialog
+																								ngDialog.open({ 
+																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
+																												scope: scope,
+																												controller: 'DialogController'
+																								});
 																				}
 																};
 												},
