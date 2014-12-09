@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\RenameCategory;
 
-class CategoryRenameController extends \AchimFritz\Rest\Controller\RestController {
+class RenameCategoryController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**   
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
@@ -20,9 +20,9 @@ class CategoryRenameController extends \AchimFritz\Rest\Controller\RestControlle
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Service\CategoryRenameService
+	 * @var \AchimFritz\Documents\Domain\Service\RenameCategoryService
 	 */
-	protected $categoryRenameService;
+	protected $renameCategoryService;
 
 	/**
 	 * @Flow\Inject
@@ -41,7 +41,7 @@ class CategoryRenameController extends \AchimFritz\Rest\Controller\RestControlle
 	 */
 	public function updateAction(RenameCategory $renameCategory) {
 		try {
-			$category = $this->categoryRenameService->rename($renameCategory);
+			$category = $this->renameCategoryService->rename($renameCategory);
 			$this->categoryRepository->update($category);
 			try {
 				$this->documentPersistenceManager->persistAll();
