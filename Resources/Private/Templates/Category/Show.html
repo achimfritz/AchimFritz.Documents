@@ -49,4 +49,20 @@
 				<f:form.submit class="btn btn-default" value="Update" />
 			</div>
 	</f:form>
+
+	<h3>rename category</h3>
+	<f:form action="index" controller="CategoryRename" objectName="renameCategory" >
+		<input type="hidden" name="__method" value="PUT" />
+			<div class="form-group">
+				<label class="control-label" for="path">Path</label>
+				<f:form.textfield property="oldPath" class="form-control" id="path" value="{category.path}" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="rename">Rename</label>
+				<f:form.textfield property="newPath" class="form-control" id="rename" value="{category.path}" />
+			</div>
+			<div class="form-group">
+				<f:form.submit class="btn btn-default" value="Update" />
+			</div>
+	</f:form>
 </f:section>

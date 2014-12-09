@@ -101,4 +101,3 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	}
 
 }
-?>
