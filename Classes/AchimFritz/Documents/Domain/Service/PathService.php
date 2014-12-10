@@ -58,6 +58,26 @@ class PathService {
 	}
 
 	/**
+	 * @param string $path 
+	 * @return array
+	 */
+	public function getSolrField($path) {
+		$hierarchicalPaths = array();
+		$paths = $this->splitPath($path);
+		if (count($paths) === 2) {
+			return array(
+				'name' => $paths[0],
+				'values' => array($paths[1])
+			);
+		} else {
+			return array(
+				'name' => array_shift($paths),
+				'values' => $this->getHierarchicalPaths(implode(self::PATH_DELIMITER, $paths))
+			);
+		}
+	}
+
+	/**
 	 * @param string $path
 	 * @param string $search 
 	 * @param string $replace 

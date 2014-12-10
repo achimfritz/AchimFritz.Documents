@@ -8,8 +8,8 @@
 				.factory('FacetFactory', FacetFactory);
 
 				function FacetFactory(HierarchicalFacetFactory) {
-								var facets = ['mainDirectoryName', 'year', 'paths'];
-								var hFacets = ['paths'];
+								var facets = ['mainDirectoryName', 'year', 'locations', 'categories'];
+								var hFacets = ['locations', 'categories'];
 								var filterQueries = {};
 								var facetPrefixes = {};
 

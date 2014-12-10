@@ -10,6 +10,7 @@
 				function DialogController($scope, ngDialog) {
 
 								$scope.next = function() {
+												console.log($scope.item);
 												var newItem = {};
 												var found = false;
 												angular.forEach($scope.items, function(val) {

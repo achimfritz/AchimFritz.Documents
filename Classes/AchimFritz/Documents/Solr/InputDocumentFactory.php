@@ -63,9 +63,9 @@ class InputDocumentFactory {
 	protected function addPathsFields(Document $document, \SolrInputDocument $inputDocument) {
 		$categories = $document->getCategories();
 		foreach ($categories AS $category) {
-			$paths = $this->pathService->getHierarchicalPaths($category->getPath());
-			foreach ($paths AS $path) {
-				$inputDocument->addField('paths', $path);
+			$solrField = $this->pathService->getSolrField($category->getPath());
+			foreach ($solrField['values'] AS $value) {
+				$inputDocument->addField($solrField['name'], $value);
 			}
 		}
 		return $inputDocument;

@@ -52,5 +52,35 @@ class PathServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$this->assertSame($expected, $res);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getSolrFieldReturnsSingleValueForPathDepthTwo() {
+		$pathService = new PathService();
+		$path = 'foo/bar';
+		$expected = array(
+			'name' => 'foo',
+			'values' => array('bar')
+		);
+		$res = $pathService->getSolrField($path);
+		$this->assertSame($expected, $res);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getSolrFieldsReturnMultiValuesForPathDepthThree() {
+		$pathService = new PathService();
+		$path = 'foo/bar/baz';
+		$expected = array(
+			'name' => 'foo',
+			'values' => array('0/bar', '1/bar/baz')
+		);
+		$res = $pathService->getSolrField($path);
+		$this->assertSame($expected, $res);
+	}
+
+
+
 }
 ?>
