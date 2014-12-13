@@ -25,10 +25,6 @@
 												
 
 											link: function(scope, element, attr) {
-																var options = {
-																				itemSelector: '.iso-item',
-																				layoutMode: 'fitRows'
-																};
 																var strgPressed = false;
 																var shiftPressed = false;
 
@@ -45,6 +41,10 @@
 																				}
 																});
 																				
+																var options = {
+																				itemSelector: '.iso-item',
+																				layoutMode: 'fitRows'
+																};
 																element.isotope(options);
 
 																scope.$watch('items', function(newVal, oldVal){
@@ -53,6 +53,10 @@
 																								element.isotope('reloadItems').isotope(options);
 																			}, 500);
 																},true);
+
+																scope.nextPage = function(pageNumber) {
+																				scope.$parent.pageChanged(pageNumber);
+																};
 
 																scope.toggleItem = function(item, items) {
 																				if (item.selected === 'selected') {
@@ -85,16 +89,6 @@
 
 																								// add always me 
 																								item.selected = 'selected';
-
-																								scope.item = item;
-																								scope.items = items;
-
-																								// open dialog
-																								ngDialog.open({ 
-																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
-																												scope: scope,
-																												controller: 'DialogController'
-																								});
 																				}
 																};
 												},

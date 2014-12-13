@@ -12,7 +12,8 @@
 												'rows': 20,
 												'q': '*:*',
 												'facet_limit': 5,
-												'sort': 'fileName asc'
+												'sort': 'fileName asc',
+												'start': 0,
 								};
 
 								var getSolrSettings = function() {
@@ -29,6 +30,9 @@
         return {
 												getSettings: function() {
 																return settings;
+												},
+												setSetting: function(name, value) {
+																settings[name] = value;
 												},
 												getSolrSettings: function() {
 																return getSolrSettings();

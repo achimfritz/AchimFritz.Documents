@@ -7,8 +7,9 @@
 				.module('documentApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, SettingsFactory, FacetFactory) {
+				function SolrFactory($http, $q, SettingsFactory, FacetFactory) {
 								var manager;
+								var response = {};
 
 								manager = new AjaxSolr.Manager({
 												solrUrl: 'http://localhost:8080/solr/documents2/',
@@ -24,7 +25,7 @@
 								//wrapper.manager.store.addByValue('sort', 'fileName asc');
 
 								// page browser
-								manager.store.addByValue('start', 0);
+								//manager.store.addByValue('start', 0);
 
 								// defaults:
 								manager.store.addByValue('facet', true);
@@ -71,14 +72,31 @@
 												angular.forEach(facetPrefixes, function(val, key) {
 																manager.store.addByValue('f.' + key + '.facet.prefix', val);
 												});
+												response = {};
 								};
 
 								buildSolrValues();
 
-								var getData = function() {
+								var getDataSave = function() {
 												var url = manager.buildUrl();
 												console.log(url);
 												return $http.jsonp(url);
+								};
+
+								var getData = function() {
+												var defer = $q.defer();
+												if(response.status ) {
+																defer.resolve(response);
+												}
+												else {
+																var url = manager.buildUrl();
+																console.log(url);
+																$http.jsonp(url).then(function(data) {
+																				response = data;
+																				defer.resolve(data);
+																});
+												}
+												return defer.promise;
 								};
 
         // Public API
