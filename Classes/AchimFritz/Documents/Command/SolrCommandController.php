@@ -58,12 +58,23 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->quit();
 		}
 		$solrInputDocuments = array();
+		$cnt = 0;
 		foreach ($documents AS $document) {
 			$solrInputDocument = $this->solrInputDocumentFactory->create($document);
 			$solrInputDocuments[] = $solrInputDocument;
+			$cnt++;
+			if ($cnt === 1000) {
+				try {
+					$this->solrClientWrapper->addDocuments($solrInputDocuments);
+					$solrInputDocuments = array();
+					$cnt = 0;
+				} catch (\SolrException $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+					$this->quit();
+				}
+			}
 		}
 		try {
-			$this->solrClientWrapper->addDocuments($solrInputDocuments);
 			$this->solrClientWrapper->commit();
 			$this->outputLine('SUCCESS: update ' . count($documents) . ' documents'); 
 		} catch (\SolrException $e) {

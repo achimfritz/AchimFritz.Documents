@@ -9,10 +9,10 @@
 
 				function SettingsFactory() {
 								var settings = {
-												'rows': 20,
+												'rows': 100,
 												'q': '*:*',
-												'facet_limit': 5,
-												'sort': 'fileName asc',
+												'facet_limit': 20,
+												'sort': 'mDateTime desc',
 												'start': 0,
 								};
 

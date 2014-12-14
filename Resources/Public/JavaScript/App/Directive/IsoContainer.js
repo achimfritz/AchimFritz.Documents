@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, ngDialog) {
+				function IsoContainer($timeout) {
 
 								return {
 
