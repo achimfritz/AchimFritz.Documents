@@ -4,10 +4,52 @@
 </ul>
 
 
+<div class="row">
+	<div class="col-xs-4 col-md-4 col-sm-12">
+		<h2>locations</h2>
+		<ul>
+			<li ng-repeat="(key, value) in facets.locations" ng-click="addFacet('locations', key)">{{key}} ({{value}})</li>
+		</ul>
+		<h2>categories</h2>
+		<ul>
+			<li ng-repeat="(key, value) in facets.categories" ng-click="addFacet('categories', key)">{{key}} ({{value}})</li>
+		</ul>
+	</div>
+	<div class="col-xs-4 col-md-4 col-sm-12">
+		<h2>tags</h2>
+		<ul class="list-inline">
+			<li ng-repeat="(key, value) in facets.tags" class="pull-left" ng-click="addFacet('tags', key)">{{key}} ({{value}})</li>
+		</ul>
+		<div class="clearfix"></div>
+		<h2>year</h2>
+		<ul class="list-inline">
+			<li ng-repeat="(key, value) in facets.year" class="pull-left" ng-click="addFacet('year', key)">{{key}} ({{value}})</li>
+		</ul>
+		<div class="clearfix"></div>
+		<h2>parties</h2>
+		<ul class="list-inline">
+			<li ng-repeat="(key, value) in facets.parties" class="pull-left" ng-click="addFacet('parties', key)">{{key}} ({{value}})</li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<div class="col-xs-4 col-md-4 col-sm-12">
+		<h2>mainDirectories</h2>
+		<ul>
+			<li ng-repeat="(key, value) in facets.mainDirectoryName" ng-click="addFacet('mainDirectoryName', key)">{{key}} ({{value}})</li>
+		</ul>
+		<h2>collections</h2>
+		<ul>
+			<li ng-repeat="(key, value) in facets.collections" ng-click="addFacet('collections', key)">{{key}} ({{value}})</li>
+		</ul>
+	</div>
+</div>
 
+
+<!--
 <div ng-repeat="(facet, result) in facets">
 	<h2>{{facet}}</h2>
 	<ul ng-repeat="(key, value) in result">
 		<li ng-click="addFacet(facet, key)">{{key}} ({{value}})</li>
 	</ul>
 </div>
+-->

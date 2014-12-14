@@ -24,11 +24,14 @@
 																return filterQueries;
 												},
 												addFilterQuery: function(name, value) {
-																filterQueries[name] = value;
 																// hFacet ?
 																var index = hFacets.indexOf(name);
 																if (index > -1) {
 																				facetPrefixes[name] = HierarchicalFacetFactory.increase(value);
+																				filterQueries[name] = value;
+																} else {
+																				filterQueries[name] = value;
+																				//filterQueries[name].push(value);
 																}
 												},
 
