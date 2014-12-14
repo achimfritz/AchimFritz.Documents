@@ -1,10 +1,10 @@
-<div class="col-md-3">
-<button ng-hide="collection.length" class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
-<button ng-hide="collection.length" class="btn btn-default" ng-click="transferAll()">transfer all</button>
+<div class="col-md-4">
+<button class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
+<button class="btn btn-default" ng-click="transferAll()">transfer all</button>
 <button ng-show="collection.length" class="btn btn-default" ng-click="empty()">empty</button>
 <button ng-show="collection.length" class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
 </div>
-<div ng-show="collection.length" class="col-md-9">
+<div ng-show="collection.length" class="col-md-8">
 	<form novalidate class="form-horizontal">
 		<div class="form-group">
 			<div class="col-md-4">
@@ -22,6 +22,6 @@
 <div class="clearfix"></div>
 
 <div id="items">
-	<div class="container-full" data-iso-container="collection"></div>
+	<div class="container-full" current-page="{{currentPage}}" total="{{total}}" collection="collection" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>
 </div>
 

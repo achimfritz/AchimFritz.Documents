@@ -7,37 +7,31 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout) {
+				function IsoContainer($timeout, ngDialog, ItemService) {
 
 								return {
 
 												scope: {
 																items: '=isoContainer',
 																total: '@',
-																itemsPerPage: '@',
-																pageChanged: '&',
-																//collection: '=collection'
-																// same name
-																collection: '='
+																currentPage: '@',
+																itemsPerPage: '@'
 												},
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Docs.html?xx',
+
 												
 
 											link: function(scope, element, attr) {
-																var strgPressed = false;
-																var shiftPressed = false;
+																scope.mode = 'select';
 
-																jQuery(document).keyup(function(e) {
-																				shiftPressed = false;
-																				strgPressed = false;
-																});
 																jQuery(document).keydown(function(e) {
-																				if (e.keyCode == 16) {
-																								shiftPressed = true;
-																				}
-																				if (e.keyCode == 17) {
-																								strgPressed = true;
+																				if (e.keyCode == 39) {
+																								// next
+																				} else if (e.keyCode == 37) {
+																								// prev
+																				} else if (e.keyCode == 27) {
+																								// close
 																				}
 																});
 																				
@@ -58,37 +52,27 @@
 																				scope.$parent.pageChanged(pageNumber);
 																};
 
-																scope.toggleItem = function(item, items) {
-																				if (item.selected === 'selected') {
-																								item.selected = '';
-																				} else {
-																								if (strgPressed === false) {
-																												// rm all others
-																												angular.forEach(items, function(val, key) {
-																																if (item.identifier !== val.identifier) {
-																																				val.selected = '';
-																																}
-																												});
-																								} else if (shiftPressed === true) {
-																												// select all from last selected
-																												var collect = false;
-																												for (var i = ( items.length - 1 ); i >= 0; i--) {
-																																var el = items[i];
-																																if (el.identifier === item.identifier) {
-																																				collect = true;
-																																}
-																																if (collect === true) {
-																																				if (el.selected === 'selected') {
-																																								collect = false;
-																																				}
-																																				el.selected = 'selected';
-																																}
-																																
-																												}
-																								}
+																scope.next = function() {
+																				scope.current = ItemService.getNext(scope.current, scope.items);
+																				ngDialog.close();
+																				ngDialog.open({
+																								template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
+																								scope: scope
+																				});
+																};
 
-																								// add always me 
-																								item.selected = 'selected';
+
+																scope.itemClick = function(item) {
+																				var items = scope.items;
+																				if (scope.mode === 'select') {
+																								ItemService.itemClick(item, scope.items);
+																				} else { // mode = view
+																								scope.current = item;
+																								ngDialog.close();
+																								ngDialog.open({
+																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
+																												scope: scope
+																								});
 																				}
 																};
 												},

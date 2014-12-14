@@ -9,9 +9,9 @@
 
 				function SettingsFactory() {
 								var settings = {
-												'rows': 100,
+												'rows': 10,
 												'q': '*:*',
-												'facet_limit': 20,
+												'facet_limit': 50,
 												'sort': 'mDateTime desc',
 												'start': 0,
 								};

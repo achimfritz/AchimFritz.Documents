@@ -62,10 +62,10 @@
 												});
 
 												var filterQueries = FacetFactory.getFilterQueries();
-												angular.forEach(filterQueries, function(val, key) {
-																if (val !== '') {
-																				manager.store.addByValue('fq', key + ':' + val);
-																}
+												angular.forEach(filterQueries, function(values, key) {
+																angular.forEach(values, function(value) {
+																				manager.store.addByValue('fq', key + ':' + value);
+																});
 												});
 
 												var facetPrefixes = FacetFactory.getFacetPrefixes();

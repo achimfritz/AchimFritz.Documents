@@ -24,15 +24,16 @@
 																return filterQueries;
 												},
 												addFilterQuery: function(name, value) {
+																if (filterQueries[name] === undefined) {
+																				filterQueries[name] = [];
+																}
 																// hFacet ?
 																var index = hFacets.indexOf(name);
 																if (index > -1) {
 																				facetPrefixes[name] = HierarchicalFacetFactory.increase(value);
-																				filterQueries[name] = value;
-																} else {
-																				filterQueries[name] = value;
-																				//filterQueries[name].push(value);
+																				filterQueries[name] = [];
 																}
+																filterQueries[name].push(value);
 												},
 
 												getFacetPrefixes: function() {
@@ -42,10 +43,15 @@
 																// hFacet ?
 																var index = hFacets.indexOf(name);
 																if (index > -1) {
-																				filterQueries[name] = HierarchicalFacetFactory.decreaseFq(value);
+																				filterQueries[name] = [];
+																				var fq = HierarchicalFacetFactory.decreaseFq(value);
+																				if (fq !== '') {
+																								filterQueries[name].push(fq);
+																				}
 																				facetPrefixes[name] = HierarchicalFacetFactory.decrease(value);
 																} else {
-																				filterQueries[name] = '';
+																				var index = filterQueries[name].indexOf(value);
+																				filterQueries[name].splice(index, 1);
 																}
 												},
 												getFacets: function() {

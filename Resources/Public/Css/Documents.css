@@ -16,6 +16,10 @@
 	border: 2px solid black;
 }
 
+ul.pagination {
+	margin: 0px;
+}
+
 
 
 ul.typo3-widget-paginator {
