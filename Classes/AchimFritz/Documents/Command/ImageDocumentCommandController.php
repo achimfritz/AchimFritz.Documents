@@ -29,6 +29,12 @@ class ImageDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentFactory;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Factory\IntegrityFactory
+	 * @Flow\Inject
+	 */
+	protected $integrityFactory;
+
+	/**
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
 	 * @Flow\Inject
 	 */
@@ -113,7 +119,21 @@ class ImageDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('ERROR: ' . $e->getMessage());
 		}
 	}
+
+	/**
+	 * @return void
+	 */
+	public function integrityCommand() {
+		try {
+			$integrities = $this->integrityFactory->createImageIntegrities();
+			foreach ($integrities AS $integrity) {
+				if ($integrity->getCountDiffers() === TRUE) {
+					$this->outputLine($integrity->getName() . ' ' . $integrity->getCountFileSystem() . ' ' . $integrity->getCountSolr());
+				}
+			}
+		} catch (\AchimFritz\Documents\Domain\Factory\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
 		
 }
-
-?>
