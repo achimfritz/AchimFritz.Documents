@@ -23,6 +23,8 @@ class RenameServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 			array('name' => '01 - Stone Cold Sober (Radio Edit).MP3', 'expected' => '01-StoneColdSoberRadioEdit.mp3'),
 			array('name' => '01 - stoneCold Sober (Radio Edit).mp3', 'expected' => '01-StoneColdSoberRadioEdit.mp3'),
 			array('name' => '01-StoneColdSoberRadioEdit.mp3', 'expected' => '01-StoneColdSoberRadioEdit.mp3'),
+			array('name' => '01- Stone Cold Sober (Radio Edit).mp3', 'expected' => '01-StoneColdSoberRadioEdit.mp3'),
+			array('name' => '01.jpg', 'expected' => '01.jpg'),
 		);
 	}
 

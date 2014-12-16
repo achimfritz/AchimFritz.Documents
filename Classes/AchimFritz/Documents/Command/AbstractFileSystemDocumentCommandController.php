@@ -43,6 +43,9 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 */
 	public function listCommand($directoryName) {
 		$documents = $this->documentRepository->findByHead($directoryName);
+		if (count($documents) === 0) {
+			$this->outputLine('WARNING: no documents found');
+		}
 		foreach ($documents AS $document) {
 			$this->outputLine($document->getName());
 		}
@@ -150,19 +153,31 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('ERROR: ' . $e->getMessage());
 			$this->quit();
 		}
+		$updates = 0;
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->isDir() === FALSE) {
 				$document = $this->documentRepository->findOneByName($directoryName . PathService::PATH_DELIMITER . $fileInfo->getBasename());
-				if ($document instanceof Document === TRUE) {
-					$this->outputLine('WARNING: document already persisted ... ignorierung');
-				} else {
-					try {
-						$renamed = $this->renameService->rename($fileInfo->getRealPath());
-						$this->outputLine('SUCCESS renamed to ' . $renamed);
-					} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
-						$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+				try {
+					$renamed = $this->renameService->rename($fileInfo->getRealPath());
+					$this->outputLine('SUCCESS renamed to ' . $renamed);
+					if ($document instanceof Document === TRUE) {
+						$this->outputLine('WARNING: document already persisted ... updating');
+						$updateFileInfo = new \SplFileInfo($renamed);
+						$document->setName($directoryName . PathService::PATH_DELIMITER . $updateFileInfo->getBasename());
+						$this->documentRepository->update($document);
+						$updates++;
 					}
+				} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 				}
+			}
+		}
+		if ($updates > 0) {
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->outputLine('SUCCESS: insert ' . $updates . ' documents');
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage());
 			}
 		}
 	}

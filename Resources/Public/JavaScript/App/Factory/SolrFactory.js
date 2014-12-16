@@ -32,7 +32,6 @@
 								manager.store.addByValue('json.nl', 'map');
 								manager.store.addByValue('facet.mincount', 1);
 
-
 								// simple facets
 								//manager.store.addByValue('facet.field', 'mainDirectoryName');
 								//manager.store.addByValue('facet.field', 'year');
@@ -72,6 +71,8 @@
 												angular.forEach(facetPrefixes, function(val, key) {
 																manager.store.addByValue('f.' + key + '.facet.prefix', val);
 												});
+												// only jpgs
+												manager.store.addByValue('fq', 'extension:jpg');
 												response = {};
 								};
 

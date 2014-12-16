@@ -36,13 +36,13 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 * @return string
 	 */
 	protected function getMountPoint() {
-		return FileSystemInterface::IMAGE_MOUNT_POINT;
+		return FileSystemInterface::MP3_MOUNT_POINT;
 	}
 
 	/**
 	 * @return string
 	 */
 	protected function getExtension() {
-		return 'jpg';
+		return 'mp3';
 	}
 }

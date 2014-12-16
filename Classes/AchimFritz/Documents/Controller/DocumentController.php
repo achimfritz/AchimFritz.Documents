@@ -53,10 +53,11 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 		try {
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Created a new document.');
+			$this->redirect('index', NULL, NULL, array('document' => $document));
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->addFlashMessage('Cannot Create a new document with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->redirect('index');
 		}
-		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
 	/**
@@ -68,10 +69,11 @@ class DocumentController extends \AchimFritz\Rest\Controller\RestController {
 		try {
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Updated the document.');
+			$this->redirect('index', NULL, NULL, array('document' => $document));
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->addFlashMessage('Cannot Update the document with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->redirect('index');
 		}
-		$this->redirect('index', NULL, NULL, array('document' => $document));
 	}
 
 	/**

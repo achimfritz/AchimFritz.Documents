@@ -9,14 +9,16 @@
 		<link rel="stylesheet" href="{f:uri.resource(path: 'Css/Documents.css')}" type="text/css" media="all" />
 		<f:base />
 	</head>
-	<body>
+	<body style="padding-top: 70px;">
 		<f:render partial="Loader" />
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-md-12 col-sm-12">
-					<ul>
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<ul class="nav navbar-nav">
 						<li>
 							<f:link.action action="index" controller="Document">Documents</f:link.action>
+						</li>
+						<li>
+							<f:link.action action="index" controller="Mp3Document">Mp3Documents</f:link.action>
 						</li>
 						<li>
 							<f:link.action action="index" controller="Category">Categories</f:link.action>
@@ -24,9 +26,9 @@
 						<li>
 							<f:link.action action="index" controller="ImageIntegrity">ImageIntegrity</f:link.action>
 						</li>
-					</ul>
-				</div>
+				</ul>
 			</div>
+		</nav>
 			<div class="row">
 				<div class="col-xs-12 col-md-12 col-sm-12">
 					<h1><f:render section="Title" /></h1>
@@ -47,6 +49,5 @@
 				<f:render section="Content" />
 				</div>
 			</div>
-		</div>
 	</body>
 </html>

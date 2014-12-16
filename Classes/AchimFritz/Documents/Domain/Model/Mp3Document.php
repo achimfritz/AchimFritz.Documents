@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Model;
 
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
+use AchimFritz\Documents\Domain\FileSystemInterface;
 
 /**
  * @Flow\Entity
