@@ -15,4 +15,6 @@ interface FileSystemInterface {
 	const IMAGE_THUMB_BIG = 'thumbs/800x600';
 	const IMAGE_THUMB_WEB = 'thumbs/1280x1024';
 	const MOUNT_POINT = '';
+	const MP3_MOUNT_POINT = '/mp3/db';
+	const MP3_WEB = 'mp3';
 }

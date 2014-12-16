@@ -12,22 +12,22 @@ use AchimFritz\Documents\Domain\FileSystemInterface;
 /**
  * @Flow\Scope("singleton")
  */
-class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandController {
+class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
+	 * @var \AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository
 	 * @Flow\Inject
 	 */
 	protected $documentRepository;
 		
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageIntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\Mp3IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;

@@ -16,17 +16,18 @@ class RenameService {
 
 	/**
 	 * @param $path
-	 * @return void
+	 * @return string $renamed
 	 * @throws Exception
 	 */
 	public function rename($path) {
-		if (@file_exists($paths) === FALSE) {
+		if (@file_exists($path) === FALSE) {
 			throw new Exception('file not exists ' . $path, 1418667068);
 		}
 		$renamed = $this->getCleanPath($path);
 		if (@rename($path, $renamed) === FALSE) {
 			throw new Exception('cannot rename ' . $path . ' to ' . $renamed, 1418667069);
 		}
+		return $renamed;
 	}
 
 	/**

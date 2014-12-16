@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Flow\Scope("singleton")
  */
-class IntegrityFactory {
+class Mp3IntegrityFactory {
 
 	/**
 	 * @var \AchimFritz\Documents\Solr\FacetFactory
@@ -26,7 +26,8 @@ class IntegrityFactory {
 	 * @return ArrayCollection<Integrity>
 	 * @throws Exception
 	 */
-	public function createImageIntegrities() {
+	public function createIntegrities() {
+			throw new Exception('not implemented', 1418749455); 
 		$integrities = new ArrayCollection();
 		$path = FileSystemInterface::IMAGE_MOUNT_POINT;
 		try {

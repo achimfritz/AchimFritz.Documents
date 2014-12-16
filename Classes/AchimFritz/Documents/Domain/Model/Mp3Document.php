@@ -14,4 +14,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Mp3Document extends FileSystemDocument {
 
+	/**
+	 * @return void
+	 */
+	public function getMountPoint() {
+		return FileSystemInterface::MP3_MOUNT_POINT;
+	}
+
+	/**
+	 * @return string webPath
+	 */
+	public function getWebPath() {
+		return FileSystemInterface::MP3_WEB . PathService::PATH_DELIMITER . $this->getName();
+	}
+
 }
