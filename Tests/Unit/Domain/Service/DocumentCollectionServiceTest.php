@@ -35,9 +35,12 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('update'));
 		$documentRepository->expects($this->once())->method('update')->with($document);
 
-		$documentCollectionService = $this->getMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('checkPersisted'));
-		$documentCollectionService->expects($this->once())->method('checkPersisted')->with($category)->will($this->returnValue($category));
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('getPersistedOrAdd'));
+		$categoryRepository->expects($this->once())->method('getPersistedOrAdd')->will($this->returnValue($category));
+
+		$documentCollectionService = $this->getMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('foo'));
 		$this->inject($documentCollectionService, 'documentRepository', $documentRepository);
+		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
 
 		$documentCollectionService->merge($documentCollection);
 	}
@@ -66,38 +69,6 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
 		$this->inject($documentCollectionService, 'documentRepository', $documentRepository);
 		$documentCollectionService->remove($documentCollection);
-	}
-
-	/**
-	 * @test
-	 */
-	public function checkPersistedReturnsThePersistedCategoryIfFound() {
-		$persisted = new Category();
-		$category = new Category();
-		$category->setPath('foo');
-		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath'));
-		$categoryRepository->expects($this->once())->method('findOneByPath')->with('foo')->will($this->returnValue($persisted));
-		$documentCollectionService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('foo'));
-		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
-		$res = $documentCollectionService->_call('checkPersisted', $category);
-		$this->assertSame($persisted, $res);
-
-	}
-
-	/**
-	 * @test
-	 */
-	public function checkPersistedAddsCategoryToRepositoryIfNoPersistedIsFound() {
-		$category = new Category();
-		$category->setPath('foo');
-		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath', 'add'));
-		$categoryRepository->expects($this->once())->method('findOneByPath')->with('foo')->will($this->returnValue(NULL));
-		$categoryRepository->expects($this->once())->method('add')->with($category);
-		$documentCollectionService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('foo'));
-		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
-		$res = $documentCollectionService->_call('checkPersisted', $category);
-		$this->assertSame($category, $res);
-
 	}
 
 }

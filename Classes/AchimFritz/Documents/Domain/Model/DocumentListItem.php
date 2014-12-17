@@ -20,7 +20,6 @@ class DocumentListItem {
 	 */
 	protected $documentList;
 
-
 	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Document
 	 * @ORM\ManyToOne
@@ -31,4 +30,34 @@ class DocumentListItem {
 	 * @var integer
 	 */
 	protected $sorting = 0;
+
+	/**
+	 * @param integer $sorting 
+	 * @return void
+	 */
+	public function setSorting($sorting) {
+		$this->sorting = $sorting;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getSorting() {
+		return $this->sorting;
+	}
+
+	/**
+	 * @param Document $document 
+	 * @return void
+	 */
+	public function setDocument(Document $document) {
+		$this->document = $document;
+	}
+
+	/**
+	 * @return Document
+	 */
+	public function getDocument() {
+		return $this->document;
+	}
 }

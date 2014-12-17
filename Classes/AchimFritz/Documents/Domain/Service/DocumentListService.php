@@ -8,12 +8,13 @@ namespace AchimFritz\Documents\Domain\Service;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\DocumentList;
 use AchimFritz\Documents\Domain\Model\Category;
 
 /**
  * @Flow\Scope("singleton")
  */
-class DocumentCollectionService {
+class DocumentListService {
 
 	/**
 	 * @Flow\Inject
@@ -28,10 +29,10 @@ class DocumentCollectionService {
 	protected $categoryRepository;
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
+	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
 	 * @return integer
 	 */
-	public function merge(DocumentCollection $documentCollection) {
+	public function merge(DocumentList $documentList) {
 		$cnt = 0;
 		$category = $documentCollection->getCategory();
 		$category = $this->categoryRepository->getPersistedOrAdd($category);

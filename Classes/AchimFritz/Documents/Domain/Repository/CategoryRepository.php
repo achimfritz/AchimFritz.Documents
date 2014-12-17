@@ -46,6 +46,21 @@ class CategoryRepository extends Repository {
 	protected $pathService;
 
 	/**
+	 * @param Category $category 
+	 * @return Category
+	 */
+	public function getPersistedOrAdd(Category $category) {
+		// already persisted?
+		$persistedCategory = $this->findOneByPath($category->getPath());
+		if ($persistedCategory instanceof Category) {
+			$category = $persistedCategory;
+		} else {
+			$this->add($category);
+		}
+		return $category;
+	}
+
+	/**
 	 * @param object $object The object to remove
 	 * @return void
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException

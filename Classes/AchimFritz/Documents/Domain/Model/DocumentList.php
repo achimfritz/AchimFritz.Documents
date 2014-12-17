@@ -36,7 +36,7 @@ class DocumentList {
 	/**
 	 * @return \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\DocumentListItem>
 	 */
-	public function getDocumentListItem() {
+	public function getDocumentListItems() {
 		return $this->documentListItems;
 	}
 
@@ -44,7 +44,7 @@ class DocumentList {
 	 * @param \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\DocumentListItem> $documentListItems
 	 * @return void
 	 */
-	public function setDocumentListItem(\Doctrine\Common\Collections\Collection $documentListItems) {
+	public function setDocumentListItems(\Doctrine\Common\Collections\Collection $documentListItems) {
 		$this->documentListItems = $documentListItems;
 	}
 

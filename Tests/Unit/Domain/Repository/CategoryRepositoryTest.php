@@ -31,5 +31,32 @@ class CategoryRepositoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$categoryRepository->remove($category);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getPersistedOrAddReturnsThePersistedCategoryIfFound() {
+		$persisted = new Category();
+		$category = new Category();
+		$category->setPath('foo');
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath'));
+		$categoryRepository->expects($this->once())->method('findOneByPath')->with('foo')->will($this->returnValue($persisted));
+		$res = $categoryRepository->getPersistedOrAdd($category);
+		$this->assertSame($persisted, $res);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function getPersistedOrAddAddsCategoryToRepositoryIfNoPersistedIsFound() {
+		$category = new Category();
+		$category->setPath('foo');
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath', 'add'));
+		$categoryRepository->expects($this->once())->method('findOneByPath')->with('foo')->will($this->returnValue(NULL));
+		$categoryRepository->expects($this->once())->method('add')->with($category);
+		$res = $categoryRepository->getPersistedOrAdd($category);
+		$this->assertSame($category, $res);
+
+	}
+
 }
-?>
