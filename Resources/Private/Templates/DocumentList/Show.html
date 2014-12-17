@@ -1,0 +1,20 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Show document list {documentList.category.path}</f:section>
+<f:section name="Content">
+
+{documentList.category.path}
+
+<f:if condition="{documentList.documentListItems}">
+	<f:then>
+		<f:for each="{documentList.documentListItems}" as="documentListItem">
+			<f:link.action action="index" controller="Document" arguments="{document: documentListItem.document}">{documentListItem.sorting}: {documentListItem.document.name}</f:link.action>
+			<br />
+		</f:for>
+	</f:then>
+	<f:else>
+		no items
+	</f:else>
+</f:if>
+
+</f:section>

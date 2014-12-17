@@ -57,6 +57,15 @@ class DocumentList {
 	}
 
 	/**
+	 * @param DocumentListItem $documentListItems
+	 * @return boolean
+	 */
+	public function hasDocumentListItem(DocumentListItem $documentListItem) {
+		return $this->documentListItems->contains($documentListItem);
+	}
+
+
+	/**
 	 * @return \AchimFritz\Documents\Domain\Model\Category
 	 */
 	public function getCategory() {

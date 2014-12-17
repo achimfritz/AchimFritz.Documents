@@ -1,0 +1,24 @@
+<f:layout name="Default" />
+
+<f:section name="Title">A list Document Lists</f:section>
+
+<f:section name="Content">
+	<f:if condition="{documentLists}">
+		<f:then>
+			<table class="table table-striped">
+				<f:widget.paginate objects="{documentLists}" as="paginatedDocumentLists" configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 10}">
+					<f:for each="{paginatedDocumentLists}" as="documentList">
+						<tr>
+							<td><f:link.action action="index" arguments="{documentList: documentList}">{documentList.category.path}</f:link.action></td>
+						</tr>
+					</f:for>
+				</f:widget.paginate>
+			</table>
+		</f:then>
+		<f:else>
+			<div class="alert alert-info" role="alert">No documentLists created yet.</div>
+		</f:else>
+	</f:if>
+	
+</f:section>
+

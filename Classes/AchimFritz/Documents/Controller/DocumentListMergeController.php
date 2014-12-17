@@ -10,7 +10,6 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestController {
@@ -20,6 +19,12 @@ class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestContro
 	 * @var \AchimFritz\Documents\Domain\Service\DocumentListService
 	 */
 	protected $documentListService;
+
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
+	 */
+	protected $documentListRepository;
 
 	/**   
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
@@ -62,18 +67,15 @@ class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestContro
 	 * @return void
 	 */
 	public function createAction(DocumentList $documentList) {
-		return 'foo';
-		$cnt = $this->documentListService->merge($documentList);
+		$documentList = $this->documentListService->merge($documentList);
+		$cnt = count($documentList->getDocumentListItems());
 		try {
 			$this->documentPersistenceManager->persistAll();
-			$this->addFlashMessage($cnt . ' Documents added to ' . $documentCollection->getCategory()->getPath());
+			$this->addFlashMessage($cnt . ' Documents updatet to ' . $documentList->getCategory()->getPath());
+			$this->redirect('index', 'DocumentList', NULL, array('documentList' => $documentList));
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
-		}
-		if ($this->request->getReferringRequest() instanceof ActionRequest) {
-			$this->redirectToRequest($this->request->getReferringRequest());
-		} else {
-			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+			$this->redirect('index', 'DocumentList');
 		}
 	}
 

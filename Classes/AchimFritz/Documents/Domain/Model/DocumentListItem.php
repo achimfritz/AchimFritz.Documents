@@ -32,6 +32,20 @@ class DocumentListItem {
 	protected $sorting = 0;
 
 	/**
+	 * @return DocumentList
+	 */
+	public function getDocumentList() {
+		return $this->documentList;
+	}
+	/**
+	 * @param DocumentList $documentList 
+	 * @return void
+	 */
+	public function setDocumentList(DocumentList $documentList) {
+		$this->documentList = $documentList;
+	}
+
+	/**
 	 * @param integer $sorting 
 	 * @return void
 	 */
