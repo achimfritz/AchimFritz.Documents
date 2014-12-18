@@ -22,6 +22,16 @@ class DocumentListRepository extends Repository {
 	protected $categoryRepository;
 
 	/**
+	 * @param string $path 
+	 * @return DocumentList
+	 */
+	public function findOneByCategoryPath($path) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('category.path', $path));
+		return $query->execute()->getFirst();
+	}
+
+	/**
 	 * @param DocumentList $documentList
 	 * @return DocumentList
 	 */

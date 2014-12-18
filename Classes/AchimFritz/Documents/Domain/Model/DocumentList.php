@@ -23,6 +23,7 @@ class DocumentList {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\DocumentListItem>
 	 * @ORM\OneToMany(mappedBy="documentList", cascade={"all"})
+	 * @ORM\OrderBy({"sorting" = "ASC"})
 	 */
 	protected $documentListItems;
 
