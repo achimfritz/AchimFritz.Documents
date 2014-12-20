@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Factory;
+namespace AchimFritz\Documents\Domain\Model\Facet\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,14 +7,20 @@ namespace AchimFritz\Documents\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Integrity;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystem\Integrity;
 use AchimFritz\Documents\Domain\FileSystemInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Flow\Scope("singleton")
  */
-class ImageIntegrityFactory {
+class IntegrityFactory {
+
+	/**
+	 * @var \AchimFritz\Documents\Solr\ClientWrapper
+	 * @Flow\Inject
+	 */
+	protected $solrClientWrapper;
 
 	/**
 	 * @var \AchimFritz\Documents\Solr\FacetFactory
@@ -23,12 +29,25 @@ class ImageIntegrityFactory {
 	protected $facetFactory;
 
 	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @param array $settings 
+	 * @return void
+	 */
+	public function injectSettings($settings) {
+		$this->settings = $settings;
+	}
+
+	/**
 	 * @return ArrayCollection<Integrity>
 	 * @throws Exception
 	 */
 	public function createIntegrities() {
 		$integrities = new ArrayCollection();
-		$path = FileSystemInterface::IMAGE_MOUNT_POINT;
+		$path = $this->settings['imageDocument']['mountPoint'];
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
@@ -59,6 +78,28 @@ class ImageIntegrityFactory {
 				$integrities->add($integrity);
 			}
 		}
+		$integrities->add($this->createByField('locations'));
+		$integrities->add($this->createByField('categories'));
 		return $integrities;
+	}
+
+	/**
+	 * @param string $name 
+	 * @return Integrity
+	 */
+	protected function createByField($field) {
+		try {
+			$query = new \SolrQuery();
+			$query->setQuery('*:*')->setRows(0)->setStart(0);
+			$queryResponse = $this->solrClientWrapper->query($query);
+			$cntAll = $queryResponse->getResponse()->response->numFound;
+			$query->setQuery($field . ':*')->setRows(0)->setStart(0);
+			$queryResponse = $this->solrClientWrapper->query($query);
+			$cntField = $queryResponse->getResponse()->response->numFound;
+		} catch (\SolrException $e) {
+			throw new Exception('cannot fetch from solr', 1419095649);
+		}
+		$integrity = new Integrity($field, $cntAll, $cntField);
+		return $integrity;
 	}
 }

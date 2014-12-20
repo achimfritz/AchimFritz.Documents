@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model;
+namespace AchimFritz\Documents\Domain\Model\Facet\FileSystem;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *

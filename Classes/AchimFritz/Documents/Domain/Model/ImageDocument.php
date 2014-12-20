@@ -17,38 +17,11 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class ImageDocument extends FileSystemDocument {
 
 	/**
-	 * @return void
+	 * @return string DirectoryName
 	 */
-	public function getMountPoint() {
-		return FileSystemInterface::IMAGE_MOUNT_POINT;
-	}
-
-	/**
-	 * @return string webThumbPath
-	 */
-	public function getWebThumbPath() {
-		return FileSystemInterface::IMAGE_THUMB_THUMB . PathService::PATH_DELIMITER . $this->getName();
-	}
-
-	/**
-	 * @return string webPreviewPath
-	 */
-	public function getWebPreviewPath() {
-		return FileSystemInterface::IMAGE_THUMB_PREVIEW . PathService::PATH_DELIMITER . $this->getName();
-	}
-
-	/**
-	 * @return string webBigPath
-	 */
-	public function getWebBigPath() {
-		return FileSystemInterface::IMAGE_THUMB_BIG . PathService::PATH_DELIMITER . $this->getName();
-	}
-
-	/**
-	 * @return string webPath
-	 */
-	public function getWebPath() {
-		return FileSystemInterface::IMAGE_THUMB_WEB . PathService::PATH_DELIMITER . $this->getName();
+	public function getDirectoryName() {
+		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
+		return $arr[0];
 	}
 
 	/**

@@ -28,6 +28,19 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	protected $documentPersistenceManager;
 
 	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @param array $settings 
+	 * @return void
+	 */
+	public function injectSettings($settings) {
+		$this->settings = $settings;
+	}
+
+	/**
 	 * @return string
 	 */
 	abstract protected function getMountPoint();
@@ -133,7 +146,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$integrities = $this->integrityFactory->createIntegrities();
 			foreach ($integrities AS $integrity) {
 				if ($integrity->getCountDiffers() === TRUE) {
-					$this->outputLine($integrity->getName() . ' ' . $integrity->getCountFileSystem() . ' ' . $integrity->getCountSolr());
+					$this->outputLine('WARNING: ' . $integrity->getName() . ' ' . $integrity->getCountFileSystem() . ' ' . $integrity->getCountSolr());
 				}
 			}
 		} catch (\AchimFritz\Documents\Domain\Factory\Exception $e) {

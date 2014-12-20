@@ -27,7 +27,7 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageIntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
@@ -36,7 +36,7 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	 * @return string
 	 */
 	protected function getMountPoint() {
-		return FileSystemInterface::IMAGE_MOUNT_POINT;
+		return $this->settings['imageDocument']['mountPoint'];
 	}
 
 	/**

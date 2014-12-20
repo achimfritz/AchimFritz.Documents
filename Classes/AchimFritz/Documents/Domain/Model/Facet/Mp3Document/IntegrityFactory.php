@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Factory;
+namespace AchimFritz\Documents\Domain\Model\Facet\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,14 +7,14 @@ namespace AchimFritz\Documents\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Integrity;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystem\Integrity;
 use AchimFritz\Documents\Domain\FileSystemInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Flow\Scope("singleton")
  */
-class Mp3IntegrityFactory {
+class IntegrityFactory {
 
 	/**
 	 * @var \AchimFritz\Documents\Solr\FacetFactory

@@ -27,7 +27,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\Mp3IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\Mp3Document\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
@@ -36,7 +36,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 * @return string
 	 */
 	protected function getMountPoint() {
-		return FileSystemInterface::MP3_MOUNT_POINT;
+		return $this->settings['mp3Document']['mountPoint'];
 	}
 
 	/**

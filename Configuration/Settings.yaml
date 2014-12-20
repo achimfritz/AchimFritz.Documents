@@ -1,7 +1,16 @@
 AchimFritz:
   Documents:
-    Solr:
+    solr:
       hostname: localhost
       port: 8080
       path: solr/documents2
       servlet: select
+    mp3Document:
+      mountPoint: /mp3/db
+      webPath: mp3
+    imageDocument:
+      mountPoint: /bilder/main
+      webPath: thumbs/1280x1024
+      webThumbPath: thumbs/64x48
+      webBigPath: thumbs/800x600
+      webPreviewPath: thumbs/320x240

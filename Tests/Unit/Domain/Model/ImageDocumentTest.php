@@ -17,9 +17,10 @@ class ImageDocumentTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getMountPointReturnsFileSystemMountPoint() {
+	public function getDirectoryNameReturnsFirstPart() {
 		$document = new ImageDocument();
-		$this->assertSame(FileSystemInterface::IMAGE_MOUNT_POINT, $document->getMountPoint());
+		$document->setName('foo/bar');
+		$this->assertSame('foo', $document->getDirectoryName());
 	}
 
 }

@@ -13,12 +13,6 @@ use TYPO3\Flow\Configuration\ConfigurationManager;
  * @Flow\Scope("singleton")
  */
 class ClientWrapper {
-
-	/**
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
-	 * @Flow\Inject
-	 */
-	protected $configurationManager;
 				
 	/**
 	 * @var \SolrClient
@@ -26,13 +20,24 @@ class ClientWrapper {
 	protected $solrClient;
 	
 	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @param array $settings 
+	 * @return void
+	 */
+	public function injectSettings($settings) {
+		$this->settings = $settings;
+	}
+	/**
 	 * @return void
 	 */
 	public function initializeObject() {
-		$settings = $this->configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'AchimFritz.Documents');
-		$this->solrClient = new \SolrClient($settings['Solr']);
-		if (isset($settings['Solr']['servlet'])) {
-			$this->solrClient->setServlet(\SolrClient::SEARCH_SERVLET_TYPE, $settings['Solr']['servlet']);
+		$this->solrClient = new \SolrClient($this->settings['solr']);
+		if (isset($this->settings['solr']['servlet'])) {
+			$this->solrClient->setServlet(\SolrClient::SEARCH_SERVLET_TYPE, $this->settings['solr']['servlet']);
 		}
 	}
 
