@@ -16,6 +16,7 @@ use AchimFritz\Documents\Domain\Model\Mp3Document;
  */
 class InputDocumentFactory {
 
+
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 * @Flow\Inject
@@ -79,6 +80,11 @@ class InputDocumentFactory {
 			foreach ($solrField['values'] AS $value) {
 				$inputDocument->addField($solrField['name'], $value);
 			}
+			// paths
+			$paths = $this->pathService->getHierarchicalPaths($category->getPath());
+			foreach ($paths AS $path) {
+				$inputDocument->addField('paths', $path);
+			}
 		}
 		return $inputDocument;
 	}
@@ -91,13 +97,14 @@ class InputDocumentFactory {
 	protected function addImageFields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof ImageDocument === TRUE) {
 			$fileSystem = $this->imageFileSystemFactory->create($document);
-			$inputDocument->addField('fileName', $document->getFileName());
 			$inputDocument->addField('mainDirectoryName', $document->getDirectoryName());
+			$inputDocument->addField('fileName', $fileSystem->getFileName());
 			$inputDocument->addField('webPath', $fileSystem->getWebPath());
 			$inputDocument->addField('webPreviewPath', $fileSystem->getWebPreviewPath());
 			$inputDocument->addField('webThumbPath', $fileSystem->getWebThumbPath());
 			$inputDocument->addField('webBigPath', $fileSystem->getWebBigPath());
 			$inputDocument->addField('extension', 'jpg');
+			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());

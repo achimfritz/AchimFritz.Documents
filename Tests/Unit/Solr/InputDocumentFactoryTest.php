@@ -23,8 +23,9 @@ class InputDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$fileSystemFactory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('create'));
 		$fileSystemFactory->expects($this->once())->method('create')->will($this->returnValue(new FileSystem()));
 		$this->inject($factory, 'imageFileSystemFactory', $fileSystemFactory);
-		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getDirectoryName'));
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getDirectoryName', 'getMDateTime'));
 		$document->expects($this->any())->method('getDirectoryName')->will($this->returnValue('y_m_d'));
+		$document->expects($this->any())->method('getMDateTime')->will($this->returnValue(new \DateTime()));
 		$inputDocument = new \SolrInputDocument();
 		$res = $factory->_call('addImageFields', $document, $inputDocument);
 	}

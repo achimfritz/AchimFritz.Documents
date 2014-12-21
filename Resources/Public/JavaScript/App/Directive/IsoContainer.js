@@ -24,14 +24,22 @@
 
 											link: function(scope, element, attr) {
 																scope.mode = 'select';
+																scope.current = {};
 
 																jQuery(document).keydown(function(e) {
 																				if (e.keyCode == 39) {
 																								// next
+																								if (scope.current.identifier) {
+																												scope.next();
+																								}
 																				} else if (e.keyCode == 37) {
 																								// prev
+																								if (scope.current.identifier) {
+																												scope.prev();
+																								}
 																				} else if (e.keyCode == 27) {
 																								// close
+																								ngDialog.close();
 																				}
 																});
 																				
@@ -52,13 +60,28 @@
 																				scope.$parent.pageChanged(pageNumber);
 																};
 
+																scope.prev = function() {
+																				var current = ItemService.getPrev(scope.current, scope.items);
+																				if (current.identifier) {
+																								scope.current = current;
+																								ngDialog.close();
+																								ngDialog.open({
+																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
+																												scope: scope
+																								});
+																				}
+																};
+
 																scope.next = function() {
-																				scope.current = ItemService.getNext(scope.current, scope.items);
-																				ngDialog.close();
-																				ngDialog.open({
-																								template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
-																								scope: scope
-																				});
+																				var current = ItemService.getNext(scope.current, scope.items);
+																				if (current.identifier) {
+																								scope.current = current;
+																								ngDialog.close();
+																								ngDialog.open({
+																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
+																												scope: scope
+																								});
+																				}
 																};
 
 

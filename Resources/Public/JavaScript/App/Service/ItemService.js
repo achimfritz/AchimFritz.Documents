@@ -24,6 +24,20 @@
 												}
 								});
 
+								this.getPrev = function(current, items) {
+												var prev = {};
+												var found = false;
+												angular.forEach(items, function(val) {
+																if (val.identifier === current.identifier) {
+																				found = true;
+																}
+																if (found === false) {
+																				prev = val;
+																}
+												});
+												return prev;																													
+								};
+												
 								this.getNext = function(current, items) {
 												var next = {};
 												var found = false;

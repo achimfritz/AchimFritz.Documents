@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\ImageDocument;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\ImageDocument;
+use AchimFritz\Documents\Domain\Service\PathService;
 
 /**
  * @Flow\Scope("singleton")
@@ -34,10 +35,11 @@ class FileSystemFactory {
 	public function create(ImageDocument $imageDocument) {
 		$fileSystem = new FileSystem();
 		$fileSystem->setMountPoint($this->settings['imageDocument']['mountPoint']);
-		$fileSystem->setWebPath($this->settings['imageDocument']['webPath']);
-		$fileSystem->setWebThumbPath($this->settings['imageDocument']['webThumbPath']);
-		$fileSystem->setWebBigPath($this->settings['imageDocument']['webBigPath']);
-		$fileSystem->setWebPreviewPath($this->settings['imageDocument']['webPreviewPath']);
+		$fileSystem->setRelativePath($imageDocument->getName());
+		$fileSystem->setWebPath($this->settings['imageDocument']['webPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
+		$fileSystem->setWebThumbPath($this->settings['imageDocument']['webThumbPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
+		$fileSystem->setWebBigPath($this->settings['imageDocument']['webBigPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
+		$fileSystem->setWebPreviewPath($this->settings['imageDocument']['webPreviewPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
 		return $fileSystem;
 	}
 

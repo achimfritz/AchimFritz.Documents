@@ -10,6 +10,7 @@ AchimFritz:
       webPath: mp3
     imageDocument:
       mountPoint: /bilder/main
+      export: /bilder/export
       webPath: thumbs/1280x1024
       webThumbPath: thumbs/64x48
       webBigPath: thumbs/800x600

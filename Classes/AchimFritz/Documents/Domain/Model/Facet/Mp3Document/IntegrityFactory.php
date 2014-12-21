@@ -7,8 +7,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\Mp3Document;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystem\Integrity;
-use AchimFritz\Documents\Domain\FileSystemInterface;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -23,13 +22,27 @@ class IntegrityFactory {
 	protected $facetFactory;
 
 	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @param array $settings 
+	 * @return void
+	 */
+	public function injectSettings($settings) {
+		$this->settings = $settings;
+	}
+
+
+	/**
 	 * @return ArrayCollection<Integrity>
 	 * @throws Exception
 	 */
 	public function createIntegrities() {
 			throw new Exception('not implemented', 1418749455); 
 		$integrities = new ArrayCollection();
-		$path = FileSystemInterface::IMAGE_MOUNT_POINT;
+		$path = $this->settings['mp3Document']['mountPoint'];
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {

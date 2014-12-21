@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Persistence\Repository;
+use TYPO3\Flow\Persistence\QueryInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -33,6 +34,7 @@ class DocumentRepository extends Repository {
 	 */
 	public function findByHead($head) {
 		$query = $this->createQuery();
+		$query->setOrderings(array('name' => QueryInterface::ORDER_ASCENDING));
 		return $query->matching(
 			$query->like('name', $head . '/%', FALSE)
 		)->execute();

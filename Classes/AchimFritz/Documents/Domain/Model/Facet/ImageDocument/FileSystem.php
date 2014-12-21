@@ -11,12 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * @Flow\Scope("prototype")
  */
-class FileSystem {
-
-	/**
-	 * @var string
-	 */
-	protected $mountPoint;
+class FileSystem extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\FileSystem {
 
 	/**
 	 * @var string
@@ -32,27 +27,6 @@ class FileSystem {
 	 * @var string
 	 */
 	protected $webThumbPath;
-
-	/**
-	 * @var string
-	 */
-	protected $webPath;
-
-
-	/**
-	 * @return string
-	 */
-	public function getMountPoint() {
-		return $this->mountPoint;
-	}
-
-	/**
-	 * @param string $mountPoint
-	 * @return void
-	 */
-	public function setMountPoint($mountPoint) {
-		$this->mountPoint = $mountPoint;
-	}
 
 	/**
 	 * @return string
@@ -97,21 +71,6 @@ class FileSystem {
 	 */
 	public function setWebThumbPath($webThumbPath) {
 		$this->webThumbPath = $webThumbPath;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getWebPath() {
-		return $this->webPath;
-	}
-
-	/**
-	 * @param string $webPath
-	 * @return void
-	 */
-	public function setWebPath($webPath) {
-		$this->webPath = $webPath;
 	}
 
 }

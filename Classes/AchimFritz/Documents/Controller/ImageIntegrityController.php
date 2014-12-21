@@ -9,7 +9,6 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Document;
-use AchimFritz\Documents\Domain\FileSystemInterface;
 
 class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestController {
 
@@ -25,31 +24,27 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 	protected $resourceArgumentName = 'directory';
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\IntegrityFactory
+	 * @Flow\Inject
+	 */
+	protected $integrityFactory;
+
+	/**
+	 * @var \AchimFritz\Documents\Solr\ClientWrapper
+	 * @Flow\Inject
+	 */
+	protected $solrClientWrapper;
+
+	/**
 	 * @return void
 	 */
 	public function listAction() {
-		$path = FileSystemInterface::IMAGE_MOUNT_POINT;
 		try {
-			$directoryIterator = new \DirectoryIterator($path);
-		} catch (\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage());
-			$this->quit();
+			$integrities = $this->integrityFactory->createIntegrities();
+		} catch (\AchimFritz\Documents\Domain\Model\Facet\ImageDocument\Exception $e) {
+			$this->addFlashMessage('Cannot create integrities ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}
-		$cnt = 0;
-		$directories = array();
-		foreach ($directoryIterator AS $outerFileInfo) {
-			if ($outerFileInfo->isDir() === TRUE) { 
-				$innerIterator = new \DirectoryIterator($outerFileInfo->getRealpath());
-				$cnt = 0;
-				foreach ($innerIterator AS $fileInfo) {
-					if ($fileInfo->getExtension() === 'jpg') {
-						$cnt++;
-					}
-				}
-				$directories[$outerFileInfo->getBasename()] = $cnt;
-			}
-		}
-		$this->view->assign('directories', $directories);
+		$this->view->assign('integrities', $integrities);
 	}
 
 	/**
@@ -57,6 +52,33 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 	 * @return void
 	 */
 	public function showAction($directory) {
+		$documents = $this->documentRepository->findByHead($directory);
+		$solrDocs = array();
+		$fsDocs = array();
+		$query = new \SolrQuery();
+		$query->setQuery('*:*')->setRows(1000)->setStart(0)->addFilterQuery('mainDirectoryName:' . $directory);
+		$queryResponse = $this->solrClientWrapper->query($query);
+		if ($queryResponse->getResponse()->response->docs) {
+			foreach ($queryResponse->getResponse()->response->docs AS $doc) {
+				$solrDocs[] = $doc->fileName;
+			}
+		}
+		$path = $this->settings['imageDocument']['mountPoint'] . '/' . $directory;
+		try {
+			$directoryIterator = new \DirectoryIterator($path);
+		} catch (\Exception $e) {
+			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1418658022);
+		}
+		foreach ($directoryIterator AS $fileInfo) {
+			if ($fileInfo->getExtension() === 'jpg') {
+				$fsDocs[] = $fileInfo->getBasename();
+			}
+		}
+		sort($fsDocs);
+		sort($solrDocs);
+		$this->view->assign('documents', $documents);
+		$this->view->assign('fsDocs', $fsDocs);
+		$this->view->assign('solrDocs', $solrDocs);
 		$this->view->assign('directory', $directory);
 	}
 

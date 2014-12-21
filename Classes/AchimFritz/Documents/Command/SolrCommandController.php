@@ -75,6 +75,7 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 			}
 		}
 		try {
+			$this->solrClientWrapper->addDocuments($solrInputDocuments);
 			$this->solrClientWrapper->commit();
 			$this->outputLine('SUCCESS: update ' . count($documents) . ' documents'); 
 		} catch (\SolrException $e) {

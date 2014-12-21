@@ -1,6 +1,31 @@
 <f:layout name="Default" />
 
-<f:section name="Title">not implemented</f:section>
+<f:section name="Title">Image Integrity of {directory}</f:section>
 <f:section name="Content">
-...
+<div class="row">
+	<div class="col-md-4">
+		<h2>Persisted</h2>
+		<ul>
+			<f:for each="{documents}" as="document">
+				<li>{document.fileName}</li>
+			</f:for>
+		</ul>
+	</div>
+	<div class="col-md-4">
+		<h2>Solr</h2>
+		<ul>
+			<f:for each="{solrDocs}" as="document">
+				<li>{document}</li>
+			</f:for>
+		</ul>
+	</div>
+	<div class="col-md-4">
+		<h2>FileSystem</h2>
+		<ul>
+			<f:for each="{fsDocs}" as="document">
+				<li>{document}</li>
+			</f:for>
+		</ul>
+	</div>
+</div>
 </f:section>

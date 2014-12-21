@@ -7,8 +7,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\ImageDocument;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystem\Integrity;
-use AchimFritz\Documents\Domain\FileSystemInterface;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -60,7 +59,7 @@ class IntegrityFactory {
 		}
 		$cnt = 0;
 		foreach ($directoryIterator AS $outerFileInfo) {
-			if ($outerFileInfo->isDir() === TRUE) { 
+			if ($outerFileInfo->isDir() === TRUE && $outerFileInfo->isDot() === FALSE) { 
 				$innerIterator = new \DirectoryIterator($outerFileInfo->getRealpath());
 				$cnt = 0;
 				foreach ($innerIterator AS $fileInfo) {
@@ -80,6 +79,7 @@ class IntegrityFactory {
 		}
 		$integrities->add($this->createByField('locations'));
 		$integrities->add($this->createByField('categories'));
+		$integrities->add($this->createByField('mDateTime'));
 		return $integrities;
 	}
 
@@ -90,10 +90,10 @@ class IntegrityFactory {
 	protected function createByField($field) {
 		try {
 			$query = new \SolrQuery();
-			$query->setQuery('*:*')->setRows(0)->setStart(0);
+			$query->setQuery('*:*')->setRows(0)->setStart(0)->addFilterQuery('extension:jpg');
 			$queryResponse = $this->solrClientWrapper->query($query);
 			$cntAll = $queryResponse->getResponse()->response->numFound;
-			$query->setQuery($field . ':*')->setRows(0)->setStart(0);
+			$query->setQuery($field . ':*')->setRows(0)->setStart(0)->addFilterQuery('extension:jpg');
 			$queryResponse = $this->solrClientWrapper->query($query);
 			$cntField = $queryResponse->getResponse()->response->numFound;
 		} catch (\SolrException $e) {

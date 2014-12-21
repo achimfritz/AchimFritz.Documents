@@ -3,9 +3,23 @@
 <f:section name="Title">A list Image Integrity</f:section>
 
 <f:section name="Content">
-
-<f:for each="{directories}" as="cnt" key="name">
-	{name} : {cnt}
-</f:for>
+	<f:if condition="{integrities}">
+		<f:then>
+			<table class="table table-striped">
+					<f:for each="{integrities}" as="integrity">
+						<f:if condition="{integrity.countDiffers}">
+							<tr>
+								<td><f:link.action action="index" arguments="{directory: integrity.name}">{integrity.name}</f:link.action></td>
+								<td>{integrity.countFileSystem}</td>
+								<td>{integrity.countSolr}</td>
+							</tr>
+						</f:if>
+					</f:for>
+			</table>
+		</f:then>
+		<f:else>
+			<div class="alert alert-info" role="alert">No integrities found.</div>
+		</f:else>
+	</f:if>
 </f:section>
 

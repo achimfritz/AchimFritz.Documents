@@ -10,7 +10,6 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use AchimFritz\Documents\Domain\Model\Cagegory;
 use AchimFritz\Documents\Domain\Service\PathService;
-use AchimFritz\Documents\Domain\FileSystemInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -28,6 +27,20 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;
+
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @param array $settings 
+	 * @return void
+	 */
+	public function injectSettings($settings) {
+		$this->settings = $settings;
+	}
+
 
 	/**
 	 * @return void
@@ -72,7 +85,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->quit();
 		}
 		$directory = implode('_', explode(PathService::PATH_DELIMITER, $path));
-		$directory = FileSystemInterface::IMAGE_EXPORT . PathService::PATH_DELIMITER . $directory;
+		$directory = $this->settings['imageDocument']['export'] . PathService::PATH_DELIMITER . $directory;
 		if (file_exists($directory)) {
 			$this->outputLine('ERROR: directory ' . $directory . ' exists');
 			$this->quit();

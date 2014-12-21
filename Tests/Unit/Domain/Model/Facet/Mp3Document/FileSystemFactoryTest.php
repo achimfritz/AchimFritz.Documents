@@ -29,8 +29,9 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new Mp3Document();
+		$document->setName('bar');
 		$fileSystem = $factory->create($document);
-		$this->assertSame('1/2', $fileSystem->getWebPath());
+		$this->assertSame('1/2/bar', $fileSystem->getWebPath());
 	}
 
 	/**

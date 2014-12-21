@@ -32,8 +32,9 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
+		$document->setName('foo');
 		$fileSystem = $factory->create($document);
-		$this->assertSame('1/2', $fileSystem->getWebPath());
+		$this->assertSame('1/2/foo', $fileSystem->getWebPath());
 	}
 
 	/**
@@ -43,8 +44,9 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
+		$document->setName('foo');
 		$fileSystem = $factory->create($document);
-		$this->assertSame('1/3', $fileSystem->getWebPreviewPath());
+		$this->assertSame('1/3/foo', $fileSystem->getWebPreviewPath());
 	}
 
 	/**
@@ -54,8 +56,9 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
+		$document->setName('foo');
 		$fileSystem = $factory->create($document);
-		$this->assertSame('1/5', $fileSystem->getWebBigPath());
+		$this->assertSame('1/5/foo', $fileSystem->getWebBigPath());
 	}
 
 	/**
@@ -65,8 +68,9 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
+		$document->setName('foo');
 		$fileSystem = $factory->create($document);
-		$this->assertSame('1/4', $fileSystem->getWebThumbPath());
+		$this->assertSame('1/4/foo', $fileSystem->getWebThumbPath());
 	}
 
 	/**

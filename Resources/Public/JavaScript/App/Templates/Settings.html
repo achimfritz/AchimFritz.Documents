@@ -1,16 +1,20 @@
 <div class="col-xs-4 col-md-4 col-sm-12">
 	<form novalidate class="simple-form">
 		<div class="form-group">
+			<label class="control-label" for="query">query: </label>
+			<input class="form-control" id="query" type="text" ng-change="change()" data-ng-model="settings.q" />
+		</div>
+		<div class="form-group">
 			<label class="control-label" for="rows">rows: </label>
-			<input class="form-control" id="rows" type="text" data-ng-model="settings.rows" />
+			<input class="form-control" id="rows" type="text" ng-change="change()" data-ng-model="settings.rows" />
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="facetLimit">facetLimit: </label>
-			<input class="form-control" id="facetLimit" type="text"  data-ng-model="settings.facet_limit" />
+			<input class="form-control" id="facetLimit" type="text" ng-change="change()"  data-ng-model="settings.facet_limit" />
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="sort">sort: </label>
-			<input class="form-control" id="sort" type="text"  data-ng-model="settings.sort" />
+			<input class="form-control" id="sort" type="text" ng-change="change()"  data-ng-model="settings.sort" />
 		</div>
 	</form>
 </div>

@@ -8,7 +8,6 @@ namespace AchimFritz\Documents\Domain\Model;
 
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
-use AchimFritz\Documents\Domain\FileSystemInterface;
 use AchimFritz\Documents\Domain\Service\PathService;
 
 /**
@@ -22,6 +21,14 @@ class ImageDocument extends FileSystemDocument {
 	public function getDirectoryName() {
 		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
 		return $arr[0];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileName() {
+		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
+		return $arr[1];
 	}
 
 	/**

@@ -7,7 +7,6 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
  *                                                                        */
 
 use AchimFritz\Documents\Domain\Model\ImageDocument;
-use AchimFritz\Documents\Domain\FileSystemInterface;
 
 /**
  * Testcase for ImageDocument
