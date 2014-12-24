@@ -10,7 +10,6 @@
 				function FacetController($scope, SolrFactory, FacetFactory) {
 
 								function update() {
-												SolrFactory.buildSolrValues();
 												SolrFactory.getData().then(function(data) {
 																var facets = {};
 																angular.forEach(FacetFactory.getFacets(), function(val) {

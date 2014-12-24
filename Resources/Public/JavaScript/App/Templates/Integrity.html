@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<toaster-container></toaster-container>
+
+<overlay finished="finished"></overlay>
+<div data-ng-if="!finished" class="spinner">
+	<spinner></spinner>
+</div>
+
+<table ng-show="view === 'list'" class="table table-striped">
+	<tr ng-repeat="integrity in integrities" ng-show="integrity.countDiffers">
+		<td>{{integrity.name}}</td>
+		<td>{{integrity.countFileSystem}}</td>
+		<td>{{integrity.countSolr}}</td>
+		<td ng-click="show(integrity.name)"><button class="btn btn-default btn-xs" >show</button></td>
+	</tr>
+</table>
+
+<div ng-show="view === 'show'">
+	<div class="row">
+		<div class="col-md-4">
+			<h4>{{integrity.name}}</h4>
+		</div>
+		<div class="col-md-2">
+			<button ng-click="list()" class="btn btn-default" >list</button>
+		</div>
+		<div class="col-md-2">
+			<button ng-click="update(integrity.name)" class="btn btn-default btn-danger" >index</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Persisted</h2>
+			<ul>
+				<li ng-repeat="document in integrity.persistedDocuments">{{document.fileName}}</li>
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<h2>Solr</h2>
+			<ul>
+				<li ng-repeat="document in integrity.solrDocuments">{{document}}</li>
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<h2>FileSystem</h2>
+			<ul>
+				<li ng-repeat="document in integrity.filesystemDocuments">{{document}}</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -2,9 +2,20 @@
 
 (function () {
     'use strict';
-				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog'])
+				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster'])
 				.config(paginationConfiguration)
+				.config(toasterConfiguration)
 				.config(routeConfiguration);
+
+				/* @ngInject */
+				function toasterConfiguration(toasterConfig) {
+								var customConfig = {
+												'position-class': 'toast-bottom-right',
+												'time-out': 5000,
+												'close-button': true
+								};
+								angular.extend(toasterConfig, customConfig);
+				}
 
 				/* @ngInject */
 				function paginationConfiguration(paginationTemplateProvider) {
@@ -34,6 +45,10 @@
             when('/facet', {
                 templateUrl: templatePath + 'Facet.html',
                 controller: 'FacetController'
+            }).
+            when('/integrity', {
+                templateUrl: templatePath + 'Integrity.html',
+                controller: 'IntegrityController'
             }).
 												otherwise({
                 redirectTo: '/'

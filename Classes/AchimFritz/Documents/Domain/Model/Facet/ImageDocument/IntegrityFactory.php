@@ -27,6 +27,18 @@ class IntegrityFactory {
 	 */
 	protected $facetFactory;
 
+   /**
+    * @Flow\Inject
+    * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
+    */
+   protected $documentRepository;
+
+   /**
+    * @Flow\Inject
+    * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+    */
+	protected $directoryService;
+
 	/**
 	 * @var array
 	 */
@@ -38,6 +50,38 @@ class IntegrityFactory {
 	 */
 	public function injectSettings($settings) {
 		$this->settings = $settings;
+	}
+
+	/**
+	 * @return Integrity
+	 * @throws Exception
+	 */
+	public function createIntegrity($directory) {
+
+      $documents = $this->documentRepository->findByHead($directory);
+      $solrDocs = array();
+      $fsDocs = array();
+
+
+      $query = new \SolrQuery();
+      $query->setQuery('*:*')->setRows(1000)->setStart(0)->addFilterQuery('mainDirectoryName:' . $directory);
+      $queryResponse = $this->solrClientWrapper->query($query);
+      if ($queryResponse->getResponse()->response->docs) {
+         foreach ($queryResponse->getResponse()->response->docs AS $doc) {
+            $solrDocs[] = $doc->fileName;
+         }
+      }
+
+      $path = $this->settings['imageDocument']['mountPoint'] . '/' . $directory;
+		$fsDocs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+      sort($fsDocs);
+      sort($solrDocs);
+
+		$integrity = new Integrity($directory, count($fsDocs), count($solrDocs));
+		$integrity->setPersistedDocuments($documents);
+		$integrity->setSolrDocuments($solrDocs);
+		$integrity->setFilesystemDocuments($fsDocs);
+		return $integrity;
 	}
 
 	/**

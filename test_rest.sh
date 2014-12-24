@@ -1,3 +1,6 @@
+curl -X GET "http://dev/achimfritz.documents/imageintegrity/index?directory=2014_02_22_boarden_warth_oli" -H "Content-Type: application/json" -H "Accept: application/json"
+exit;
+
 curl -X POST "http://dev/achimfritz.documents/documentlistmerge/" -H "Content-Type: application/json" -H "Accept: application/json" -d '{	
 	"documentList": {
 		"category": {

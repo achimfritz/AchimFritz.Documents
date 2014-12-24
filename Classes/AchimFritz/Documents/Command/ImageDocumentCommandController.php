@@ -32,6 +32,12 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $integrityFactory;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\ImageIndexService
+	 * @Flow\Inject
+	 */
+	protected $indexService;
+
+	/**
 	 * @return string
 	 */
 	protected function getMountPoint() {

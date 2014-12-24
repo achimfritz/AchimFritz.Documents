@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, ngDialog, ItemService) {
+				function IsoContainer($timeout, ngDialog, ItemService, RestService, FlashMessageService) {
 
 								return {
 
@@ -24,6 +24,7 @@
 
 											link: function(scope, element, attr) {
 																scope.mode = 'select';
+																scope.finished = true;
 																scope.current = {};
 
 																jQuery(document).keydown(function(e) {
@@ -55,6 +56,17 @@
 																								element.isotope('reloadItems').isotope(options);
 																			}, 500);
 																},true);
+
+																scope.addTag = function() {
+																				var tag = jQuery('#addTag').val();
+																				var docs = [];
+																				docs.push(scope.current);
+																				scope.finished = false;
+																				RestService.merge('tags/' + tag, docs).then(function(data) {
+																								scope.finished = true;
+																								FlashMessageService.show(data.data.flashMessages);
+																				});
+																};
 
 																scope.nextPage = function(pageNumber) {
 																				scope.$parent.pageChanged(pageNumber);

@@ -19,7 +19,6 @@
 								$scope.pageChanged = function(pageNumber) {
 												var settings = SettingsFactory.getSettings();
 												SettingsFactory.setSetting('start', (pageNumber - 1) * settings.rows);
-												SolrFactory.buildSolrValues();
 												SolrFactory.getData().then(function(data) {
 																$scope.total = data.data.response.numFound;
 																$scope.collection = data.data.response.docs;

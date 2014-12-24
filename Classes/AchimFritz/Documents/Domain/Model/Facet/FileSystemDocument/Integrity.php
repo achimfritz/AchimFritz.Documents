@@ -29,6 +29,23 @@ class Integrity {
 	protected $countSolr;
 
 	/**
+	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document>
+	 */
+	protected $persistedDocuments;
+
+	/**
+	 * @var array
+	 */
+	protected $solrDocuments;
+
+	/**
+	 * @var array
+	 */
+	protected $filesystemDocuments;
+
+
+
+	/**
 	 * @param string $name 
 	 * @param integer $countFileSystem 
 	 * @param integer $countSolr 
@@ -70,6 +87,51 @@ class Integrity {
 	 */
 	public function getCountSolr() {
 		return $this->countSolr;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document>
+	 */
+	public function getPersistedDocuments() {
+		return $this->persistedDocuments;
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document> $persistedDocuments
+	 * @return void
+	 */
+	public function setPersistedDocuments($persistedDocuments) {
+		$this->persistedDocuments = $persistedDocuments;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSolrDocuments() {
+		return $this->solrDocuments;
+	}
+
+	/**
+	 * @param array $solrDocuments
+	 * @return void
+	 */
+	public function setSolrDocuments(array $solrDocuments) {
+		$this->solrDocuments = $solrDocuments;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getFilesystemDocuments() {
+		return $this->filesystemDocuments;
+	}
+
+	/**
+	 * @param array $filesystemDocuments
+	 * @return void
+	 */
+	public function setFilesystemDocuments(array $filesystemDocuments) {
+		$this->filesystemDocuments = $filesystemDocuments;
 	}
 
 }

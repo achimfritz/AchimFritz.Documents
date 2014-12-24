@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, ClipboardFactory, RestService, SettingsFactory) {
+				function ClipboardController($scope, ClipboardFactory, RestService, SettingsFactory, FlashMessageService) {
 								var settings = SettingsFactory.getSettings();
 
 								$scope.collection = [];
@@ -17,6 +17,7 @@
 								ClipboardFactory.setCurrentPage(1);
 								$scope.collection = ClipboardFactory.getDocs();
 
+								$scope.finished = true;
 								$scope.category = '';
 
 								$scope.pageChanged = function(newPageNumber) {
@@ -27,14 +28,18 @@
 
 
 								$scope.merge = function() {
+												$scope.finished = false;
 												RestService.merge($scope.category, $scope.collection).then(function(data) {
-																console.log(data);
+																$scope.finished = true;
+																FlashMessageService.show(data.data.flashMessages);
 												});
 								};
 
 								$scope.remove = function() {
+												$scope.finished = false;
 												RestService.remove($scope.category, $scope.collection).then(function(data) {
-																console.log(data);
+																$scope.finished = true;
+																FlashMessageService.show(data.data.flashMessages);
 												});
 								};
 

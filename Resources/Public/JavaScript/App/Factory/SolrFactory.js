@@ -18,26 +18,10 @@
 								});
 								manager.init();
 
-								// solr settings
-								//wrapper.manager.store.addByValue('q', '*:*');
-								//wrapper.manager.store.addByValue('rows', 10);
-								//wrapper.manager.store.addByValue('facet.limit', 3);
-								//wrapper.manager.store.addByValue('sort', 'fileName asc');
-
-								// page browser
-								//manager.store.addByValue('start', 0);
-
 								// defaults:
 								manager.store.addByValue('facet', true);
 								manager.store.addByValue('json.nl', 'map');
 								manager.store.addByValue('facet.mincount', 1);
-
-								// simple facets
-								//manager.store.addByValue('facet.field', 'mainDirectoryName');
-								//manager.store.addByValue('facet.field', 'year');
-
-								// hierarchical facets
-								//manager.store.addByValue('facet.field', 'paths');
 
 								var buildSolrValues = function() {
 
@@ -86,25 +70,25 @@
 
 								var getData = function() {
 												var defer = $q.defer();
-												if(response.status ) {
+												/*
+												if(response.statusAA ) {
 																defer.resolve(response);
 												}
 												else {
+												*/
+																buildSolrValues();
 																var url = manager.buildUrl();
 																console.log(url);
 																$http.jsonp(url).then(function(data) {
 																				response = data;
 																				defer.resolve(data);
 																});
-												}
+											//	}
 												return defer.promise;
 								};
 
         // Public API
         return {
-												buildSolrValues: function() {
-																buildSolrValues();
-												},
 												getData: function() {
 																return getData();
 												}

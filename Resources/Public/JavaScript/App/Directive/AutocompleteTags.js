@@ -5,9 +5,9 @@
 
 				angular
 				.module('documentApp')
-				.directive('autocomplete', Autocomplete);
+				.directive('autocompleteTags', AutocompleteTags);
 
-				function Autocomplete() {
+				function AutocompleteTags() {
 
 								return {
 
@@ -18,10 +18,6 @@
 																$(element).autocomplete({
 																				source: function( request, response ) {
 																								var item = request.term;
-																								var arr = item.split('/');
-																								var level = arr.length;
-																								level--;
-																								item = level + '/' + arr.join('/');
 																								$.ajax({
 																												url: 'http://localhost:8080/solr/documents2/select',
 																												data: {
@@ -29,7 +25,7 @@
 																																facet: true,
 																																"facet.field": "paths",
 																																"facet.mincount": 1,
-																																"f.paths.facet.prefix": item,
+																																"f.paths.facet.prefix": '1/tags/' + item,
 																																wt: 'json',
 																																'json.nl' : 'map'
 																												},
@@ -38,9 +34,7 @@
 
 																												success: function( data ) {
 																																response($.map(data.facet_counts.facet_fields.paths, function( item , key) {
-																																				var arr = key.split('/');
-																																				var level = arr.shift();
-																																				var name = arr.join('/');
+																																				var name = key.replace('1/tags/', '');
 																																				return {
 																																								label: name + ' (' + item + ')',
 																																								value: name,
@@ -48,16 +42,13 @@
 																																}));
 																												}
 																								});
-																				},
-																				select: function( event, ui ) {
-																								var selected = ui.item.value;
-																								var that = $(this);
-																								setTimeout(function() {
-																												that.autocomplete("search", selected + '/');
-																								}, 0.2);
-																				},
-																				minLength: 1
+
+																				}
 																});
+
+
+
+
 												},
 
 								};

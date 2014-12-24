@@ -22,6 +22,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	protected $renameService;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+	 * @Flow\Inject
+	 */
+	protected $directoryService;
+
+	/**
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
 	 * @Flow\Inject
 	 */
@@ -106,34 +112,14 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * @param string $directoryName
+	 * @param string $directory
 	 * @return void
 	 */
-	public function indexCommand($directoryName) {
-		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directoryName;
+	public function indexCommand($directory) {
 		try {
-			$directoryIterator = new \DirectoryIterator($path);
-		} catch (\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage());
-			$this->quit();
-		}
-		$cnt = 0;
-		foreach ($directoryIterator AS $fileInfo) {
-			if ($fileInfo->getExtension() === $this->getExtension()) {
-				$document = $this->documentRepository->findOneByName($directoryName . PathService::PATH_DELIMITER . $fileInfo->getBasename());
-				if ($document instanceof Document === TRUE) {
-					$this->outputLine('WARNING: document already persisted ... ignorierung');
-				} else {
-					$cnt++;
-					$document = $this->documentFactory->create($directoryName . PathService::PATH_DELIMITER . $fileInfo->getBasename());
-					$this->documentRepository->add($document);
-				}
-			}
-		}
-		try {
-			$this->documentPersistenceManager->persistAll();
+			$cnt = $this->indexService->indexDirectory($directory);
 			$this->outputLine('SUCCESS: insert ' . $cnt . ' documents');
-		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage());
 		}
 	}
