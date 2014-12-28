@@ -17,7 +17,7 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 	protected $resourceArgumentName = 'directory';
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;

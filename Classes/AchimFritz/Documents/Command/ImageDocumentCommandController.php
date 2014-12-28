@@ -20,13 +20,13 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $documentRepository;
 		
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Model\ImageDocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;

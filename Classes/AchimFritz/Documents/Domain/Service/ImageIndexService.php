@@ -27,7 +27,7 @@ class ImageIndexService extends AbstractIndexService {
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Model\ImageDocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;

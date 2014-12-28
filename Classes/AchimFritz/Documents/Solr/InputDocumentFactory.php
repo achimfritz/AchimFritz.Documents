@@ -30,13 +30,13 @@ class InputDocumentFactory {
 	protected $pathService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
 	 * @Flow\Inject
 	 */
 	protected $imageFileSystemFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;

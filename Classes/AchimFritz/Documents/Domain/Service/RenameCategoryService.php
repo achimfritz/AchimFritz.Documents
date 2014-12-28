@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\RenameCategory;
+use AchimFritz\Documents\Domain\Model\Facet\RenameCategory;
 use AchimFritz\Documents\Domain\Model\Category;
 
 /**
@@ -22,7 +22,7 @@ class RenameCategoryService {
 	protected $categoryRepository;
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\RenameCategory $renameCategory
+	 * @param \AchimFritz\Documents\Domain\Model\Facet\RenameCategory $renameCategory
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 * @return integer
 	 */

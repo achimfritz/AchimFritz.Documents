@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\Mp3Document;
+namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\FileSystemDocument\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,8 +7,8 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\Mp3Document;
  *                                                                        */
 
 use AchimFritz\Documents\Domain\Model\Mp3Document;
-use AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystem;
-use AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystemFactory;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystem;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory;
 
 /**
  * Testcase for InputDocumentFactory
@@ -26,7 +26,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new Mp3Document();
 		$document->setName('bar');
@@ -38,7 +38,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsMountPoint() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new Mp3Document();
 		$fileSystem = $factory->create($document);

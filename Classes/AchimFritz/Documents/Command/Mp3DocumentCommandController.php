@@ -20,13 +20,13 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $documentRepository;
 		
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Mp3DocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\Mp3Document\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;

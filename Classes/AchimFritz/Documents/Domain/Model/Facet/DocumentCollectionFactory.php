@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Factory;
+namespace AchimFritz\Documents\Domain\Model\Facet;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.FileSystemDocuments".*
@@ -7,7 +7,6 @@ namespace AchimFritz\Documents\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 
 /**
@@ -37,5 +36,5 @@ class DocumentCollectionFactory {
 		}
 		return $documentCollection;
 	}
+
 }
-?>

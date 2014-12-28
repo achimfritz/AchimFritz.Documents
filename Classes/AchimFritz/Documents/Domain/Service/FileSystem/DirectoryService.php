@@ -36,8 +36,19 @@ class DirectoryService {
 	 * @return integer
 	 * @throws Exception
 	 */
-	public function getCountOfFilesByExtension($directoryName, $extension) {
-		return count($this->getSplFileInfosInDirectory($directoryName, $extension));
+	public function getCountOfFilesByExtension($path, $extension) {
+		try {
+			$directoryIterator = new \DirectoryIterator($path);
+		} catch (\Exception $e) {
+			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357137);
+		}
+		$cnt = 0;
+		foreach ($directoryIterator AS $fileInfo) {
+			if ($fileInfo->getExtension() === $extension) {
+				$cnt++;
+			}
+		}
+		return $cnt;
 	}
 
 	/**
@@ -59,6 +70,28 @@ class DirectoryService {
 			}
 		}
 		return $splFileInfos;
+	}
+
+	/**
+	 * @param string $path 
+	 * @return array<\SplFileInfo>
+	 * @throws Exception
+	 */
+	public function getDirectoriesInDirectory($path) {
+		$splFileInfos = [];
+		try {
+			$directoryIterator = new \DirectoryIterator($path);
+		} catch (\Exception $e) {
+			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357136);
+		}
+		foreach ($directoryIterator AS $fileInfo) {
+			if ($fileInfo->isDir() === TRUE && $fileInfo->isDot() === FALSE) {
+				$splFileInfos[] = clone($fileInfo);
+				
+			}
+		}
+		return $splFileInfos;
+
 	}
 
 

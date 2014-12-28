@@ -136,7 +136,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 					$this->outputLine('WARNING: ' . $integrity->getName() . ' ' . $integrity->getCountFileSystem() . ' ' . $integrity->getCountSolr());
 				}
 			}
-		} catch (\AchimFritz\Documents\Domain\Factory\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\Model\Facet\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}

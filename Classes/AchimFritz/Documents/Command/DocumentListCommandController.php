@@ -23,7 +23,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentListRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;

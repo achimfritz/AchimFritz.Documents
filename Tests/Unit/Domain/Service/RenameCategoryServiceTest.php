@@ -8,7 +8,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service;
 
 use AchimFritz\Documents\Domain\Service\RenameCategoryService;
 use AchimFritz\Documents\Domain\Model\Category;
-use AchimFritz\Documents\Domain\Model\RenameCategory;
+use AchimFritz\Documents\Domain\Model\Facet\RenameCategory;
 use AchimFritz\Documents\Domain\Repository\CategoryRepository;
 
 /**

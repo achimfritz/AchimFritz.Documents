@@ -1,12 +1,12 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Factory;
+namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Factory\FileSystemDocumentFactory;
+use AchimFritz\Documents\Domain\Model\FileSystemDocumentFactory;
 
 /**
  * Testcase for FileSystemDocument

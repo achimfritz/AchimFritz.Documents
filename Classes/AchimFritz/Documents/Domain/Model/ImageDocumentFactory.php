@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Factory;
+namespace AchimFritz\Documents\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.FileSystemDocuments".*
@@ -7,18 +7,18 @@ namespace AchimFritz\Documents\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Mp3Document;
+use AchimFritz\Documents\Domain\Model\ImageDocument;
 
 /**
  * @Flow\Scope("singleton")
  */
-class Mp3DocumentFactory extends FileSystemDocumentFactory {
+class ImageDocumentFactory extends FileSystemDocumentFactory {
 
 	/**
-	 * @return \AchimFritz\Documents\Domain\Model\Mp3Document
+	 * @return \AchimFritz\Documents\Domain\Model\ImageDocument
 	 */
 	protected function getDocument() {
-		return new Mp3Document();
+		return new ImageDocument();
 	}
 
 

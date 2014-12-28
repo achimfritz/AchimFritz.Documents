@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service;
 use AchimFritz\Documents\Domain\Service\DocumentCollectionService;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Model\Category;
-use AchimFritz\Documents\Domain\Model\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 use AchimFritz\Documents\Domain\Repository\DocumentRepository;
 use AchimFritz\Documents\Domain\Repository\CategoryRepository;
 

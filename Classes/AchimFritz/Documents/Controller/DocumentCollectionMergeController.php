@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
@@ -52,7 +52,7 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
+	 * @param \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection $documentCollection
 	 * @return void
 	 */
 	public function createAction(DocumentCollection $documentCollection) {

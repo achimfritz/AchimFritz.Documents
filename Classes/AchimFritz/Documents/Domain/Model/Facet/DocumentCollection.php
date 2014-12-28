@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model;
+namespace AchimFritz\Documents\Domain\Model\Facet;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Domain\Model;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Model\Document;
 
 /**
  * @Flow\Scope("prototype")

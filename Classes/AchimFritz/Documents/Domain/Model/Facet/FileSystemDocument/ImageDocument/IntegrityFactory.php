@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\ImageDocument;
+namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -96,32 +96,18 @@ class IntegrityFactory {
 			throw new Exception('cannot fetch from solr', 1418658023);
 		}
 
-		// TODO ...
 		$path = $this->settings['imageDocument']['mountPoint'];
-		try {
-			$directoryIterator = new \DirectoryIterator($path);
-		} catch (\Exception $e) {
-			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1418658022);
-		}
-		$cnt = 0;
-		foreach ($directoryIterator AS $outerFileInfo) {
-			if ($outerFileInfo->isDir() === TRUE && $outerFileInfo->isDot() === FALSE) { 
-				$innerIterator = new \DirectoryIterator($outerFileInfo->getRealpath());
-				$cnt = 0;
-				foreach ($innerIterator AS $fileInfo) {
-					if ($fileInfo->getExtension() === 'jpg') {
-						$cnt++;
-					}
-				}
-				$name = $outerFileInfo->getBasename();
-				$solrCnt = 0;
-				if (isset($facets[$name]) === TRUE) {
-					$solrCnt = $facets[$name];
-					unset($facets[$name]);
-				}
-				$integrity = new Integrity($name, $cnt, $solrCnt);
-				$integrities->add($integrity);
+		$outerFileInfos = $this->directoryService->getDirectoriesInDirectory($path);
+		foreach ($outerFileInfos AS $outerFileInfo) {
+			$cnt = $this->directoryService->getCountOfFilesByExtension($outerFileInfo->getRealpath(), 'jpg');
+			$name = $outerFileInfo->getBasename();
+			$solrCnt = 0;
+			if (isset($facets[$name]) === TRUE) {
+				$solrCnt = $facets[$name];
+				unset($facets[$name]);
 			}
+			$integrity = new Integrity($name, $cnt, $solrCnt);
+			$integrities->add($integrity);
 		}
 		return $integrities;
 	}

@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Command;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\ImageDocument;
 use AchimFritz\Documents\Domain\Model\Category;
-use AchimFritz\Documents\Domain\Model\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 
 /**
  * @Flow\Scope("singleton")
@@ -23,11 +23,10 @@ class ExportCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $categoryRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\DocumentCollectionFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\DocumentCollectionFactory
 	 * @Flow\Inject
 	 */
 	protected $documentCollectionFactory;
-
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Image\ExportService

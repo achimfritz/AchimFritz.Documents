@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\Mp3Document;
+namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -21,7 +21,7 @@ class Id3TagFactory {
 	protected $linuxCommand;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\Mp3Document\FileSystemFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory
 	 * @Flow\Inject
 	 */
 	protected $fileSystemFactory;

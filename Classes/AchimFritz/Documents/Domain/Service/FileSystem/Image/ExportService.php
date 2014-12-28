@@ -20,7 +20,7 @@ class ExportService {
 	protected $pathService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
 	 * @Flow\Inject
 	 */
 	protected $fileSystemFactory;

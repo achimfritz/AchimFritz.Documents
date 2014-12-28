@@ -8,7 +8,7 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
-use AchimFritz\Documents\Domain\Model\RenameCategory;
+use AchimFritz\Documents\Domain\Model\Facet\RenameCategory;
 
 class RenameCategoryController extends \AchimFritz\Rest\Controller\RestController {
 
@@ -36,7 +36,7 @@ class RenameCategoryController extends \AchimFritz\Rest\Controller\RestControlle
 	protected $resourceArgumentName = 'renameCategory';
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\RenameCategory $renameCategory
+	 * @param \AchimFritz\Documents\Domain\Model\Facet\RenameCategory $renameCategory
 	 * @return void
 	 */
 	public function updateAction(RenameCategory $renameCategory) {

@@ -27,7 +27,7 @@ class Mp3IndexService extends AbstractIndexService {
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Model\Mp3DocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;

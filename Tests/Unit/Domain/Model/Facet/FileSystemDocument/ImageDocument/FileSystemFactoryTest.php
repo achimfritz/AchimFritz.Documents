@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\ImageDocument;
+namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\FileSystemDocument\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,8 +7,8 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\ImageDocument;
  *                                                                        */
 
 use AchimFritz\Documents\Domain\Model\ImageDocument;
-use AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystem;
-use AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystem;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory;
 
 /**
  * Testcase for InputDocumentFactory
@@ -29,7 +29,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -41,7 +41,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebPreviewPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -53,7 +53,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebBigPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -65,7 +65,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebThumbPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -77,7 +77,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsMountPoint() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$fileSystem = $factory->create($document);
