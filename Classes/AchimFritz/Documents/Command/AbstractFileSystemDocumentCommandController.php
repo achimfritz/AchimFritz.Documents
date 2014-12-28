@@ -113,11 +113,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 	/**
 	 * @param string $directory
+	 * @param boolean $update
 	 * @return void
 	 */
-	public function indexCommand($directory) {
+	public function indexCommand($directory, $update = FALSE) {
 		try {
-			$cnt = $this->indexService->indexDirectory($directory);
+			$cnt = $this->indexService->indexDirectory($directory, $update);
 			$this->outputLine('SUCCESS: insert ' . $cnt . ' documents');
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage());

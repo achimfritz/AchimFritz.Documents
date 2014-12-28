@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\ImageDocument;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity;
+use AchimFritz\Documents\Domain\Service\PathService;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -22,10 +23,10 @@ class IntegrityFactory {
 	protected $solrClientWrapper;
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\FacetFactory
+	 * @var \AchimFritz\Documents\Solr\Helper
 	 * @Flow\Inject
 	 */
-	protected $facetFactory;
+	protected $solrHelper;
 
    /**
     * @Flow\Inject
@@ -59,21 +60,19 @@ class IntegrityFactory {
 	public function createIntegrity($directory) {
 
       $documents = $this->documentRepository->findByHead($directory);
-      $solrDocs = array();
-      $fsDocs = array();
+      $solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
 
-
-      $query = new \SolrQuery();
-      $query->setQuery('*:*')->setRows(1000)->setStart(0)->addFilterQuery('mainDirectoryName:' . $directory);
-      $queryResponse = $this->solrClientWrapper->query($query);
-      if ($queryResponse->getResponse()->response->docs) {
-         foreach ($queryResponse->getResponse()->response->docs AS $doc) {
-            $solrDocs[] = $doc->fileName;
-         }
-      }
-
-      $path = $this->settings['imageDocument']['mountPoint'] . '/' . $directory;
+      $path = $this->settings['imageDocument']['mountPoint'] . PathService::PATH_DELIMITER . $directory;
 		$fsDocs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+
+		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $this->settings['imageDocument']['webPath'] . PathService::PATH_DELIMITER . $directory;
+		try {
+			$thumbs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			$thumbs = array();
+		}
+
+		sort($thumbs);
       sort($fsDocs);
       sort($solrDocs);
 
@@ -81,6 +80,7 @@ class IntegrityFactory {
 		$integrity->setPersistedDocuments($documents);
 		$integrity->setSolrDocuments($solrDocs);
 		$integrity->setFilesystemDocuments($fsDocs);
+		$integrity->setThumbs($thumbs);
 		return $integrity;
 	}
 
@@ -90,16 +90,18 @@ class IntegrityFactory {
 	 */
 	public function createIntegrities() {
 		$integrities = new ArrayCollection();
+		try {
+			$facets = $this->solrHelper->findFacets('mainDirectoryName');
+		} catch (\SolrException $e) {
+			throw new Exception('cannot fetch from solr', 1418658023);
+		}
+
+		// TODO ...
 		$path = $this->settings['imageDocument']['mountPoint'];
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
 			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1418658022);
-		}
-		try {
-			$facets = $this->facetFactory->find('mainDirectoryName');
-		} catch (\SolrException $e) {
-			throw new Exception('cannot fetch from solr', 1418658023);
 		}
 		$cnt = 0;
 		foreach ($directoryIterator AS $outerFileInfo) {
@@ -121,29 +123,7 @@ class IntegrityFactory {
 				$integrities->add($integrity);
 			}
 		}
-		$integrities->add($this->createByField('locations'));
-		$integrities->add($this->createByField('categories'));
-		$integrities->add($this->createByField('mDateTime'));
 		return $integrities;
 	}
 
-	/**
-	 * @param string $name 
-	 * @return Integrity
-	 */
-	protected function createByField($field) {
-		try {
-			$query = new \SolrQuery();
-			$query->setQuery('*:*')->setRows(0)->setStart(0)->addFilterQuery('extension:jpg');
-			$queryResponse = $this->solrClientWrapper->query($query);
-			$cntAll = $queryResponse->getResponse()->response->numFound;
-			$query->setQuery($field . ':*')->setRows(0)->setStart(0)->addFilterQuery('extension:jpg');
-			$queryResponse = $this->solrClientWrapper->query($query);
-			$cntField = $queryResponse->getResponse()->response->numFound;
-		} catch (\SolrException $e) {
-			throw new Exception('cannot fetch from solr', 1419095649);
-		}
-		$integrity = new Integrity($field, $cntAll, $cntField);
-		return $integrity;
-	}
 }

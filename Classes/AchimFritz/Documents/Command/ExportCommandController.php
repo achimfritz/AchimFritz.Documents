@@ -47,9 +47,7 @@ class ExportCommandController extends \TYPO3\Flow\Cli\CommandController {
 		foreach ($arr as $path) {
 			$category = $this->categoryRepository->findOneByPath($path);
 			if ($category instanceof Category === FALSE) {
-				// TODO
-				#$this->outputLine('ERROR: category not found ' . $path);
-				#$this->quit();
+				$this->outputLine('WARNING: category not found ' . $path);
 			}
 			$categories->add($category);
 		}

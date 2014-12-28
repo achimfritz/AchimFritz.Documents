@@ -32,6 +32,13 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $integrityFactory;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\Mp3IndexService
+	 * @Flow\Inject
+	 */
+	protected $indexService;
+
+
+	/**
 	 * @return string
 	 */
 	protected function getMountPoint() {

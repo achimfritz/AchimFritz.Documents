@@ -20,6 +20,12 @@ class ExportService {
 	protected $pathService;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\ImageDocument\FileSystemFactory
+	 * @Flow\Inject
+	 */
+	protected $fileSystemFactory;
+
+	/**
 	 * @param string $directory
 	 * @param \Doctrine\Common\Collections\Collection<> $documents 
 	 * @return void
@@ -32,12 +38,17 @@ class ExportService {
 			throw new Exception('cannot create directory ' . $directory, 1416762867);
 		}
 		foreach ($documents as $document) {
-			$from = $document->getAbsolutePath();
+			#$from = $document->getAbsolutePath();
 			// TODO
-			$from = $this->pathService->replacePath($from, $document->getMountPoint(), '/bilder/thumbs/1280x1024');
-			$to = $directory . '/' . $document->getSplFileInfo()->getBaseName();
+			$fileSystem = $this->fileSystemFactory->create($document);
+			$from = $fileSystem->getAbsolutePath();
+			$to = $directory . '/' . $fileSystem->getSplFileInfo()->getBaseName();
+			#$from = $this->pathService->replacePath($from, $document->getMountPoint(), '/bilder/thumbs/1280x1024');
+			#$to = $directory . '/' . $document->getSplFileInfo()->getBaseName();
+			#$from = $this->pathService->replacePath($from, $document->getMountPoint(), '/bilder/thumbs/1280x1024');
+			#$to = $directory . '/' . $document->getSplFileInfo()->getBaseName();
 			if (@copy($from, $to) === FALSE) {
-				throw new Exception('cannot copy document ' . $document->getAbsolutePath() , 1416762868);
+				throw new Exception('cannot copy document ' . $fileSystem->getAbsolutePath() , 1416762868);
 			}
 		}
 

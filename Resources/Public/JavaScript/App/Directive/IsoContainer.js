@@ -23,7 +23,7 @@
 												
 
 											link: function(scope, element, attr) {
-																scope.mode = 'select';
+																scope.mode = 'view';
 																scope.finished = true;
 																scope.current = {};
 
@@ -52,7 +52,6 @@
 
 																scope.$watch('items', function(newVal, oldVal){
 																			$timeout(function(){
-																								//element.isotope( 'reloadItems' ).isotope(); 
 																								element.isotope('reloadItems').isotope(options);
 																			}, 500);
 																},true);

@@ -26,7 +26,7 @@ class FileSystemDocumentFactory {
 		$mDateTime = new \DateTime();
 		$splFileInfo = new \SplFileInfo($mountPoint . PathService::PATH_DELIMITER . $name);
 		if ($splFileInfo->isFile() === TRUE) {
-			$mDateTime = new \DateTime('@' . $document->getSplFileInfo()->getMTime());
+			$mDateTime = new \DateTime('@' . $splFileInfo->getMTime());
 		}
 		$document->setMDateTime($mDateTime);
 		return $document;

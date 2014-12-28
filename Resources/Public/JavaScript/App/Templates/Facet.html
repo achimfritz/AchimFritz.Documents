@@ -2,14 +2,32 @@
 
 
 
-
-
-<h2>filterQueries</h2>
-<div ng-repeat="(key, values) in filterQueries">
-	<ul>
-		<li ng-repeat="value in values" ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</li>
-	</ul>
+<div class="row">
+	<div class="col-md-3">
+		<h2>filterQueries</h2>
+		<div ng-repeat="(key, values) in filterQueries">
+			<ul>
+				<li ng-repeat="value in values" ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-2">
+				<pre>{{query}}</pre>
+			</div>
+			<div class="col-md-10">
+				<button class="btn btn-default " ng-click="integrity('*:*')">reset</button>
+				<button class="btn btn-default " ng-click="integrity('-locations:*')">no locations</button>
+				<button class="btn btn-default " ng-click="integrity('-categories:*')">no categories</button>
+				<button class="btn btn-default " ng-click="integrity('-mDateTime:*')">no mDateTime</button>
+				<button class="btn btn-default " ng-click="integrity('tags:* AND -tags:all')">all tags</button>
+				<button class="btn btn-default " ng-click="integrity('tags:* AND -tags:lucky_bilderrahmen')">tagged but no lucky</button>
+			</div>
+		</div>
+	</div>
 </div>
+
 
 
 <div class="row">

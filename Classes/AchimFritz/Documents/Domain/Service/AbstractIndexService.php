@@ -60,16 +60,15 @@ abstract class AbstractIndexService {
 	/**
 	 * @return string
 	 */
-	protected function getMountPoint() {
-		return $this->settings['imageDocument']['mountPoint'];
-	}
+	abstract protected function getMountPoint();
 
 	/**
 	 * @param string $directory
+	 * @param boolean $update
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 * @return integer
 	 */
-	public function indexDirectory($directory) {
+	public function indexDirectory($directory, $update = FALSE) {
 		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directory;
 		$cnt = 0;
 		try {
@@ -78,8 +77,13 @@ abstract class AbstractIndexService {
 				$document = $this->documentRepository->findOneByName($directory . PathService::PATH_DELIMITER . $fileName);
 				if ($document instanceof Document === FALSE) {
 					$cnt++;
-					$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName);
+					$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
 					$this->documentRepository->add($document);
+				} elseif ($update === TRUE) {
+					$dummy = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
+					$document->setMDateTime($dummy->getMDateTime());
+					$this->documentRepository->update($document);
+					$cnt++;
 				}
 			}
 		} catch (\AchimFritz\Documents\Domain\Service\Filesystem\Exception $e) {

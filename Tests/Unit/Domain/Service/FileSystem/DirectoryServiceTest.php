@@ -10,15 +10,19 @@ use AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * Testcase for RenameService
+ * Testcase for DirectoryService
  */
 class DirectoryServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
-	 * @test
+	 * @var \org\bovigo\vfs\vfsStreamDirectory
 	 */
-	public function getSplFileInfosInDirectoryReturnsArrayOfSplFileInfos() {
+	protected $root;
 
+	/**
+	 * @return void
+	 */
+	public function setUp() {
 		$structure = array(
 			'images' => array(
 				'0000_00_00_name' => array(
@@ -28,12 +32,42 @@ class DirectoryServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 			)
 		);
 
-		$root = vfsStream::setup('root', NULL, $structure);
+		$this->root = vfsStream::setup('root', NULL, $structure);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getSplFileInfosInDirectoryReturnsArrayOfSplFileInfos() {
 		$directoryService = new DirectoryService();
 		$splFileObjects = $directoryService->getSplFileInfosInDirectory(vfsStream::url('root/images/0000_00_00_name'), 'jpg');
 		$this->assertSame(1, count($splFileObjects));
 		$first = $splFileObjects[0];
 		$this->assertSame('test.jpg', $first->getBasename());
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileNamesInDirectoryReturnsArrayOfFileNames() {
+		$directoryService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService', array('getSplFileInfosInDirectory'));
+		$splFileInfo = new \SplFileInfo(vfsStream::url('root/images/0000_00_00_name/test.jpg'));
+		$directoryService->expects($this->once())->method('getSplFileInfosInDirectory')->will($this->returnValue(array($splFileInfo)));
+		$fileNames = $directoryService->getFileNamesInDirectory(vfsStream::url('root/images/0000_00_00_name'), 'jpg');
+		$this->assertSame(1, count($fileNames));
+		$first = $fileNames[0];
+		$this->assertSame('test.jpg', $first);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCountOfFilesByExtensionReturnsInteger() {
+		$directoryService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService', array('getSplFileInfosInDirectory'));
+		$splFileInfo = new \SplFileInfo(vfsStream::url('root/images/0000_00_00_name/test.jpg'));
+		$directoryService->expects($this->once())->method('getSplFileInfosInDirectory')->will($this->returnValue(array($splFileInfo)));
+		$cnt = $directoryService->getCountOfFilesByExtension(vfsStream::url('root/images/0000_00_00_name'), 'jpg');
+		$this->assertSame(1, $cnt);
 	}
 
 }

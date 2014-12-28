@@ -3,7 +3,7 @@
 <f:section name="Title">Image Integrity of {integrity.name}</f:section>
 <f:section name="Content">
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<h2>Persisted</h2>
 		<ul>
 			<f:for each="{integrity.persistedDocuments}" as="document">
@@ -11,7 +11,7 @@
 			</f:for>
 		</ul>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<h2>Solr</h2>
 		<ul>
 			<f:for each="{integrity.solrDocuments}" as="document">
@@ -19,10 +19,18 @@
 			</f:for>
 		</ul>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<h2>FileSystem</h2>
 		<ul>
 			<f:for each="{integrity.filesystemDocuments}" as="document">
+				<li>{document}</li>
+			</f:for>
+		</ul>
+	</div>
+	<div class="col-md-3">
+		<h2>Thumbs</h2>
+		<ul>
+			<f:for each="{integrity.thumbs}" as="document">
 				<li>{document}</li>
 			</f:for>
 		</ul>

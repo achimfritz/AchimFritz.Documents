@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.controller('FacetController', FacetController);
 
-				function FacetController($scope, SolrFactory, FacetFactory) {
+				function FacetController($scope, SolrFactory, FacetFactory, SettingsFactory) {
 
 								function update() {
 												SolrFactory.getData().then(function(data) {
@@ -20,6 +20,15 @@
 								};
 
 								update();
+
+								var settings = SettingsFactory.getSettings();
+								$scope.query = settings.q;
+
+								$scope.integrity = function(query) {
+												$scope.query = query;
+												SettingsFactory.setSetting('q', query);
+												update();
+								};
 
 								$scope.filterQueries = FacetFactory.getFilterQueries();
 
