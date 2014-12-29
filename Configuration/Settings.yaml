@@ -5,6 +5,7 @@ AchimFritz:
       port: 8080
       path: solr/documents2
       servlet: select
+    export: /tmp
     mp3Document:
       mountPoint: /mp3/db
       webPath: mp3

@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\ImageDocument;
 use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 
 /**
  * @Flow\Scope("singleton")
@@ -29,7 +30,7 @@ class ExportCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentCollectionFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Image\ExportService
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ExportService
 	 * @Flow\Inject
 	 */
 	protected $exportService;
@@ -51,9 +52,14 @@ class ExportCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$categories->add($category);
 		}
 		$documentCollection = $this->documentCollectionFactory->createInCategories($name, $categories);
-		$this->exportService->run('/bilder/export/' . $name, $documentCollection->getDocuments());
-		$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents');
+		$documentExport = new DocumentExport();
+		$documentExport->setDocuments($documentCollection->getDocuments());
+		$documentExport->setName($name);
+		try {
+			$this->exportService->export($documentExport);
+			$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
 	}
 }
-
-?>

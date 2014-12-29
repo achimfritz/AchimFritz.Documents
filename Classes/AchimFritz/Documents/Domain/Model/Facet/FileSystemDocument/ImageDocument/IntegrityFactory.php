@@ -60,10 +60,18 @@ class IntegrityFactory {
 	public function createIntegrity($directory) {
 
       $documents = $this->documentRepository->findByHead($directory);
-      $solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
+		try {
+			$solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
+		} catch (\SolrException $e) {
+			throw new Exception('cannot fetch from solr', 1418658029);
+		}
 
       $path = $this->settings['imageDocument']['mountPoint'] . PathService::PATH_DELIMITER . $directory;
-		$fsDocs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+		try {
+			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			throw new Exception('cannot get files in ' . $path, 1419867691);
+		}
 
 		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $this->settings['imageDocument']['webPath'] . PathService::PATH_DELIMITER . $directory;
 		try {
@@ -97,7 +105,11 @@ class IntegrityFactory {
 		}
 
 		$path = $this->settings['imageDocument']['mountPoint'];
-		$outerFileInfos = $this->directoryService->getDirectoriesInDirectory($path);
+		try {
+			$outerFileInfos = $this->directoryService->getDirectoriesInDirectory($path);
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			throw new Exception('cannot get files in ' . $path, 1419867692);
+		}
 		foreach ($outerFileInfos AS $outerFileInfo) {
 			$cnt = $this->directoryService->getCountOfFilesByExtension($outerFileInfo->getRealpath(), 'jpg');
 			$name = $outerFileInfo->getBasename();

@@ -29,6 +29,11 @@ class FileSystem extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocu
 	protected $webThumbPath;
 
 	/**
+	 * @var string
+	 */
+	protected $absoluteWebThumbPath;
+
+	/**
 	 * @return string
 	 */
 	public function getWebBigPath() {
@@ -71,6 +76,21 @@ class FileSystem extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocu
 	 */
 	public function setWebThumbPath($webThumbPath) {
 		$this->webThumbPath = $webThumbPath;
+	}
+
+	/**
+	 * @param string $absoluteWebThumbPath
+	 * @return void
+	 */
+	public function setAbsoluteWebThumbPath($absoluteWebThumbPath) {
+		$this->absoluteWebThumbPath = $absoluteWebThumbPath;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAbsoluteWebThumbPath() {
+		return $this->absoluteWebThumbPath;
 	}
 
 }

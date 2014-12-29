@@ -45,4 +45,21 @@ class FileSystemDocument extends Document {
 		return $this->mDateTime;
 	}
 
+	/**
+	 * @return string DirectoryName
+	 */
+	public function getDirectoryName() {
+		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
+		$last = array_pop($arr);
+		return implode(PathService::PATH_DELIMITER, $arr);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileName() {
+		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
+		$last = array_pop($arr);
+		return $last;
+	}
 }

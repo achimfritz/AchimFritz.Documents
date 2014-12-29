@@ -15,21 +15,6 @@ use AchimFritz\Documents\Domain\Service\PathService;
  */
 class ImageDocument extends FileSystemDocument {
 
-	/**
-	 * @return string DirectoryName
-	 */
-	public function getDirectoryName() {
-		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
-		return $arr[0];
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getFileName() {
-		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
-		return $arr[1];
-	}
 
 	/**
 	 * @return integer

@@ -45,10 +45,10 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 	public function listAction() {
 		try {
 			$integrities = $this->integrityFactory->createIntegrities();
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\ImageDocument\Exception $e) {
+			$this->view->assign('integrities', $integrities);
+		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\Exception $e) {
 			$this->addFlashMessage('Cannot create integrities ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}
-		$this->view->assign('integrities', $integrities);
 	}
 
 	/**

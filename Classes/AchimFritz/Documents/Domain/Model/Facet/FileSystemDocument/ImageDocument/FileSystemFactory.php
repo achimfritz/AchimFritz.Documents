@@ -21,6 +21,12 @@ class FileSystemFactory {
 	protected $settings;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\PathService
+	 * @Flow\Inject
+	 */
+	protected $pathService;
+
+	/**
 	 * @param array $settings 
 	 * @return void
 	 */
@@ -40,7 +46,30 @@ class FileSystemFactory {
 		$fileSystem->setWebThumbPath($this->settings['imageDocument']['webThumbPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
 		$fileSystem->setWebBigPath($this->settings['imageDocument']['webBigPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
 		$fileSystem->setWebPreviewPath($this->settings['imageDocument']['webPreviewPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
+		$this->setAbsoluteWebThumbPath($fileSystem);
 		return $fileSystem;
+	}
+
+	/**
+	 * @param FileSystem $fileSystem 
+	 * @return void
+	 */
+	protected function setAbsoluteWebThumbPath(FileSystem $fileSystem) {
+		// TODO test me
+		$absolutePath = $fileSystem->getAbsolutePath();
+		$absoluteWebThumbPath = $this->pathService->replacePath(
+			$absolutePath, 
+			$this->settings['imageDocument']['mountPoint'], 
+			$this->getFlowPathWeb() . $this->settings['imageDocument']['webPath']
+		);
+		$fileSystem->setAbsoluteWebThumbPath($absoluteWebThumbPath);
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getFlowPathWeb() {
+		return FLOW_PATH_WEB;
 	}
 
 }
