@@ -38,6 +38,13 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $indexService;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\ExportService
+	 * @Flow\Inject
+	 */
+	protected $exportService;
+
+
+	/**
 	 * @return string
 	 */
 	protected function getMountPoint() {

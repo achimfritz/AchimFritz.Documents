@@ -9,12 +9,13 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument as Document;
+use AchimFritz\Documents\Domain\Model\ImageDocument;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 
 /**
  * @Flow\Scope("singleton")
  */
-class ExportService {
+abstract class AbstractExportService {
 
 	/**
 	 * @var array
@@ -26,13 +27,6 @@ class ExportService {
 	 * @Flow\Inject
 	 */
 	protected $pathService;
-
-	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $fileSystemFactory;
-	// TODO for mp3
 
 	/**
 	 * @param array $settings 
@@ -80,8 +74,11 @@ class ExportService {
 		$fileSystem = $this->fileSystemFactory->create($document);
 		$from = $fileSystem->getAbsolutePath();
 		if ($documentExport->getUseThumb() === TRUE) {
+			if ($document instanceof ImageDocument === FALSE) {
+				throw new Exception('thumbs only supported for imageDocuments', 1416762881);
+			}
+			$from = $fileSystem->getAbsoluteWebThumbPath();
 			// TODO for mp3
-			$from = $this->pathService->replacePath($from, $this->settings['imageDocument']['mountPoint'], FLOW_PATH_WEB . $this->settings['imageDocument']['webPath']);
 		}
 		return $from;
 	}
@@ -93,6 +90,9 @@ class ExportService {
 	 */
 	protected function createFullPathDirectory($directory, Document $document) {
 		$directory = $directory . PathService::PATH_DELIMITER . $document->getDirectoryName();
+		if (@file_exists($directory)) {
+			return $directory;
+		}
 		if (@mkdir($directory, 0777, TRUE) === FALSE) {
 			throw new Exception('cannot create directory ' . $directory, 1416762870);
 		}

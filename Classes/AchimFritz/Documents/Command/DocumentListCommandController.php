@@ -17,6 +17,12 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentCollectionExportService
+	 * @Flow\Inject
+	 */
+	protected $exportService;
+
+	/**
 	 * @Flow\Inject
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
 	 */
@@ -84,6 +90,14 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('WARNING: documentList not found with category.path ' . $path);
 			$this->quit();
 		}
+		try {
+			$cnt = $this->exportService->export($documentList);
+			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+		$this->quit();
+
 		$directory = implode('_', explode(PathService::PATH_DELIMITER, $path));
 		$directory = $this->settings['imageDocument']['export'] . PathService::PATH_DELIMITER . $directory;
 		if (file_exists($directory)) {

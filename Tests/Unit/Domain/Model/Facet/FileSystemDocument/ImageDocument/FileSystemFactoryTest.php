@@ -28,8 +28,21 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function setAbsoluteWebThumbPathSetsWebPath() {
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('getFlowPathWeb'));
+		$factory->expects($this->once())->method('getFlowPathWeb')->will($this->returnValue('/var/www/'));
+		$factory->_set('settings', $this->settings);
+		$document = new ImageDocument();
+		$document->setName('foo');
+		$fileSystem = $factory->create($document);
+		$this->assertSame('/var/www/1/2/foo', $fileSystem->getAbsoluteWebThumbPath());
+	}
+
+	/**
+	 * @test
+	 */
 	public function createSetsWebPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('setAbsoluteWebThumbPath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -41,7 +54,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebPreviewPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('setAbsoluteWebThumbPath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -53,7 +66,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebBigPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('setAbsoluteWebThumbPath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -65,7 +78,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsWebThumbPath() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('setAbsoluteWebThumbPath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$document->setName('foo');
@@ -77,7 +90,7 @@ class FileSystemFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createSetsMountPoint() {
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('setAbsoluteWebThumbPath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('foo'));
 		$factory->_set('settings', $this->settings);
 		$document = new ImageDocument();
 		$fileSystem = $factory->create($document);

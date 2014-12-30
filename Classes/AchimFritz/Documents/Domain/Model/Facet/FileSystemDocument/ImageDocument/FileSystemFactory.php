@@ -46,23 +46,9 @@ class FileSystemFactory {
 		$fileSystem->setWebThumbPath($this->settings['imageDocument']['webThumbPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
 		$fileSystem->setWebBigPath($this->settings['imageDocument']['webBigPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
 		$fileSystem->setWebPreviewPath($this->settings['imageDocument']['webPreviewPath'] . PathService::PATH_DELIMITER . $imageDocument->getName());
-		$this->setAbsoluteWebThumbPath($fileSystem);
-		return $fileSystem;
-	}
-
-	/**
-	 * @param FileSystem $fileSystem 
-	 * @return void
-	 */
-	protected function setAbsoluteWebThumbPath(FileSystem $fileSystem) {
-		// TODO test me
-		$absolutePath = $fileSystem->getAbsolutePath();
-		$absoluteWebThumbPath = $this->pathService->replacePath(
-			$absolutePath, 
-			$this->settings['imageDocument']['mountPoint'], 
-			$this->getFlowPathWeb() . $this->settings['imageDocument']['webPath']
-		);
+		$absoluteWebThumbPath = $this->getFlowPathWeb() . $this->settings['imageDocument']['webPath'] . PathService::PATH_DELIMITER . $imageDocument->getName();
 		$fileSystem->setAbsoluteWebThumbPath($absoluteWebThumbPath);
+		return $fileSystem;
 	}
 
 	/**

@@ -23,6 +23,13 @@ class DocumentRepository extends Repository {
 	protected $solrClientWrapper;
 
 	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
+	 */   
+	protected $categoryRepository;
+
+
+	/**
 	 * @var \AchimFritz\Documents\Solr\InputDocumentFactory
 	 * @Flow\Inject
 	 */
@@ -49,6 +56,21 @@ class DocumentRepository extends Repository {
 		return $query->matching(
 			$query->contains('categories', $category)
 		)->execute();
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $categories
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findByCategoryPaths(array $paths) {
+		$categories = new \Doctrine\Common\Collections\ArrayCollection();
+		foreach ($paths as $path) {
+			$category = $this->categoryRepository->findOneByPath($path);
+			if ($category instanceof Category === TRUE) {
+				$categories->add($category);
+			}
+		}
+		return $this->findInAllCategories($categories);
 	}
 
 	/**

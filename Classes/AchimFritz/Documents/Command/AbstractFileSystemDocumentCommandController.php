@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Service\PathService;
 
@@ -146,6 +147,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @return void
 	 */
 	public function renameFilesCommand($directoryName) {
+		// TODO refactor
 		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directoryName;
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
@@ -181,5 +183,31 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			}
 		}
 	}
+
+	/**
+	 * @param string $name
+	 * @param string $paths
+	 * @param boolean $useThumb
+	 * @param boolean $useFullPath
+	 * @return void
+	 */
+	public function exportCommand($name, $paths, $useThumb = FALSE, $useFullPath = FALSE) {
+		$name = trim($name);
+		$documents = $this->documentRepository->findByCategoryPaths(explode(',', $paths));
+		$documents = $documents->toArray();
+		$documents = new \Doctrine\Common\Collections\ArrayCollection($documents);
+		$documentExport = new DocumentExport();
+		$documentExport->setUseThumb($useThumb);
+		$documentExport->setUseFullPath($useFullPath);
+		$documentExport->setDocuments($documents);
+		$documentExport->setName($name);
+		try {
+			$cnt = $this->exportService->export($documentExport);
+			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
 		
 }

@@ -37,6 +37,12 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 */
 	protected $indexService;
 
+	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\ExportService
+	 * @Flow\Inject
+	 */
+	protected $exportService;
+
 
 	/**
 	 * @return string
