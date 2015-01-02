@@ -24,6 +24,11 @@ class DocumentExport {
 	protected $documents;
 
 	/**
+	 * @var integer
+	 */
+	protected $counterLength = 4;
+
+	/**
 	 * @var string
 	 */
 	protected $name;
@@ -132,6 +137,21 @@ class DocumentExport {
 	 */
 	public function setSortByPrefix($sortByPrefix) {
 		$this->sortByPrefix = $sortByPrefix;
+	}
+
+	/**
+	 * @return integer counterLength
+	 */
+	public function getCounterLength() {
+		return $this->counterLength;
+	}
+
+	/**
+	 * @param integer $counterLength
+	 * @return void
+	 */
+	public function setCounterLength($counterLength) {
+		$this->counterLength = $counterLength;
 	}
 
 }

@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 use AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Domain\Model\DocumentList;
 
 /**
  * @Flow\Scope("singleton")
@@ -20,6 +21,13 @@ class CategoryRepository extends Repository {
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
 	 */   
 	protected $documentRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
+	 */
+	protected $documentListRepository;
+
 
 	/**
 	 * @var \AchimFritz\Documents\Solr\ClientWrapper
@@ -71,6 +79,10 @@ class CategoryRepository extends Repository {
 		$documents = $this->documentRepository->findByCategory($category);
 		if (count($documents) > 0) {
 			throw new Exception('category has documents ' . $category->getPath(), 1417447460);
+		}
+		$documentList = $this->documentListRepository->findOneByCategory($category);
+		if ($documentList instanceof DocumentList) {
+			throw new Exception('documentList exists ' . $category->getPath(), 1417447461);
 		}
 		return $this->parentRemove($category);
 	}

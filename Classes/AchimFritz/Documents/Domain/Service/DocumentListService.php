@@ -7,8 +7,8 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\DocumentList;
+use AchimFritz\Documents\Domain\Model\DocumentListItem;
 use AchimFritz\Documents\Domain\Model\Category;
 
 /**
@@ -29,42 +29,61 @@ class DocumentListService {
 	protected $documentRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
+	 */
+	protected $categoryRepository;
+
+	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
 	 * @return \AchimFritz\Documents\Domain\Model\DocumentList $documentList
 	 */
 	public function merge(DocumentList $documentList) {
 		$items = $documentList->getDocumentListItems();
-		$documentList = $this->documentListRepository->getPersistedOrAdd($documentList);
+		$persistedDocumentList = $this->documentListRepository->getPersistedOrAdd($documentList);
 		foreach ($items AS $item) {
-			if ($documentList->hasDocumentListItem($item) === FALSE) {
-				// add item
-				$documentList->addDocumentListItem($item);
-				// TODO WHY ???
-				$item->setDocumentList($documentList);
+			if ($persistedDocumentList->hasDocument($item->getDocument()) === FALSE) {
+				$persistedDocumentList->addDocumentListItem($item);
+				// add document to category
+				$document = $item->getDocument();
+				$category = $persistedDocumentList->getCategory();
+				if ($document->hasCategory($category) === FALSE) {
+					$document->addCategory($category);
+					$this->documentRepository->update($document);
+				}
 			} else {
-				// update sorting ... TODO should be done autom. by persistence
-				//$documentList->getDocumentItem($item)->setSorting($item->getSorting());
-			}
-			// add document to category
-			$document = $item->getDocument();
-			$category = $documentList->getCategory();
-			// TODO Repo + DocumentCollectionService
-			if ($document->hasCategory($category) === FALSE) {
-				$document->addCategory($category);
-				$this->documentRepository->update($document);
+				$persistedDocumentList->updateDocumentListItem($item);
 			}
 		}
-		$this->documentListRepository->update($documentList);
-		return $documentList;
+		$this->documentListRepository->update($persistedDocumentList);
+		return $persistedDocumentList;
 	}
 
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
-	 * @return integer
+	 * @return \AchimFritz\Documents\Domain\Model\DocumentList $documentList
 	 */
 	public function remove(DocumentList $documentList) {
-		$cnt = 0;
-		return $cnt;
+		$category = $this->categoryRepository->findOneByPath($documentList->getCategory()->getPath());
+		// already persisted?
+		$persistedDocumentList = $this->documentListRepository->findOneByCategory($category);
+		if ($persistedDocumentList instanceof DocumentList) {
+			foreach ($documentList->getDocumentListItems() AS $item) {
+				foreach ($persistedDocumentList->getDocumentListItems() AS $persistedItem) {
+					if ($persistedItem->getDocument() === $item->getDocument()) {
+						$persistedDocumentList->removeDocumentListItem($persistedItem);
+						// remove category
+						$document = $item->getDocument();
+						$document->removeCategory($category);
+						$this->documentRepository->update($document);
+					}
+				}
+			}
+		} else {
+			throw new Exception('documentList not found ' . $documentList->getCategory()->getPath(), 1420201144);
+		}
+		$this->documentListRepository->update($persistedDocumentList);
+		return $persistedDocumentList;
 	}
 
 }

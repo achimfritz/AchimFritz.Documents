@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Domain\Service;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Domain\Model\DocumentList;
 
 /**
  * @Flow\Scope("singleton")
@@ -26,6 +27,13 @@ class DocumentCollectionService {
 	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
 	 */
 	protected $categoryRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Policy\DocumentPolicy
+	 */
+	protected $documentPolicy;
+
 
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
@@ -59,7 +67,7 @@ class DocumentCollectionService {
 			$category = $persistedCategory;
 			$documents = $documentCollection->getDocuments();
 			foreach ($documents AS $document) {
-				if ($document->hasCategory($category) === TRUE) {
+				if ($this->documentPolicy->categoryMayBeRemoved($category, $document) === TRUE) {
 					$document->removeCategory($category);
 					$this->documentRepository->update($document);
 					$cnt++;

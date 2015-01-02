@@ -16,7 +16,7 @@ class DocumentList {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Category
-	 * @ORM\ManyToOne
+	 * @ORM\OneToOne
 	 */
 	protected $category;
 
@@ -54,6 +54,7 @@ class DocumentList {
 	 * @return void
 	 */
 	public function addDocumentListItem(DocumentListItem $documentListItem) {
+		$documentListItem->setDocumentList($this);
 		$this->documentListItems->add($documentListItem);
 	}
 
@@ -65,6 +66,42 @@ class DocumentList {
 		return $this->documentListItems->contains($documentListItem);
 	}
 
+	/**
+	 * @param Document $document 
+	 * @return boolean
+	 */
+	public function hasDocument(Document $document) {
+		$items = $this->getDocumentListItems();
+		var_dump(count($items));
+		foreach ($items AS $item) {
+	var_dump('hasDoc');
+			if ($item->getDocument() === $document) {
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * @param DocumentListItem $documentListItem 
+	 * @return void
+	 */
+	public function updateDocumentListItem(DocumentListItem $documentListItem) {
+		$items = $this->getDocumentListItems();
+		foreach ($items AS $item) {
+			if ($item->getDocument() === $documentListItem->getDocument()) {
+				$item->setSorting($documentListItem->getSorting());
+			}
+		}
+	}
+
+	/**
+	 * @param DocumentListItem $documentListItems
+	 * @return boolean
+	 */
+	public function removeDocumentListItem(DocumentListItem $documentListItem) {
+		$this->documentListItems->removeElement($documentListItem);
+	}
 
 	/**
 	 * @return \AchimFritz\Documents\Domain\Model\Category

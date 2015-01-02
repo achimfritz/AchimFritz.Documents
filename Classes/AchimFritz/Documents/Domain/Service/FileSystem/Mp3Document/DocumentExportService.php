@@ -7,12 +7,12 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Service\FileSystem\AbstractExportService;
+use AchimFritz\Documents\Domain\Service\FileSystem\AbstractDocumentExportService;
 
 /**
  * @Flow\Scope("singleton")
  */
-class ExportService extends AbstractExportService {
+class DocumentExportService extends AbstractDocumentExportService {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory

@@ -21,6 +21,12 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 	 */
 	protected $documentListRepository;
 
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
+
 	/**
 	 * @var string
 	 */
@@ -41,4 +47,33 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 		$this->view->assign('documentList', $documentList);
 	}
 
+	/**
+	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
+	 * @return void
+	 */
+	public function updateAction(DocumentList $documentList) {
+		$this->documentListRepository->update($documentList);
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Updated a documentList.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Update a documentList with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
+		$this->redirect('index');
+	}
+
+	/**
+	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
+	 * @return void
+	 */
+	public function deleteAction(DocumentList $documentList) {
+		$this->documentListRepository->remove($documentList);
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage('Deleted a documentList.');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->addFlashMessage('Cannot Delete a documentList with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+		}
+		$this->redirect('index');
+	}
 }

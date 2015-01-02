@@ -17,7 +17,7 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentCollectionExportService
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService
 	 * @Flow\Inject
 	 */
 	protected $exportService;
@@ -96,36 +96,6 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
-		$this->quit();
-
-		$directory = implode('_', explode(PathService::PATH_DELIMITER, $path));
-		$directory = $this->settings['imageDocument']['export'] . PathService::PATH_DELIMITER . $directory;
-		if (file_exists($directory)) {
-			$this->outputLine('ERROR: directory ' . $directory . ' exists');
-			$this->quit();
-		}
-		if (@mkdir($directory) === FALSE) {
-			$this->outputLine('ERROR: cannot create directory ' . $directory);
-			$this->quit();
-		}
-		$content = '';
-		$cnt = 1;
-		foreach ($documentList->getDocumentListItems() AS $item) {
-			$splFileInfo = $item->getDocument()->getSplFileInfo();
-			$ext = $splFileInfo->getExtension();
-			$pre = sprintf('%02s', $cnt);
-			$content .= $pre . ' ' . $splFileInfo->getBasename('.' . $ext);
-			$content .= "\n";
-			if (@copy($splFileInfo->getRealPath(), $directory . PathService::PATH_DELIMITER . $pre . '-' . $splFileInfo->getBasename()) === FALSE) {
-				$this->outputLine('WARNING: cannot copy file ' . $splFileInfo->getRealPath());
-			}
-			$cnt++;
-
-		}
-		if (@file_put_contents($directory . PathService::PATH_DELIMITER . 'index.txt', $content) === FALSE) {
-			$this->outputLine('WARNING: cannot write index.txt');
-		}
-		$this->outputLine($content);
 	}
 
 }

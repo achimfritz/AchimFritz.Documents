@@ -38,10 +38,10 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $indexService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\ExportService
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService
 	 * @Flow\Inject
 	 */
-	protected $exportService;
+	protected $documentExportService;
 
 
 	/**

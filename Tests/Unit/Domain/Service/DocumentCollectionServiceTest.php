@@ -48,7 +48,7 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function removeRemovesCategoryFromDocument() {
+	public function removeRemovesCategoryFromDocumentIfAllowed() {
 		$documentCollection = new DocumentCollection();
 		$category = new Category();
 		$persisted = new Category();
@@ -59,6 +59,9 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$documentCollection->setCategory($category);
 		$documentCollection->addDocument($document);
 
+		$documentPolicy = $this->getMock('AchimFritz\Documents\Domain\Policy\DocumentPolicy', array('categoryMayBeRemoved'));
+		$documentPolicy->expects($this->once())->method('categoryMayBeRemoved')->will($this->returnValue(TRUE));
+
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('update'));
 		$documentRepository->expects($this->once())->method('update')->with($document);
 
@@ -68,6 +71,38 @@ class DocumentCollectionServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$documentCollectionService = $this->getMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('foo'));
 		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
 		$this->inject($documentCollectionService, 'documentRepository', $documentRepository);
+		$this->inject($documentCollectionService, 'documentPolicy', $documentPolicy);
+		$documentCollectionService->remove($documentCollection);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeDoNotRemovesCategoryFromDocumentIfNotAllowd() {
+		$documentCollection = new DocumentCollection();
+		$category = new Category();
+		$persisted = new Category();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Document', array('removeCategory'));
+		$document->addCategory($persisted);
+		$document->expects($this->never())->method('removeCategory');
+
+		$documentCollection->setCategory($category);
+		$documentCollection->addDocument($document);
+
+		$documentPolicy = $this->getMock('AchimFritz\Documents\Domain\Policy\DocumentPolicy', array('categoryMayBeRemoved'));
+		$documentPolicy->expects($this->once())->method('categoryMayBeRemoved')->will($this->returnValue(FALSE));
+
+
+		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('update'));
+		$documentRepository->expects($this->never())->method('update');
+
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath'));
+		$categoryRepository->expects($this->once())->method('findOneByPath')->will($this->returnValue($persisted));
+
+		$documentCollectionService = $this->getMock('AchimFritz\Documents\Domain\Service\DocumentCollectionService', array('foo'));
+		$this->inject($documentCollectionService, 'categoryRepository', $categoryRepository);
+		$this->inject($documentCollectionService, 'documentRepository', $documentRepository);
+		$this->inject($documentCollectionService, 'documentPolicy', $documentPolicy);
 		$documentCollectionService->remove($documentCollection);
 	}
 

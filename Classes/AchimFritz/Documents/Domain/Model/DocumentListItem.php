@@ -54,13 +54,6 @@ class DocumentListItem {
 	}
 
 	/**
-	 * @return string 
-	 */
-	public function getSortingString() {
-		return sprintf('%02s', $this->sorting);
-	}
-
-	/**
 	 * @return integer
 	 */
 	public function getSorting() {

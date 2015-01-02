@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Category;
+use AchimFritz\Documents\Domain\Model\DocumentList;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
@@ -48,6 +48,12 @@ class DocumentListRemoveController extends \AchimFritz\Rest\Controller\RestContr
 		$propertyMappingConfiguration->forProperty('documentListItems');
 		$sub = $propertyMappingConfiguration->getConfigurationFor('documentListItems');
 		$sub->allowAllProperties();
+
+		for ($i = 0; $i < 20; $i++) {
+			$sub->forProperty($i)->allowAllProperties();
+			$sub->forProperty($i)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		}
+
 	}
 
 	/**
@@ -55,18 +61,26 @@ class DocumentListRemoveController extends \AchimFritz\Rest\Controller\RestContr
 	 * @return void
 	 */
 	public function createAction(DocumentList $documentList) {
-		return 'foo';
-		$cnt = $this->documentCollectionService->merge($documentCollection);
 		try {
-			$this->documentPersistenceManager->persistAll();
-			$this->addFlashMessage($cnt . ' Documents added to ' . $documentCollection->getCategory()->getPath());
-		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
-		}
-		if ($this->request->getReferringRequest() instanceof ActionRequest) {
-			$this->redirectToRequest($this->request->getReferringRequest());
-		} else {
-			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+			$documentList = $this->documentListService->remove($documentList);
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->addFlashMessage('Documents removed from ' . $documentList->getCategory()->getPath());
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			}
+			if ($this->request->getReferringRequest() instanceof ActionRequest) {
+				$this->redirectToRequest($this->request->getReferringRequest());
+			} else {
+				$this->redirect('list', 'DocumentList', NULL, array('documentList' => $documentList));
+			}
+		} catch (AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			if ($this->request->getReferringRequest() instanceof ActionRequest) {
+				$this->redirectToRequest($this->request->getReferringRequest());
+			} else {
+				$this->redirect('list', 'DocumentList');
+			}
 		}
 	}
 

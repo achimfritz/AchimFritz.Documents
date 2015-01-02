@@ -100,7 +100,7 @@
 		<h3>remove from DocumentList</h3>
 		<f:form action="index" objectName="documentList" controller="DocumentListRemove">
 			<input type="hidden" name="__method" value="POST" />
-				<f:form.select multiple="true" class="hidden form-control" property="documents" options="{0: document}" selectAllByDefault="true" />
+				<f:form.hidden class="form-control" property="documentListItems.0.document" value="{document}" />
 				<div class="form-group">
 					<label class="control-label" for="category">Category</label>
 					<f:form.textfield property="category.path" class="form-control" id="category" />

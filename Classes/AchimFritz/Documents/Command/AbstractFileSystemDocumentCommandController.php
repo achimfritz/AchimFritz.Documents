@@ -147,7 +147,6 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @return void
 	 */
 	public function renameFilesCommand($directoryName) {
-		// TODO refactor
 		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directoryName;
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
@@ -202,7 +201,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		$documentExport->setDocuments($documents);
 		$documentExport->setName($name);
 		try {
-			$cnt = $this->exportService->export($documentExport);
+			$cnt = $this->documentExportService->export($documentExport);
 			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());

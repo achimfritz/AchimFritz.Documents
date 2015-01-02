@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\DocumentList;
+use AchimFritz\Documents\Domain\Model\Document;
 use TYPO3\Flow\Persistence\Repository;
 
 /**
@@ -41,8 +42,10 @@ class DocumentListRepository extends Repository {
 		if ($persisted instanceof DocumentList === TRUE) {
 			return $persisted;
 		} else {
-			$this->add($documentList);
-			return $documentList;
+			$persisted = new DocumentList();
+			$persisted->setCategory($persistedCategory);
+			$this->add($persisted);
+			return $persisted;
 		}
 	}
 

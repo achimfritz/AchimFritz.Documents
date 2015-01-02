@@ -7,7 +7,6 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
@@ -68,10 +67,9 @@ class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestContro
 	 */
 	public function createAction(DocumentList $documentList) {
 		$documentList = $this->documentListService->merge($documentList);
-		$cnt = count($documentList->getDocumentListItems());
 		try {
 			$this->documentPersistenceManager->persistAll();
-			$this->addFlashMessage($cnt . ' Documents updatet to ' . $documentList->getCategory()->getPath());
+			$this->addFlashMessage('Documents updatet to ' . $documentList->getCategory()->getPath());
 			$this->redirect('index', 'DocumentList', NULL, array('documentList' => $documentList));
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);

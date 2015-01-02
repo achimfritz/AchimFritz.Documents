@@ -86,7 +86,7 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 			$this->categoryRepository->remove($category);
 			$this->addFlashMessage('Deleted a category.');
 		} catch (\AchimFritz\Documents\Domain\Repository\Exception $e) {
-			$this->addFlashMessage('Cannot Delete category ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->addFlashMessage('Cannot Delete category with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
