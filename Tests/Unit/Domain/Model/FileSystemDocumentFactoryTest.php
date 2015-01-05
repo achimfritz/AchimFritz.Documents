@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
  *                                                                        */
 
 use AchimFritz\Documents\Domain\Model\FileSystemDocumentFactory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * Testcase for FileSystemDocument
@@ -15,12 +16,11 @@ class FileSystemDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @expectedException \AchimFritz\Documents\Domain\Model\Exception
 	 */
-	public function createSetsName() {	
+	public function createThrowsExceptionIfFileNotExists() {	
 		$factory = new FileSystemDocumentFactory();
 		$document = $factory->create('foo');
-		$this->assertSame('foo', $document->getName());
 	}
 
 }
-?>

@@ -82,6 +82,7 @@ abstract class AbstractIndexService {
 				} elseif ($update === TRUE) {
 					$dummy = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
 					$document->setMDateTime($dummy->getMDateTime());
+					$document->setFileHash($dummy->getFileHash());
 					$this->documentRepository->update($document);
 					$cnt++;
 				}

@@ -105,6 +105,7 @@ class InputDocumentFactory {
 			$inputDocument->addField('webBigPath', $fileSystem->getWebBigPath());
 			$inputDocument->addField('extension', 'jpg');
 			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
+			$inputDocument->addField('fileHash', $document->getFileHash());
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());

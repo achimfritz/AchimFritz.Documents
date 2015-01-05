@@ -22,9 +22,29 @@ class FileSystemDocument extends Document {
 	protected $name;
 
 	/**
+	 * @var string
+	 */
+	protected $fileHash;
+
+	/**
 	 * @var \DateTime
 	 */
 	protected $mDateTime;
+
+	/**
+	 * @return string fileHash
+	 */
+	public function getFileHash() {
+		return $this->fileHash;
+	}
+
+	/**
+	 * @param string $fileHash
+	 * @return void
+	 */
+	public function setFileHash($fileHash) {
+		$this->fileHash = $fileHash;
+	}
 
 	/**
 	 * setMDateTime 

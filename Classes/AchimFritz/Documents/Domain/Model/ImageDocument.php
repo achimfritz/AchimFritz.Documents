@@ -15,6 +15,10 @@ use AchimFritz\Documents\Domain\Service\PathService;
  */
 class ImageDocument extends FileSystemDocument {
 
+	/**
+	 * @var string
+	 */
+	protected $fileHash;
 
 	/**
 	 * @return integer

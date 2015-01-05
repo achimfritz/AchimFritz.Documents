@@ -20,15 +20,18 @@ class FileSystemDocumentFactory {
 	 * @param string $mountPoint 
 	 * @return \AchimFritz\Documents\Domain\Model\FileSystemDocument
 	 */
-	public function create($name, $mountPoint = PathService::PATH_DELIMITER) {
+	public function create($name, $mountPoint = '') {
 		$document = $this->getDocument();
 		$document->setName($name);
 		$mDateTime = new \DateTime();
 		$splFileInfo = new \SplFileInfo($mountPoint . PathService::PATH_DELIMITER . $name);
 		if ($splFileInfo->isFile() === TRUE) {
 			$mDateTime = new \DateTime('@' . $splFileInfo->getMTime());
+			$document->setMDateTime($mDateTime);
+			$document->setFileHash(sha1_file($splFileInfo->getRealPath()));
+		} else {
+			throw new Exception('no such file ' . $splFileInfo->getRealPath(), 1420478777);
 		}
-		$document->setMDateTime($mDateTime);
 		return $document;
 	}
 
