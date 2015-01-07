@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
+use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Service\PathService;
 
@@ -58,16 +59,19 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	abstract protected function getExtension();
 
 	/**
-	 * @param string $directoryName 
+	 * @param string $directory 
 	 * @return void
 	 */
-	public function listCommand($directoryName) {
-		$documents = $this->documentRepository->findByHead($directoryName);
+	public function listCommand($directory) {
+		$documents = $this->documentRepository->findByHead($directory);
 		if (count($documents) === 0) {
 			$this->outputLine('WARNING: no documents found');
 		}
 		foreach ($documents AS $document) {
 			$this->outputLine($document->getName());
+			foreach ($document->getCategories() AS $category) {
+				$this->outputLine($category->getPath());
+			}
 		}
 	}
 
@@ -95,11 +99,11 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
-	 * @param string $directoryName 
+	 * @param string $directory 
 	 * @return void
 	 */
-	public function deleteCommand($directoryName) {
-		$documents = $this->documentRepository->findByHead($directoryName);
+	public function deleteCommand($directory) {
+		$documents = $this->documentRepository->findByHead($directory);
 		$cnt = count($documents);
 		foreach ($documents AS $document) {
 			$this->documentRepository->remove($document);
@@ -126,6 +130,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		}
 	}
 
+
 	/**
 	 * @return void
 	 */
@@ -143,11 +148,11 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * @param string $directoryName
+	 * @param string $directory
 	 * @return void
 	 */
-	public function renameFilesCommand($directoryName) {
-		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directoryName;
+	public function renameFilesCommand($directory) {
+		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directory;
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
@@ -157,14 +162,14 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		$updates = 0;
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->isDir() === FALSE) {
-				$document = $this->documentRepository->findOneByName($directoryName . PathService::PATH_DELIMITER . $fileInfo->getBasename());
+				$document = $this->documentRepository->findOneByName($directory . PathService::PATH_DELIMITER . $fileInfo->getBasename());
 				try {
 					$renamed = $this->renameService->rename($fileInfo->getRealPath());
 					$this->outputLine('SUCCESS renamed to ' . $renamed);
 					if ($document instanceof Document === TRUE) {
 						$this->outputLine('WARNING: document already persisted ... updating');
 						$updateFileInfo = new \SplFileInfo($renamed);
-						$document->setName($directoryName . PathService::PATH_DELIMITER . $updateFileInfo->getBasename());
+						$document->setName($directory . PathService::PATH_DELIMITER . $updateFileInfo->getBasename());
 						$this->documentRepository->update($document);
 						$updates++;
 					}

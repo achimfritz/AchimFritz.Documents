@@ -11,6 +11,6 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * @Flow\Scope("singleton")
  */
-class ImageDocumentRepository extends FileSystemDocumentRepository {
+class FileSystemDocumentRepository extends DocumentRepository {
 
 }

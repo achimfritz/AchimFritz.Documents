@@ -50,6 +50,10 @@
                 templateUrl: templatePath + 'Integrity.html',
                 controller: 'IntegrityController'
             }).
+            when('/documentlist', {
+                templateUrl: templatePath + 'DocumentList.html',
+                controller: 'DocumentListController'
+            }).
 												otherwise({
                 redirectTo: '/'
             });

@@ -72,9 +72,7 @@ class DocumentList {
 	 */
 	public function hasDocument(Document $document) {
 		$items = $this->getDocumentListItems();
-		var_dump(count($items));
 		foreach ($items AS $item) {
-	var_dump('hasDoc');
 			if ($item->getDocument() === $document) {
 				return TRUE;
 			}

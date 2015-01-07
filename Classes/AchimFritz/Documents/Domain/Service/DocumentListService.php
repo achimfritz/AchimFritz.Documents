@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use AchimFritz\Documents\Domain\Model\DocumentListItem;
 use AchimFritz\Documents\Domain\Model\Category;
@@ -21,6 +22,12 @@ class DocumentListService {
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
 	 */
 	protected $documentListRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\FileSystemDocumentRepository
+	 */
+	protected $fileSystemDocumentRepository;
 
 	/**
 	 * @Flow\Inject
@@ -84,6 +91,38 @@ class DocumentListService {
 		}
 		$this->documentListRepository->update($persistedDocumentList);
 		return $persistedDocumentList;
+	}
+
+	/**
+	 * @param string $directory 
+	 * @param string $path 
+	 * @return \AchimFritz\Documents\Domain\Model\DocumentList $documentList
+	 * @throws Exception
+	 */
+	public function directoryToList($directory, $path) {
+		$documents = $this->fileSystemDocumentRepository->findByHead($directory);
+		$cnt = 1;
+		$category = new Category();
+		$category->setPath($path);
+		$documentList = new DocumentList();
+		$documentList->setCategory($category);
+		foreach ($documents AS $document) {
+			$others = $this->fileSystemDocumentRepository->findByFileHash($document->getFileHash());
+			if (count($others) !== 2) {
+				throw new Exception('no same document found for ' . $document->getName() . ' count is ' . count($others), 1420562631);
+			}
+			$item = new DocumentListItem();
+			foreach ($others AS $other) {
+				if ($other !== $document) {
+					$item->setDocument($other);
+				}
+			}
+			$item->setSorting($cnt);
+			$documentList->addDocumentListItem($item);
+			$cnt ++;
+		}
+		#return $documentList;
+		return $this->merge($documentList);
 	}
 
 }

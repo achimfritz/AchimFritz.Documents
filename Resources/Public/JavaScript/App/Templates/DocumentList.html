@@ -1,0 +1,13 @@
+<toaster-container></toaster-container>
+
+<overlay finished="finished"></overlay>
+<div data-ng-if="!finished" class="spinner">
+	<spinner></spinner>
+</div>
+
+<div ng-show="view === 'list'">
+</div>
+<div ng-show="view === 'show'">
+			<button ng-click="list()" class="btn btn-default" >list</button>
+</div>
+

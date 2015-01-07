@@ -24,9 +24,21 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Service\DocumentListService
+	 */
+	protected $documentListService;
+
+	/**
+	 * @Flow\Inject
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
 	 */
 	protected $documentListRepository;
+
+	/**
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
@@ -95,6 +107,25 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @param string $directory 
+	 * @param string $path 
+	 * @return void
+	 */
+	public function directoryToListCommand($directory, $path) {
+		try {
+			$documentList = $this->documentListService->directoryToList($directory, $path);
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->outputLine('SUCCESS: saved ' . count($documentList->getDocumentListItems()) . ' documents');
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage());
+			}
+		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->outputLine('ERROR: with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 
