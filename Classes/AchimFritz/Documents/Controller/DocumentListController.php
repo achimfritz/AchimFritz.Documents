@@ -28,6 +28,12 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 	protected $documentPersistenceManager;
 
 	/**
+	 * @var array
+	 */
+	protected $viewFormatToObjectNameMap = array('json' => 'AchimFritz\\Documents\\Mvc\\View\\JsonView');
+
+
+	/**
 	 * @var string
 	 */
 	protected $resourceArgumentName = 'documentList';

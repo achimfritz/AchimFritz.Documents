@@ -9,21 +9,6 @@
 
 				function DocumentListRestService($http) {
 
-								this.update = function(directory) {
-												var url = 'achimfritz.documents/documentlist/';
-												var data = {
-															'directory': directory	
-												};
-												return $http({
-																method: 'PUT',
-																url: url,
-																data: data,
-																headers: {
-																				'Content-Type': 'application/json',
-																				'Accept': 'application/json'
-																}
-												})
-								};
 								this.list = function() {
 												var url = 'achimfritz.documents/documentlist/';
 												return $http({
@@ -35,9 +20,8 @@
 																}
 												})
 								};
-								this.show = function(directory) {
-												//TODO
-												var url = 'achimfritz.documents/documentlist/?documentList[__identity]=' + directory;
+								this.show = function(identifier) {
+												var url = 'achimfritz.documents/documentlist/?documentList[__identity]=' + identifier;
 												return $http({
 																method: 'GET',
 																url: url,

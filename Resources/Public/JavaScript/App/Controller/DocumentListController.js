@@ -13,9 +13,9 @@
 								$scope.view = 'list';
 								$scope.finished = false;
 
-								$scope.show = function(name) {
+								$scope.show = function(identifier) {
 												$scope.finished = false;
-												DocumentListRestService.show(name).then(function(data) {
+												DocumentListRestService.show(identifier).then(function(data) {
 																$scope.finished = true;
 																$scope.documentList = data.data.documentList;
 																$scope.view = 'show';

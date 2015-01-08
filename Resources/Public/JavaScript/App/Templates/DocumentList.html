@@ -6,6 +6,17 @@
 </div>
 
 <div ng-show="view === 'list'">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<tr ng-repeat="documentList in documentLists">
+					<td>{{documentList.category.path}}</td>
+					<td ng-click="show(documentList.__identity)"><button class="btn btn-default btn-xs" >show</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
 </div>
 <div ng-show="view === 'show'">
 			<button ng-click="list()" class="btn btn-default" >list</button>
