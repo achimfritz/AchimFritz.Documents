@@ -37,13 +37,9 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function createFromPathReturnsAbsolutePathAsDefault() {
 		$documentExport = new DocumentExport();
-		$document = new ImageDocument();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getAbsolutePath'));
+		$document->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService', array('foo'));
-		$fileSystemFactory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('create'));
-		$this->inject($exportService, 'fileSystemFactory', $fileSystemFactory);
-		$fileSystem = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystem', array('getAbsolutePath'));
-		$fileSystemFactory->expects($this->once())->method('create')->will($this->returnValue($fileSystem));
-		$fileSystem->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
 		$from = $exportService->_call('createFromPath', $document, $documentExport);
 		$this->assertSame('foo', $from);
 	}
@@ -54,13 +50,9 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function createFromPathReturnsThumbPathIfUseThumbIsTrue() {
 		$documentExport = new DocumentExport();
 		$documentExport->setUseThumb(TRUE);
-		$document = new ImageDocument();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getAbsolutePath', 'getAbsoluteWebThumbPath'));
+		$document->expects($this->once())->method('getAbsoluteWebThumbPath')->will($this->returnValue('foo'));
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService', array('foo'));
-		$fileSystemFactory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory', array('create'));
-		$this->inject($exportService, 'fileSystemFactory', $fileSystemFactory);
-		$fileSystem = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystem', array('getAbsoluteWebThumbPath', 'getAbsolutePath'));
-		$fileSystemFactory->expects($this->once())->method('create')->will($this->returnValue($fileSystem));
-		$fileSystem->expects($this->once())->method('getAbsoluteWebThumbPath')->will($this->returnValue('foo'));
 		$from = $exportService->_call('createFromPath', $document, $documentExport);
 		$this->assertSame('foo', $from);
 	}
@@ -70,8 +62,8 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function createToPathReturnsDirectoryAndFileNameByDefault() {
 		$documentExport = new DocumentExport();
-		$document = new ImageDocument();
-		$document->setName('dir/file.txt');
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getFileName'));
+		$document->expects($this->once())->method('getFileName')->will($this->returnValue('file.txt'));
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService', array('foo'));
 		$to = $exportService->_call('createToPath', $document, $documentExport, 0 , 'root');
 		$this->assertSame('root/file.txt', $to);
@@ -83,8 +75,8 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function createToPathReturnsDirectoryAndCounterPrefixedNameIfSortPrefixIsCounter() {
 		$documentExport = new DocumentExport();
 		$documentExport->setSortByPrefix(DocumentExport::SORT_BY_PREFIX_COUNTER);
-		$document = new ImageDocument();
-		$document->setName('dir/file.txt');
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getFileName'));
+		$document->expects($this->once())->method('getFileName')->will($this->returnValue('file.txt'));
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService', array('foo'));
 		$to = $exportService->_call('createToPath', $document, $documentExport, 0 , 'root');
 		$this->assertSame('root/0001_file.txt', $to);
@@ -97,8 +89,8 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function createToPathReturnsDirectoryAndFullNameIfUseFullPathIsTrue() {
 		$documentExport = new DocumentExport();
 		$documentExport->setUseFullPath(TRUE);
-		$document = new ImageDocument();
-		$document->setName('dir/file.txt');
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getFileName'));
+		$document->expects($this->once())->method('getFileName')->will($this->returnValue('file.txt'));
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService', array('createFullPathDirectory'));
 		$exportService->expects($this->once())->method('createFullPathDirectory')->with('root', $document)->will($this->returnValue('root/dir'));
 		$to = $exportService->_call('createToPath', $document, $documentExport, 0 , 'root');

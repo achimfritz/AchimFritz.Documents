@@ -20,18 +20,6 @@ use AchimFritz\Documents\Domain\Model\DocumentListItem;
 class DocumentListExportService extends AbstractExportService {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $imageFileSystemFactory;
-
-	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $mp3FileSystemFactory;
-
-	/**
 	 * @param DocumentList $documentList
 	 * @throws Exception
 	 * @return integer 
@@ -64,14 +52,7 @@ class DocumentListExportService extends AbstractExportService {
 	 * @return string
 	 */
 	protected function createFromPath(Document $document) {
-		if ($document instanceof ImageDocument) {
-			$fileSystem = $this->imageFileSystemFactory->create($document);
-		} elseif ($document instanceof Mp3Document) {
-			$fileSystem = $this->mp3FileSystemFactory->create($document);
-		} else {
-			throw new Exception('need image or mp3 document', 1420125926);
-		}
-		$from = $fileSystem->getAbsolutePath();
+		$from = $document->getAbsolutePath();
 		return $from;
 	}
 

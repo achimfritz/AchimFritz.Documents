@@ -7,7 +7,6 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
  *                                                                        */
 
 use AchimFritz\Documents\Domain\Model\FileSystemDocumentFactory;
-use org\bovigo\vfs\vfsStream;
 
 /**
  * Testcase for FileSystemDocument

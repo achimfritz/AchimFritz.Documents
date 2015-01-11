@@ -57,8 +57,8 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function createToPathReturnsDirectoryAndToName() {
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
-		$document = new FileSystemDocument();
-		$document->setName('foo/baz.jpg');
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getFileName'));
+		$document->expects($this->once())->method('getFileName')->will($this->returnValue('baz.jpg'));
 		$documentListItem = new DocumentListItem();
 		$documentListItem->setDocument($document);
 		$toPath = $exportService->_call('createToPath', $documentListItem, 0, '/bar');
@@ -67,25 +67,11 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Service\FileSystem\Exception
-	 */
-	public function createFromPathThrowsExceptionForFileSystemDocument() {
-		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
-		$document = new FileSystemDocument();
-		$exportService->_call('createFromPath', $document);
-	}
-
-	/**
-	 * @test
 	 */
 	public function createFromPathReturnsAbsolutePath() {
 		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
-		$fileSystemFactory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory', array('create'));
-		$fileSystem = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystem', array('getAbsolutePath'));
-		$fileSystem->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
-		$fileSystemFactory->expects($this->once())->method('create')->will($this->returnValue($fileSystem));
-		$this->inject($exportService, 'mp3FileSystemFactory', $fileSystemFactory);
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getAbsolutePath'));
+		$document->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
 		$from = $exportService->_call('createFromPath', $document);
 		$this->assertSame('foo', $from);
 	}

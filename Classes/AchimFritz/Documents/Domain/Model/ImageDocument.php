@@ -21,6 +21,12 @@ class ImageDocument extends FileSystemDocument {
 	protected $fileHash;
 
 	/**
+	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
+	 * @Flow\Inject
+	 */
+	protected $configuration;
+
+	/**
 	 * @return integer
 	 */
 	public function getYear() {
@@ -43,4 +49,38 @@ class ImageDocument extends FileSystemDocument {
 		$arr = explode('_', $this->getDirectoryName());
 		return (int)$arr[2];
 	}
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getWebBigPath() {
+		return $this->configuration->getWebBigPath() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getWebPreviewPath() {
+		return $this->configuration->getWebPreviewPath() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getWebThumbPath() {
+		return $this->configuration->getWebThumbPath() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAbsoluteWebThumbPath() {
+		// TODO rename to getAbsoluteWebPath
+		// TODO not here ...
+		return FLOW_PATH_WEB . $this->getWebPath();
+	}
+
 }

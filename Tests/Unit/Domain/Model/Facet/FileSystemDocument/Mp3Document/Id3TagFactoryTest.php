@@ -39,10 +39,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagAlbum() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame('Hinterland', $id3Tag->getAlbum());
@@ -52,10 +52,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagGenreId() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame(15, $id3Tag->getGenreId());
@@ -65,10 +65,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagGenre() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame('Rap', $id3Tag->getGenre());
@@ -78,10 +78,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagTitle() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame('Im Ascheregen', $id3Tag->getTitle());
@@ -91,10 +91,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagYear() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame(2013, $id3Tag->getYear());
@@ -104,10 +104,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagTrack() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame(1, $id3Tag->getTrack());
@@ -117,10 +117,10 @@ Year: 2013
 	 * @test
 	 */
 	public function createSetsId3TagArtist() {	
-		$document = new Mp3Document();
+		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$linuxCommand = $this->getMock('AchimFritz\Documents\Linux\Command', array('readId3Tags'));
 		$linuxCommand->expects($this->once())->method('readId3Tags')->will($this->returnValue($this->getEyeD3Out()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory', array('getAbsolutePath'));
+		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
 		$this->assertSame('Casper', $id3Tag->getArtist());

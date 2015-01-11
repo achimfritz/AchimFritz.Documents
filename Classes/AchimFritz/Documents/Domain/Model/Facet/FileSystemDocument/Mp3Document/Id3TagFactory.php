@@ -21,29 +21,13 @@ class Id3TagFactory {
 	protected $linuxCommand;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $fileSystemFactory;
-
-	/**
-	 * @param Mp3Document $mp3Document 
-	 * @return string
-	 */
-	protected function getAbsolutePath(Mp3Document $mp3Document) {
-		$fileSystem = $this->fileSystemFactory->create($mp3Document);
-		$absolutePath = $fileSystem->getAbsolutePath();
-		return $absolutePath;
-	}
-
-	/**
 	 * @param Mp3Document $mp3Document 
 	 * @return Id3Tag
 	 * @throws \AchimFritz\Documents\Linux\Exception
 	 */
 	public function create(Mp3Document $mp3Document) {
 		$id3Tag = new Id3Tag();
-		$file = $this->getAbsolutePath($mp3Document);
+		$file = $mp3Document->getAbsolutePath();
 		$res = $this->linuxCommand->readId3Tags($file);
 		foreach ($res AS $line) {
 			$assoc = explode(':', $line);

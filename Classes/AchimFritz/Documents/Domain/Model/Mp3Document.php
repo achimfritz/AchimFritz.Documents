@@ -19,5 +19,11 @@ class Mp3Document extends FileSystemDocument {
 	 */
 	protected $fileHash;
 
+	/**
+	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
+	 * @Flow\Inject
+	 */
+	protected $configuration;
+
 
 }

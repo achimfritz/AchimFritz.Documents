@@ -30,12 +30,6 @@ class InputDocumentFactory {
 	protected $pathService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $imageFileSystemFactory;
-
-	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
@@ -96,13 +90,12 @@ class InputDocumentFactory {
 	 */
 	protected function addImageFields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof ImageDocument === TRUE) {
-			$fileSystem = $this->imageFileSystemFactory->create($document);
 			$inputDocument->addField('mainDirectoryName', $document->getDirectoryName());
-			$inputDocument->addField('fileName', $fileSystem->getFileName());
-			$inputDocument->addField('webPath', $fileSystem->getWebPath());
-			$inputDocument->addField('webPreviewPath', $fileSystem->getWebPreviewPath());
-			$inputDocument->addField('webThumbPath', $fileSystem->getWebThumbPath());
-			$inputDocument->addField('webBigPath', $fileSystem->getWebBigPath());
+			$inputDocument->addField('fileName', $document->getFileName());
+			$inputDocument->addField('webPath', $document->getWebPath());
+			$inputDocument->addField('webPreviewPath', $document->getWebPreviewPath());
+			$inputDocument->addField('webThumbPath', $document->getWebThumbPath());
+			$inputDocument->addField('webBigPath', $document->getWebBigPath());
 			$inputDocument->addField('extension', 'jpg');
 			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
 			$inputDocument->addField('fileHash', $document->getFileHash());

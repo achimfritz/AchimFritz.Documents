@@ -14,10 +14,4 @@ use AchimFritz\Documents\Domain\Service\FileSystem\AbstractDocumentExportService
  */
 class DocumentExportService extends AbstractDocumentExportService {
 
-	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemFactory
-	 * @Flow\Inject
-	 */
-	protected $fileSystemFactory;
-
 }

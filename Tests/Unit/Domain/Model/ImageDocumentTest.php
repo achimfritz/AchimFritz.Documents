@@ -16,11 +16,37 @@ class ImageDocumentTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getDirectoryNameReturnsFirstPart() {
+	public function getWebPreviewPathReturnsWebPreviewPathAndName() {
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebPreviewPath'));
+		$configuration->expects($this->once())->method('getWebPreviewPath')->will($this->returnValue('foo'));
 		$document = new ImageDocument();
-		$document->setName('foo/bar');
-		$this->assertSame('foo', $document->getDirectoryName());
+		$this->inject($document, 'configuration', $configuration);
+		$document->setName('bar/file.txt');
+		$this->assertSame('foo/bar/file.txt', $document->getWebPreviewPath());
 	}
 
+
+	/**
+	 * @test
+	 */
+	public function getWebBigPathReturnsWebBigPathAndName() {
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebBigPath'));
+		$configuration->expects($this->once())->method('getWebBigPath')->will($this->returnValue('foo'));
+		$document = new ImageDocument();
+		$this->inject($document, 'configuration', $configuration);
+		$document->setName('bar/file.txt');
+		$this->assertSame('foo/bar/file.txt', $document->getWebBigPath());
+	}
+
+	/**
+	 * @test
+	 */
+	public function getWebThumbPathReturnsWebThumbPathAndName() {
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebThumbPath'));
+		$configuration->expects($this->once())->method('getWebThumbPath')->will($this->returnValue('foo'));
+		$document = new ImageDocument();
+		$this->inject($document, 'configuration', $configuration);
+		$document->setName('bar/file.txt');
+		$this->assertSame('foo/bar/file.txt', $document->getWebThumbPath());
+	}
 }
-?>

@@ -1,18 +1,20 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
+namespace AchimFritz\Documents\Configuration;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "AchimFritz\Documents". *
+ * This script belongs to the TYPO3 Flow package "De.AchimFritz.Intranet".*
  *                                                                        *
  *                                                                        */
-
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Service\FileSystem\AbstractDocumentExportService;
 
 /**
  * @Flow\Scope("singleton")
  */
-class DocumentExportService extends AbstractDocumentExportService {
+class Mp3DocumentConfiguration extends FileSystemDocumentConfiguration {
 
+	/**
+	 * @var string
+	 */
+	protected $documentName = 'mp3Document';
 
 }

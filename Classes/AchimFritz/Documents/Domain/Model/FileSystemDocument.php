@@ -32,6 +32,17 @@ class FileSystemDocument extends Document {
 	protected $mDateTime;
 
 	/**
+	 * @var \SplFileInfo
+	 */
+	protected $splFileInfo;
+
+	/**
+	 * @var \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
+	 * @Flow\Inject
+	 */
+	protected $configuration;
+
+	/**
 	 * @return string fileHash
 	 */
 	public function getFileHash() {
@@ -47,8 +58,6 @@ class FileSystemDocument extends Document {
 	}
 
 	/**
-	 * setMDateTime 
-	 * 
 	 * @param \DateTime $mDateTime 
 	 * @return void
 	 */
@@ -57,8 +66,6 @@ class FileSystemDocument extends Document {
 	}
 
 	/**
-	 * getMDateTime 
-	 * 
 	 * @return \DateTime
 	 */
 	public function getMDateTime() {
@@ -66,20 +73,42 @@ class FileSystemDocument extends Document {
 	}
 
 	/**
-	 * @return string DirectoryName
+	 * @return string
 	 */
-	public function getDirectoryName() {
-		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
-		$last = array_pop($arr);
-		return implode(PathService::PATH_DELIMITER, $arr);
+	public function getFileName() {
+		return $this->getSplFileInfo()->getBasename();
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getFileName() {
-		$arr = explode(PathService::PATH_DELIMITER, $this->getName());
-		$last = array_pop($arr);
-		return $last;
+	public function getDirectoryName() {
+		return $this->getSplFileInfo()->getPathInfo()->getBasename();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAbsolutePath() {
+		return $this->configuration->getMountPoint() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getWebPath() {
+		return $this->configuration->getWebPath() . PathService::PATH_DELIMITER . $this->getName();
+	}
+
+	/**
+	 * getSplFileInfo 
+	 * 
+	 * @return \SplFileInfo
+	 */
+	public function getSplFileInfo() {
+		if (!$this->splFileInfo instanceof \SplFileInfo) {
+			$this->splFileInfo = new \SplFileInfo($this->getAbsolutePath());
+		}
+		return $this->splFileInfo;
 	}
 }

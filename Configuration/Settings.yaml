@@ -6,6 +6,9 @@ AchimFritz:
       path: solr/documents2
       servlet: select
     export: /tmp
+    fileSystemDocument:
+      mountPoint: /
+      webPath: 
     mp3Document:
       mountPoint: /mp3/db
       webPath: mp3

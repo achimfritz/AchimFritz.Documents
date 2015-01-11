@@ -40,13 +40,12 @@ abstract class AbstractDocumentExportService extends AbstractExportService {
 	 * @return string
 	 */
 	protected function createFromPath(Document $document, DocumentExport $documentExport) {
-		$fileSystem = $this->fileSystemFactory->create($document);
-		$from = $fileSystem->getAbsolutePath();
+		$from = $document->getAbsolutePath();
 		if ($documentExport->getUseThumb() === TRUE) {
 			if ($document instanceof ImageDocument === FALSE) {
 				throw new Exception('thumbs only supported for imageDocuments', 1416762881);
 			}
-			$from = $fileSystem->getAbsoluteWebThumbPath();
+			$from = $document->getAbsoluteWebThumbPath();
 		}
 		return $from;
 	}
