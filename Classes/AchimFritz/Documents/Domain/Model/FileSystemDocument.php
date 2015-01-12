@@ -43,6 +43,13 @@ class FileSystemDocument extends Document {
 	protected $configuration;
 
 	/**
+	 * @return \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
+	 */
+	protected function getConfiguration() {
+		return $this->configuration;
+	}
+
+	/**
 	 * @return string fileHash
 	 */
 	public function getFileHash() {
@@ -90,14 +97,14 @@ class FileSystemDocument extends Document {
 	 * @return string
 	 */
 	public function getAbsolutePath() {
-		return $this->configuration->getMountPoint() . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getConfiguration()->getMountPoint() . PathService::PATH_DELIMITER . $this->getName();
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getWebPath() {
-		return $this->configuration->getWebPath() . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getConfiguration()->getWebPath() . PathService::PATH_DELIMITER . $this->getName();
 	}
 
 	/**

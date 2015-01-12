@@ -59,6 +59,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	abstract protected function getExtension();
 
 	/**
+	 * listCommand($directory)
+	 *
 	 * @param string $directory 
 	 * @return void
 	 */
@@ -76,6 +78,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
+	 * deleteAllCommand($confirmed = FALSE)
+	 *
 	 * @param boolean $confiremed
 	 * @return void
 	 */
@@ -99,6 +103,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
+	 * deleteCommand($directory) 
+	 *
 	 * @param string $directory 
 	 * @return void
 	 */
@@ -117,6 +123,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
+	 * indexCommand($directory, $update = FALSE)
+	 *
 	 * @param string $directory
 	 * @param boolean $update
 	 * @return void
@@ -132,6 +140,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
+	 * integrityCommand()
+	 *
 	 * @return void
 	 */
 	public function integrityCommand() {
@@ -148,6 +158,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
+	 * renameFilesCommand($directory)
+	 *
 	 * @param string $directory
 	 * @return void
 	 */
@@ -189,6 +201,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
+	 * exportCommand($name, $paths, $useThumb = FALSE, $useFullPath = FALSE)
+	 *
 	 * @param string $name
 	 * @param string $paths
 	 * @param boolean $useThumb

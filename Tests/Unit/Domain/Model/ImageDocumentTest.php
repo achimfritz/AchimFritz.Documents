@@ -17,10 +17,10 @@ class ImageDocumentTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getWebPreviewPathReturnsWebPreviewPathAndName() {
-		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebPreviewPath'));
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\ImageDocumentConfiguration', array('getWebPreviewPath'));
 		$configuration->expects($this->once())->method('getWebPreviewPath')->will($this->returnValue('foo'));
 		$document = new ImageDocument();
-		$this->inject($document, 'configuration', $configuration);
+		$this->inject($document, 'imageDocumentConfiguration', $configuration);
 		$document->setName('bar/file.txt');
 		$this->assertSame('foo/bar/file.txt', $document->getWebPreviewPath());
 	}
@@ -30,10 +30,10 @@ class ImageDocumentTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getWebBigPathReturnsWebBigPathAndName() {
-		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebBigPath'));
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\ImageDocumentConfiguration', array('getWebBigPath'));
 		$configuration->expects($this->once())->method('getWebBigPath')->will($this->returnValue('foo'));
 		$document = new ImageDocument();
-		$this->inject($document, 'configuration', $configuration);
+		$this->inject($document, 'imageDocumentConfiguration', $configuration);
 		$document->setName('bar/file.txt');
 		$this->assertSame('foo/bar/file.txt', $document->getWebBigPath());
 	}
@@ -42,10 +42,10 @@ class ImageDocumentTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getWebThumbPathReturnsWebThumbPathAndName() {
-		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getWebThumbPath'));
+		$configuration = $this->getMock('AchimFritz\Documents\Configuration\ImageDocumentConfiguration', array('getWebThumbPath'));
 		$configuration->expects($this->once())->method('getWebThumbPath')->will($this->returnValue('foo'));
 		$document = new ImageDocument();
-		$this->inject($document, 'configuration', $configuration);
+		$this->inject($document, 'imageDocumentConfiguration', $configuration);
 		$document->setName('bar/file.txt');
 		$this->assertSame('foo/bar/file.txt', $document->getWebThumbPath());
 	}

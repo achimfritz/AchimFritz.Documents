@@ -23,7 +23,14 @@ class Mp3Document extends FileSystemDocument {
 	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 * @Flow\Inject
 	 */
-	protected $configuration;
+	protected $mp3DocumentConfiguration;
+
+	/**
+	 * @return \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
+	 */
+	protected function getConfiguration() {
+		return $this->mp3DocumentConfiguration;
+	}
 
 
 }

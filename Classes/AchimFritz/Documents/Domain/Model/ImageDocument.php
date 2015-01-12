@@ -24,7 +24,14 @@ class ImageDocument extends FileSystemDocument {
 	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
 	 * @Flow\Inject
 	 */
-	protected $configuration;
+	protected $imageDocumentConfiguration;
+
+	/**
+	 * @return \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
+	 */
+	protected function getConfiguration() {
+		return $this->imageDocumentConfiguration;
+	}
 
 	/**
 	 * @return integer
@@ -50,13 +57,11 @@ class ImageDocument extends FileSystemDocument {
 		return (int)$arr[2];
 	}
 
-
-
 	/**
 	 * @return string
 	 */
 	public function getWebBigPath() {
-		return $this->configuration->getWebBigPath() . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getConfiguration()->getWebBigPath() . PathService::PATH_DELIMITER . $this->getName();
 	}
 
 
@@ -64,14 +69,14 @@ class ImageDocument extends FileSystemDocument {
 	 * @return string
 	 */
 	public function getWebPreviewPath() {
-		return $this->configuration->getWebPreviewPath() . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getConfiguration()->getWebPreviewPath() . PathService::PATH_DELIMITER . $this->getName();
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getWebThumbPath() {
-		return $this->configuration->getWebThumbPath() . PathService::PATH_DELIMITER . $this->getName();
+		return $this->getConfiguration()->getWebThumbPath() . PathService::PATH_DELIMITER . $this->getName();
 	}
 
 	/**

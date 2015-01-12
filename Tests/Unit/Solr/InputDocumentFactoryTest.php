@@ -23,7 +23,7 @@ class InputDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$document->expects($this->any())->method('getDirectoryName')->will($this->returnValue('y_m_d'));
 		$document->expects($this->any())->method('getMDateTime')->will($this->returnValue(new \DateTime()));
 		$configuration = $this->getMock('AchimFritz\Documents\Configuration\ImageDocumentConfiguration');
-		$this->inject($document, 'configuration', $configuration);
+		$this->inject($document, 'imageDocumentConfiguration', $configuration);
 		$inputDocument = new \SolrInputDocument();
 		$res = $factory->_call('addImageFields', $document, $inputDocument);
 	}

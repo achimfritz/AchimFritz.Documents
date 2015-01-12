@@ -18,11 +18,22 @@ class ImageDocumentConfigurationTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	protected $settings = array(
 		'imageDocument' => array(
+			'mountPoint' => '/images',
 			'webThumbPath' => '1/thumb',
 			'webBigPath' => '1/big',
 			'webPreviewPath' => '1/preview',
 		)
 	);
+
+	/**
+	 * @test
+	 */
+	public function getMountPointReturnsMountPointFromSettings() {
+		$configuration = new Configuration();
+		$this->inject($configuration, 'settings', $this->settings);
+		$this->assertSame('/images', $configuration->getMountPoint());
+	}
+
 
 	/**
 	 * @test

@@ -61,6 +61,8 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 
 	/**
+	 * listCommand()
+	 *
 	 * @return void
 	 */
 	public function listCommand() {
@@ -74,6 +76,8 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * showCommand($path = 'af/list/test')
+	 *
 	 * @param string $path
 	 * @return void
 	 */
@@ -93,6 +97,8 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * exportCommand($path = 'af/list/test')
+	 *
 	 * @param string $path
 	 * @return void
 	 */
@@ -111,6 +117,8 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * directoryToListCommand($directory, $path)
+	 *
 	 * @param string $directory 
 	 * @param string $path 
 	 * @return void

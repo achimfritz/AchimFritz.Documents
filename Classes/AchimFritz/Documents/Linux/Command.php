@@ -39,7 +39,7 @@ class Command {
 	 * @return array
 	 * @throws Exception
 	 */
-	protected function executeCommand($cmd) {
+	public function executeCommand($cmd) {
 		exec($cmd, $res, $ret);
 		if ($ret !== 0) {
 			throw new Exception('cannot execute ' . $cmd, 1418925116);

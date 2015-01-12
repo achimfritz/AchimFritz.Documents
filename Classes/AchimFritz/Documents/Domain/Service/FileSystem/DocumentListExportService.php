@@ -8,8 +8,6 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Service\PathService;
-use AchimFritz\Documents\Domain\Model\ImageDocument;
-use AchimFritz\Documents\Domain\Model\Mp3Document;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument as Document;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use AchimFritz\Documents\Domain\Model\DocumentListItem;
@@ -27,10 +25,12 @@ class DocumentListExportService extends AbstractExportService {
 	public function export(DocumentList $documentList) {
 		$name = $this->getName($documentList);
 		$directory = $this->createExportDirectory($name);
+		$cnt = count($documentList->getDocumentListItems());
+		$preLength = strlen((string)$cnt);
 		$cnt = 0;
 		foreach ($documentList->getDocumentListItems() as $item) {
 			$from = $this->createFromPath($item->getDocument());
-			$to = $this->createToPath($item, $cnt, $directory);
+			$to = $this->createToPath($item, $cnt, $directory, $preLength);
 			$this->copyFile($from, $to);
 			$cnt++;
 		}
@@ -62,8 +62,8 @@ class DocumentListExportService extends AbstractExportService {
 	 * @param string $directory 
 	 * @return string
 	 */
-	protected function createToPath(DocumentListItem $item, $cnt, $directory) {
-		$pre = sprintf('%02s', ($cnt + 1));
+	protected function createToPath(DocumentListItem $item, $cnt, $directory, $preLength = 2) {
+		$pre = sprintf('%0' . $preLength . 's', ($cnt + 1));
 		$name = $pre . '_' . $item->getDocument()->getFileName();
 		$to = $directory . PathService::PATH_DELIMITER . $name;
 		return $to;
