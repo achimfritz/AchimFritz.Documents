@@ -7,14 +7,14 @@
 
 <div class="row">
 	<div class="col-md-4">
-	<button class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
-	<button class="btn btn-default" ng-click="transferAll()">transfer all</button>
-	<button ng-show="collection.length" class="btn btn-default" ng-click="empty()">empty</button>
-	<button ng-show="collection.length" class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
+		<button class="btn btn-default" ng-click="transferSelected()">transfer selected</button>
+		<button class="btn btn-default" ng-click="transferAll()">transfer all</button>
+		<button ng-show="collection.length" class="btn btn-default" ng-click="empty()">empty</button>
+		<button ng-show="collection.length" class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
 	</div>
 	<div ng-show="collection.length" class="col-md-8">
 		<form novalidate class="form-horizontal">
-			<div class="form-group">
+			<div class="form-group row">
 				<div class="col-md-4">
 					<input class="form-control" id="category" type="text" data-ng-model="category" data-autocomplete />
 				</div>
@@ -26,9 +26,36 @@
 				</div>
 			</div>
 		</form>
+		<div class="row">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="name" class="col-md-1 control-label">Name</label>
+					<div class="col-md-2">
+						<input type="text" class="form-control" data-ng-model="name" id="name" required="required" />
+					</div>
+					<div class="checkbox col-md-2">
+						<label>
+							<input type="checkbox" value="1" data-ng-model="useThumb" />
+							use Thumb
+						</label>
+					</div>
+					<div class="checkbox col-md-2">
+						<label>
+							<input type="checkbox" value="1" data-ng-model="useFullPath" />
+							use Full Path
+						</label>
+					</div>
+					<div class="col-md-2">
+						<input class="form-control btn-danger" type="submit" ng-click="export()" value="Export" />
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 <div class="clearfix"></div>
+
+
 
 <div id="items">
 	<div class="container-full" current-page="{{currentPage}}" total="{{total}}" collection="collection" items-per-page="{{itemsPerPage}}" data-iso-container="collection"></div>

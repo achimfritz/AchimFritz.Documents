@@ -1,3 +1,7 @@
+-
+  requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html") && isController("ExportController")'
+  options:
+    templatePathAndFilename: resource://AchimFritz.Documents/Private/Templates/FlashMessages.html
 - 
   requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html")'
   options:
@@ -8,5 +12,6 @@
 #  requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html") && isController("Mp3Document") && isAction('... TODO this ends in indexAction, requestArgumentName not respected ... REST
 #  options:
 #    templateRootPaths: [resource://AchimFritz.Documents/Private/Templates, resource://AchimFritz.Documents/Private/Layouts]
+
 
 

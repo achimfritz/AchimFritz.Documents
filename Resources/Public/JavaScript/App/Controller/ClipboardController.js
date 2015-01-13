@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, ClipboardFactory, RestService, SettingsFactory, FlashMessageService) {
+				function ClipboardController($scope, ClipboardFactory, RestService, ExportRestService, SettingsFactory, FlashMessageService) {
 								var settings = SettingsFactory.getSettings();
 
 								$scope.collection = [];
@@ -24,6 +24,14 @@
 												ClipboardFactory.setCurrentPage(newPageNumber);
 												$scope.collection = ClipboardFactory.getDocs();
 												$scope.total = ClipboardFactory.countDocs();
+								};
+
+								$scope.export = function() {
+												$scope.finished = false;
+												ExportRestService.export($scope.name, $scope.useThumb, $scope.useFullPath, $scope.collection).then(function(data) {
+																$scope.finished = true;
+																FlashMessageService.show(data.data.flashMessages);
+												});
 								};
 
 
