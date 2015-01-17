@@ -18,6 +18,12 @@ use AchimFritz\Documents\Domain\Service\PathService;
 abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService
+	 * @Flow\Inject
+	 */
+	protected $documentExportService;
+
+	/**
 	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\RenameService
 	 * @Flow\Inject
 	 */
@@ -220,8 +226,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		$documentExport->setDocuments($documents);
 		$documentExport->setName($name);
 		try {
-			$cnt = $this->documentExportService->export($documentExport);
-			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
+			$name = $this->documentExportService->export($documentExport);
+			$this->outputLine('SUCCESS: export to ' . $name);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}

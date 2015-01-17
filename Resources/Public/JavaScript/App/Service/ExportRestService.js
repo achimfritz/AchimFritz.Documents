@@ -9,7 +9,28 @@
 
 				function ExportRestService($http) {
 
-								this.export = function(name, useThumb, useFullPath, docs) {
+								this.zip = function() {
+												var zip = {
+																'name': 'download',
+																'useThumb': false,
+																'useFullPath': false,
+																'docs': []
+												};
+												return zip;
+								};
+
+
+								this.pdf = function() {
+												var pdf = {
+																'columns': 3,
+																'size': 4,
+																'dpi': 72,
+																'docs': []
+												};
+												return pdf;
+								};
+
+								this.zipDownload = function(name, useThumb, useFullPath, docs) {
 												var url = 'achimfritz.documents/export/';
 												var documents = [];
 												angular.forEach(docs, function (val, key) {
@@ -31,7 +52,7 @@
 																data: data,
 																headers: {
 																				'Content-Type': 'application/json',
-																				'Accept': 'application/json'
+																				'Accept': 'application/zip'
 																}
 												})
 								};

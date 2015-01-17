@@ -14,6 +14,7 @@ use TYPO3\Flow\Annotations as Flow;
 class PathService {
 
 	const PATH_DELIMITER = '/';
+	const TEMP_FOLDER = '/tmp';
 
 	/**
 	 * @param string $path

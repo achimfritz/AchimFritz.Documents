@@ -15,12 +15,12 @@ use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 /**
  * @Flow\Scope("singleton")
  */
-abstract class AbstractDocumentExportService extends AbstractExportService {
+class DocumentExportService extends AbstractExportService {
 
 	/**
 	 * @param DocumentExport $documentExport
 	 * @throws Exception
-	 * @return integer
+	 * @return string
 	 */
 	public function export(DocumentExport $documentExport) {
 		$directory = $this->createExportDirectory($documentExport->getName());
@@ -31,7 +31,8 @@ abstract class AbstractDocumentExportService extends AbstractExportService {
 			$this->copyFile($from, $to);
 			$cnt++;
 		}
-		return $cnt;
+		$this->zipDirectory($directory);
+		return $directory;
 	}
 
 	/**

@@ -23,6 +23,11 @@
 												});
 								};
 
+								this.error = function(data) {
+												var severity = 'error';
+												toaster.pop(severity, data.status, data.data);
+								};
+
 				}
 }());
 

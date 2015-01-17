@@ -20,20 +20,36 @@
 								$scope.finished = true;
 								$scope.category = '';
 
+								$scope.pdf = {
+												'dpi': 300,
+												'columns': 3,
+												'size': 4
+								};
+
+								$scope.pdf = ExportRestService.pdf();
+								$scope.zip = ExportRestService.zip();
+
 								$scope.pageChanged = function(newPageNumber) {
 												ClipboardFactory.setCurrentPage(newPageNumber);
 												$scope.collection = ClipboardFactory.getDocs();
 												$scope.total = ClipboardFactory.countDocs();
 								};
 
-								$scope.export = function() {
+								$scope.zipDownload = function() {
 												$scope.finished = false;
-												ExportRestService.export($scope.name, $scope.useThumb, $scope.useFullPath, $scope.collection).then(function(data) {
+												// TODO $scope.zip
+												ExportRestService.zipDownload($scope.name, $scope.useThumb, $scope.useFullPath, $scope.collection).then(function(data) {
 																$scope.finished = true;
 																FlashMessageService.show(data.data.flashMessages);
+												}, function(data) {
+																$scope.finished = true;
+																if (data.data.flashMessages !== undefined) {
+																				FlashMessageService.show(data.data.flashMessages);
+																} else {
+																				FlashMessageService.error(data);
+																}
 												});
 								};
-
 
 								$scope.merge = function() {
 												$scope.finished = false;

@@ -16,7 +16,7 @@ use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 class ExportController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService
 	 * @Flow\Inject
 	 */
 	protected $documentExportService;
@@ -25,6 +25,12 @@ class ExportController extends \AchimFritz\Rest\Controller\RestController {
 	 * @var string
 	 */
 	protected $resourceArgumentName = 'documentExport';
+
+	/**
+	 * Supported content types. Needed for HTTP content negotiation.
+	 * @var array
+	 */
+	protected $supportedMediaTypes = array('text/html', 'application/json', 'application/zip');
 
 	/**
 	 * @return void
@@ -44,9 +50,13 @@ class ExportController extends \AchimFritz\Rest\Controller\RestController {
 	 * @return void
 	 */
 	public function createAction(DocumentExport $documentExport) {
+			#$this->response->setContent($this->request->getFormat() . 'xxx');
+			#throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		try {
-			$cnt = $this->documentExportService->export($documentExport);
-			$this->addFlashMessage($cnt . ' exported');
+			$fileName = $this->documentExportService->export($documentExport);
+			if ($this->request->getFormat()) {
+			}
+			$this->addFlashMessage($fileName . ' exported');
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
 			$this->addFlashMessage('Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 		}

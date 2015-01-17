@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Document;
+use AchimFritz\Documents\Domain\Model\FileSystemDocument AS Document;
 
 /**
  * @Flow\Scope("prototype")
@@ -19,7 +19,7 @@ class DocumentExport {
 	const SORT_BY_PREFIX_COUNTER = 2;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document>
+	 * @var \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\FileSystemDocument>
 	 */
 	protected $documents;
 
@@ -56,14 +56,14 @@ class DocumentExport {
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document
+	 * @return \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\FileSystemDocument>
 	 */
 	public function getDocuments() {
 		return $this->documents;
 	}
 
 	/**
-	 * @param \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\Document $documents
+	 * @param \Doctrine\Common\Collections\Collection<\AchimFritz\Documents\Domain\Model\FileSystemDocument $documents
 	 * @return void
 	 */
 	public function setDocuments(\Doctrine\Common\Collections\Collection $documents) {

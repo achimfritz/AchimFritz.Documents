@@ -7,12 +7,18 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport;
 
 /**
  * @Flow\Scope("singleton")
  */
 class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandController {
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\PdfExportService
+	 * @Flow\Inject
+	 */
+	protected $pdfExportService;
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
@@ -38,12 +44,6 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	 */
 	protected $indexService;
 
-	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\DocumentExportService
-	 * @Flow\Inject
-	 */
-	protected $documentExportService;
-
 
 	/**
 	 * @return string
@@ -61,18 +61,25 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 
 	/**
 	 * @param string $paths 
+	 * @param integer $columns 
+	 * @param integer $size 
+	 * @param integer $dpi 
+	 * @param integer $orientation 
 	 * @return void
 	 */
-	public function createPdfCommand($paths = 'categories/lucky/klamotten') {
+	public function createPdfCommand($paths = 'categories/lucky/klamotten', $columns=6, $size=PdfExport::SIZE_A4, $dpi=300, $orientation=PdfExport::ORIENTATION_PORTRAIT) {
 		$documents = $this->documentRepository->findByCategoryPaths(explode(',', $paths));
 		$documents = $documents->toArray();
 		$documents = new \Doctrine\Common\Collections\ArrayCollection($documents);
-		$documentExport = new DocumentExport();
-		$documentExport->setDocuments($documents);
-		$documentExport->setUseThumb(TRUE);
+		$pdfExport = new PdfExport();
+		$pdfExport->setDocuments($documents);
+		$pdfExport->setSize($size);
+		$pdfExport->setDpi($dpi);
+		$pdfExport->setColumns($columns);
+		$pdfExport->setOrientation($orientation);
 		try {
-			$cnt = $this->documentExportService->createPdf($documentExport);
-			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
+			$fileName = $this->pdfExportService->createPdf($pdfExport);
+			$this->outputLine('SUCCESS: ' . $fileName);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}

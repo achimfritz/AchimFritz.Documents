@@ -29,6 +29,12 @@ abstract class AbstractExportService {
 	protected $pathService;
 
 	/**
+	 * @var \AchimFritz\Documents\Linux\Command
+	 * @Flow\Inject
+	 */
+	protected $linuxCommand;
+
+	/**
 	 * @param array $settings 
 	 * @return void
 	 */
@@ -45,6 +51,24 @@ abstract class AbstractExportService {
 	protected function copyFile($from, $to) {
 		if (@copy($from, $to) === FALSE) {
 			throw new Exception('cannot copy document from ' . $from . ' to ' . $to , 1416762868);
+		}
+	}
+
+	/**
+	 * @param string $directory 
+	 * @return void
+	 * @throws Exception
+	 */
+	protected function zipDirectory($directory) {
+		if (@file_exists($directory . '.zip') === TRUE) {
+			if (@unlink($directory . '.zip') === FALSE) {
+				throw new Exception('cannot rm existing file ' . $directory . '.zip' , 1421345343);
+			}
+		}
+		try {
+			$this->linuxCommand->zipDirectory($directory);
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			throw new Exception('cannot zip directory ' . $directory, 1421343749);
 		}
 	}
 
@@ -71,9 +95,13 @@ abstract class AbstractExportService {
 	 * @return string
 	 */
 	protected function createExportDirectory($name) {
-		$directory = $this->settings['export'] . PathService::PATH_DELIMITER . $name;
-		if (@file_exists(directory) === TRUE) {
-			throw new Exception('file exists ' . $directory, 1416762866);
+		$directory = PathService::TEMP_FOLDER . PathService::PATH_DELIMITER . $name;
+		if (@file_exists($directory) === TRUE) {
+			try {
+				$this->linuxCommand->rmDirRecursive($directory);
+			} catch (\AchimFritz\Documents\Linux\Exception $e) {
+				throw new Exception('cannot rm ' . $directory, 1416762866);
+			}
 		}
 		if (@mkdir($directory) === FALSE) {
 			throw new Exception('cannot create directory ' . $directory, 1416762867);
