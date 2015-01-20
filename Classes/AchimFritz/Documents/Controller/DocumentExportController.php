@@ -13,7 +13,7 @@ use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 
-class ExportController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentExportController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService
@@ -30,7 +30,13 @@ class ExportController extends \AchimFritz\Rest\Controller\RestController {
 	 * Supported content types. Needed for HTTP content negotiation.
 	 * @var array
 	 */
-	protected $supportedMediaTypes = array('text/html', 'application/json', 'application/zip');
+	protected $supportedMediaTypes = array('application/zip');
+
+	/**
+	 * @var array
+	 */
+	protected $viewFormatToObjectNameMap = array('zip' => 'AchimFritz\\Documents\\Mvc\\View\\FileTransferView');
+
 
 	/**
 	 * @return void
@@ -50,15 +56,13 @@ class ExportController extends \AchimFritz\Rest\Controller\RestController {
 	 * @return void
 	 */
 	public function createAction(DocumentExport $documentExport) {
-			#$this->response->setContent($this->request->getFormat() . 'xxx');
-			#throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		try {
 			$fileName = $this->documentExportService->export($documentExport);
-			if ($this->request->getFormat()) {
-			}
-			$this->addFlashMessage($fileName . ' exported');
+			$this->view->assign('fileName', $fileName);
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->addFlashMessage('Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->response->setContent('Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+			$this->response->setStatus(500);
+			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		}
 	}
 

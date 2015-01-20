@@ -35,19 +35,20 @@
 												$scope.total = ClipboardFactory.countDocs();
 								};
 
+								$scope.pdfDownload = function() {
+								};
+
 								$scope.zipDownload = function() {
 												$scope.finished = false;
-												// TODO $scope.zip
-												ExportRestService.zipDownload($scope.name, $scope.useThumb, $scope.useFullPath, $scope.collection).then(function(data) {
+												ExportRestService.zipDownload($scope.zip, $scope.collection).then(function(data) {
 																$scope.finished = true;
-																FlashMessageService.show(data.data.flashMessages);
+																var blob = new Blob([data.data], {
+																				type: 'application/zip'
+																});
+																saveAs(blob, $scope.zip.name + '.zip');
 												}, function(data) {
 																$scope.finished = true;
-																if (data.data.flashMessages !== undefined) {
-																				FlashMessageService.show(data.data.flashMessages);
-																} else {
-																				FlashMessageService.error(data);
-																}
+																FlashMessageService.error(data);
 												});
 								};
 

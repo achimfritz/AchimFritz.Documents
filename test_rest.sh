@@ -1,3 +1,13 @@
+#!/bin/bash
+curl -i -X POST "http://dev/achimfritz.documents/documentexport/" -H "Content-Type: application/json" -H "Accept: application/zip" -d '{	
+	"documentExport": {
+		"name": "foo",
+		"documents": [
+			"000116c5-99a7-1b98-301c-e2d3c5a06a33"
+		]
+	}
+}'
+exit;
 curl -X GET "http://dev/achimfritz.documents/imageintegrity/index?directory=2014_02_22_boarden_warth_oli" -H "Content-Type: application/json" -H "Accept: application/json"
 exit;
 

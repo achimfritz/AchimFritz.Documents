@@ -32,7 +32,7 @@ class DocumentExportService extends AbstractExportService {
 			$cnt++;
 		}
 		$this->zipDirectory($directory);
-		return $directory;
+		return $directory . '.zip';
 	}
 
 	/**

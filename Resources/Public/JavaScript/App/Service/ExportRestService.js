@@ -13,8 +13,7 @@
 												var zip = {
 																'name': 'download',
 																'useThumb': false,
-																'useFullPath': false,
-																'docs': []
+																'useFullPath': false
 												};
 												return zip;
 								};
@@ -24,14 +23,13 @@
 												var pdf = {
 																'columns': 3,
 																'size': 4,
-																'dpi': 72,
-																'docs': []
+																'dpi': 72
 												};
 												return pdf;
 								};
 
-								this.zipDownload = function(name, useThumb, useFullPath, docs) {
-												var url = 'achimfritz.documents/export/';
+								this.zipDownload = function(zip, docs) {
+												var url = 'achimfritz.documents/documentexport/';
 												var documents = [];
 												angular.forEach(docs, function (val, key) {
 																documents.push(val.identifier);
@@ -39,9 +37,9 @@
 
 												var data = {
 																'documentExport':{
-																				'name': name,
-																				'useThumb': useThumb,
-																				'useFullPath': useFullPath,
+																				'name': zip.name,
+																				'useThumb': zip.useThumb,
+																				'useFullPath': zip.useFullPath,
 																				'documents': documents
 																}
 												};
@@ -50,6 +48,7 @@
 																method: 'POST',
 																url: url,
 																data: data,
+																responseType: 'arraybuffer',
 																headers: {
 																				'Content-Type': 'application/json',
 																				'Accept': 'application/zip'

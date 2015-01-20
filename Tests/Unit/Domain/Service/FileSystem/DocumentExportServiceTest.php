@@ -30,7 +30,7 @@ class DocumentExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$exportService->expects($this->once())->method('copyFile')->with('bar', '/foo/bar');
 		$exportService->expects($this->once())->method('zipDirectory')->with('/foo');
 		$name = $exportService->export($documentExport);
-		$this->assertSame('/foo', $name);
+		$this->assertSame('/foo.zip', $name);
 	}
 
 	/**
