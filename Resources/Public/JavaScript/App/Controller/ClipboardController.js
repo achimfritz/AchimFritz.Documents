@@ -19,6 +19,11 @@
 
 								$scope.finished = true;
 								$scope.category = '';
+								$scope.form = 'category';
+
+								$scope.showForm = function(form) {
+												$scope.form = form;
+								};
 
 								$scope.pdf = {
 												'dpi': 300,
@@ -36,6 +41,17 @@
 								};
 
 								$scope.pdfDownload = function() {
+												$scope.finished = false;
+												ExportRestService.pdfDownload($scope.pdf, $scope.collection).then(function(data) {
+																$scope.finished = true;
+																var blob = new Blob([data.data], {
+																				type: 'application/pdf'
+																});
+																saveAs(blob, 'out.pdf');
+												}, function(data) {
+																$scope.finished = true;
+																FlashMessageService.error(data);
+												});
 								};
 
 								$scope.zipDownload = function() {

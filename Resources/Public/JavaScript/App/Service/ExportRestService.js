@@ -28,6 +28,34 @@
 												return pdf;
 								};
 
+								this.pdfDownload = function(pdf, docs) {
+												var url = 'achimfritz.documents/pdfexport/';
+												var documents = [];
+												angular.forEach(docs, function (val, key) {
+																documents.push(val.identifier);
+												});
+
+												var data = {
+																'pdfExport':{
+																				'columns': pdf.columns,
+																				'size': pdf.size,
+																				'dpi': pdf.dip,
+																				'documents': documents
+																}
+												};
+
+												return $http({
+																method: 'POST',
+																url: url,
+																data: data,
+																responseType: 'arraybuffer',
+																headers: {
+																				'Content-Type': 'application/json',
+																				'Accept': 'application/pdf'
+																}
+												})
+								};
+
 								this.zipDownload = function(zip, docs) {
 												var url = 'achimfritz.documents/documentexport/';
 												var documents = [];
