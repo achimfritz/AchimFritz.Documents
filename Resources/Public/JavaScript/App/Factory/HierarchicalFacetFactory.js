@@ -39,6 +39,13 @@
 												return level + delimiter + splitPath.join(delimiter);
 								};
 
+								// location, 2/foo/bar -> location/foo/bar
+								var category = function(facetName, facetValue) {
+												var splitPath = facetValue.split(delimiter);
+												var level = splitPath.shift();
+												return facetName + delimiter + splitPath.join(delimiter);
+								};
+
         // Public API
         return {
 												increase: function(path) {
@@ -50,6 +57,9 @@
 												decreaseFq: function(path) {
 																return decreaseFq(path);
 												},
+												category: function(facetName, facetValue) {
+																return category(facetName, facetValue);
+												}
         };
 
 				}

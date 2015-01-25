@@ -20,6 +20,16 @@
 
         // Public API
         return {
+												category: function(facetName, facetValue) {
+																// hFacet ?
+																var index = hFacets.indexOf(facetName);
+																if (index > -1) {
+																				return HierarchicalFacetFactory.category(facetName, facetValue);
+																} else {
+																				return facetName + '/' + facetValue;
+																}
+												},
+
 												getFilterQueries: function() {
 																return filterQueries;
 												},
