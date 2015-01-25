@@ -30,6 +30,12 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory
+	 */
+	protected $documentListFactory;
+
+	/**
+	 * @Flow\Inject
 	 * @var \AchimFritz\Documents\Domain\Repository\DocumentListRepository
 	 */
 	protected $documentListRepository;
@@ -39,12 +45,6 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @Flow\Inject
 	 */
 	protected $documentPersistenceManager;
-
-	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
-	 * @Flow\Inject
-	 */
-	protected $id3TagFactory;
 
 	/**
 	 * @var array
@@ -75,8 +75,9 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 		}
 	}
 
+
 	/**
-	 * showCommand($path = 'af/list/test')
+	 * showCommand(--path=af/list/test)
 	 *
 	 * @param string $path
 	 * @return void
@@ -87,17 +88,13 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('WARNING: documentList not found with category.path ' . $path);
 			$this->quit();
 		}
-		$cnt = 1;
 		foreach ($documentList->getDocumentListItems() AS $item) {
-			$pre = sprintf('%02s', $cnt);
-			$id3Tag = $this->id3TagFactory->create($item->getDocument());
-			$this->outputLine($pre. ' ' . $id3Tag->getArtist() . ' - ' . $id3Tag->getTitle());
-			$cnt++;
+			$this->outputLine($item->getDocument()->getAbsolutePath());
 		}
 	}
 
 	/**
-	 * exportCommand($path = 'af/list/test')
+	 * exportCommand(--path=af/list/test)
 	 *
 	 * @param string $path
 	 * @return void
@@ -117,23 +114,54 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
-	 * directoryToListCommand($directory, $path)
+	 * createFromFileCommand($file = /mp3/db/lucky/m3u/doris_2014.m3u $path = 'lucky/m3u/doris_2014')
 	 *
+	 * @param string $file
+	 * @param string $path
+	 * @return void
+	 */
+	public function createFromFileCommand($file = '/mp3/db/lucky/m3u/doris_2014.m3u', $path = 'lucky/m3u/doris_2014') {
+		try {
+			$documentList = $this->documentListFactory->createFromFile($file, $path);
+			try {
+				$this->documentListService->merge($documentList);
+				try {
+					$this->documentPersistenceManager->persistAll();
+					$this->outputLine('SUCCESS: saved ' . count($documentList->getDocumentListItems()) . ' documents');
+				} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage());
+				}
+			} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+				$this->outputLine('ERROR: cannot merge documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
+			}
+		} catch (\AchimFritz\Documents\Domain\Model\Exception $e) {
+			$this->outputLine('ERROR: cannot create documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * createFromDirectoryCommand (--directory=/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow --path=categories/diashow/hochzeit_claudi_mario/show)
+	 * 
 	 * @param string $directory 
 	 * @param string $path 
 	 * @return void
 	 */
-	public function directoryToListCommand($directory, $path) {
+	public function createFromDirectoryCommand($directory = '/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow', $path='categories/diashow/hochzeit_claudi_mario/show') {
 		try {
-			$documentList = $this->documentListService->directoryToList($directory, $path);
+			$documentList = $this->documentListFactory->createFromDirectory($directory, $path);
 			try {
-				$this->documentPersistenceManager->persistAll();
-				$this->outputLine('SUCCESS: saved ' . count($documentList->getDocumentListItems()) . ' documents');
-			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage());
+				$this->documentListService->merge($documentList);
+				try {
+					$this->documentPersistenceManager->persistAll();
+					$this->outputLine('SUCCESS: saved ' . count($documentList->getDocumentListItems()) . ' documents');
+				} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage());
+				}
+			} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+				$this->outputLine('ERROR: cannot merge documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
-		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->outputLine('ERROR: with ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Domain\Model\Exception $e) {
+			$this->outputLine('ERROR: cannot create documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 

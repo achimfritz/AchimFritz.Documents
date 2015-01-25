@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\InheritanceType("JOINED")
  */
 class DocumentList {
 

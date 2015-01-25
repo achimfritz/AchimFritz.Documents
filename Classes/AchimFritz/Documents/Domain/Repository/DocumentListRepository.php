@@ -42,11 +42,18 @@ class DocumentListRepository extends Repository {
 		if ($persisted instanceof DocumentList === TRUE) {
 			return $persisted;
 		} else {
-			$persisted = new DocumentList();
+			$persisted = $this->getNewDocumentList();
 			$persisted->setCategory($persistedCategory);
 			$this->add($persisted);
 			return $persisted;
 		}
+	}
+
+	/**
+	 * @return DocumentList
+	 */
+	protected function getNewDocumentList() {
+		return new DocumentList();
 	}
 
 

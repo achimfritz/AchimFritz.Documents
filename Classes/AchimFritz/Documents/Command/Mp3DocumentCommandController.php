@@ -37,7 +37,6 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 */
 	protected $indexService;
 
-
 	/**
 	 * @return string
 	 */

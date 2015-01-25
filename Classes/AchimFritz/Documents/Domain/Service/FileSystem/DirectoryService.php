@@ -66,9 +66,10 @@ class DirectoryService {
 		}
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->getExtension() === $extension) {
-				$splFileInfos[] = clone($fileInfo);
+				$splFileInfos[$fileInfo->getBasename()] = clone($fileInfo);
 			}
 		}
+		ksort($splFileInfos);
 		return $splFileInfos;
 	}
 

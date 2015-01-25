@@ -42,7 +42,7 @@ class DirectoryServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$directoryService = new DirectoryService();
 		$splFileObjects = $directoryService->getSplFileInfosInDirectory(vfsStream::url('root/images/0000_00_00_name'), 'jpg');
 		$this->assertSame(1, count($splFileObjects));
-		$first = $splFileObjects[0];
+		$first = array_pop($splFileObjects);
 		$this->assertSame('test.jpg', $first->getBasename());
 	}
 
