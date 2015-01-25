@@ -12,6 +12,7 @@
 								$scope.list = [];
 								$scope.view = 'list';
 								$scope.finished = false;
+								$scope.documentList = {};
 
 								$scope.show = function(identifier) {
 												$scope.finished = false;
@@ -20,6 +21,22 @@
 																$scope.documentList = data.data.documentList;
 																$scope.view = 'show';
 												});
+								};
+
+								$scope.onDropComplete = function (index, obj, evt) {
+												var objIndex = $scope.documentList.documentListItems.indexOf(obj);
+												var oldList = $scope.documentList.documentListItems;
+												var l = oldList.length;
+												var newList = [];
+												for (var j = 0; j < l; j++) {
+																if (j === index) {
+																				newList.push(obj);
+																}
+																if (j !== objIndex) {
+																				newList.push(oldList[j]);
+																}
+												}
+												$scope.documentList.documentListItems = newList;
 								};
 
 

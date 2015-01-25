@@ -2,7 +2,7 @@
 
 (function () {
     'use strict';
-				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster'])
+				angular.module('documentApp', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster', 'ngDraggable'])
 				.config(paginationConfiguration)
 				.config(toasterConfiguration)
 				.config(routeConfiguration);

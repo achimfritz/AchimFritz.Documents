@@ -19,6 +19,22 @@
 
 </div>
 <div ng-show="view === 'show'">
+	<div class="row">
+		<div class="col-md-12">
 			<button ng-click="list()" class="btn btn-default" >list</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="draglist">
+				<li ng-repeat="item in documentList.documentListItems" ng-drop="true" ng-drop-success="onDropComplete($index, $data,$event)">
+					<div ng-drag="true" ng-drag-data="item">
+						<img src="{{item.document.webThumbPath}}" />
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
 </div>
 
