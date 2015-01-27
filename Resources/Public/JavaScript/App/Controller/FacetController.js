@@ -7,12 +7,13 @@
 				.module('documentApp')
 				.controller('FacetController', FacetController);
 
-				function FacetController($scope, SolrFactory, FacetFactory, SettingsFactory) {
+				function FacetController($scope, SolrFactory, FacetFactory, SettingsFactory, CategoryRestService, FlashMessageService) {
 
-								$scope.category = '';
+								$scope.renameCategory = null;
+								$scope.finished = true;
 
 								function update() {
-												$scope.category = '';
+												$scope.renameCategory = null;
 												SolrFactory.getData().then(function(data) {
 																var facets = {};
 																angular.forEach(FacetFactory.getFacets(), function(val) {
@@ -49,13 +50,22 @@
 								};
 
 								$scope.editCategory = function(facetName, facetValue) {
-												$scope.category = FacetFactory.category(facetName, facetValue);
+												$scope.renameCategory = {
+																'oldPath': FacetFactory.category(facetName, facetValue),
+																'newPath': FacetFactory.category(facetName, facetValue)
+												}
 								};
 
-								$scope.deleteCategory = function(category) {
-								};
-
-								$scope.updateCategory = function(category) {
+								$scope.updateCategory = function(renameCategory) {
+												$scope.finished = false;
+												CategoryRestService.update(renameCategory).then(function(data) {
+																$scope.finished = true;
+																FlashMessageService.show(data.data.flashMessages);
+																$scope.renameCategory = null;
+												}, function(data) {
+																$scope.finished = true;
+																FlashMessageService.error(data);
+												});
 								};
 				}
 }());

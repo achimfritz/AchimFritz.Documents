@@ -1,4 +1,12 @@
 #!/bin/bash
+curl -i -X PUT "http://dev/achimfritz.documents/renamecategory/" -H "Content-Type: application/json" -H "Accept: application/json" -d '{	
+	"renameCategory": {
+		"oldPath": "categories/test",
+		"newPath": "categories/test2"
+	}
+}'
+exit;
+
 curl -i -X POST "http://dev/achimfritz.documents/pdfexport/" -H "Content-Type: application/json" -H "Accept: application/pdf" -d '{	
 	"pdfExport": {
 		"documents": [
@@ -7,7 +15,7 @@ curl -i -X POST "http://dev/achimfritz.documents/pdfexport/" -H "Content-Type: a
 	}
 }'
 exit;
-#!/bin/bash
+
 curl -i -X POST "http://dev/achimfritz.documents/documentexport/" -H "Content-Type: application/json" -H "Accept: application/zip" -d '{	
 	"documentExport": {
 		"name": "foo",

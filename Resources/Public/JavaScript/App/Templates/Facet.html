@@ -1,12 +1,9 @@
+<toaster-container></toaster-container>
 
-
-
-
-
-
-
-
-
+<overlay finished="finished"></overlay>
+<div data-ng-if="!finished" class="spinner">
+	<spinner></spinner>
+</div>
 
 <div class="row">
 	<div class="col-md-12">
@@ -39,17 +36,17 @@
 			</ul>
 		</div>
 	</div>
-	<div class="col-md-9" ng-show="category">
-		<h4>{{category}}</h4>
+	<div class="col-md-9" ng-show="renameCategory">
+		<h4>{{renameCategory.oldPath}}</h4>
 			<div class="form-group">
 				<div class="col-md-3">
-					<input class="form-control" id="category" type="text" data-ng-model="category" data-autocomplete />
+					<input class="form-control" id="category" type="text" data-ng-model="renameCategory.newPath" data-autocomplete />
 				</div>
 				<div class="col-md-2">
-					<input class="form-control btn btn-danger" type="submit" ng-click="updateCategory(category)" value="Rename" />
+					<input class="form-control btn btn-danger" type="submit" ng-click="updateCategory(renameCategory)" value="Rename" />
 				</div>
 				<div class="col-md-2">
-					<input class="form-control btn-danger" type="submit" ng-click="deleteCategory(category)" value="Delete" />
+					<input class="form-control btn btn-default" type="submit" ng-click="renameCategory = null" value="Cancel" />
 				</div>
 			</div>
 	</div>

@@ -52,6 +52,9 @@
 																$scope.finished = true;
 																$scope.documentLists = data.data.documentLists;
 																$scope.view = 'list';
+												}, function(data) {
+																$scope.finished = true;
+																FlashMessageService.error(data);
 												});
 								};
 				}

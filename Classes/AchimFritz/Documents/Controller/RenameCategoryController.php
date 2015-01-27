@@ -41,18 +41,16 @@ class RenameCategoryController extends \AchimFritz\Rest\Controller\RestControlle
 	 */
 	public function updateAction(RenameCategory $renameCategory) {
 		try {
-			$category = $this->renameCategoryService->rename($renameCategory);
-			$this->categoryRepository->update($category);
+			$cnt = $this->renameCategoryService->renameCategories($renameCategory);
 			try {
 				$this->documentPersistenceManager->persistAll();
-				$this->addFlashMessage('Updated the category.');
+				$this->addFlashMessage('Updated ' . $cnt . ' categories.');
 			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-				$this->addFlashMessage('Cannot Update the category ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+				$this->addFlashMessage('Cannot Update the categories ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 			}
-			$this->redirect('index', 'Category', NULL, array('category' => $category));
-		} catch (\AchimFritz\Domain\Service\Exception $e) {
-			$this->addFlashMessage('Cannot rename with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
-			$this->redirect('index', 'Category');
+		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->addFlashMessage('Cannot rename with: ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->response->setStatus(500);
 		}
 	}
 }
