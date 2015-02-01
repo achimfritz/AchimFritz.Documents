@@ -11,6 +11,7 @@
 
 								$scope.renameCategory = null;
 								$scope.finished = true;
+								$scope.search = '';
 
 								function update() {
 												$scope.renameCategory = null;
@@ -27,6 +28,12 @@
 
 								var settings = SettingsFactory.getSettings();
 								$scope.query = settings.q;
+
+								$scope.doSearch = function() {
+												$scope.category = '';
+												FacetFactory.addFilterQuery('search', $scope.search);
+												update();
+								};
 
 								$scope.integrity = function(query) {
 												$scope.category = '';

@@ -7,7 +7,7 @@
 				.module('documentApp')
 				.controller('DocumentListController', DocumentListController);
 
-				function DocumentListController($scope, DocumentListRestService) {
+				function DocumentListController($scope, DocumentListRestService, FlashMessageService) {
 
 								$scope.list = [];
 								$scope.view = 'list';
@@ -20,6 +20,18 @@
 																$scope.finished = true;
 																$scope.documentList = data.data.documentList;
 																$scope.view = 'show';
+												});
+								};
+
+								$scope.delete = function(identifier) {
+												$scope.finished = false;
+												DocumentListRestService.delete(identifier).then(function(data) {
+																$scope.finished = true;
+																FlashMessageService.show(data.data.flashMessages);
+																list();
+												}, function(data) {
+																$scope.finished = true;
+																FlashMessageService.error(data);
 												});
 								};
 

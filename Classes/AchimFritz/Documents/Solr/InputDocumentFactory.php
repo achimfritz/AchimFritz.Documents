@@ -102,6 +102,10 @@ class InputDocumentFactory {
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());
+			$searchs = $document->getSearch();
+			foreach ($searchs AS $search) {
+				$inputDocument->addField('search', $search);
+			}
 			/*
 			$imageSize = getimagesize($document->getAbsolutePath());
 			if ($imageSize[0] < $imageSize[1]) {

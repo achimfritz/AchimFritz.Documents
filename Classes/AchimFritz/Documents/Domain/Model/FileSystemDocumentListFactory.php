@@ -111,6 +111,53 @@ class FileSystemDocumentListFactory {
 	}
 
 	/**
+	 * tmp for gisela_60 diashow
+	 *
+	 * @param \SplFileInfo $splFileInfo
+	 * @return Document
+	 * @throws Exception
+	 */
+	protected function getDocumentForGisela(\SplFileInfo $splFileInfo) {
+		$fileHash = sha1_file($splFileInfo->getRealPath());
+		$documents = $this->documentRepository->findByFileHash($fileHash);
+		$results = array();
+		$categories = array();
+		foreach ($documents AS $document) {
+			if ($document->getDirectoryName() === '2012_03_10_gisela_diashow') {
+				$categories = $document->getCategories();
+			} else {
+				$results[] = $document;
+			}
+		}
+		if (count($results) !== 1) {
+			$msg = 'found not exactly one document, but ' . count($results) . ' for ' . $splFileInfo->getRealPath();
+			$ok = FALSE;
+			foreach ($results AS $document) {
+				$msg .= ' - ' . $document->getName();
+				if ($document->getName() === '2003_06_19_hochzeit_michi_silke/A10.jpg') {
+					$results[0] = $document;
+					$ok = TRUE;
+				}
+				if ($document->getName() === '2005_04_24_britta_hochzeit/dsci0048.jpg') {
+					$results[0] = $document;
+					$ok = TRUE;
+				}
+			}
+			if ($ok === FALSE) {
+				throw new Exception ($msg, 1422200221);
+			}
+		}
+		$document = $results[0];
+		foreach ($categories AS $category) {
+			if ($document->hasCategory($category) === FALSE) {
+				$document->addCategory($category);
+			}
+		}
+		$this->documentRepository->update($document);
+		return $document;
+	}
+
+	/**
 	 * @param \SplFileInfo $splFileInfo
 	 * @return Document
 	 * @throws Exception

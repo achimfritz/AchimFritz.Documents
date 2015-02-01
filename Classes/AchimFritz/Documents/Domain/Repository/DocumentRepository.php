@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Persistence\Repository;
+#use TYPO3\Flow\Persistence\Doctrine\Repository;
 use TYPO3\Flow\Persistence\QueryInterface;
 
 /**

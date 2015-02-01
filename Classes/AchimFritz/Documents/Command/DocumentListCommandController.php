@@ -61,7 +61,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 
 	/**
-	 * listCommand()
+	 * list
 	 *
 	 * @return void
 	 */
@@ -77,7 +77,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 
 	/**
-	 * showCommand(--path=af/list/test)
+	 * show --path=af/list/test
 	 *
 	 * @param string $path
 	 * @return void
@@ -94,7 +94,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
-	 * exportCommand(--path=af/list/test)
+	 * export --path=af/list/test
 	 *
 	 * @param string $path
 	 * @return void
@@ -114,7 +114,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
-	 * createFromFileCommand($file = /mp3/db/lucky/m3u/doris_2014.m3u $path = 'lucky/m3u/doris_2014')
+	 * createfromfile --file=/mp3/db/lucky/m3u/doris_2014.m3u --path=lucky/m3u/doris_2014
 	 *
 	 * @param string $file
 	 * @param string $path
@@ -140,7 +140,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
-	 * createFromDirectoryCommand (--directory=/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow --path=categories/diashow/hochzeit_claudi_mario/show)
+	 * createfromdirectory --directory=/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow --path=categories/diashow/hochzeit_claudi_mario/show
 	 * 
 	 * @param string $directory 
 	 * @param string $path 

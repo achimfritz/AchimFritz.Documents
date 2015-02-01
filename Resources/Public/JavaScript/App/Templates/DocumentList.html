@@ -11,7 +11,8 @@
 			<table class="table table-striped">
 				<tr ng-repeat="documentList in documentLists">
 					<td>{{documentList.category.path}}</td>
-					<td ng-click="show(documentList.__identity)"><button class="btn btn-default btn-xs" >show</button></td>
+					<td><button ng-click="show(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
+					<td><button ng-click="delete(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
 				</tr>
 			</table>
 		</div>
@@ -22,6 +23,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<button ng-click="list()" class="btn btn-default" >list</button>
+			<button ng-click="delete(documentList.__identity)" class="btn btn-danger" >delete</button>
 		</div>
 	</div>
 	<div class="row">

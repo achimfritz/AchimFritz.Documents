@@ -9,9 +9,15 @@
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
+				<input class="form-control" id="search" type="text" data-autocomplete-search data-ng-model="search" />
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-default" ng-show="search" ng-click="doSearch()">ok</button>
+			</div>
+			<div class="col-md-2">
 				<pre>{{query}}</pre>
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-7">
 				<button class="btn btn-default " ng-click="integrity('*:*')">reset</button>
 				<button class="btn btn-default " ng-click="integrity('-locations:*')">no locations</button>
 				<button class="btn btn-default " ng-click="integrity('locations:none')">locations:none</button>

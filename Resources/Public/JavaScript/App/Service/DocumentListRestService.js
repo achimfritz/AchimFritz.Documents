@@ -31,6 +31,17 @@
 																}
 												})
 								};
+								this.delete = function(identifier) {
+												var url = 'achimfritz.documents/documentlist/?documentList[__identity]=' + identifier;
+												return $http({
+																method: 'DELETE',
+																url: url,
+																headers: {
+																				'Content-Type': 'application/json',
+																				'Accept': 'application/json'
+																}
+												})
+								};
 				}
 }());
 

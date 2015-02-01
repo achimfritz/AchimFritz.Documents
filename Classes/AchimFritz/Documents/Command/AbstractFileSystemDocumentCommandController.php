@@ -65,7 +65,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	abstract protected function getExtension();
 
 	/**
-	 * listCommand($directory)
+	 * list --directory=2012_03_10_gisela_diashow
 	 *
 	 * @param string $directory 
 	 * @return void
@@ -84,7 +84,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * deleteAllCommand($confirmed = FALSE)
+	 * deleteAll --confirmed=FALSE
 	 *
 	 * @param boolean $confiremed
 	 * @return void
@@ -109,12 +109,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
-	 * deleteCommand($directory) 
+	 * deletedirectory --directory=2012_03_10_gisela_diashow
 	 *
 	 * @param string $directory 
 	 * @return void
 	 */
-	public function deleteCommand($directory) {
+	public function deleteDirectoryCommand($directory) {
 		$documents = $this->documentRepository->findByHead($directory);
 		$cnt = count($documents);
 		foreach ($documents AS $document) {
@@ -129,7 +129,46 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * indexCommand($directory, $update = FALSE)
+	 * show --name=2006_10_23_roland_scan_roland_gisela/fritzam_digcam_hochzeit_britta_dsci0048.jpg
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function showCommand($name) {
+		$document = $this->documentRepository->findOneByName($name);
+		if ($document instanceof Document) {
+			$this->outputLine($document->getName() . ' - ' . $document->getFileHash());
+			foreach ($document->getCategories() AS $category) {
+				$this->outputLine($category->getPath());
+			}
+		} else {
+			$this->outputLine('WARNING: no document found ' . $name);
+		}
+	}
+
+	/**
+	 * delete --name=2006_10_23_roland_scan_roland_gisela/fritzam_digcam_hochzeit_britta_dsci0048.jpg
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function deleteCommand($name) {
+		$document = $this->documentRepository->findOneByName($name);
+		if ($document instanceof Document) {
+			$this->documentRepository->remove($document);
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->outputLine('SUCCESS: delete ' . $name);
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage());
+			}
+		} else {
+			$this->outputLine('WARNING: no document found ' . $name);
+		}
+	}
+
+	/**
+	 * index --directory=2012_03_10_gisela_diashow --update=FALSE
 	 *
 	 * @param string $directory
 	 * @param boolean $update
@@ -146,7 +185,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
-	 * integrityCommand()
+	 * integrity
 	 *
 	 * @return void
 	 */
@@ -164,7 +203,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * renameFilesCommand($directory)
+	 * renameFiles --directory=2012_03_10_gisela_diashow
 	 *
 	 * @param string $directory
 	 * @return void
@@ -230,6 +269,20 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('SUCCESS: export to ' . $name);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * findnotuniq --cnt=2 --maxResults=10
+	 *
+	 * @param integer $cnt
+	 * @param integer $maxResults
+	 * @return void
+	 */
+	public function findNotUniqCommand($cnt = 2, $maxResults = 10) {
+		$documents = $this->documentRepository->findNotUniq($cnt, $maxResults);
+		foreach ($documents AS $document) {
+			$this->outputLine($document->getName());
 		}
 	}
 
