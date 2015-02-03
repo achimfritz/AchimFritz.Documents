@@ -20,8 +20,8 @@ class FileSystemDocumentRepository extends DocumentRepository {
 	protected $entityManager;
 
 	/**
-	 * findDoupled 
-	 * 
+	 * @param integer $cnt
+	 * @param integer $maxResults
 	 * @return array<\AchimFritz\Documents\Domain\Model\FileSystemDocument>
 	 */
 	public function findNotUniq($cnt, $maxResults) {
