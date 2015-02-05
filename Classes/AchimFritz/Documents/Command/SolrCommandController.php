@@ -104,5 +104,3 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 }
-
-?>

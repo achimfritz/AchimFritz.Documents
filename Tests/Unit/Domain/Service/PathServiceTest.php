@@ -55,8 +55,9 @@ class PathServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getSolrFieldReturnsSingleValueForPathDepthTwo() {
-		$pathService = new PathService();
+	public function getSolrFieldReturnsSingleValueForNonHierarchical() {
+		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('isHierarchical'));
+		$pathService->expects($this->once())->method('isHierarchical')->will($this->returnValue(FALSE));
 		$path = 'foo/bar';
 		$expected = array(
 			'name' => 'foo',
@@ -69,8 +70,9 @@ class PathServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getSolrFieldsReturnMultiValuesForPathDepthThree() {
-		$pathService = new PathService();
+	public function getSolrFieldsReturnMultiValuesForHierarchical() {
+		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('isHierarchical'));
+		$pathService->expects($this->once())->method('isHierarchical')->will($this->returnValue(TRUE));
 		$path = 'foo/bar/baz';
 		$expected = array(
 			'name' => 'foo',

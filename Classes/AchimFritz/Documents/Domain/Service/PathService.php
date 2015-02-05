@@ -15,12 +15,13 @@ class PathService {
 
 	const PATH_DELIMITER = '/';
 	const TEMP_FOLDER = '/tmp';
+	const HIERARCHICAL_PATHS = 'categories,locations';
 
 	/**
 	 * @param string $path
 	 * @return array
 	 */
-	protected function splitPath($path) {
+	public function splitPath($path) {
 		return explode(self::PATH_DELIMITER, $path);
 	}
 
@@ -65,15 +66,15 @@ class PathService {
 	public function getSolrField($path) {
 		$hierarchicalPaths = array();
 		$paths = $this->splitPath($path);
-		if (count($paths) === 2) {
-			return array(
-				'name' => $paths[0],
-				'values' => array($paths[1])
-			);
-		} else {
+		if ($this->isHierarchical($paths[0]) === TRUE) {
 			return array(
 				'name' => array_shift($paths),
 				'values' => $this->getHierarchicalPaths(implode(self::PATH_DELIMITER, $paths))
+			);
+		} else {
+			return array(
+				'name' => $paths[0],
+				'values' => array($paths[1])
 			);
 		}
 	}
@@ -90,4 +91,10 @@ class PathService {
 		return $path;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	protected function isHierarchical($name) {
+		return in_array($name, explode(',', self::HIERARCHICAL_PATHS));
+	}
 }
