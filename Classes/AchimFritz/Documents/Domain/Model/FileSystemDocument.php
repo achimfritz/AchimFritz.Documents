@@ -23,6 +23,8 @@ class FileSystemDocument extends Document {
 
 	/**
 	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Identity
 	 */
 	protected $fileHash;
 

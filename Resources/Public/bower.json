@@ -9,6 +9,9 @@
     "components-font-awesome": "*",
 				"ngDraggable": "*",
 				"file-saver": "*",
+				"ngDialog": "*",
+				"isotope": "*",
+				"angular-utils-pagination": "*",
     "AngularJS-Toaster": "~0.4.8"
   },
   "resolutions": {

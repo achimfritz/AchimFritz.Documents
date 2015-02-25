@@ -1,0 +1,23 @@
+<f:layout name="App" />
+
+<f:section name="Content">
+	<div ng-app="documentApp">
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li><a data-ng-href="/achimfritz.documents/app#list">list</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app#facet">facet</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app#settings">settings</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app#clipboard">clipboard</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app#integrity">integrity</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app#documentlist">lists</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container-full" >
+					<div data-ng-view class="ngview" autoscroll="true"></div>
+		</div>
+	</div>
+
+</f:section>
+

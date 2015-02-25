@@ -1,0 +1,8 @@
+<input class="form-control" id="search" type="text" data-ng-model="search" />
+<div ng-repeat="(key, values) in filterQueries">
+	<ul>
+	<li ng-repeat="value in values">
+		<span ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</span>
+	</li>
+	</ul>
+</div>
