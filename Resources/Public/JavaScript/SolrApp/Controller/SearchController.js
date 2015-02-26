@@ -7,12 +7,15 @@
 				.module('solrApp')
 				.controller('SearchController', SearchController);
 
-				function SearchController($scope) {
+				function SearchController($scope, SolrFactory, FacetFactory) {
 
-								$scope.filterQueries = {
-												'x': ['b', 'c']
-								};
-								$scope.search = 'aa';
+								$scope.settings = SolrFactory.getSettings();
+								$scope.facets = FacetFactory.getFacets();
+								console.log(FacetFactory.getFacets());
+
+								SolrFactory.getData().then(function(data) {
+												$scope.response = data.data.response;
+								});
 
 				}
 }());

@@ -1,8 +1,21 @@
-<input class="form-control" id="search" type="text" data-ng-model="search" />
-<div ng-repeat="(key, values) in filterQueries">
-	<ul>
-	<li ng-repeat="value in values">
-		<span ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</span>
+<p>Settings</p>
+<pre>
+rows: {{settings.rows}}
+q: {{settings.q}}
+facet_limit: {{settings.facet_limit}}
+sort: {{settings.sort}}
+start: {{settings.start}}
+</pre>
+<p>results: {{response.numFound}}</p>
+<ul>
+	<li ng-repeat="doc in response.docs">
+		{{doc.name}}
 	</li>
-	</ul>
-</div>
+</ul>
+
+<ul>
+	<li ng-repeat="facet in facets">
+	{{facet}}
+	</li>
+</ul>
+
