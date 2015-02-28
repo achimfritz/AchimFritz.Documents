@@ -7,7 +7,7 @@
 				.module('solrApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, $q, FacetFactory) {
+				function SolrFactory($http, $q) {
 								var response = {};
 								var manager = new AjaxSolr.Manager({
 												solrUrl: 'http://localhost:8080/solr/documents2/',
@@ -25,6 +25,9 @@
 												'facet_mincount': 1
 
 								};
+
+								var facets = ['mainDirectoryName', 'year', 'collections', 'parties', 'tags', 'locations', 'categories', 'search'];
+								var filterQueries = {};
 
 								var getSolrSettings = function() {
 												var res = {};
@@ -48,12 +51,10 @@
 												// remove all fq
 												manager.store.remove('fq');
 
-												var facets = FacetFactory.getFacets();
 												angular.forEach(facets, function(val) {
 																manager.store.addByValue('facet.field', val);
 												});
 
-												var filterQueries = FacetFactory.getFilterQueries();
 												angular.forEach(filterQueries, function(values, key) {
 																angular.forEach(values, function(value) {
 																				manager.store.addByValue('fq', key + ':' + value);
@@ -91,6 +92,22 @@
 												},
 												getData: function() {
 																return getData();
+												},
+												getFilterQueries: function() {
+																return filterQueries;
+												},
+												addFilterQuery: function(name, value) {
+																if (filterQueries[name] === undefined) {
+																				filterQueries[name] = [];
+																}
+																filterQueries[name].push(value);
+												},
+												rmFilterQuery: function(name, value) {
+																var index = filterQueries[name].indexOf(value);
+																filterQueries[name].splice(index, 1);
+												},
+												getFacets: function() {
+																return facets;
 												}
         };
 
