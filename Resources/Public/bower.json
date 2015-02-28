@@ -9,6 +9,7 @@
     "components-font-awesome": "*",
 				"ngDraggable": "*",
 				"file-saver": "*",
+				"ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
 				"ngDialog": "*",
 				"isotope": "*",
 				"angular-utils-pagination": "*",
