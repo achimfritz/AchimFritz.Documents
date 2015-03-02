@@ -6,16 +6,29 @@ facet_limit: {{settings.facet_limit}}
 sort: {{settings.sort}}
 start: {{settings.start}}
 </pre>
-<p>results: {{response.numFound}}</p>
+
+<form novalidate class="simple-form">
+	<label class="control-label" for="rows">rows: </label>
+	<input class="form-control" id="rows" type="text"  data-ng-model="settings.rows" ng-change="update()" />
+</form>
+
+<ul ng-repeat="(key, values) in filterQueries">
+	<li ng-repeat="value in values">
+		<span ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</span>
+	</li>
+</ul>
+
+<p>results: {{data.response.numFound}}</p>
 <ul>
-	<li ng-repeat="doc in response.docs">
+	<li ng-repeat="doc in data.response.docs">
 		{{doc.name}}
 	</li>
 </ul>
 
-<ul>
-	<li ng-repeat="facet in facets">
-	{{facet}}
-	</li>
-</ul>
+<div ng-repeat="(facet, result) in data.facet_counts.facet_fields">
+	<h2>{{facet}}</h2>
+	<ul>
+		<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">{{key}} ({{value}})</li>
+	</ul>
+</div>
 

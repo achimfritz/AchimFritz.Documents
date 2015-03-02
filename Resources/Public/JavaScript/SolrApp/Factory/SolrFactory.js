@@ -17,7 +17,7 @@
 								var settings = {
 												'rows': 10,
 												'q': '*:*',
-												'facet_limit': 50,
+												'facet_limit': 5,
 												'sort': 'mDateTime desc',
 												'start': 0,
 												'facet': true,
@@ -43,8 +43,8 @@
 
 								var buildSolrValues = function() {
 
-												//var settings = SettingsFactory.getSolrSettings();
-												angular.forEach(settings, function(val, key) {
+												var solrSettings = getSolrSettings();
+												angular.forEach(solrSettings, function(val, key) {
 																manager.store.addByValue(key, val);
 												});
 

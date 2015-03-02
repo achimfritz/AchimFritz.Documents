@@ -11,14 +11,19 @@
 
 								$scope.settings = SolrFactory.getSettings();
 								$scope.facets = SolrFactory.getFacets();
+								$scope.filterQueries = SolrFactory.getFilterQueries();
 
 								$scope.rmFilterQuery = function (name, value) {
 												SolrFactory.rmFilterQuery(name, value);
 												update();
 								};
 
-								$scope.addFitler = function(name, value) {
+								$scope.addFilterQuery = function(name, value) {
 												SolrFactory.addFilterQuery(name, value);
+												update();
+								};
+
+								$scope.update = function() {
 												update();
 								};
 
@@ -26,17 +31,8 @@
 
 								function update() {
 												SolrFactory.getData().then(function(data) {
-																$scope.response = data.data.response;
+																$scope.data = data.data;
 												});
-												/*
-												SolrFactory.getData().then(function(data) {
-																				var facets = {};
-																				angular.forEach(FacetFactory.getFacets(), function(val) {
-																								facets[val] = data.data.facet_counts.facet_fields[val];
-																								});
-																				$scope.facets = facets;
-																				});
-																				*/
 								};
 
 				}
