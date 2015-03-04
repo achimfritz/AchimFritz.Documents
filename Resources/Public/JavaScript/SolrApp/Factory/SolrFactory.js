@@ -51,6 +51,7 @@
 												// remove all fq
 												manager.store.remove('fq');
 
+												// TODO only on init?
 												angular.forEach(facets, function(val) {
 																manager.store.addByValue('facet.field', val);
 												});
@@ -62,12 +63,33 @@
 												});
 								};
 
+								var getAutocomplete = function(search, searchField) {
+												var defer = $q.defer();
+												buildSolrValues();
+												manager.store.addByValue('rows', 0);
+												var words = search.split(' ');
+												var lastWord = words.pop();
+												var searchWord = words.join(' ');
+												if (searchWord !== '') {
+																manager.store.addByValue('q', searchWord);
+												}
+												manager.store.addByValue('f.' + searchField + '.facet.prefix', lastWord);
+												manager.store.addByValue('facet.field', searchField);
+												var url = manager.buildUrl();
+												$http.jsonp(url).then(function(data) {
+																response = data;
+																defer.resolve(data);
+												});
+												return defer.promise;
+								};
+
+
 
 								var getData = function() {
 												var defer = $q.defer();
 												buildSolrValues();
+
 												var url = manager.buildUrl();
-												//console.log(url);
 												$http.jsonp(url).then(function(data) {
 																response = data;
 																defer.resolve(data);
@@ -89,6 +111,9 @@
 												},
 												getSolrSettings: function() {
 																return getSolrSettings();
+												},
+												getAutocomplete: function(search, searchField) {
+																return getAutocomplete(search, searchField);
 												},
 												getData: function() {
 																return getData();

@@ -1,15 +1,36 @@
-<p>Settings</p>
-<pre>
-rows: {{settings.rows}}
-q: {{settings.q}}
-facet_limit: {{settings.facet_limit}}
-sort: {{settings.sort}}
-start: {{settings.start}}
-</pre>
-
-<form novalidate class="simple-form">
-	<label class="control-label" for="rows">rows: </label>
-	<input class="form-control" id="rows" type="text"  data-ng-model="settings.rows" ng-change="update()" />
+<form novalidate class="simple-form" ng-submit="update()">
+<input class="form-control" id="searchX" type="text" data-autocomplete data-ng-model="searchX" />
+	<div class="form-group row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-3">
+			<label class="control-label" for="search">search: </label>
+			<input type="text" class="form-control" id="search" data-ng-model="search" ng-change="autocomplete(search)" />
+		</div>
+		<div class="col-md-1">
+			<label class="control-label" for="submit">&nbsp;</label>
+			<input type="submit" id="submit" value="Submit" class="form-control btn btn-default" />
+		</div>
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-1">
+			<label class="control-label" for="rows">rows: </label>
+			<input type="text" class="form-control" id="rows" data-ng-model="settings.rows" ng-change="update()" />
+		</div>
+		<div class="col-md-1">
+			<label class="control-label" for="facet_limit">facet.limit: </label>
+			<input type="text" class="form-control" id="facet_limit" data-ng-model="settings.facet_limit" ng-change="update()" />
+		</div>
+		<div class="col-md-1">
+			<label class="control-label" for="sort">sort: </label>
+			<select class="form-control" id="sort" data-ng-model="settings.sort" ng-change="update()">
+				<option value="mDateTime desc">mDateTime desc</option>
+				<option value="mDateTime asc">mDateTime asc</option>
+				<option value="name desc">name desc</option>
+				<option value="name asc">name asc</option>
+			</select>
+		</div>
+	</div>
 </form>
 
 <ul ng-repeat="(key, values) in filterQueries">
