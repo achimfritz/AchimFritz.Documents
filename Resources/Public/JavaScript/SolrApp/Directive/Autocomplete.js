@@ -19,14 +19,20 @@
 																				source: function( request, response ) {
 																								var item = request.term;
 																								SolrFactory.getAutocomplete(item, 'spell').then(function(data) {
-																												console.log(data.data);
-																																response($.map(data.data.facet_counts.facet_fields.spell, function( item , key) {
-																																				var name = key;
-																																				return {
-																																							label: name + ' (' + item + ')',
-																																							value: name,
-																																				};
-																																}));
+																												var q = data.data.responseHeader.params.q;
+																												response($.map(data.data.facet_counts.facet_fields.spell, function( val , key) {
+																																var name = key;
+																																var label = name + ' (' + val + ')';
+																																var value = name;
+																																if (q !== '*:*') {
+																																				label = q + ' ' + label;
+																																				value = q + ' ' + value;
+																																}
+																																return {
+																																			label: label,
+																																			value: value
+																																};
+																												}));
 																								});
 																				}
 																});

@@ -106,6 +106,9 @@
 												getSettings: function() {
 																return settings;
 												},
+												getSetting: function(name) {
+																return settings[name];
+												},
 												setSetting: function(name, value) {
 																settings[name] = value;
 												},

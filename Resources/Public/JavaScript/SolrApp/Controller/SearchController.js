@@ -24,21 +24,15 @@
 												update();
 								};
 
-								$scope.update = function() {
-												update();
-								};
-
-								$scope.autocomplete = function(search) {
-												SolrFactory.getAutocomplete(search, 'search').then(function(data) {
-																console.log(data.data);
-												});
+								$scope.update = function(search) {
+												update(search);
 								};
 
 								update();
 
-								function update() {
-												if ($scope.search !== '') {
-																SolrFactory.setSetting('q', $scope.search);
+								function update(search) {
+												if (search !== undefined && search !== '') {
+																SolrFactory.setSetting('q', search);
 												}
 												SolrFactory.getData().then(function(data) {
 																$scope.data = data.data;
