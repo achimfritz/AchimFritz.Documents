@@ -15,7 +15,6 @@ class PathService {
 
 	const PATH_DELIMITER = '/';
 	const TEMP_FOLDER = '/tmp';
-	const HIERARCHICAL_PATHS = 'categories,locations';
 
 	/**
 	 * @param string $path
@@ -31,6 +30,32 @@ class PathService {
 	 */
 	public function getPathDepth($path) {
 		return count($this->splitPath($path));
+	}
+
+	/**
+	 * /foo/bar/baz
+	 *
+	 * foo
+	 * foo/bar
+	 * foo/bar/baz
+	 *
+	 * @param string $path
+	 * @return array
+	 */
+	public function getPaths($path) {
+		$hierarchicalPaths = array();
+		$paths = $this->splitPath($path);
+		$hierarchicalPath = '';
+		$k = 0;
+		foreach ($paths AS $path) {
+			if ($k != 0) {
+				$hierarchicalPath .= self::PATH_DELIMITER;
+			}
+			$hierarchicalPath .= $path;
+			$hierarchicalPaths[] = $hierarchicalPath;
+			$k++;
+		}
+		return $hierarchicalPaths;
 	}
 
 	/**
@@ -66,17 +91,10 @@ class PathService {
 	public function getSolrField($path) {
 		$hierarchicalPaths = array();
 		$paths = $this->splitPath($path);
-		if ($this->isHierarchical($paths[0]) === TRUE) {
-			return array(
-				'name' => array_shift($paths),
-				'values' => $this->getHierarchicalPaths(implode(self::PATH_DELIMITER, $paths))
-			);
-		} else {
-			return array(
-				'name' => $paths[0],
-				'values' => array($paths[1])
-			);
-		}
+		return array(
+			'name' => array_shift($paths),
+			'value' => implode(self::PATH_DELIMITER, $paths)
+		);
 	}
 
 	/**
@@ -91,10 +109,4 @@ class PathService {
 		return $path;
 	}
 
-	/**
-	 * @return boolean
-	 */
-	protected function isHierarchical($name) {
-		return in_array($name, explode(',', self::HIERARCHICAL_PATHS));
-	}
 }

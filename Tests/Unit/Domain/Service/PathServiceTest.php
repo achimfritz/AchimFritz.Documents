@@ -40,6 +40,21 @@ class PathServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function getPathsReturnsArray() {
+		$pathService = new PathService();
+		$path = 'foo/bar/baz';
+		$expected = array(
+			'foo',
+			'foo/bar',
+			'foo/bar/baz'
+		);
+		$res = $pathService->getPaths($path);
+		$this->assertSame($expected, $res);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getHierarchicalPathsReturnsArray() {
 		$pathService = new PathService();
 		$path = 'foo/bar/baz';
@@ -55,34 +70,14 @@ class PathServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getSolrFieldReturnsSingleValueForNonHierarchical() {
-		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('isHierarchical'));
-		$pathService->expects($this->once())->method('isHierarchical')->will($this->returnValue(FALSE));
-		$path = 'foo/bar';
-		$expected = array(
-			'name' => 'foo',
-			'values' => array('bar')
-		);
-		$res = $pathService->getSolrField($path);
-		$this->assertSame($expected, $res);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getSolrFieldsReturnMultiValuesForHierarchical() {
-		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('isHierarchical'));
-		$pathService->expects($this->once())->method('isHierarchical')->will($this->returnValue(TRUE));
+	public function getSolrFieldReturnsNameValue() {
+		$pathService = new PathService();
 		$path = 'foo/bar/baz';
 		$expected = array(
 			'name' => 'foo',
-			'values' => array('0/bar', '1/bar/baz')
+			'value' => 'bar/baz',
 		);
 		$res = $pathService->getSolrField($path);
 		$this->assertSame($expected, $res);
 	}
-
-
-
 }
-?>

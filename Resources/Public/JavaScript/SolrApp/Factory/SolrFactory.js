@@ -7,10 +7,10 @@
 				.module('solrApp')
 				.factory('SolrFactory', SolrFactory);
 
-				function SolrFactory($http, $q) {
+				function SolrFactory($http, $q, PathService) {
 								var response = {};
 								var manager = new AjaxSolr.Manager({
-												solrUrl: 'http://localhost:8080/solr/documents2/',
+												solrUrl: 'http://localhost:8080/solr4/documents/',
 												servlet: 'select',
 												debug: true
 								});
@@ -26,8 +26,24 @@
 
 								};
 
-								var facets = ['mainDirectoryName', 'year', 'collections', 'parties', 'tags', 'locations', 'categories', 'search'];
+								var facets = ['mainDirectoryName', 'year', 'collections', 'parties', 'tags', 'locations', 'categories', 'paths', 'hPaths', 'hLocations', 'hCategories'];
+								var hFacets = ['hPaths', 'hLocations', 'hCategories'];
+								/*
+								var hFacets = {
+												'locations': {
+																'facet': 'hPaths',
+																'name': 'locations',
+																'prefix': '0/locations'
+												},
+												'navigation': {
+																'facet': 'hPaths',
+																'name': 'navigation',
+																'prefix': ''
+												}
+								};
+								*/
 								var filterQueries = {};
+								var facetPrefixes = {};
 
 								var getSolrSettings = function() {
 												var res = {};
@@ -39,10 +55,18 @@
 												return res;
 								};
 
-
+								var isHFacet = function(name) {
+												var index = hFacets.indexOf(name);
+												if (index > -1) {
+																return true;
+												} else {
+																return false;
+												}
+								};
 
 								var buildSolrValues = function() {
 
+												// settings
 												var solrSettings = getSolrSettings();
 												angular.forEach(solrSettings, function(val, key) {
 																manager.store.addByValue(key, val);
@@ -51,15 +75,13 @@
 												// remove all fq
 												manager.store.remove('fq');
 
-												// TODO only on init?
-												angular.forEach(facets, function(val) {
-																manager.store.addByValue('facet.field', val);
-												});
-
 												angular.forEach(filterQueries, function(values, key) {
 																angular.forEach(values, function(value) {
 																				manager.store.addByValue('fq', key + ':' + value);
 																});
+												});
+												angular.forEach(facetPrefixes, function(val, key) {
+																manager.store.addByValue('f.' + key + '.facet.prefix', val);
 												});
 								};
 
@@ -72,6 +94,8 @@
 												var searchWord = words.join(' ');
 												if (searchWord !== '') {
 																manager.store.addByValue('q', searchWord);
+												} else {
+																manager.store.addByValue('q', '*:*');
 												}
 												manager.store.addByValue('f.' + searchField + '.facet.prefix', lastWord);
 												manager.store.addByValue('facet.field', searchField);
@@ -82,8 +106,6 @@
 												});
 												return defer.promise;
 								};
-
-
 
 								var getData = function() {
 												var defer = $q.defer();
@@ -97,9 +119,19 @@
 												return defer.promise;
 								};
 
+								var init = function() {
+												manager.init();
+												angular.forEach(facets, function(val) {
+																manager.store.addByValue('facet.field', val);
+												});
+												angular.forEach(hFacets, function(val) {
+																facetPrefixes[val] = '0';
+												});
 
-								manager.init();
-								buildSolrValues();
+												buildSolrValues();
+								};
+
+								init();
 
         // Public API
         return {

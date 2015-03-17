@@ -3,7 +3,7 @@ AchimFritz:
     solr:
       hostname: localhost
       port: 8080
-      path: solr/documents2
+      path: solr4/documents
       servlet: select
     export: /tmp
     fileSystemDocument:

@@ -45,10 +45,11 @@
 	</li>
 </ul>
 
-<div ng-repeat="(facet, result) in data.facet_counts.facet_fields">
-	<h2>{{facet}}</h2>
-	<ul>
-		<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">{{key}} ({{value}})</li>
-	</ul>
+<div class="row">
+<div class="col-md-2" ng-repeat="(facet, result) in data.facet_counts.facet_fields">
+		<h2>{{facet}}</h2>
+		<ul>
+			<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">{{key}} ({{value}})</li>
+		</ul>
 </div>
-
+</div>

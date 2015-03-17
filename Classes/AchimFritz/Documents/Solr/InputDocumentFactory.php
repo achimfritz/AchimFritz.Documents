@@ -71,13 +71,16 @@ class InputDocumentFactory {
 		$categories = $document->getCategories();
 		foreach ($categories AS $category) {
 			$solrField = $this->pathService->getSolrField($category->getPath());
-			foreach ($solrField['values'] AS $value) {
-				$inputDocument->addField($solrField['name'], $value);
-			}
+			$inputDocument->addField($solrField['name'], $solrField['value']);
 			// paths
-			$paths = $this->pathService->getHierarchicalPaths($category->getPath());
+			$paths = $this->pathService->getPaths($category->getPath());
 			foreach ($paths AS $path) {
 				$inputDocument->addField('paths', $path);
+			}
+			// hPaths
+			$paths = $this->pathService->getHierarchicalPaths($category->getPath());
+			foreach ($paths AS $path) {
+				$inputDocument->addField('hPaths', $path);
 			}
 		}
 		return $inputDocument;
@@ -102,18 +105,16 @@ class InputDocumentFactory {
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());
-			$searchs = $document->getSearch();
-			foreach ($searchs AS $search) {
-				$inputDocument->addField('search', $search);
+			$categories = $document->getCategories();
+			foreach ($categories AS $category) {
+				$paths = $this->pathService->splitPath($category->getPath());
+				if ($paths[0] === 'locations' OR $paths[0] === 'categories') {
+					$hPaths = $this->pathService->getHierarchicalPaths($category->getPath());
+					foreach ($hPaths AS $hPath) {
+						$inputDocument->addField('h' . ucfirst($paths[0]), $hPath);
+					}
+				}
 			}
-			/*
-			$imageSize = getimagesize($document->getAbsolutePath());
-			if ($imageSize[0] < $imageSize[1]) {
-				$inputDocument->addField('isUpright', TRUE);
-			} else {
-				$inputDocument->addField('isUpright', FALSE);
-			}
-			*/
 		}
 		return $inputDocument;
 	}
