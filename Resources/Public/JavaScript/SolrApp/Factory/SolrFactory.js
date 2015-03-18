@@ -8,7 +8,6 @@
 				.factory('SolrFactory', SolrFactory);
 
 				function SolrFactory($http, $q, PathService) {
-								var response = {};
 								var manager = new AjaxSolr.Manager({
 												solrUrl: 'http://localhost:8080/solr4/documents/',
 												servlet: 'select',
@@ -27,23 +26,12 @@
 								};
 
 								var facets = ['mainDirectoryName', 'year', 'collections', 'parties', 'tags', 'locations', 'categories', 'paths', 'hPaths', 'hLocations', 'hCategories'];
-								var hFacets = ['hPaths', 'hLocations', 'hCategories'];
-								/*
-								var hFacets = {
-												'locations': {
-																'facet': 'hPaths',
-																'name': 'locations',
-																'prefix': '0/locations'
-												},
-												'navigation': {
-																'facet': 'hPaths',
-																'name': 'navigation',
-																'prefix': ''
-												}
-								};
-								*/
 								var filterQueries = {};
-								var facetPrefixes = {};
+								var facetPrefixes = {
+												'hPaths': '0',
+												'hLocations': '1/locations',
+												'hCategories': '1/categories'
+								};
 
 								var getSolrSettings = function() {
 												var res = {};
@@ -53,36 +41,6 @@
 
 												});
 												return res;
-								};
-
-								var isHFacet = function(name) {
-												var index = hFacets.indexOf(name);
-												if (index > -1) {
-																return true;
-												} else {
-																return false;
-												}
-								};
-
-								var buildSolrValues = function() {
-
-												// settings
-												var solrSettings = getSolrSettings();
-												angular.forEach(solrSettings, function(val, key) {
-																manager.store.addByValue(key, val);
-												});
-
-												// remove all fq
-												manager.store.remove('fq');
-
-												angular.forEach(filterQueries, function(values, key) {
-																angular.forEach(values, function(value) {
-																				manager.store.addByValue('fq', key + ':' + value);
-																});
-												});
-												angular.forEach(facetPrefixes, function(val, key) {
-																manager.store.addByValue('f.' + key + '.facet.prefix', val);
-												});
 								};
 
 								var getAutocomplete = function(search, searchField) {
@@ -101,7 +59,6 @@
 												manager.store.addByValue('facet.field', searchField);
 												var url = manager.buildUrl();
 												$http.jsonp(url).then(function(data) {
-																response = data;
 																defer.resolve(data);
 												});
 												return defer.promise;
@@ -113,21 +70,49 @@
 
 												var url = manager.buildUrl();
 												$http.jsonp(url).then(function(data) {
-																response = data;
 																defer.resolve(data);
 												});
 												return defer.promise;
 								};
+
+								var isHFacet = function(name) {
+												if (facetPrefixes[name] !== undefined) {
+																return true;
+												} else {
+																return false;
+												}
+								};
+
+								var buildSolrValues = function() {
+
+												// settings
+												var solrSettings = getSolrSettings();
+												angular.forEach(solrSettings, function(val, key) {
+																manager.store.addByValue(key, val);
+												});
+
+												// remove all fq
+												manager.store.remove('fq');
+
+												// fq
+												angular.forEach(filterQueries, function(values, key) {
+																angular.forEach(values, function(value) {
+																				manager.store.addByValue('fq', key + ':' + value);
+																});
+												});
+
+												// facet.prefix
+												angular.forEach(facetPrefixes, function(val, key) {
+																manager.store.addByValue('f.' + key + '.facet.prefix', val);
+												});
+								};
+
 
 								var init = function() {
 												manager.init();
 												angular.forEach(facets, function(val) {
 																manager.store.addByValue('facet.field', val);
 												});
-												angular.forEach(hFacets, function(val) {
-																facetPrefixes[val] = '0';
-												});
-
 												buildSolrValues();
 								};
 
@@ -156,15 +141,31 @@
 												getFilterQueries: function() {
 																return filterQueries;
 												},
+												isHFacet: function(name) {
+																return isHFacet(name);
+												},
 												addFilterQuery: function(name, value) {
 																if (filterQueries[name] === undefined) {
+																				filterQueries[name] = [];
+																}
+																if (isHFacet(name) === true) {
+																				facetPrefixes[name] = PathService.increase(value);
 																				filterQueries[name] = [];
 																}
 																filterQueries[name].push(value);
 												},
 												rmFilterQuery: function(name, value) {
-																var index = filterQueries[name].indexOf(value);
-																filterQueries[name].splice(index, 1);
+																if (isHFacet(name) === true) {
+																				filterQueries[name] = [];
+																				var fq = PathService.decreaseFq(value);
+																				if (fq !== '') {
+																								filterQueries[name].push(fq);
+																				}
+																				facetPrefixes[name] = PathService.decrease(value);
+																} else {
+																				var index = filterQueries[name].indexOf(value);
+																				filterQueries[name].splice(index, 1);
+																}
 												},
 												getFacets: function() {
 																return facets;
