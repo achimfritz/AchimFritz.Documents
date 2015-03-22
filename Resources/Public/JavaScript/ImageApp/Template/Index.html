@@ -34,10 +34,7 @@
 
 <ul ng-repeat="(key, values) in filterQueries">
 	<li ng-repeat="value in values">
-		<span ng-click="rmFilterQuery(key, value)">
-		{{key}}
-		<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
-		</span>
+		<span ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</span>
 	</li>
 </ul>
 
@@ -53,7 +50,7 @@
 		<h4>{{facet}}</h4>
 		<ul>
 			<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">
-				<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}" />
+				<path data-path="key" data-facet="facet" />
 				({{value}})
 			</li>
 		</ul>

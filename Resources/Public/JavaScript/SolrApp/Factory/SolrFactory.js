@@ -24,14 +24,21 @@
 												'facet_mincount': 1
 
 								};
-
+/*
 								var facets = ['mainDirectoryName', 'year', 'collections', 'parties', 'tags', 'locations', 'categories', 'paths', 'hPaths', 'hLocations', 'hCategories'];
-								var filterQueries = {};
-								var facetPrefixes = {
+								var hFacets = {
 												'hPaths': '0',
 												'hLocations': '1/locations',
 												'hCategories': '1/categories'
 								};
+								*/
+								var facets = ['hCategories', 'hPaths'];
+								var hFacets = {
+												'hPaths': '0',
+												'hCategories': '1/categories'
+								};
+								var facetPrefixes = {};
+								var filterQueries = {};
 
 								var getSolrSettings = function() {
 												var res = {};
@@ -76,7 +83,7 @@
 								};
 
 								var isHFacet = function(name) {
-												if (facetPrefixes[name] !== undefined) {
+												if (hFacets[name] !== undefined) {
 																return true;
 												} else {
 																return false;
@@ -113,6 +120,9 @@
 												angular.forEach(facets, function(val) {
 																manager.store.addByValue('facet.field', val);
 												});
+												angular.forEach(hFacets, function(val, key) {
+																manager.store.addByValue('f.' + key + '.facet.prefix', val);
+												});
 												buildSolrValues();
 								};
 
@@ -144,6 +154,9 @@
 												isHFacet: function(name) {
 																return isHFacet(name);
 												},
+												getHFacet: function(name) {
+																return hFacets[name];
+												},
 												addFilterQuery: function(name, value) {
 																if (filterQueries[name] === undefined) {
 																				filterQueries[name] = [];
@@ -158,7 +171,7 @@
 																if (isHFacet(name) === true) {
 																				filterQueries[name] = [];
 																				var fq = PathService.decreaseFq(value);
-																				if (fq !== '') {
+																				if (fq !== '' && PathService.decreaseLevel(hFacets[name]) !== fq) {
 																								filterQueries[name].push(fq);
 																				}
 																				facetPrefixes[name] = PathService.decrease(value);
