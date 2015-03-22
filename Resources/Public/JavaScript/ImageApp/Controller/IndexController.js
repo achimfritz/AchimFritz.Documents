@@ -7,20 +7,20 @@
 				.module('imageApp')
 				.controller('IndexController', IndexController);
 
-				function IndexController($scope, SolrFactory) {
+				function IndexController($scope, Solr) {
 
-								$scope.settings = SolrFactory.getSettings();
-								$scope.facets = SolrFactory.getFacets();
-								$scope.filterQueries = SolrFactory.getFilterQueries();
+								$scope.settings = Solr.getSettings();
+								$scope.facets = Solr.getFacets();
+								$scope.filterQueries = Solr.getFilterQueries();
 								$scope.search = '';
 
 								$scope.rmFilterQuery = function (name, value) {
-												SolrFactory.rmFilterQuery(name, value);
+												Solr.rmFilterQuery(name, value);
 												update();
 								};
 
 								$scope.addFilterQuery = function(name, value) {
-												SolrFactory.addFilterQuery(name, value);
+												Solr.addFilterQuery(name, value);
 												update();
 								};
 
@@ -31,10 +31,14 @@
 								update();
 
 								function update(search) {
-												if (search !== undefined && search !== '') {
-																SolrFactory.setSetting('q', search);
+												if (search !== undefined) {
+																if (search !== '') {
+																				Solr.setSetting('q', search);
+																} else {
+																				Solr.setSetting('q', '*:*');
+																}
 												}
-												SolrFactory.getData().then(function(data) {
+												Solr.getData().then(function(data) {
 																$scope.data = data.data;
 												});
 								};

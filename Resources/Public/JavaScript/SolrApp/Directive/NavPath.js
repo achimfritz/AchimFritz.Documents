@@ -7,11 +7,11 @@
 				.module('solrApp')
 				.directive('navPath', NavPath);
 
-				function NavPath(SolrFactory, PathService) {
+				function NavPath(Solr, PathService) {
 								return {
 												restrict: 'E',
 												link: function(scope, element, attr) {
-																if (SolrFactory.isHFacet(attr.facet)) {
+																if (Solr.isHFacet(attr.facet)) {
 																				element.replaceWith(PathService.last(attr.path));
 																} else {
 																				element.replaceWith(attr.path);

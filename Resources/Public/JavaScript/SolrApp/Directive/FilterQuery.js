@@ -7,12 +7,12 @@
 				.module('solrApp')
 				.directive('filterQuery', FilterQuery);
 
-				function FilterQuery(SolrFactory, PathService) {
+				function FilterQuery(Solr, PathService) {
 								return {
 												restrict: 'E',
 												link: function(scope, element, attr) {
-																if (SolrFactory.isHFacet(attr.facet)) {
-																				var hFacet = SolrFactory.getHFacet(attr.facet);
+																if (Solr.isHFacet(attr.facet)) {
+																				var hFacet = Solr.getHFacet(attr.facet);
 																				var depth = PathService.depth(hFacet);
 																				element.replaceWith(PathService.slice(attr.path, depth));
 																} else {

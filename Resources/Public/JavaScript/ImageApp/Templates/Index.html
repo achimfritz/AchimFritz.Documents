@@ -1,3 +1,4 @@
+
 <form novalidate class="simple-form" ng-submit="update(search)">
 	<div class="form-group row">
 		<div class="col-md-2">
@@ -34,11 +35,19 @@
 
 <ul ng-repeat="(key, values) in filterQueries">
 	<li ng-repeat="value in values">
-		<span ng-click="rmFilterQuery(key, value)">{{key}}: {{value}}</span>
+		<span ng-click="rmFilterQuery(key, value)">
+		{{key}}
+		<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
+		</span>
 	</li>
 </ul>
 
 <p>results: {{data.response.numFound}}</p>
+
+<div class="items">
+	<div class="container-full"><iso-container current-page="{{currentPage}}" total="{{total}}" items-per-page="{{itemsPerPage}}" data-items="data.response.docs" /></div>
+</div>
+
 <ul>
 	<li ng-repeat="doc in data.response.docs">
 		{{doc.name}}
@@ -50,7 +59,7 @@
 		<h4>{{facet}}</h4>
 		<ul>
 			<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">
-				<path data-path="key" data-facet="facet" />
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}" />
 				({{value}})
 			</li>
 		</ul>

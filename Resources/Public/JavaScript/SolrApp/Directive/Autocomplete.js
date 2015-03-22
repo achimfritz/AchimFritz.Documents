@@ -7,7 +7,7 @@
 				.module('solrApp')
 				.directive('autocomplete', Autocomplete);
 
-				function Autocomplete(SolrFactory) {
+				function Autocomplete(Solr) {
 
 								return {
 
@@ -18,7 +18,7 @@
 																$(element).autocomplete({
 																				source: function( request, response ) {
 																								var item = request.term;
-																								SolrFactory.getAutocomplete(item, 'spell').then(function(data) {
+																								Solr.getAutocomplete(item, 'spell').then(function(data) {
 																												var q = data.data.responseHeader.params.q;
 																												response($.map(data.data.facet_counts.facet_fields.spell, function( val , key) {
 																																var name = key;
