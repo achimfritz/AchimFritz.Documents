@@ -1,31 +1,9 @@
-<toaster-container></toaster-container>
-
-<overlay finished="finished"></overlay>
-<div data-ng-if="!finished" class="spinner">
-	<spinner></spinner>
-</div>
-
 <div class="row">
 	<div class="col-md-5">
 		<dir-pagination-controls on-page-change="nextPage(newPageNumber)"></dir-pagination-controls>	
 	</div>
-	<div class="col-md-1">
-		<div class="radio">
-			<label>
-				<input  type="radio" ng-model="mode" value="view">View Mode
-			</label>
-		</div>
-	</div>
-	<div class="col-md-1">
-		<div class="radio">
-			<label>
-				<input id="select-mode" type="radio" ng-model="mode" value="select">Select Mode
-			</label>
-		</div>
-	</div>
-
 </div>
-
+<h1>{{total}}xx</h1>
 
 <div class="row">
 	<div class="col-md-12">

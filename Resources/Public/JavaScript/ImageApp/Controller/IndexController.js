@@ -13,6 +13,11 @@
 								$scope.facets = Solr.getFacets();
 								$scope.filterQueries = Solr.getFilterQueries();
 								$scope.search = '';
+/*
+															$scope.pageChanged = function(pageNumber) {
+																console.log(pageNumber);
+															};
+															*/
 
 								$scope.rmFilterQuery = function (name, value) {
 												Solr.rmFilterQuery(name, value);
@@ -40,6 +45,7 @@
 												}
 												Solr.getData().then(function(data) {
 																$scope.data = data.data;
+																//$scope.total = data.data.response.numFound;
 												});
 								};
 

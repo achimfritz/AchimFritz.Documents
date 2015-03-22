@@ -7,109 +7,46 @@
 				.module('imageApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, ngDialog, ItemService, RestService, FlashMessageService) {
+				function IsoContainer($timeout, ngDialog, ItemService, RestService, FlashMessageService, Solr) {
 
 								return {
 
 												scope: {
-																items: '=items',
-																total: '@',
-																currentPage: '@',
-																itemsPerPage: '@'
+																items: '=items'
 												},
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/ImageApp/Partials/Docs.html',
 
 												
 
-											link: function(scope, element, attr) {
-																scope.mode = 'view';
-																scope.finished = true;
-																scope.current = {};
-																console.log('foo');
+											link: function($scope, element, attr) {
 
-																jQuery(document).keydown(function(e) {
-																				if (e.keyCode == 39) {
-																								// next
-																								if (scope.current.identifier) {
-																												scope.next();
-																								}
-																				} else if (e.keyCode == 37) {
-																								// prev
-																								if (scope.current.identifier) {
-																												scope.prev();
-																								}
-																				} else if (e.keyCode == 27) {
-																								// close
-																								ngDialog.close();
-																				}
-																});
-																				
-																var options = {
-																				itemSelector: '.iso-item',
-																				layoutMode: 'fitRows'
-																};
-																element.isotope(options);
+															$scope.settings = Solr.getSettings();
+															$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
+															$scope.itemsPerPage = $scope.settings['rows'];
 
-																scope.$watch('items', function(newVal, oldVal){
-																			$timeout(function(){
-																								element.isotope('reloadItems').isotope(options);
-																			}, 500);
-																},true);
-
-																scope.addTag = function() {
-																				var tag = jQuery('#addTag').val();
-																				var docs = [];
-																				docs.push(scope.current);
-																				scope.finished = false;
-																				RestService.merge('tags/' + tag, docs).then(function(data) {
-																								scope.finished = true;
-																								FlashMessageService.show(data.data.flashMessages);
-																				});
-																};
-
-																scope.nextPage = function(pageNumber) {
-																				scope.$parent.pageChanged(pageNumber);
-																};
-
-																scope.prev = function() {
-																				var current = ItemService.getPrev(scope.current, scope.items);
-																				if (current.identifier) {
-																								scope.current = current;
-																								ngDialog.close();
-																								ngDialog.open({
-																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
-																												scope: scope
-																								});
-																				}
-																};
-
-																scope.next = function() {
-																				var current = ItemService.getNext(scope.current, scope.items);
-																				if (current.identifier) {
-																								scope.current = current;
-																								ngDialog.close();
-																								ngDialog.open({
-																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
-																												scope: scope
-																								});
-																				}
-																};
+															$scope.nextPage = function(pageNumber) {
+																				Solr.setSetting('start', (pageNumber - 1) * $scope.settings.rows);
+																							Solr.getData().then(function(data) {
+																								$scope.items = data.data.response.docs;
+																							});
+															};
 
 
-																scope.itemClick = function(item) {
-																				var items = scope.items;
-																				if (scope.mode === 'select') {
-																								ItemService.itemClick(item, scope.items);
-																				} else { // mode = view
-																								scope.current = item;
-																								ngDialog.close();
-																								ngDialog.open({
-																												template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/App/Partials/Dialog.html',
-																												scope: scope
-																								});
-																				}
-																};
+															Solr.getData().then(function(data) {
+																			$scope.total = data.data.response.numFound;
+															});
+															var options = {
+																			itemSelector: '.iso-item',
+																			layoutMode: 'fitRows'
+															};
+															element.isotope(options);
+															$scope.$watch('items', function(newVal, oldVal){
+																		$timeout(function(){
+																							element.isotope('reloadItems').isotope(options);
+																		}, 500);
+															},true);
+
 												},
 
 								};
