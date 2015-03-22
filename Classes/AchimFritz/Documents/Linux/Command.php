@@ -19,6 +19,18 @@ class Command {
 	 */
 	public function burnWavCd($directoryName) {
 		$cmd = 'wodim dev=/dev/sr0 fs=4096k driveropts=burnproof -v -useinfo speed=24 -dao -eject -pad -audio ' . $directoryName . '.wav';
+		return $this->executeCommand($cmd);
+	}
+
+	/**
+	 * @param string $directoryName 
+	 * @return void
+	 */
+	public function burnDataCd($directoryName) {
+		$cmd = 'genisoimage -o /tmp/image.iso -f -J -r -l ' . $directoryName;
+		$this->executeCommand($cmd);
+		$cmd = 'wodim dev=/dev/sr0 fs=4096k -ignsize driveropts=burnproof -v -useinfo speed=12 -dao -eject -pad -data /tmp/image.iso';
+		$this->executeCommand($cmd);
 	}
 
 	/**
