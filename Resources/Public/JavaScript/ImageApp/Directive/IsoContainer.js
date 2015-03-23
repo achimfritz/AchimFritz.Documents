@@ -9,6 +9,12 @@
 
 				function IsoContainer($timeout, ngDialog, ItemService, RestService, FlashMessageService, Solr) {
 
+								function update($scope) {
+												$scope.settings = Solr.getSettings();
+												$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
+												$scope.itemsPerPage = $scope.settings['rows'];
+								};
+
 								return {
 
 												scope: {
@@ -17,35 +23,29 @@
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/ImageApp/Partials/Docs.html',
 
-												
-
-											link: function($scope, element, attr) {
-
-															$scope.settings = Solr.getSettings();
-															$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
-															$scope.itemsPerPage = $scope.settings['rows'];
-
-															$scope.nextPage = function(pageNumber) {
+												link: function($scope, element, attr) {
+																$scope.nextPage = function(pageNumber) {
 																				Solr.setSetting('start', (pageNumber - 1) * $scope.settings.rows);
-																							Solr.getData().then(function(data) {
+																				Solr.getData().then(function(data) {
 																								$scope.items = data.data.response.docs;
-																							});
-															};
+																				});
+																};
 
+																Solr.getData().then(function(data) {
+																				$scope.total = data.data.response.numFound;
+																});
 
-															Solr.getData().then(function(data) {
-																			$scope.total = data.data.response.numFound;
-															});
-															var options = {
+																var options = {
 																			itemSelector: '.iso-item',
 																			layoutMode: 'fitRows'
-															};
-															element.isotope(options);
-															$scope.$watch('items', function(newVal, oldVal){
-																		$timeout(function(){
-																							element.isotope('reloadItems').isotope(options);
-																		}, 500);
-															},true);
+																};
+																element.isotope(options);
+																$scope.$watch('items', function(newVal, oldVal){
+																				update($scope);
+																		  $timeout(function(){
+																						  	element.isotope('reloadItems').isotope(options);
+																		  }, 500);
+																},true);
 
 												},
 
