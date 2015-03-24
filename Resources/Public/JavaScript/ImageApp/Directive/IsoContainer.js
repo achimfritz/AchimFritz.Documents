@@ -25,7 +25,7 @@
 
 												link: function($scope, element, attr) {
 																$scope.nextPage = function(pageNumber) {
-																				Solr.setSetting('start', (pageNumber - 1) * $scope.settings.rows);
+																				Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
 																				Solr.getData().then(function(data) {
 																								$scope.items = data.data.response.docs;
 																				});
@@ -44,7 +44,7 @@
 																				update($scope);
 																		  $timeout(function(){
 																						  	element.isotope('reloadItems').isotope(options);
-																		  }, 500);
+																		  }, 800);
 																},true);
 
 												},

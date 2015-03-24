@@ -9,6 +9,7 @@
 
 				function Solr() {
 
+
 								var solrSettings = {
 												'solrUrl': 'http://localhost:8080/solr4/documents/',
 												'servlet': 'select',
@@ -33,6 +34,7 @@
 
 								var facetPrefixes = {};
 								var filterQueries = {};
+								var cache = {};
 								var manager = new AjaxSolr.Manager(solrSettings);
 
 								this.setFacets = function (newFacets) {
@@ -86,7 +88,12 @@
 												buildSolrValues();
 
 												var url = manager.buildUrl();
+												if (angular.isDefined(cache[url])) {
+																defer.resolve(cache[url])
+																return defer.promise;
+												}
 												$http.jsonp(url).then(function(data) {
+																cache[url] = data;
 																defer.resolve(data);
 												});
 												return defer.promise;
