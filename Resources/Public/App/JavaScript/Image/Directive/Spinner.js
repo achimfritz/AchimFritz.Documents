@@ -11,7 +11,7 @@
 
         return {
             restrict: 'E',
-												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/ImageApp/Partials/Spinner.html?xx'
+												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Image/Partials/Spinner.html'
         };
     }
 }());

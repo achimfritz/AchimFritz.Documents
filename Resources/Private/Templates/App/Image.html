@@ -2,10 +2,16 @@
 
 <f:section name="Content">
 	<div ng-app="imageApp">
-		<div class="container-full" >
-			<div ng-controller="IndexController">
-				<div ng-include="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/ImageApp/Templates/Index.html'" />
-			  </div>
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li><a data-ng-href="/achimfritz.documents/app/image#index">index</a></li>
+					<li><a data-ng-href="/achimfritz.documents/app/image#filter">filter</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container-full" style="padding-top: 70px;">
+					<div data-ng-view class="ngview" autoscroll="true"></div>
 		</div>
 	</div>
 	<script src="{f:uri.resource(path: 'Build/Image.js')}" type="text/javascript" ></script>

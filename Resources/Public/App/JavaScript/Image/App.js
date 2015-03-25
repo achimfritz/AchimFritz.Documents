@@ -2,8 +2,9 @@
 
 (function () {
     'use strict';
-				angular.module('imageApp', ['solr', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster', 'ngDraggable'])
+				angular.module('imageApp', ['solr', 'ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster', 'ngDraggable'])
 				.config(paginationConfiguration)
+				.config(routeConfiguration)
 				.config(toasterConfiguration)
 				.config(solrConfiguration);
 
@@ -31,5 +32,27 @@
 								});
 								SolrProvider.setSetting('rows', 10);
 				};
+
+   /* @ngInject */
+    function routeConfiguration($routeProvider) {
+        var templatePath = '/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Image/Templates/';
+        $routeProvider.
+            when('/', {
+                templateUrl: templatePath + 'Index.html',
+                controller: 'IndexController'
+            }).
+            when('/index', {
+                templateUrl: templatePath + 'Index.html',
+                controller: 'IndexController'
+            }).
+            when('/filter', {
+                templateUrl: templatePath + 'Filter.html',
+                controller: 'FilterController'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+    }
+
 
 }());
