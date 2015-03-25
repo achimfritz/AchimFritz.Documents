@@ -4,7 +4,7 @@
     'use strict';
 
 				angular
-				.module('solrApp')
+				.module('solr')
 				.provider('Solr', Solr);
 
 				function Solr() {

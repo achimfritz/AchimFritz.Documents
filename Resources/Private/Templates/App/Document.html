@@ -1,0 +1,13 @@
+<f:layout name="App"/>
+
+<f:section name="Content">
+	<div ng-app="documentApp">
+		<div class="container-full" >
+			<div ng-controller="SearchController">
+				<div ng-include="'/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Document/Templates/Search.html'" />
+			  </div>
+		</div>
+	</div>
+	<script src="{f:uri.resource(path: 'Build/Document.js')}" type="text/javascript" ></script>
+</f:section>
+

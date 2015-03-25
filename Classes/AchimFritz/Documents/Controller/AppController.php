@@ -13,13 +13,14 @@ class AppController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @return void
 	 */
-	public function listAction() {
+	public function indexAction() {
+		// old
 	}
 
 	/**
 	 * @return void
 	 */
-	public function indexAction() {
+	public function documentAction() {
 	}
 
 	/**

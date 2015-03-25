@@ -1,6 +1,4 @@
 Resources/Public/bower_components
 Resources/Public/grunt
 Resources/Public/node_modules
-Resources/Public/Build/Main.css
-Resources/Public/Build/Main.js
-Resources/Public/Build/Libs.js
+Resources/Public/Build/*

@@ -4,7 +4,7 @@
     'use strict';
 
 				angular
-				.module('solrApp')
+				.module('documentApp')
 				.controller('SearchController', SearchController);
 
 				function SearchController($scope, Solr) {

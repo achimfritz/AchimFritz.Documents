@@ -4,17 +4,15 @@
     'use strict';
 
 				angular
-				.module('solrApp')
-				.directive('filterQuery', FilterQuery);
+				.module('solr')
+				.directive('navPath', NavPath);
 
-				function FilterQuery(Solr, PathService) {
+				function NavPath(Solr, PathService) {
 								return {
 												restrict: 'E',
 												link: function(scope, element, attr) {
 																if (Solr.isHFacet(attr.facet)) {
-																				var hFacet = Solr.getHFacet(attr.facet);
-																				var depth = PathService.depth(hFacet);
-																				element.replaceWith(PathService.slice(attr.path, depth));
+																				element.replaceWith(PathService.last(attr.path));
 																} else {
 																				element.replaceWith(attr.path);
 																}

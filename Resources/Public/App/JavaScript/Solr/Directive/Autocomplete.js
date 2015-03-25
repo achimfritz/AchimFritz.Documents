@@ -4,7 +4,7 @@
     'use strict';
 
 				angular
-				.module('solrApp')
+				.module('solr')
 				.directive('autocomplete', Autocomplete);
 
 				function Autocomplete(Solr) {
