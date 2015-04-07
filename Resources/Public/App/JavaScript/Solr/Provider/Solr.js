@@ -60,9 +60,14 @@
 												return res;
 								};
 
-								var getAutocomplete = function(search, searchField, $q, $http) {
+								var getAutocomplete = function(search, searchField, $q, $http, global) {
 												var defer = $q.defer();
-												buildSolrValues();
+												if (global === true) {
+																// remove all fq
+																manager.store.remove('fq');
+												} else {
+																buildSolrValues();
+												}
 												manager.store.addByValue('rows', 0);
 												var words = search.split(' ');
 												var lastWord = words.pop();
@@ -160,8 +165,8 @@
 																getSolrSettings: function() {
 																				return getSolrSettings();
 																},
-																getAutocomplete: function(search, searchField) {
-																				return getAutocomplete(search, searchField, $q, $http);
+																getAutocomplete: function(search, searchField, global) {
+																				return getAutocomplete(search, searchField, $q, $http, global);
 																},
 																getData: function() {
 																				return getData($q, $http);

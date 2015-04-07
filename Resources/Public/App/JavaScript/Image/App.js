@@ -24,13 +24,14 @@
 				};
 
 				function solrConfiguration(SolrProvider) {
-								SolrProvider.setFacets(['hCategories', 'hPaths', 'hLocations']);
+								SolrProvider.setFacets(['hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
 								SolrProvider.setHFacets({
 												'hPaths': '0',
 												'hCategories': '1/categories',
 												'hLocations': '1/locations'
 								});
 								SolrProvider.setSetting('rows', 10);
+								SolrProvider.setSetting('facet_limit', 10);
 				};
 
    /* @ngInject */
