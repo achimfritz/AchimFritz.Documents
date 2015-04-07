@@ -7,7 +7,7 @@
 				.module('imageApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, ngDialog, ItemService, RestService, FlashMessageService, Solr) {
+				function IsoContainer($timeout, ngDialog, ItemService, DocumentCollectionRestService, FlashMessageService, Solr) {
 
 								function update($scope) {
 												$scope.settings = Solr.getSettings();
@@ -101,19 +101,18 @@
 																								$scope.items = data.data.response.docs;
 																				});
 																};
-/*
+
+																// TODO directive ?
                 $scope.addTag = function() {
                     var tag = jQuery('#addTag').val();
                     var docs = [];
-                    docs.push(scope.current);
+                    docs.push($scope.current);
                     $scope.finished = false;
-                    RestService.merge('tags/' + tag, docs).then(function(data) {
+                    DocumentCollectionRestService.merge('tags/' + tag, docs).then(function(data) {
                         $scope.finished = true;
                         FlashMessageService.show(data.data.flashMessages);
                     });
                 };
-*/
-
 
 																Solr.getData().then(function(data) {
 																				$scope.total = data.data.response.numFound;

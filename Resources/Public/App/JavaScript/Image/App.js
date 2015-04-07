@@ -50,6 +50,18 @@
                 templateUrl: templatePath + 'Filter.html',
                 controller: 'FilterController'
             }).
+            when('/clipboard', {
+                templateUrl: templatePath + 'Clipboard.html',
+                controller: 'ClipboardController'
+            }).
+            when('/integrity', {
+                templateUrl: templatePath + 'Integrity.html',
+                controller: 'IntegrityController'
+            }).
+            when('/documentList', {
+                templateUrl: templatePath + 'DocumentList.html',
+                controller: 'DocumentListController'
+            }).
             otherwise({
                 redirectTo: '/'
             });

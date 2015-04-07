@@ -5,9 +5,9 @@
 
 				angular
 				.module('imageApp')
-				.service('RestService', RestService);
+				.service('DocumentCollectionRestService', DocumentCollectionRestService);
 
-				function RestService($http) {
+				function DocumentCollectionRestService($http) {
 
 								var buildRequest = function(category, docs) {
 												var documents = [];
