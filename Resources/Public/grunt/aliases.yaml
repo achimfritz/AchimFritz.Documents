@@ -1,0 +1,10 @@
+standard:
+  - concat
+  - ngAnnotate
+default:
+  - standard
+dev:
+  - concat
+  - watch
+sniff:
+  - jshint
