@@ -16,7 +16,6 @@ use AchimFritz\Documents\Domain\Model\Mp3Document;
  */
 class InputDocumentFactory {
 
-
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 * @Flow\Inject
@@ -38,6 +37,7 @@ class InputDocumentFactory {
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\Document $document
 	 * @return void
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 */
 	public function create(Document $document) {
 		$inputDocument = new \SolrInputDocument();
@@ -123,12 +123,27 @@ class InputDocumentFactory {
 	 * @param Document $document 
 	 * @param \SolrInputDocument $inputDocument 
 	 * @return \SolrInputDocument
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 */
 	protected function addMp3Fields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof Mp3Document === TRUE) {
 			$inputDocument->addField('extension', 'mp3');
 			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
 			$inputDocument->addField('fileHash', $document->getFileHash());
+			$inputDocument->addField('fsTitle', $document->getFsTitle());
+			$inputDocument->addField('fsTrack', $document->getFsTrack());
+			$inputDocument->addField('fsAlbum', $document->getFsAlbum());
+			$inputDocument->addField('fsArtist', $document->getFsArtist());
+			$inputDocument->addField('fsProvider', $document->getFsProvider());
+			$inputDocument->addField('fsGenre', $document->getFsGenre());
+			$id3Tag = $this->id3TagFactory->create($document);
+			$inputDocument->addField('id3Title', $id3Tag->getTitle());
+			$inputDocument->addField('id3Track', $id3Tag->getTrack());
+			$inputDocument->addField('id3Album', $id3Tag->getAlbum());
+			$inputDocument->addField('id3Artist', $id3Tag->getArtist());
+			$inputDocument->addField('id3Year', $id3Tag->getYear());
+			$inputDocument->addField('id3Genre', $id3Tag->getGenre());
+			$inputDocument->addField('id3GenreId', $id3Tag->getGenreId());
 		}
 		return $inputDocument;
 	}

@@ -9,7 +9,6 @@ namespace AchimFritz\Documents\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Persistence\Repository;
-#use TYPO3\Flow\Persistence\Doctrine\Repository;
 use TYPO3\Flow\Persistence\QueryInterface;
 
 /**
@@ -107,6 +106,7 @@ class DocumentRepository extends Repository {
 	 * @return void
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 * @throws \SolrClientException
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @api
 	 */
 	public function add($object) {
@@ -136,6 +136,7 @@ class DocumentRepository extends Repository {
 	 * @param object $object The modified object
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 * @throws \SolrClientException
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @api
 	 */
 	public function update($object) {

@@ -92,6 +92,7 @@ class CategoryRepository extends Repository {
 	 *
 	 * @param object $object The modified object
 	 * @throws \SolrClientException
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @api
 	 */
 	public function update($object) {
@@ -122,6 +123,8 @@ class CategoryRepository extends Repository {
 	/**
 	 * @param Category $category 
 	 * @return void
+	 * @throws \SolrClientException
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 */
 	protected function updateDocuments(Category $category) {
 		$documents = $this->documentRepository->findByCategory($category);

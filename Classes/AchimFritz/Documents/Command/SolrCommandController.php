@@ -60,7 +60,12 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$solrInputDocuments = array();
 		$cnt = 0;
 		foreach ($documents AS $document) {
-			$solrInputDocument = $this->solrInputDocumentFactory->create($document);
+			try {
+				$solrInputDocument = $this->solrInputDocumentFactory->create($document);
+			} catch (\AchimFritz\Documents\Linux\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+					$this->quit();
+			}
 			$solrInputDocuments[] = $solrInputDocument;
 			$cnt++;
 			if ($cnt === 1000) {

@@ -88,36 +88,4 @@ class ImageDocument extends FileSystemDocument {
 		return FLOW_PATH_WEB . $this->getWebPath();
 	}
 
-	/**
-	 * getSearch 
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function getSearch() {
-		$fields = array();
-		$categories = $this->getCategories();
-		foreach ($categories AS $category) {
-			$path = $category->getPath();
-			$paths = explode('/', $path);
-			array_shift($paths);
-			foreach ($paths AS $pathPart) {
-				$parts = explode('_', $pathPart);
-				foreach ($parts AS $part) {
-					$fields[] = $part;
-				}
-			}
-		}
-		$pathPart = $this->getDirectoryName();
-		$parts = explode('_', $pathPart);
-		array_shift($parts);
-		array_shift($parts);
-		array_shift($parts);
-		foreach ($parts AS $part) {
-			$fields[] = $part;
-		}
-		return array_unique($fields);
-	}
-
-
 }
