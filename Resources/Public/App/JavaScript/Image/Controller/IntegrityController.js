@@ -29,7 +29,7 @@
 								};
 
 								$scope.solr = function(directory) {
-												//FacetFactory.addFilterQuery('mainDirectoryName', directory);
+												Solr.addFilterQuery('mainDirectoryName', directory);
 												toaster.pop('success', 'Solr', 'TOOO add mainDirectoryName to FilterQueries');
 								};
 

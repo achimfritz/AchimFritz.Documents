@@ -11,7 +11,7 @@
 								var docs = [];
 								var solrDocs = [];
 								var currentPage = 1;
-
+/*
 								Solr.getData().then(function(data) {
 												angular.forEach(data.data.response.docs, function(val, key) {
 																var newEl = angular.copy(val);
@@ -19,6 +19,7 @@
 																solrDocs.push(newEl);
 												});
 								});
+								*/
 
 								var hasDoc = function(doc) {
 												var ret = false;
@@ -50,7 +51,7 @@
 												//return docs;
 												var currentDocs = [];
 												if (docs.length) {
-																var settings = SettingsFactory.getSettings();
+																var settings = Solr.getSettings();
 																for (var i = ((currentPage - 1) * settings['rows']); i < (settings['rows'] * currentPage); i++) {
 																				if (docs[i] !== undefined) {
 																								currentDocs.push(docs[i])

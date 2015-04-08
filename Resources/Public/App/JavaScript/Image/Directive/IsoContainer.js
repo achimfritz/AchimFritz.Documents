@@ -115,7 +115,7 @@
                 };
 
 																Solr.getData().then(function(data) {
-																				$scope.total = data.data.response.numFound;
+																				//$scope.total = data.data.response.numFound;
 																});
 
 																var options = {

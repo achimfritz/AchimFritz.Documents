@@ -7,9 +7,9 @@
 				.module('imageApp')
 				.controller('ClipboardController', ClipboardController);
 
-				function ClipboardController($scope, ClipboardFactory, DocumentCollectionRestService, ExportRestService, FlashMessageService) {
-				/*
-								var settings = SettingsFactory.getSettings();
+				function ClipboardController($scope, Solr, ClipboardFactory, DocumentCollectionRestService, ExportRestService, FlashMessageService) {
+
+								var settings = Solr.getSettings();
 
 								$scope.collection = [];
 								$scope.total = 0;
@@ -106,6 +106,5 @@
 												$scope.collection = ClipboardFactory.getDocs();
 												$scope.total = ClipboardFactory.countDocs();
 								};
-								*/
 				}
 }());
