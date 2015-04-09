@@ -5,15 +5,9 @@
 
 				angular
 				.module('imageApp')
-				.directive('isoContainer', IsoContainer);
+				.directive('isoContainerClipboard', IsoContainerClipboard);
 
-				function IsoContainer($timeout, ngDialog, ItemService, DocumentCollectionRestService, FlashMessageService, Solr) {
-
-								function update($scope) {
-												$scope.settings = Solr.getSettings();
-												$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
-												$scope.itemsPerPage = $scope.settings['rows'];
-								};
+				function IsoContainerClipboard($timeout, ngDialog, ItemService, DocumentCollectionRestService, FlashMessageService, Solr) {
 
 								function bindKeys($scope) {
 												jQuery(document).keydown(function(e) {
@@ -75,7 +69,7 @@
 																items: '=items'
 												},
 
-												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Image/Partials/Docs.html',
+												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Image/Partials/ClipboardDocs.html',
 
 												link: function($scope, element, attr) {
 
@@ -95,13 +89,6 @@
 																				itemClick($scope, item);
                 };
 
-																$scope.nextPage = function(pageNumber) {
-																				Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
-																				Solr.getData().then(function(data) {
-																								$scope.items = data.data.response.docs;
-																				});
-																};
-
 																// TODO directive ?
                 $scope.addTag = function() {
                     var tag = jQuery('#addTag').val();
@@ -114,21 +101,22 @@
                     });
                 };
 
-																Solr.getData().then(function(data) {
-																				$scope.total = data.data.response.numFound;
-																});
-
 																var options = {
 																			itemSelector: '.iso-item',
 																			layoutMode: 'fitRows'
 																};
 																element.isotope(options);
 																$scope.$watch('items', function(newVal, oldVal){
-																				update($scope);
 																		  $timeout(function(){
 																						  	element.isotope('reloadItems').isotope(options);
 																		  }, 800);
 																},true);
+
+																$scope.pageChanged = function(pageNumber) {
+																		  $timeout(function(){
+																						  	element.isotope('reloadItems').isotope(options);
+																		  }, 800);
+																}
 
 												},
 

@@ -9,13 +9,7 @@
 
 				function ClipboardController($scope, Solr, ClipboardFactory, DocumentCollectionRestService, ExportRestService, FlashMessageService) {
 
-								var settings = Solr.getSettings();
-
 								$scope.collection = [];
-								$scope.total = 0;
-								$scope.itemsPerPage = settings['rows'];
-								$scope.currentPage = 1;
-								ClipboardFactory.setCurrentPage(1);
 								$scope.collection = ClipboardFactory.getDocs();
 
 								$scope.finished = true;
@@ -34,12 +28,6 @@
 
 								$scope.pdf = ExportRestService.pdf();
 								$scope.zip = ExportRestService.zip();
-
-								$scope.pageChanged = function(newPageNumber) {
-												ClipboardFactory.setCurrentPage(newPageNumber);
-												$scope.collection = ClipboardFactory.getDocs();
-												$scope.total = ClipboardFactory.countDocs();
-								};
 
 								$scope.pdfDownload = function() {
 												$scope.finished = false;
@@ -88,23 +76,19 @@
 								$scope.transferAll = function() {
 												ClipboardFactory.transferAll();
 												$scope.collection = ClipboardFactory.getDocs();
-												$scope.total = ClipboardFactory.countDocs();
 								};
 								$scope.empty = function() {
 												ClipboardFactory.empty();
 												$scope.collection = ClipboardFactory.getDocs();
-												$scope.total = ClipboardFactory.countDocs();
 								};
 								$scope.deleteSelected = function() {
 												ClipboardFactory.deleteSelected();
 												$scope.collection = ClipboardFactory.getDocs();
-												$scope.total = ClipboardFactory.countDocs();
 								};
 				
 								$scope.transferSelected = function() {
 												ClipboardFactory.transferSelected();
 												$scope.collection = ClipboardFactory.getDocs();
-												$scope.total = ClipboardFactory.countDocs();
 								};
 				}
 }());
