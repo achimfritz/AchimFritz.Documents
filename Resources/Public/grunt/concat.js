@@ -23,6 +23,15 @@ module.exports = {
         ],
         dest: 'Build/Image.js'
     },
+    mp3App: {
+        src: [
+            'App/JavaScript/Solr/Module.js',
+            'App/JavaScript/Solr/**/*.js',
+            'App/JavaScript/Mp3/App.js',
+            'App/JavaScript/Mp3/**/*.js',
+        ],
+        dest: 'Build/Mp3.js'
+    },
     libs: {
         src: [
             'bower_components/jquery/dist/jquery.js',
