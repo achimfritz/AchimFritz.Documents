@@ -94,8 +94,8 @@
 
 												var url = manager.buildUrl();
 												if (angular.isDefined(cache[url])) {
-																defer.resolve(cache[url])
-																return defer.promise;
+																//defer.resolve(cache[url])
+																//return defer.promise;
 												}
 												$http.jsonp(url).then(function(data) {
 																cache[url] = data;

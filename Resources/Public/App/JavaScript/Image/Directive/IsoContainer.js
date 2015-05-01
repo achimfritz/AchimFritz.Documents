@@ -72,7 +72,8 @@
 								return {
 
 												scope: {
-																items: '=items'
+																items: '=items',
+																total: '=total'
 												},
 
 												templateUrl: '/_Resources/Static/Packages/AchimFritz.Documents/App/JavaScript/Image/Partials/Docs.html',
@@ -95,13 +96,6 @@
 																				itemClick($scope, item);
                 };
 
-																$scope.nextPage = function(pageNumber) {
-																				Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
-																				Solr.getData().then(function(data) {
-																								$scope.items = data.data.response.docs;
-																				});
-																};
-
 																// TODO directive ?
                 $scope.addTag = function() {
                     var tag = jQuery('#addTag').val();
@@ -113,10 +107,6 @@
                         FlashMessageService.show(data.data.flashMessages);
                     });
                 };
-
-																Solr.getData().then(function(data) {
-																				$scope.total = data.data.response.numFound;
-																});
 
 																var options = {
 																			itemSelector: '.iso-item',

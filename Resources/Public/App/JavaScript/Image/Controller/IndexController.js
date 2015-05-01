@@ -7,7 +7,9 @@
 				.module('imageApp')
 				.controller('IndexController', IndexController);
 
-				function IndexController($scope, Solr) {
+				function IndexController($scope, Solr, ClipboardFactory) {
+
+								var initMode = true;
 
 								$scope.settings = Solr.getSettings();
 								$scope.facets = Solr.getFacets();
@@ -28,6 +30,14 @@
 												update(search);
 								};
 
+								$scope.nextPage = function(pageNumber) {
+												if (initMode === false) {
+																Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
+																update();
+												}
+												initMode = false;
+								};
+
 								update();
 
 								function update(search) {
@@ -40,6 +50,9 @@
 												}
 												Solr.getData().then(function(data) {
 																$scope.data = data.data;
+																$scope.docs = data.data.response.docs;
+																$scope.total = data.data.response.numFound;
+																ClipboardFactory.setSolrDocs(data.data.response.docs);
 												});
 								};
 

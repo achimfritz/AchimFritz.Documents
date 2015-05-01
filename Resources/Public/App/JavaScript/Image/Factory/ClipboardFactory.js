@@ -7,18 +7,10 @@
 				.module('imageApp')
 				.factory('ClipboardFactory', ClipboardFactory);
 
-				function ClipboardFactory(Solr) {
+				function ClipboardFactory() {
 
 								var docs = [];
 								var solrDocs = [];
-
-								Solr.getData().then(function(data) {
-												angular.forEach(data.data.response.docs, function(val, key) {
-																var newEl = angular.copy(val);
-																newEl.selected = '';
-																solrDocs.push(newEl);
-												});
-								});
 
 								var hasDoc = function(doc) {
 												var ret = false;
@@ -78,6 +70,9 @@
         return {
 												countDocs: function() {
 																return countDocs();
+												},
+												getSolrDocs: function() {
+																return solrDocs;
 												},
 												getDocs: function() {
 																return getDocs();

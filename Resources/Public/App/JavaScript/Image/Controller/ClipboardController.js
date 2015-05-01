@@ -9,10 +9,19 @@
 
 				function ClipboardController($scope, Solr, ClipboardFactory, DocumentCollectionRestService, ExportRestService, FlashMessageService) {
 
-								$scope.collection = [];
-								$scope.collection = ClipboardFactory.getDocs();
+								var solrDocs = ClipboardFactory.getSolrDocs();
+
+								if (solrDocs.length === 0) {
+												Solr.getData().then(function(data) {
+																solrDocs = data.data.response.docs;
+																ClipboardFactory.setSolrDocs(solrDocs);
+												});
+								}
 
 								$scope.finished = true;
+								$scope.docs = ClipboardFactory.getDocs();
+								$scope.total = ClipboardFactory.countDocs();
+
 								$scope.category = '';
 								$scope.form = 'category';
 
@@ -29,9 +38,15 @@
 								$scope.pdf = ExportRestService.pdf();
 								$scope.zip = ExportRestService.zip();
 
+								$scope.pageChanged = function(newPageNumber) {
+												ClipboardFactory.setCurrentPage(newPageNumber);
+												$scope.docs = ClipboardFactory.getDocs();
+												$scope.total = ClipboardFactory.countDocs();
+								};
+
 								$scope.pdfDownload = function() {
 												$scope.finished = false;
-												ExportRestService.pdfDownload($scope.pdf, $scope.collection).then(function(data) {
+												ExportRestService.pdfDownload($scope.pdf, $scope.docs).then(function(data) {
 																$scope.finished = true;
 																var blob = new Blob([data.data], {
 																				type: 'application/pdf'
@@ -45,7 +60,7 @@
 
 								$scope.zipDownload = function() {
 												$scope.finished = false;
-												ExportRestService.zipDownload($scope.zip, $scope.collection).then(function(data) {
+												ExportRestService.zipDownload($scope.zip, $scope.docs).then(function(data) {
 																$scope.finished = true;
 																var blob = new Blob([data.data], {
 																				type: 'application/zip'
@@ -59,7 +74,7 @@
 
 								$scope.merge = function() {
 												$scope.finished = false;
-												RestService.merge($scope.category, $scope.collection).then(function(data) {
+												RestService.merge($scope.category, $scope.docs).then(function(data) {
 																$scope.finished = true;
 																FlashMessageService.show(data.data.flashMessages);
 												});
@@ -67,7 +82,7 @@
 
 								$scope.remove = function() {
 												$scope.finished = false;
-												RestService.remove($scope.category, $scope.collection).then(function(data) {
+												RestService.remove($scope.category, $scope.docs).then(function(data) {
 																$scope.finished = true;
 																FlashMessageService.show(data.data.flashMessages);
 												});
@@ -75,20 +90,26 @@
 
 								$scope.transferAll = function() {
 												ClipboardFactory.transferAll();
-												$scope.collection = ClipboardFactory.getDocs();
+												$scope.docs = ClipboardFactory.getDocs();
+												$scope.total = ClipboardFactory.countDocs();
 								};
 								$scope.empty = function() {
 												ClipboardFactory.empty();
-												$scope.collection = ClipboardFactory.getDocs();
+												$scope.docs = ClipboardFactory.getDocs();
+												$scope.total = ClipboardFactory.countDocs();
 								};
 								$scope.deleteSelected = function() {
 												ClipboardFactory.deleteSelected();
-												$scope.collection = ClipboardFactory.getDocs();
+												$scope.docs = ClipboardFactory.getDocs();
+												$scope.total = ClipboardFactory.countDocs();
 								};
 				
 								$scope.transferSelected = function() {
 												ClipboardFactory.transferSelected();
-												$scope.collection = ClipboardFactory.getDocs();
+												$scope.docs = ClipboardFactory.getDocs();
+												$scope.total = ClipboardFactory.countDocs();
 								};
+
+
 				}
 }());
