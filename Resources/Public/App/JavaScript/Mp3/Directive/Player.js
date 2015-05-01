@@ -9,14 +9,8 @@
 
 
 				function Player() {
-								function foo() {
-												var testvar;
-												this.testvar = function() {
-																console.log('foo');
-												}
-								};
 
-	var mp3 = function() {
+	function Mp3() {
 		var init,
 			element,
 			status = 'stopped',
@@ -28,8 +22,8 @@
 			getSound,
 			index;
 		
-		this.init = function(doc, i, vol, finish) {
-			index = i;
+		this.init = function(doc) {
+				this.doc = doc;
 			/*
 			sound = soundManager.createSound({
                 id: doc.webPath,
@@ -59,17 +53,15 @@
 		}
 		
 		this.getInfo = function() {
-			//console.log(doc);
 			var info = doc.fsArtist + ' - ' + doc.fsAlbum + ' - ' + doc.fsTitle;
 			return info;
 		};
 		
 	};
 	
-	var mp3Player = function() {
+	function Mp3Player() {
 		var list = [],
 			current = 0,
-			init,
 			next,
 			prev,
 			stop,
@@ -81,33 +73,35 @@
 			clear,
 			transfer,
 			pause;
+
+			this.items = function() {
+				return list;
+			}
 				
-		clear = function() {
+		this.clear = function() {
 			//soundManager.reboot();
 			list = [];
 			current = 0;
-			info();
+				this.info = 'list empty';
 		};
 		
-		volumePlus = function() {
+		this.volumePlus = function() {
 			if (list.length) {
 				volume = list[current].getSound().volume + 5;
 				list[current].getSound().setVolume(volume);
 			}
-			info();
 		};
 		
-		volumeMinus = function() {
+		this.volumeMinus = function() {
 			if (list.length) {
 				volume = list[current].getSound().volume - 5;
 				list[current].getSound().setVolume(volume);
 			}
-			info();
 		};
 		
-		next = function() {
+		this.next = function() {
 			if (list.length) {
-				list[current].getSound().stop();
+				//list[current].getSound().stop();
 				list[current].setStatus('stopped');
 				if (list[current + 1]) {
 					current++;		
@@ -115,42 +109,39 @@
 					current = 0;
 				}
 			}
-			play();
+			this.play();
 		};
 		
-		pause = function() {
+		this.pause = function() {
 			if (list.length) {
 				if (list[current].getStatus() == 'paused') {
 					list[current].setStatus('playing');
-					list[current].getSound().resume();
+					//list[current].getSound().resume();
 				} else {
 					list[current].setStatus('paused');
-					list[current].getSound().pause();
+					//list[current].getSound().pause();
 				}
 			}
-			info();
 		};
 		
-		play = function() {
+		this.play = function() {
 			if (list.length) {
 				list[current].setStatus('playing');
-				list[current].getSound().setVolume(volume);
-				list[current].getSound().play();
+				//list[current].getSound().setVolume(volume);
+				//list[current].getSound().play();
 			}
-			info();
 		};
 		
-		stop = function() {
+		this.stop = function() {
 			if (list.length) {
 				list[current].setStatus('stopped');
-				list[current].getSound().stop();
+				//list[current].getSound().stop();
 			}
-			info();
 		};
 		
-		prev = function() {
+		this.prev = function() {
 			if (list.length) {
-				list[current].getSound().stop();
+				//list[current].getSound().stop();
 				list[current].setStatus('stopped');
 				if (list[current - 1]) {
 					current--;		
@@ -158,14 +149,17 @@
 					current = list.length -1;
 				}
 			}
-			play();
+			this.play();
 		};
 		
-		info = function() {
-		};
-		
-		transfer = function(items) {
-		}
+						this.transfer = function(items) {
+								angular.forEach(items, function(item) {
+												var mp3 = new Mp3();
+												mp3.init(item);
+												list.push(mp3);
+								});
+								this.info = list.length + ' items transferd';
+						}
 		};
 
 								return {
@@ -178,37 +172,13 @@
 
 												link: function($scope, element, attr) {
 
-																var mp3Items = $scope.items;
-																var t3 = new foo();
-																t3.testvar();
-																//mp3Player.transfer($scope.items);
-																//var mp3Player = new mp3Player();
+																var mp3Player = new Mp3Player();
+																mp3Player.transfer($scope.items);
+																$scope.player = mp3Player;
 
-																console.log($scope.items);
-
-                $scope.current = {};
-
-                $scope.prev = function() {
+                $scope.transfer = function() {
+																				mp3Player.transfer($scope.items);
                 };
-
-                $scope.next = function() {
-                };
-
-                $scope.itemClick = function(item) {
-                };
-/*
-																$scope.nextPage = function(pageNumber) {
-																				Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
-																				Solr.getData().then(function(data) {
-																								$scope.items = data.data.response.docs;
-																				});
-																};
-*/
-																// TODO directive ?
-
-																//Solr.getData().then(function(data) {
-																				//$scope.total = data.data.response.numFound;
-																//});
 												},
 
 								};
