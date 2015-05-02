@@ -16,11 +16,17 @@
 
 								$scope.show = function(identifier) {
 												$scope.finished = false;
-												DocumentListRestService.show(identifier).then(function(data) {
-																$scope.finished = true;
-																$scope.documentList = data.data.documentList;
-																$scope.view = 'show';
-												});
+												DocumentListRestService.show(identifier).then(
+																function(data) {
+																				$scope.finished = true;
+																				$scope.documentList = data.data.documentList;
+																				$scope.view = 'show';
+																},
+																function (data) {
+								            $scope.finished = true;
+																				FlashMessageService.error(data);
+																}
+												);
 								};
 
 								$scope.delete = function(identifier) {

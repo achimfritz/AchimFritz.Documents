@@ -1,0 +1,52 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Show job {job.command}</f:section>
+<f:section name="Content">
+	<table class="table table-striped">
+		<tr>
+			<th>Status</th>
+			<td>{job.status}</td>
+		</tr>
+		<tr>
+			<th>Command</th>
+			<td>{job.command}</td>
+		</tr>
+		<tr>
+			<th>Log</th>
+			<td><pre>{job.log}</pre></td>
+		</tr>
+		<tr>
+			<th>Return value</th>
+			<td>{job.returnValue}</td>
+		</tr>
+		<tr>
+			<th>Create date</th>
+			<td>{job.createDate -> f:format.date(format: 'd.m.Y H:i:s')}</td>
+		</tr>
+		<tr>
+			<th>Start date</th>
+			<td>{job.startDate -> f:format.date(format: 'd.m.Y H:i:s')}</td>
+		</tr>
+		<tr>
+			<th>End date</th>
+			<td>{job.endDate -> f:format.date(format: 'd.m.Y H:i:s')}</td>
+		</tr>
+	</table>
+
+	<h3>edit job</h3>
+	<f:form action="index" object="{job}" objectName="job">
+		<input type="hidden" name="__method" value="PUT" />
+			<div class="form-group">
+				<label class="control-label" for="status">Status</label>
+				<f:form.textfield property="status" class="form-control" id="status" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="command">Command</label>
+				<f:form.textfield property="command" class="form-control" id="command" />
+			</div>
+			<div class="form-group">
+				<f:link.action action="index" class="btn btn-default">Back</f:link.action>
+				<f:form.submit class="btn btn-default" value="Update" />
+			</div>
+	</f:form>
+</f:section>
