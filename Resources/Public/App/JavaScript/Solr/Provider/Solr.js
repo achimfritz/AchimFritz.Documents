@@ -9,7 +9,6 @@
 
 				function Solr() {
 
-
 								var solrSettings = {
 												'solrUrl': 'http://localhost:8080/solr4/documents/',
 												'servlet': 'select',
@@ -45,6 +44,8 @@
 								};
 								this.setSolrSetting = function(name, value) {
 												solrSettings[name] = value;
+												manager = new AjaxSolr.Manager(solrSettings);
+												init();
 								};
 								this.setSetting = function(name, value) {
 												settings[name] = value;

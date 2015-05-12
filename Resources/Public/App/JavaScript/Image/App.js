@@ -30,6 +30,7 @@
 												'hCategories': '1/categories',
 												'hLocations': '1/locations'
 								});
+								SolrProvider.setSolrSetting('servlet', 'image');
 								SolrProvider.setSetting('rows', 10);
 								SolrProvider.setSetting('facet_limit', 10);
 				};

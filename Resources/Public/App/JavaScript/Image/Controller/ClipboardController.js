@@ -74,7 +74,7 @@
 
 								$scope.merge = function() {
 												$scope.finished = false;
-												RestService.merge($scope.category, $scope.docs).then(
+												DocumentCollectionRestService.merge($scope.category, $scope.docs).then(
 																function(data) {
 																				$scope.finished = true;
 																				FlashMessageService.show(data.data.flashMessages);
@@ -88,7 +88,7 @@
 
 								$scope.remove = function() {
 												$scope.finished = false;
-												RestService.remove($scope.category, $scope.docs).then(
+												DocumentCollectionRestService.remove($scope.category, $scope.docs).then(
 																function(data) {
 																				$scope.finished = true;
 																				FlashMessageService.show(data.data.flashMessages);
