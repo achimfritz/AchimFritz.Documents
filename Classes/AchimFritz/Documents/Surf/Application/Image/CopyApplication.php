@@ -24,9 +24,6 @@ class CopyApplication  extends AbstractApplication {
 		$workflow->addTask('achimfritz.documents:image:copyToOrig', 'run', $this);
 		$workflow->addTask('achimfritz.documents:image:unmount', 'run', $this);
 		$workflow->addTask('achimfritz.documents:image:copyToMain', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:correctFsRights', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:changeNames', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:saveTimeStamps', 'run', $this);
 	}
 
 

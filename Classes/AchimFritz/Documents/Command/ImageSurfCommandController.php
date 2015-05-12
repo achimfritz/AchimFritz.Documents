@@ -12,7 +12,7 @@ use TYPO3\Surf\Domain\Model\Deployment;
 /**
  * Surf command controller
  */
-class ImageSurfCommandController extends \TYPO3\Surf\Command\SurfCommandController {
+class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	
 	/**
 	 * @var \TYPO3\Surf\Domain\Model\Deployment
@@ -52,10 +52,45 @@ class ImageSurfCommandController extends \TYPO3\Surf\Command\SurfCommandControll
 	}
 
 	/**
+	 * rotateCommand($name, $verbose = FALSE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function rotateCommand($name, $verbose = FALSE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\RotateApplication();
+		// TODO
+		$application->setIsExif(FALSE);
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application);
+		$this->deploy($verbose);
+		$target = $application->getMainPath() . '/' . $application->getTarget();
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
+	 * thumbCommand($name, $verbose = FALSE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function thumbCommand($name, $verbose = FALSE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\ThumbApplication();
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application);
+		$this->deploy($verbose);
+		$target = $application->getMainPath() . '/' . $application->getTarget();
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
 	 * @param \AchimFritz\Documents\Surf\Application\Image\AbstractApplication $application 
+	 * @param boolean $verbose
 	 * @return void
 	 */
-	protected function createDeployment(\AchimFritz\Documents\Surf\Application\Image\AbstractApplication $application) {
+	protected function createDeployment(\AchimFritz\Documents\Surf\Application\Image\AbstractApplication $application, $verbose = FALSE) {
 		$node = new \TYPO3\Surf\Domain\Model\Node('localhost');
 		$node->setHostname('localhost');
 
@@ -68,10 +103,12 @@ class ImageSurfCommandController extends \TYPO3\Surf\Command\SurfCommandControll
 		$deployment = new Deployment($application->getTarget());
 		$deployment->setWorkflow($workflow);
 		$deployment->addApplication($application);
+
+		$logger = $this->createDefaultLogger($deployment->getName(), $verbose ? LOG_DEBUG : LOG_INFO);
+		$deployment->setLogger($logger);
+
 		return $deployment;
 	}
-
-
 
 	/**
 	 * deploy
@@ -80,14 +117,40 @@ class ImageSurfCommandController extends \TYPO3\Surf\Command\SurfCommandControll
 	 * @param boolean $diableAnsi
 	 * @return void
 	 */
-	protected function deploy($verbose, $disableAnsi = TRUE) {
-		if ($this->deployment->getLogger() === NULL) {
-			$logger = $this->createDefaultLogger($this->deployment->getName(), $verbose ? LOG_DEBUG : LOG_INFO, $disableAnsi);
-			$this->deployment->setLogger($logger);
-		}
+	protected function deploy($verbose) {
 		$this->deployment->initialize();
 		$this->deployment->deploy();
 	}
+
+
+	/**
+	 * Create a default logger with console and file backend
+	 *
+	 * @param string $deploymentName
+	 * @param integer $severityThreshold
+	 * @param boolean $disableAnsi
+	 * @param boolean $addFileBackend
+	 * @return \TYPO3\Flow\Log\Logger
+	 */
+	protected function createDefaultLogger($deploymentName, $severityThreshold, $disableAnsi = TRUE, $addFileBackend = TRUE) {
+		$logger = new \TYPO3\Flow\Log\Logger();
+		$console = new \TYPO3\Surf\Log\Backend\AnsiConsoleBackend(array(
+					'severityThreshold' => $severityThreshold,
+					'disableAnsi' => $disableAnsi
+					));
+		$logger->addBackend($console);
+		if ($addFileBackend) {
+			$file = new \TYPO3\Flow\Log\Backend\FileBackend(array(
+						'logFileURL' => FLOW_PATH_DATA . 'Logs/Surf-' . $deploymentName . '.log',
+						'createParentDirectories' => TRUE,
+						'severityThreshold' => LOG_DEBUG,
+						'logMessageOrigin' => FALSE
+						));
+			$logger->addBackend($file);
+		}
+		return $logger;
+	}
+
 
 	/**
 	 * setResponse

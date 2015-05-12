@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Surf\Domain\Model\Workflow;
 use TYPO3\Surf\Domain\Model\Deployment;
 
-class InitApplication  extends AbstractApplication {
+class RotateAndThumbApplication  extends AbstractApplication {
 
 	/**
 	 * registerTasks
@@ -20,9 +20,9 @@ class InitApplication  extends AbstractApplication {
 	 * @return void
 	 */
 	public function registerTasks(Workflow $workflow, Deployment $deployment) {
-		$workflow->addTask('achimfritz.documents:image:correctFsRights', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:changeNames', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:saveTimeStamps', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:rotate', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:timestamp', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:thumb', 'run', $this);
 	}
 
 

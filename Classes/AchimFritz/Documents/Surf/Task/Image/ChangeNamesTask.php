@@ -44,32 +44,22 @@ class ChangeNamesTask extends \TYPO3\Surf\Domain\Model\Task {
 	 */
 	public function execute(Node $node, Application $application, Deployment $deployment, array $options = array()) {
 		$target = $application->getMainPath() . '/' . $application->getTarget();
-		var_dump('bar');
 
 		try {
 			$directoryIterator = new \DirectoryIterator($target);
 		} catch (\Exception $e) {
 			throw new \TYPO3\Surf\Exception\TaskExecutionException($target . ' : no directoryIterator on ' . $node->getName(), 1366541390);
 		}
-		$updates = 0;
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->isDir() === FALSE) {
-				var_dump('foo');
 				try {
-					#$renamed = $this->renameService->rename($fileInfo->getRealPath());
+					$renamed = $this->renameService->rename($fileInfo->getRealPath());
+					$deployment->getLogger()->log('> ' . $renamed, LOG_DEBUG);
 				} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 					throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot rename ' .$fileInfo->getRealPath() . ' on ' . $node->getName(), 1366541391);
 				}
 			}
 		}
-		/*
-		$commands = array(
-			'cd ' . $target,
-			'for i in *.JPG; do n=`echo $i|sed "s/JPG/jpg/g"`; mv $i $n; done'
-		);	
-		$this->shell->executeOrSimulate($commands, $node, $deployment);
-		*/
-		
 	}
 
 	/**

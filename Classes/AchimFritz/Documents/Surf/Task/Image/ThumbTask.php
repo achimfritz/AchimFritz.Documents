@@ -18,7 +18,7 @@ use TYPO3\Flow\Annotations as Flow;
  * This task will automatically create needed directories and create a symlink to the upcoming
  * release, called "next".
  */
-class ThumbnailsTask extends \TYPO3\Surf\Domain\Model\Task {
+class ThumbTask extends \TYPO3\Surf\Domain\Model\Task {
 
 	/**
 	 * @Flow\Inject
