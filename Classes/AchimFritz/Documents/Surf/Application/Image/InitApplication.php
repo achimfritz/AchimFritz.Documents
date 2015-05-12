@@ -21,7 +21,7 @@ class InitApplication  extends AbstractApplication {
 	 */
 	public function registerTasks(Workflow $workflow, Deployment $deployment) {
 			#$workflow->addTask('achimfritz.surf:image:correctFsRights', 'correctFsRights', $this);
-			$workflow->addTask('achimfritz.documents:image:changeNames', 'run', $this);
+			#$workflow->addTask('achimfritz.documents:image:changeNames', 'run', $this);
 			#$workflow->addTask('achimfritz.surf:image:saveTimeStamps', 'saveTimeStamps', $this);
 	}
 

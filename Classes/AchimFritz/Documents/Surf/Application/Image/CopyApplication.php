@@ -20,13 +20,13 @@ class CopyApplication  extends AbstractApplication {
 	 * @return void
 	 */
 	public function registerTasks(Workflow $workflow, Deployment $deployment) {
-		$workflow->addTask('achimfritz.document.surf:image:mount', 'mount', $this);
-		#$workflow->addTask('achimfritz.surf:imageone:copyToOrig', 'copyToOrig', $this);
-		$workflow->addTask('achimfritz.document.surf:image:unmount', 'umount', $this);
-		#$workflow->addTask('achimfritz.surf:imageone:copyToMain', 'copyToMain', $this);
-		#$workflow->addTask('achimfritz.surf:imageone:correctFsRights', 'correctFsRights', $this);
-		#$workflow->addTask('achimfritz.surf:imageone:changeNames', 'changeNames', $this);
-		#$workflow->addTask('achimfritz.surf:imageone:saveTimeStamps', 'saveTimeStamps', $this);
+		$workflow->addTask('achimfritz.documents:image:mount', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:copyToOrig', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:unmount', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:copyToMain', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:correctFsRights', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:changeNames', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:saveTimeStamps', 'run', $this);
 	}
 
 
