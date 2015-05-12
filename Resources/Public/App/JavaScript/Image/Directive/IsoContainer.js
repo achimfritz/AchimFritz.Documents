@@ -109,7 +109,7 @@
                 };
 
 																var options = {
-																			itemSelector: '.iso-item',
+																			itemSelector: '.iso-img-item',
 																			layoutMode: 'fitRows'
 																};
 																element.isotope(options);
@@ -117,7 +117,7 @@
 																				update($scope);
 																		  $timeout(function(){
 																						  	element.isotope('reloadItems').isotope(options);
-																		  }, 800);
+																		  }, 8);
 																},true);
 
 												},

@@ -7,11 +7,19 @@
   width: 100%;
 }
 
-.iso-item {
+.iso-item .iso-img-item {
 	padding: 3px;
 }
 
-.iso-item.selected {
+.iso-item .iso-img-item-upright {
+	width: 400px;
+}
+
+.iso-item .iso-img-item-no-upright {
+	width: 200px;
+}
+
+.iso-item.selected .iso-img-item {
 	padding: 1px;
 	border: 2px solid black;
 }
