@@ -107,19 +107,9 @@
                         FlashMessageService.show(data.data.flashMessages);
                     });
                 };
-
-																var options = {
-																			itemSelector: '.iso-img-item',
-																			layoutMode: 'fitRows'
-																};
-																element.isotope(options);
 																$scope.$watch('items', function(newVal, oldVal){
 																				update($scope);
-																		  $timeout(function(){
-																						  	element.isotope('reloadItems').isotope(options);
-																		  }, 8);
 																},true);
-
 												},
 
 								};

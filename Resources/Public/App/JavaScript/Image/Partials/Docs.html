@@ -30,13 +30,8 @@
 	<div class="col-md-12">
 		<div style="position: relative" >
 			<div class="iso-item {{item.selected}}"  ng-click="itemClick(item)" dir-paginate="item in items | itemsPerPage: itemsPerPage" total-items="total" current-page="currentPage" >
-				<div class="iso-img-item iso-img-item-upright" ng-show="item.isUpright">
-					<img ng-src="{{item.webPreviewPath}}" />
-				</div>
-				<div class="iso-img-item iso-img-item-no-upright" ng-hide="item.isUpright">
-					<img ng-src="{{item.webPreviewPath}}" />
-				</div>
+				<img class="iso-img-item" ng-src="{{item.webPreviewPath}}" />
 			</div>
 		</div>
-</div>
+	</div>
 </div>

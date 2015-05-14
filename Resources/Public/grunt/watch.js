@@ -7,7 +7,7 @@ module.exports = {
             'App/JavaScript/**/*.js',
             'JavaScript/SolrApp/**/*.js',
             'JavaScript/ImageApp/**/*.js',
-            'Css/**/*.css'
+            'App/Css/**/*.css'
         ],
         tasks: ['concat', 'ngAnnotate' ],
         options: {
