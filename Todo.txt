@@ -1,0 +1,25 @@
+rm /bilder/admin
+facet (cnt)
+surf interface
+s/PHP-Process/Symfony-Process/g
+angular pagebrowser
+zip + pdf
+
+flexible Applications ? (registerTasks)
+
+aptidute install exit libjpeg-progs
+
+Surf Output stuff / verbose ... drehe.sh
+
+exception-handling ..
+8, "getimagesize(): Read error!"
+
+filter -> no location ... -> integrity
+filter -> edit cat
+isotop container-size
+
+surf:
+stage1: copy check
+stage2: init check
+stage3: converted check
+stage4: thumbnails check
