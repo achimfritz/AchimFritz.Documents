@@ -58,8 +58,8 @@ class PdfExportController extends \AchimFritz\Rest\Controller\RestController {
 			$fileName = $this->pdfExportService->createPdf($pdfExport);
 			$this->view->assign('fileName', $fileName);
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->response->setContent('Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
-			$this->response->setStatus(500);
+			$this->response->setHeader('Content-Type', 'text/html' . '; charset=UTF-8', TRUE);
+			$this->response->setStatus(500, 'Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		}
 	}

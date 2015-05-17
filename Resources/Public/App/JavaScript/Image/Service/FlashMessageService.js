@@ -28,7 +28,12 @@
 																this.show(data.data.flashMessages);
 												} else {
 																var severity = 'error';
-																toaster.pop(severity, data.status, data.data);
+																console.log(typeof severity);
+																if (typeof data.data === 'string') {
+																				toaster.pop(severity, data.status, data.data);
+																} else {
+																				toaster.pop(severity, data.status, data.statusText);
+																}
 												}
 								};
 
