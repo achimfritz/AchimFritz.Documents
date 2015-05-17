@@ -1,0 +1,48 @@
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="row">
+         <div class="col-md-1"> 
+			</div>
+         <div class="col-md-1"> 
+            found {{data.response.numFound}}
+         </div>
+
+         <div class="col-md-2">
+            <pre>{{query}}</pre>
+         </div>
+
+         <div class="col-md-7">
+            <button class="btn btn-default " ng-click="integrity('*:*')">reset</button>
+            <button class="btn btn-default " ng-click="integrity('-locations:[\'\' TO *]')">no locations</button>
+            <button class="btn btn-default " ng-click="integrity('locations:none')">locations:none</button>
+            <button class="btn btn-default " ng-click="integrity('-categories:[\'\' TO *]')">no categories</button>
+            <button class="btn btn-default " ng-click="integrity('-mDateTime:[* TO *]')">no mDateTime</button>
+            <button class="btn btn-default " ng-click="integrity('tags:[\'\' TO *] AND -tags:all')">all tags</button>
+            <button class="btn btn-default " ng-click="integrity('tags:[\'\' TO *] AND -tags:lucky_bilderrahmen')">tagged but no lucky</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<ul ng-repeat="(key, values) in filterQueries">
+	<li ng-repeat="value in values">
+		<span ng-click="rmFilterQuery(key, value)">
+		{{key}}
+		<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
+		</span>
+	</li>
+</ul>
+
+<div class="row">
+<div class="col-md-3" ng-repeat="(facet, result) in data.facet_counts.facet_fields">
+		<h4>{{facet}}</h4>
+		<ul>
+			<li ng-repeat="(key, value) in result" ng-click="addFilterQuery(facet, key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}" ></nav-path>
+				({{value}}) 
+			</li>
+		</ul>
+</div>
+</div>

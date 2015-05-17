@@ -55,6 +55,10 @@
                 templateUrl: templatePath + 'Clipboard.html',
                 controller: 'ClipboardController'
             }).
+            when('/solrIntegrity', {
+                templateUrl: templatePath + 'SolrIntegrity.html',
+                controller: 'SolrIntegrityController'
+            }).
             when('/integrity', {
                 templateUrl: templatePath + 'Integrity.html',
                 controller: 'IntegrityController'
