@@ -65,9 +65,16 @@ class DirectoryService {
 			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357135);
 		}
 		foreach ($directoryIterator AS $fileInfo) {
-			if ($fileInfo->getExtension() === $extension) {
-				$splFileInfos[$fileInfo->getBasename()] = clone($fileInfo);
+			if ($extension !== '') {
+				if ($fileInfo->getExtension() === $extension) {
+					$splFileInfos[$fileInfo->getBasename()] = clone($fileInfo);
+				}
+			} else {
+				if ($fileInfo->isFile() === TRUE) {
+					$splFileInfos[$fileInfo->getBasename()] = clone($fileInfo);
+				}
 			}
+
 		}
 		ksort($splFileInfos);
 		return $splFileInfos;

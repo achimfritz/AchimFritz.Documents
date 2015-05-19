@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * A Image one workflow
  *
- * @Flow\Entity
+ * @Flow\Scope("prototype")
  */
 class TaskManager extends \TYPO3\Surf\Domain\Service\TaskManager {
 

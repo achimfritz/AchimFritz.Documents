@@ -26,13 +26,13 @@ abstract class AbstractIndexService {
 	protected $extension = '';
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
 	 * @Flow\Inject
 	 */
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\FileSystemDocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;

@@ -1,3 +1,9 @@
+<toaster-container></toaster-container>
+
+<overlay finished="finished"></overlay>
+<div data-ng-if="!finished" class="spinner">
+	<spinner></spinner>
+</div>
 
 <form novalidate class="simple-form" ng-submit="update(search)">
 	<div class="form-group row">
@@ -36,14 +42,33 @@
 	</div>
 </form>
 
-<ul ng-repeat="(key, values) in filterQueries">
-	<li ng-repeat="value in values">
-		<span ng-click="rmFilterQuery(key, value)">
-		{{key}}
-		<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
-		</span>
-	</li>
-</ul>
+<div class="row">
+	<div class="col-md-3">
+		<ul ng-repeat="(key, values) in filterQueries">
+			<li ng-repeat="value in values">
+				<span ng-click="rmFilterQuery(key, value)">
+				{{key}}
+				<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
+				</span>
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="editCategory(key, value)"></span> 
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-6" ng-show="renameCategory">
+		<h4>{{renameCategory.oldPath}}</h4>
+			<div class="form-group">
+				<div class="col-md-3">
+					<input class="form-control" id="category" type="text" data-ng-model="renameCategory.newPath" data-autocomplete />
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn btn-danger" type="submit" ng-click="updateCategory(renameCategory)" value="Rename" />
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn btn-default" type="submit" ng-click="renameCategory = null" value="Cancel" />
+				</div>
+			</div>
+	</div>
+</div>
 
 <div class="row">
 <div class="col-md-3" ng-repeat="(facet, result) in data.facet_counts.facet_fields">
