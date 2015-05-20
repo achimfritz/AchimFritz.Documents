@@ -1,0 +1,2 @@
+AchimFritz\Documents\Solr\InputDocumentFactoryInterface:
+  className: 'AchimFritz\Documents\Solr\InputDocumentFactory'

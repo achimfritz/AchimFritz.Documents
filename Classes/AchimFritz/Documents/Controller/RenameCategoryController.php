@@ -51,6 +51,10 @@ class RenameCategoryController extends \AchimFritz\Rest\Controller\RestControlle
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
 			$this->addFlashMessage('Cannot rename with: ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
 			$this->response->setStatus(500);
+		} catch (\AchimFritz\Documents\Domain\Repository\Exception $e) {
+			$this->addFlashMessage('Cannot rename with: ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->response->setStatus(500);
 		}
+		$this->redirect('index', 'Category');
 	}
 }

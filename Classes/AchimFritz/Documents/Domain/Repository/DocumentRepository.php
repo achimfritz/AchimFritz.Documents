@@ -30,7 +30,7 @@ class DocumentRepository extends Repository {
 
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\InputDocumentFactory
+	 * @var \AchimFritz\Documents\Solr\InputDocumentFactoryInterface
 	 * @Flow\Inject
 	 */
 	protected $solrInputDocumentFactory;

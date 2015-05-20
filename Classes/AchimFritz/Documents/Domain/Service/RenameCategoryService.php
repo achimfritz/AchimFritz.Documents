@@ -36,6 +36,7 @@ class RenameCategoryService {
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\Facet\RenameCategory $renameCategory
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
+	 * @throws \AchimFritz\Documents\Domain\Repository\Exception
 	 * @return integer
 	 */
 	public function renameCategories(RenameCategory $renameCategory) {
@@ -74,6 +75,7 @@ class RenameCategoryService {
 	/**
 	 * @param Category $existingCategory 
 	 * @param Category $category 
+	 * @throws \AchimFritz\Documents\Domain\Repository\Exception
 	 * @return void
 	 */
 	protected function changeCategory(Category $existingCategory, Category $category) {

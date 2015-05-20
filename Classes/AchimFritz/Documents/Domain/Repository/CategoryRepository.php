@@ -28,7 +28,6 @@ class CategoryRepository extends Repository {
 	 */
 	protected $documentListRepository;
 
-
 	/**
 	 * @var \AchimFritz\Documents\Solr\ClientWrapper
 	 * @Flow\Inject
@@ -36,7 +35,7 @@ class CategoryRepository extends Repository {
 	protected $solrClientWrapper;
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\InputDocumentFactory
+	 * @var \AchimFritz\Documents\Solr\InputDocumentFactoryInterface
 	 * @Flow\Inject
 	 */
 	protected $solrInputDocumentFactory;

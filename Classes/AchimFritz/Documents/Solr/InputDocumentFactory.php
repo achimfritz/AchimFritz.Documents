@@ -14,7 +14,7 @@ use AchimFritz\Documents\Domain\Model\Mp3Document;
 /**
  * @Flow\Scope("singleton")
  */
-class InputDocumentFactory {
+class InputDocumentFactory implements InputDocumentFactoryInterface {
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
