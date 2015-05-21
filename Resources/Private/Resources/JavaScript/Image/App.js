@@ -20,7 +20,7 @@
 
 				/* @ngInject */
 				function paginationConfiguration(paginationTemplateProvider) {
-								paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/bower_components/angular-utils-pagination/dirPagination.tpl.html');
+								paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/dirPagination.tpl.html');
 				};
 
 				function solrConfiguration(SolrProvider) {
