@@ -15,6 +15,7 @@
 								$scope.search = '';
 								$scope.finished = true;
 								$scope.renameCategory = null;
+								var currentFacetField = null;
 
 								$scope.rmFilterQuery = function (name, value) {
 												Solr.rmFilterQuery(name, value);
@@ -47,6 +48,7 @@
 								};
 
 								$scope.editCategory = function(facetName, facetValue) {
+												currentFacetField = facetName;
 												var path = ''
 												if (PathService.depth(facetValue) === 1) {
 																path = facetName + PathService.delimiter + facetValue;
@@ -64,7 +66,10 @@
 												CategoryRestService.update(renameCategory).then(function(data) {
 																$scope.finished = true;
 																FlashMessageService.show(data.data.flashMessages);
+																Solr.rmFilterQuery(currentFacetField, PathService.prependLevel(renameCategory.oldPath));
+																Solr.addFilterQuery(currentFacetField, PathService.prependLevel(renameCategory.newPath));
 																$scope.renameCategory = null;
+																update();
 												}, function(data) {
 																$scope.finished = true;
 																FlashMessageService.error(data);

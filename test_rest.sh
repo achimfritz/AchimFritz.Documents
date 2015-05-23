@@ -1,8 +1,10 @@
 #!/bin/bash
+
+
 curl -i -X PUT "http://dev/achimfritz.documents/renamecategory/" -H "Content-Type: application/json" -H "Accept: application/json" -d '{	
 	"renameCategory": {
-		"oldPath": "categories/test",
-		"newPath": "categories/test2"
+		"oldPath": "locations/deutscheland/astuttgart",
+		"newPath": "locations/deutscheland/stuttgart"
 	}
 }'
 exit;

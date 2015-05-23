@@ -12,6 +12,7 @@
 								$scope.settings = Solr.getSettings();
 								$scope.facets = Solr.getFacets();
 								$scope.filterQueries = Solr.getFilterQueries();
+								$scope.query = $scope.settings.q;
 
 								$scope.rmFilterQuery = function (name, value) {
 												Solr.rmFilterQuery(name, value);
@@ -29,6 +30,9 @@
             Solr.setSetting('q', query);
             update();
         };
+
+								update();
+
 								function update() {
 												Solr.getData().then(function(data) {
 																$scope.data = data.data;

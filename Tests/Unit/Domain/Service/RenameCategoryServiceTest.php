@@ -59,14 +59,36 @@ class RenameCategoryServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function updatePathCallsChangeCategoryIfCategoryWithPathIsFound() {
+
+		$renameCategory = new RenameCategory();
+		$category = new Category();
+		$existingCategory = new Category();
+
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('findOneByPath'));
+		$categoryRepository->expects($this->once())->method('findOneByPath')->will($this->returnValue($existingCategory));
+
+		$renameCategoryService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\RenameCategoryService', array('changeCategory'));
+		$renameCategoryService->expects($this->once())->method('changeCategory')->with($existingCategory, $category);
+
+		$pathService = new PathService();
+		$this->inject($renameCategoryService, 'categoryRepository', $categoryRepository);
+		$this->inject($renameCategoryService, 'pathService', $pathService);
+		$renameCategoryService->_call('updatePath', $category, $renameCategory);
+	}
+
+	/**
+	 * @test
+	 */
 	public function updatePathSetsNewPath() {
 		$renameCategory = new RenameCategory();
 		$renameCategory->setNewPath('foo/bar');
 		$renameCategory->setOldPath('foo/baz');
-		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('update'));
+		$categoryRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\CategoryRepository', array('update', 'findOneByPath'));
 		$category = $this->getMock('AchimFritz\Documents\Domain\Model\Category', array('setPath', 'getPath'));
 		$category->expects($this->once())->method('getPath')->will($this->returnValue('foo/baz/x'));
 		$category->expects($this->once())->method('setPath')->with('foo/bar/x');
+		$categoryRepository->expects($this->once())->method('findOneByPath')->will($this->returnValue(NULL));
 		$categoryRepository->expects($this->once())->method('update')->with($category);
 		$renameCategoryService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\RenameCategoryService', array('foo'));
 		$pathService = new PathService();

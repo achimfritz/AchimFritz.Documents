@@ -67,7 +67,7 @@ class DocumentListRemoveController extends \AchimFritz\Rest\Controller\RestContr
 				$this->documentPersistenceManager->persistAll();
 				$this->addFlashMessage('Documents removed from ' . $documentList->getCategory()->getPath());
 			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-				$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+				$this->handleException($e);
 			}
 			if ($this->request->getReferringRequest() instanceof ActionRequest) {
 				$this->redirectToRequest($this->request->getReferringRequest());
@@ -75,7 +75,7 @@ class DocumentListRemoveController extends \AchimFritz\Rest\Controller\RestContr
 				$this->redirect('list', 'DocumentList', NULL, array('documentList' => $documentList));
 			}
 		} catch (AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 			if ($this->request->getReferringRequest() instanceof ActionRequest) {
 				$this->redirectToRequest($this->request->getReferringRequest());
 			} else {

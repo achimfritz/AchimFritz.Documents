@@ -72,7 +72,7 @@ class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestContro
 			$this->addFlashMessage('Documents updatet to ' . $documentList->getCategory()->getPath());
 			$this->redirect('index', 'DocumentList', NULL, array('documentList' => $documentList));
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 			$this->redirect('index', 'DocumentList');
 		}
 	}

@@ -19,7 +19,7 @@
 		<form ng-show="form === 'category' && total" novalidate class="form-horizontal">
 			<div class="form-group row">
 				<div class="col-md-3">
-					<input class="form-control" id="category" type="text" data-ng-model="category" data-autocomplete />
+					<input class="form-control" id="category" type="text" data-ng-model="category" data-autocomplete data-global="true" />
 				</div>
 				<div class="col-md-4">
 					<input class="form-control btn btn-danger" type="submit" ng-click="merge()" value="Merge all Documents into Category" />

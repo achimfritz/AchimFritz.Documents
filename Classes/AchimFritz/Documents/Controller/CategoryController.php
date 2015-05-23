@@ -72,7 +72,7 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Updated the category.');
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot Update the category ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->redirect('index', NULL, NULL, array('category' => $category));
 	}
@@ -86,7 +86,7 @@ class CategoryController extends \AchimFritz\Rest\Controller\RestController {
 			$this->categoryRepository->remove($category);
 			$this->addFlashMessage('Deleted a category.');
 		} catch (\AchimFritz\Documents\Domain\Repository\Exception $e) {
-			$this->addFlashMessage('Cannot Delete category with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->redirect('index');
 	}

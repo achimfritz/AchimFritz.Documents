@@ -68,8 +68,14 @@ class RenameCategoryService {
 	 */
 	protected function updatePath(Category $category, RenameCategory $renameCategory) {
 		$newPath = $this->pathService->replacePath($category->getPath(), $renameCategory->getOldPath(), $renameCategory->getNewPath());
-		$category->setPath($newPath);
-		$this->categoryRepository->update($category);
+		$existingCategory = $this->categoryRepository->findOneByPath($newPath);
+		if ($existingCategory instanceof Category === TRUE) {
+			$this->changeCategory($existingCategory, $category);
+		} else {
+			$category->setPath($newPath);
+			$this->categoryRepository->update($category);
+		}
+
 	}
 
 	/**

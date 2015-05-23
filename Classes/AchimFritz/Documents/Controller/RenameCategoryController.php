@@ -46,14 +46,12 @@ class RenameCategoryController extends \AchimFritz\Rest\Controller\RestControlle
 				$this->documentPersistenceManager->persistAll();
 				$this->addFlashMessage('Updated ' . $cnt . ' categories.');
 			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-				$this->addFlashMessage('Cannot Update the categories ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+				$this->handleException($e);
 			}
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->addFlashMessage('Cannot rename with: ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
-			$this->response->setStatus(500);
+			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Domain\Repository\Exception $e) {
-			$this->addFlashMessage('Cannot rename with: ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
-			$this->response->setStatus(500);
+			$this->handleException($e);
 		}
 		$this->redirect('index', 'Category');
 	}

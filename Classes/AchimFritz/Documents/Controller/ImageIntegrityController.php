@@ -47,7 +47,7 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 			$integrities = $this->integrityFactory->createIntegrities();
 			$this->view->assign('integrities', $integrities);
 		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\Exception $e) {
-			$this->addFlashMessage('Cannot create integrities ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 	}
 
@@ -59,7 +59,7 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 		try {
 			$integrity = $this->integrityFactory->createIntegrity($directory);
 		} catch (\AchimFritz\Documents\Domain\Model\Facet\ImageDocument\Exception $e) {
-			$this->addFlashMessage('Cannot create integrities ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->view->assign('integrity', $integrity);
 	}
@@ -73,7 +73,7 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 			$cnt = $this->indexService->indexDirectory($directory);
 			$this->addFlashMessage($cnt . ' documents indexed', '',  Message::SEVERITY_OK);
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->addFlashMessage('Cannot index directory with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->redirect('index', NULL, NULL, array('directory' => $directory));
 	}

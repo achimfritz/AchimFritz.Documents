@@ -61,7 +61,7 @@ class DocumentCollectionRemoveController extends \AchimFritz\Rest\Controller\Res
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage($cnt . ' Documents removed from ' . $documentCollection->getCategory()->getPath());
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot remove with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		if ($this->request->getReferringRequest() instanceof ActionRequest) {
 			$this->redirectToRequest($this->request->getReferringRequest());

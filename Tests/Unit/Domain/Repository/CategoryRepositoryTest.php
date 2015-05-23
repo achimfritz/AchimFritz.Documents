@@ -21,6 +21,7 @@ class CategoryRepositoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$category = new Category();
 
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Document', array('foo'));
+		$document->addCategory($category);
 
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('findByCategory'));
 		$documentRepository->expects($this->once())->method('findByCategory')->with($category)->will($this->returnValue(array($document)));

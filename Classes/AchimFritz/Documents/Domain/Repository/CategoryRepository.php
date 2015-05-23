@@ -77,7 +77,11 @@ class CategoryRepository extends Repository {
 		$category = $object;
 		$documents = $this->documentRepository->findByCategory($category);
 		if (count($documents) > 0) {
-			throw new Exception('category has documents ' . $category->getPath(), 1417447460);
+			foreach($documents AS $document) {
+				if ($document->hasCategory($category) === TRUE) {
+					throw new Exception('category has documents ' . $category->getPath(), 1417447460);
+				}
+			}
 		}
 		$documentList = $this->documentListRepository->findOneByCategory($category);
 		if ($documentList instanceof DocumentList) {

@@ -63,7 +63,7 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Updated a documentList.');
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot Update a documentList with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->redirect('index');
 	}
@@ -78,7 +78,7 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Deleted a documentList.');
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot Delete a documentList with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		$this->redirect('index');
 	}

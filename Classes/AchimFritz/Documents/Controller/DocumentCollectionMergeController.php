@@ -61,7 +61,7 @@ class DocumentCollectionMergeController extends \AchimFritz\Rest\Controller\Rest
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage($cnt . ' Documents added to ' . $documentCollection->getCategory()->getPath());
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->addFlashMessage('Cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode(), '', Message::SEVERITY_ERROR);
+			$this->handleException($e);
 		}
 		if ($this->request->getReferringRequest() instanceof ActionRequest) {
 			$this->redirectToRequest($this->request->getReferringRequest());

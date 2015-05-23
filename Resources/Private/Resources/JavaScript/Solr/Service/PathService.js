@@ -17,6 +17,12 @@
 												return splitPath.length;
 								};
 
+								// /foo/bar -> 1/foo/bar
+								this.prependLevel = function(path) {
+												var level = this.depth(path) - 1;
+												return level + this.delimiter + path;
+								};
+
 								// 0/foo/bar, 1  -> foo/bar
 								// 0/foo/bar, 2  -> bar
 								this.slice = function(path, depth) {
