@@ -13,7 +13,10 @@ AchimFritz:
       mountPoint: /mp3/db
       webPath: mp3
     imageDocument:
+      usbMountPoint: /mnt/sdd1
       mountPoint: /bilder/main
+      backupPath: /bilder/orig
+      geeqieMetadataPath: /data/home/af/.local/share/geeqie/metadata/bilder/main/
       export: /bilder/export
       webPath: thumbs/1280x1024
       webThumbPath: thumbs/64x48

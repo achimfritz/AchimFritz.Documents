@@ -44,19 +44,17 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	 */
 	protected $indexService;
 
+	/**
+	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
+	 * @Flow\Inject
+	 */
+	protected $imageDocumentConfiguration;
 
 	/**
-	 * @return string
+	 * @return \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
 	 */
-	protected function getMountPoint() {
-		return $this->settings['imageDocument']['mountPoint'];
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getExtension() {
-		return 'jpg';
+	protected function getConfiguration() {
+		return $this->imageDocumentConfiguration;
 	}
 
 	/**
@@ -84,4 +82,45 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
+
+	/**
+	 * integrityDetail --directory=2015_05_05_venedig
+	 *
+	 * @param string $directory
+	 * @return void
+	 */
+	public function integrityDetailCommand($directory) {
+		try {
+			$integrity = $this->integrityFactory->createIntegrity($directory);
+			$this->outputLine('');
+			$this->outputLine('Count Solr: ' . $integrity->getCountSolr());
+			$this->outputLine('Count FS: ' . $integrity->getCountFileSystem());
+			$this->outputLine('Count DB: ' . count($integrity->getPersistedDocuments()));
+			$this->outputLine('Count Thumbs: ' . count($integrity->getThumbs()));
+			$this->outputLine('');
+			$this->outputLine('timestamps initialized : ' . (int)$integrity->getTimestampsAreInitialized());
+			$this->outputLine('images rotated: ' . (int)$integrity->getImageIsRotated());
+			$this->outputLine('isExif: ' . (int)$integrity->getIsExif());
+			$this->outputLine('geeqie metadata exists: ' . (int)$integrity->getGeeqieMetadataExists());
+			$this->outputLine('');
+			$this->outputLine('ready for rotation: ' . (int)$integrity->getReadyForRotation());
+			$this->outputLine('ready for thumbs: ' . (int)$integrity->getReadyForThumbs());
+			$this->outputLine('');
+			$nextStep = $integrity->getNextStep();
+			if ($nextStep === '') {
+				if ($integrity->getImageIsRotated() === FALSE) {
+					$this->outputLine('no next step because no image is rotated');
+				} else {
+					$this->outputLine('no next step, surf finished');
+				}
+				
+			} else {
+				$this->outputLine('next Step');
+				$this->outputLine('./flow achimfritz.documents:imagesurf:' . $nextStep . ' --name=' . $directory);
+			}
+		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
 }

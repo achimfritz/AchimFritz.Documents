@@ -38,6 +38,19 @@ class Command {
 	 * @return array
 	 * @throws Exception
 	 */
+	public function getExifData($file) {
+		if (file_exists($file) === FALSE) {
+			throw new Exception('no such file ' . $file, 1419089786);
+		}
+		$cmd = 'exif -i ' . $file;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
+	 * @param string $file 
+	 * @return array
+	 * @throws Exception
+	 */
 	public function readId3Tags($file) {
 		if (file_exists($file) === FALSE) {
 			throw new Exception('no such file ' . $file, 1419089786);

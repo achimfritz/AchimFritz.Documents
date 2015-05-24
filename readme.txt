@@ -1,20 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+hiearchical Facets
 
 1.
 f.paths.facet.prefix=0

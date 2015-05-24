@@ -18,9 +18,21 @@ class FileSystemDocumentConfiguration {
 	protected $documentName = 'fileSystemDocument';
 
 	/**
+	 * @var string
+	 */
+	protected $fileExtension = '';
+
+	/**
 	 * @var array
 	 */
 	protected $settings;
+
+	/**
+	 * @return string
+	 */
+	public function getFileExtension() {
+		return $this->fileExtension;
+	}
 
 	/**
 	 * @param array $settings 

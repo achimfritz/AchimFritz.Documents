@@ -41,14 +41,7 @@ class Integrity {
 	/**
 	 * @var array
 	 */
-	protected $thumbs;
-
-	/**
-	 * @var array
-	 */
 	protected $filesystemDocuments;
-
-
 
 	/**
 	 * @param string $name 
@@ -137,21 +130,6 @@ class Integrity {
 	 */
 	public function setFilesystemDocuments(array $filesystemDocuments) {
 		$this->filesystemDocuments = $filesystemDocuments;
-	}
-
-	/**
-	 * @return array thumbs
-	 */
-	public function getThumbs() {
-		return $this->thumbs;
-	}
-
-	/**
-	 * @param array $thumbs
-	 * @return void
-	 */
-	public function setThumbs($thumbs) {
-		$this->thumbs = $thumbs;
 	}
 
 }

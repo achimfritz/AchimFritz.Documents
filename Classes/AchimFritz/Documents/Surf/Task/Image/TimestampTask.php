@@ -18,13 +18,8 @@ use TYPO3\Flow\Annotations as Flow;
  * This task will automatically create needed directories and create a symlink to the upcoming
  * release, called "next".
  */
-class TimestampTask extends \TYPO3\Surf\Domain\Model\Task {
+class TimestampTask extends Task {
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Surf\Domain\Service\ShellCommandService
-	 */
-	protected $shell;
 
 	/**
 	 * Executes this task
@@ -37,46 +32,28 @@ class TimestampTask extends \TYPO3\Surf\Domain\Model\Task {
 	 * @throws \TYPO3\Surf\Exception\TaskExecutionException
 	 */
 	public function execute(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$target = $application->getMainPath() . '/' . $application->getTarget();
-		$result = $this->shell->execute('test -d ' . $target, $node, $deployment, TRUE);
+		$mountPoint = $this->configuration->getMountPoint();
+		$directory = $application->getTarget();
+		$path = $mountPoint . '/' . $directory;
+		$result = $this->shell->execute('test -d ' . $path, $node, $deployment, TRUE);
 		if ($result === FALSE) {
-			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $target . '" not exist on node ' . $node->getName(), 1366541390);
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $path . '" not exist on node ' . $node->getName(), 1366541390);
 		}
-		$adminPath = $application->getAdminPath();
-		$name = $application->getTarget();
-		$commands = array(
-				'cd ' . $adminPath,
-				'./tstampInit2fs.sh ' . $name
-			);
+
+		$integrity = $this->integrityFactory->createIntegrity($directory);
+		if ($integrity->getTimestampsAreInitialized() === FALSE) {
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('timestamps not initialized ' . $path, 1432474728);
+		}
+
+		$script = '';
+		$script = 'cat ' . $this->configuration->getTimestampFile($directory) . ' |while read i; do; ';
+		$script .= 'tstamp=`echo $i|awk -F "|" {\'print $1\'}` && ';
+		$script .= 'file=`echo $i|awk -F "|" {\'print $2\'}` && ';
+		$script .= 'touch -t $tstamp $file; done;';
+		$commands[] = $script;
+
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
 	}
 
-	/**
-	 * Simulate this task
-	 *
-	 * @param Node $node
-	 * @param Application $application
-	 * @param Deployment $deployment
-	 * @param array $options
-	 * @return void
-	 */
-	public function simulate(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$this->execute($node, $application, $deployment, $options);
-	}
-
-	/**
-	 * Rollback this task
-	 *
-	 * @param \TYPO3\Surf\Domain\Model\Node $node
-	 * @param \TYPO3\Surf\Domain\Model\Application $application
-	 * @param \TYPO3\Surf\Domain\Model\Deployment $deployment
-	 * @param array $options
-	 * @return void
-	 * @todo Make the removal of a failed release configurable, sometimes it's necessary to inspect a failed release
-	 */
-	public function rollback(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-	}
-
 }
-?>

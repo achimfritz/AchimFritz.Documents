@@ -38,16 +38,16 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $indexService;
 
 	/**
-	 * @return string
+	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
+	 * @Flow\Inject
 	 */
-	protected function getMountPoint() {
-		return $this->settings['mp3Document']['mountPoint'];
-	}
+	protected $mp3DocumentConfiguration;
 
 	/**
-	 * @return string
+	 * @return \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 */
-	protected function getExtension() {
-		return 'mp3';
+	protected function getConfiguration() {
+		return $this->mp3DocumentConfiguration;
 	}
+
 }

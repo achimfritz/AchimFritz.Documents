@@ -18,6 +18,11 @@ class ImageDocumentConfiguration extends FileSystemDocumentConfiguration {
 	protected $documentName = 'imageDocument';
 
 	/**
+	 * @var string
+	 */
+	protected $fileExtension = 'jpg';
+
+	/**
 	 * @return string
 	 */
 	public function getWebBigPath() {
@@ -36,6 +41,38 @@ class ImageDocumentConfiguration extends FileSystemDocumentConfiguration {
 	 */
 	public function getWebThumbPath() {
 		return $this->settings[$this->documentName]['webThumbPath'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBackupPath() {
+		return $this->settings[$this->documentName]['backupPath'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGeeqieMetadataPath() {
+		return $this->settings[$this->documentName]['geeqieMetadataPath'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDataDirectory() {
+		return FLOW_PATH_DATA . '/AchimFritz.Documents/Image/tstamp/init/';
+	}
+
+	public function getTimestampFile($directory) {
+		return FLOW_PATH_DATA . '/AchimFritz.Documents/Image/tstamp/init/' . $directory . '.txt';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUsbMountPoint() {
+		return $this->settings[$this->documentName]['usbMountPoint'];
 	}
 
 }

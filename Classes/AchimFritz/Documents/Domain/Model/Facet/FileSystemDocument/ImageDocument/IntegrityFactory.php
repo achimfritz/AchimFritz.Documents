@@ -7,26 +7,19 @@ namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocume
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity;
 use AchimFritz\Documents\Domain\Service\PathService;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Flow\Scope("singleton")
  */
-class IntegrityFactory {
+class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\IntegrityFactory {
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\ClientWrapper
+	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
 	 * @Flow\Inject
 	 */
-	protected $solrClientWrapper;
-
-	/**
-	 * @var \AchimFritz\Documents\Solr\Helper
-	 * @Flow\Inject
-	 */
-	protected $solrHelper;
+	protected $imageDocumentConfiguration;
 
    /**
     * @Flow\Inject
@@ -34,24 +27,11 @@ class IntegrityFactory {
     */
    protected $documentRepository;
 
-   /**
-    * @Flow\Inject
-    * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
-    */
-	protected $directoryService;
-
 	/**
-	 * @var array
+	 * @var \AchimFritz\Documents\Linux\Command
+	 * @Flow\Inject
 	 */
-	protected $settings;
-
-	/**
-	 * @param array $settings 
-	 * @return void
-	 */
-	public function injectSettings($settings) {
-		$this->settings = $settings;
-	}
+	protected $linuxCommand;
 
 	/**
 	 * @return Integrity
@@ -60,22 +40,29 @@ class IntegrityFactory {
 	public function createIntegrity($directory) {
 
       $documents = $this->documentRepository->findByHead($directory);
+
+		// solr
 		try {
 			$solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
 		} catch (\SolrException $e) {
 			throw new Exception('cannot fetch from solr', 1418658029);
 		}
 
-      $path = $this->settings['imageDocument']['mountPoint'] . PathService::PATH_DELIMITER . $directory;
+		// fs
+		$mountPoint = $this->getConfiguration()->getMountPoint();
+		$webPath = $this->getConfiguration()->getWebPath();
+		$fileExtension = $this->getConfiguration()->getFileExtension();
+      $path = $mountPoint . PathService::PATH_DELIMITER . $directory;
 		try {
-			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			throw new Exception('cannot get files in ' . $path, 1419867691);
 		}
 
-		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $this->settings['imageDocument']['webPath'] . PathService::PATH_DELIMITER . $directory;
+		// thumbs
+		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $webPath . PathService::PATH_DELIMITER . $directory;
 		try {
-			$thumbs = $this->directoryService->getFileNamesInDirectory($path, 'jpg');
+			$thumbs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			$thumbs = array();
 		}
@@ -89,39 +76,43 @@ class IntegrityFactory {
 		$integrity->setSolrDocuments($solrDocs);
 		$integrity->setFilesystemDocuments($fsDocs);
 		$integrity->setThumbs($thumbs);
+
+		// timestamp
+		$integrity->setTimestampsAreInitialized(file_exists($this->getConfiguration()->getTimestampFile($directory)));
+
+		// rotated
+      $path = $mountPoint . PathService::PATH_DELIMITER . $directory;
+		foreach ($fsDocs AS $fsDoc) {
+			$absolutePath = $path . PathService::PATH_DELIMITER . $fsDoc;
+			$imageSize = getimagesize($absolutePath);
+			if ($imageSize[0] < $imageSize[1]) {
+				$integrity->setImageIsRotated(TRUE);
+				break;
+			}
+		}
+
+		// geeqie metadata
+		if (file_exists($this->getConfiguration()->getGeeqieMetadataPath() . PathService::PATH_DELIMITER . $directory) === TRUE) {
+			$integrity->setGeeqieMetadataExists(TRUE);
+		}
+		// exif
+		$path = $mountPoint . PathService::PATH_DELIMITER . $directory;
+		$firstDoc = $path . PathService::PATH_DELIMITER . $fsDocs[0];
+		try {
+			$this->linuxCommand->getExifData($firstDoc);
+			$integrity->setIsExif(TRUE);
+		} catch(\AchimFritz\Documents\Linux\Exception $e) {
+		}
+
 		return $integrity;
 	}
 
-	/**
-	 * @return ArrayCollection<Integrity>
-	 * @throws Exception
-	 */
-	public function createIntegrities() {
-		$integrities = new ArrayCollection();
-		try {
-			$facets = $this->solrHelper->findFacets('mainDirectoryName');
-		} catch (\SolrException $e) {
-			throw new Exception('cannot fetch from solr', 1418658023);
-		}
 
-		$path = $this->settings['imageDocument']['mountPoint'];
-		try {
-			$outerFileInfos = $this->directoryService->getDirectoriesInDirectory($path);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
-			throw new Exception('cannot get files in ' . $path, 1419867692);
-		}
-		foreach ($outerFileInfos AS $outerFileInfo) {
-			$cnt = $this->directoryService->getCountOfFilesByExtension($outerFileInfo->getRealpath(), 'jpg');
-			$name = $outerFileInfo->getBasename();
-			$solrCnt = 0;
-			if (isset($facets[$name]) === TRUE) {
-				$solrCnt = $facets[$name];
-				unset($facets[$name]);
-			}
-			$integrity = new Integrity($name, $cnt, $solrCnt);
-			$integrities->add($integrity);
-		}
-		return $integrities;
+	/**
+	 * @return \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
+	 */
+	protected function getConfiguration() {
+		return $this->imageDocumentConfiguration;
 	}
 
 }

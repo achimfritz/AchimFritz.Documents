@@ -18,26 +18,38 @@ use TYPO3\Flow\Annotations as Flow;
  * This task will automatically create needed directories and create a symlink to the upcoming
  * release, called "next".
  */
-class MountTask extends Task {
+abstract class Task extends \TYPO3\Surf\Domain\Model\Task {
 
 	/**
-	 * Executes this task
+	 * @Flow\Inject
+	 * @var \TYPO3\Surf\Domain\Service\ShellCommandService
+	 */
+	protected $shell;
+
+	/**   
+	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
+	 * @Flow\Inject
+	 */
+	protected $configuration;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
+	 * @Flow\Inject
+	 */
+	protected $integrityFactory;
+
+	/**
+	 * Simulate this task
 	 *
-	 * @param \TYPO3\Surf\Domain\Model\Node $node
-	 * @param \TYPO3\Surf\Domain\Model\Application $application
-	 * @param \TYPO3\Surf\Domain\Model\Deployment $deployment
+	 * @param Node $node
+	 * @param Application $application
+	 * @param Deployment $deployment
 	 * @param array $options
 	 * @return void
-	 * @throws \TYPO3\Surf\Exception\TaskExecutionException
 	 */
-	public function execute(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$mountPoint = $this->configuration->getUsbMountPoint();
-		$commands = array(
-			'mount ' . $mountPoint
-		);
-		$this->shell->executeOrSimulate($commands, $node, $deployment);
+	public function simulate(Node $node, Application $application, Deployment $deployment, array $options = array()) {
+		$this->execute($node, $application, $deployment, $options);
 	}
-
 
 	/**
 	 * Rollback this task
@@ -50,12 +62,7 @@ class MountTask extends Task {
 	 * @todo Make the removal of a failed release configurable, sometimes it's necessary to inspect a failed release
 	 */
 	public function rollback(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$mountPoint = $this->configuration->getUsbMountPoint();
-		$commands = array(
-				'umount ' . $mountPoint
-				);
-		$this->shell->executeOrSimulate($commands, $node, $deployment);
 	}
 
-
 }
+?>

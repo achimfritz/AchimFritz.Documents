@@ -42,30 +42,13 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	protected $documentPersistenceManager;
 
 	/**
-	 * @var array
+	 * @var \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
+	 * @Flow\Inject
 	 */
-	protected $settings;
+	protected $configuration;
 
 	/**
-	 * @param array $settings 
-	 * @return void
-	 */
-	public function injectSettings($settings) {
-		$this->settings = $settings;
-	}
-
-	/**
-	 * @return string
-	 */
-	abstract protected function getMountPoint();
-
-	/**
-	 * @return string
-	 */
-	abstract protected function getExtension();
-
-	/**
-	 * list --directory=2012_03_10_gisela_diashow
+	 * list --directory=2015_05_05_venedig
 	 *
 	 * @param string $directory 
 	 * @return void
@@ -109,7 +92,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 
 
 	/**
-	 * deletedirectory --directory=2012_03_10_gisela_diashow
+	 * deletedirectory --directory=2015_05_05_venedig
 	 *
 	 * @param string $directory 
 	 * @return void
@@ -168,7 +151,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * index --directory=2012_03_10_gisela_diashow --update=FALSE
+	 * index --directory=2015_05_05_venedig --update=FALSE
 	 *
 	 * @param string $directory
 	 * @param boolean $update
@@ -203,7 +186,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	}
 
 	/**
-	 * renameFiles --directory=2012_03_10_gisela_diashow
+	 * renameFiles --directory=2015_05_05_venedig
 	 *
 	 * @param string $directory
 	 * @return void
@@ -286,5 +269,25 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		}
 	}
 
+	/**
+	 * @return \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
+	 */
+	protected function getConfiguration() {
+		return $this->configuration;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getMountPoint() {
+		return $this->getConfiguration()->getMountPoint();
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getFileExtension() {
+		return $this->getConfiguration()->getFileExtension();
+	}
 		
 }

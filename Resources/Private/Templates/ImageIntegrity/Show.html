@@ -4,33 +4,59 @@
 <f:section name="Content">
 <div class="row">
 	<div class="col-md-3">
-		<h2>Persisted</h2>
-		<ul>
-			<f:for each="{integrity.persistedDocuments}" as="document">
-				<li>{document.fileName}</li>
-			</f:for>
-		</ul>
+		<table class="table table-striped">
+			<tr>
+				<td>Count FS</td>
+				<td>{integrity.countFileSystem}</td>
+			</tr>
+			<tr>
+				<td>Count Solr</td>
+				<td>{integrity.countSolr}</td>
+			</tr>
+			<tr>
+				<td>Count Thumbs</td>
+				<td><f:count>{integrity.thumbs}</f:count></td>
+			</tr>
+			<tr>
+				<td>Count Persisted</td>
+				<td><f:count>{integrity.persistedDocuments}</f:count></td>
+			</tr>
+		</table>
 	</div>
 	<div class="col-md-3">
-		<h2>Solr</h2>
-		<ul>
-			<f:for each="{integrity.solrDocuments}" as="document">
-				<li>{document}</li>
-			</f:for>
-		</ul>
+		<table class="table table-striped">
+			<tr>
+				<td>timestamp initialized</td>
+				<td>{integrity.timestampsAreInitialized}</td>
+			</tr>
+			<tr>
+				<td>images rotated</td>
+				<td>{integrity.imageIsRotated}</td>
+			</tr>
+			<tr>
+				<td>is exif</td>
+				<td>{integrity.isExif}</td>
+			</tr>
+			<tr>
+				<td>geeqie metadata exists</td>
+				<td>{integrity.geeqieMetadataExists}</td>
+			</tr>
+		</table>
+		<table class="table table-striped">
+			<tr>
+				<td>ready for rotation</td>
+				<td>{integrity.readyForRotation}</td>
+			</tr>
+			<tr>
+				<td>ready for thumbs</td>
+				<td>{integrity.readyForThumbs}</td>
+			</tr>
+		</table>
 	</div>
 	<div class="col-md-3">
 		<h2>FileSystem</h2>
 		<ul>
 			<f:for each="{integrity.filesystemDocuments}" as="document">
-				<li>{document}</li>
-			</f:for>
-		</ul>
-	</div>
-	<div class="col-md-3">
-		<h2>Thumbs</h2>
-		<ul>
-			<f:for each="{integrity.thumbs}" as="document">
 				<li>{document}</li>
 			</f:for>
 		</ul>

@@ -18,13 +18,7 @@ use TYPO3\Flow\Annotations as Flow;
  * This task will automatically create needed directories and create a symlink to the upcoming
  * release, called "next".
  */
-class SaveTimeStampsTask extends \TYPO3\Surf\Domain\Model\Task {
-
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Surf\Domain\Service\ShellCommandService
-	 */
-	protected $shell;
+class SaveTimeStampsTask extends Task {
 
 	/**
 	 * Executes this task
@@ -37,45 +31,28 @@ class SaveTimeStampsTask extends \TYPO3\Surf\Domain\Model\Task {
 	 * @throws \TYPO3\Surf\Exception\TaskExecutionException
 	 */
 	public function execute(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$target = $application->getMainPath() . '/' . $application->getTarget();
-		$result = $this->shell->execute('test -d ' . $target, $node, $deployment, TRUE);
+		$mountPoint = $this->configuration->getMountPoint();
+		$directory = $application->getTarget();
+		$path = $mountPoint . '/' . $directory;
+		$result = $this->shell->execute('test -d ' . $path, $node, $deployment, TRUE);
 		if ($result === FALSE) {
-			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $target . '" not exist on node ' . $node->getName(), 1366541390);
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $path . '" not exist on node ' . $node->getName(), 1366541390);
 		}
-		$adminPath = $application->getAdminPath();
-		$name = $application->getTarget();
-		$commands = array(
-			'cd ' . $adminPath,
-			'./save_tstamp.sh ' . $name
-		);
+
+		$integrity = $this->integrityFactory->createIntegrity($directory);
+		if ($integrity->getTimestampsAreInitialized() === TRUE) {
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('timestamps already initialized ' . $path, 1432474728);
+		}
+		$fsDocs = $integrity->getFilesystemDocuments();
+		$commands = array();
+		foreach ($fsDocs AS $fsDoc) {
+			$absolutePath = $path . '/' . $fsDoc;
+			$commands[] = 'echo -n `stat -c %y ' . $absolutePath . '| sed \'s/\(.*\)\-\(.*\)\-\(.*\) \(.*\):\(.*\):\(.*\)\.00.*/\1\2\3\4\5.\6/\'` >> ' . $this->configuration->getTimestampFile($directory);
+			$commands[] = 'echo "|' . $absolutePath . '" >> ' . $this->configuration->getTimestampFile($directory);
+		}
+		#var_dump($commands);
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
-	}
-
-	/**
-	 * Simulate this task
-	 *
-	 * @param Node $node
-	 * @param Application $application
-	 * @param Deployment $deployment
-	 * @param array $options
-	 * @return void
-	 */
-	public function simulate(Node $node, Application $application, Deployment $deployment, array $options = array()) {
-		$this->execute($node, $application, $deployment, $options);
-	}
-
-	/**
-	 * Rollback this task
-	 *
-	 * @param \TYPO3\Surf\Domain\Model\Node $node
-	 * @param \TYPO3\Surf\Domain\Model\Application $application
-	 * @param \TYPO3\Surf\Domain\Model\Deployment $deployment
-	 * @param array $options
-	 * @return void
-	 * @todo Make the removal of a failed release configurable, sometimes it's necessary to inspect a failed release
-	 */
-	public function rollback(Node $node, Application $application, Deployment $deployment, array $options = array()) {
 	}
 
 }

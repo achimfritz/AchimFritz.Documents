@@ -30,7 +30,6 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$application->setTarget($name);
 		$this->deployment = $this->createDeployment($application);
 		$this->deploy($verbose);
-		$target = $application->getMainPath() . '/' . $application->getTarget();
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
@@ -46,7 +45,6 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$application->setTarget($name);
 		$this->deployment = $this->createDeployment($application);
 		$this->deploy($verbose);
-		$target = $application->getMainPath() . '/' . $application->getTarget();
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
@@ -59,12 +57,9 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function rotateCommand($name, $verbose = FALSE) {
 		$application = new \AchimFritz\Documents\Surf\Application\Image\RotateApplication();
-		// TODO
-		$application->setIsExif(FALSE);
 		$application->setTarget($name);
 		$this->deployment = $this->createDeployment($application);
 		$this->deploy($verbose);
-		$target = $application->getMainPath() . '/' . $application->getTarget();
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
@@ -80,7 +75,6 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$application->setTarget($name);
 		$this->deployment = $this->createDeployment($application);
 		$this->deploy($verbose);
-		$target = $application->getMainPath() . '/' . $application->getTarget();
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
@@ -94,10 +88,6 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$node = new \TYPO3\Surf\Domain\Model\Node('localhost');
 		$node->setHostname('localhost');
 
-		$application->setMountPoint('/mnt/sdd1');
-		$application->setOrigPath('/bilder/orig');
-		$application->setMainPath('/bilder/main');
-		$application->setAdminPath('/bilder/admin');
 		$application->addNode($node);
 		$workflow = new \AchimFritz\Documents\Surf\Workflow();
 		$deployment = new Deployment($application->getTarget());

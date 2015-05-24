@@ -7,39 +7,38 @@ namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Flow\Scope("singleton")
  */
-class IntegrityFactory {
+class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\IntegrityFactory {
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\Helper
+	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 * @Flow\Inject
 	 */
-	protected $solrHelper;
+	protected $mp3DocumentConfiguration;
+
+   /**
+    * @Flow\Inject
+    * @var \AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository
+    */
+   protected $documentRepository;
 
 	/**
-	 * @var array
+	 * @return Integrity
+	 * @throws Exception
 	 */
-	protected $settings;
-
-	/**
-	 * @param array $settings 
-	 * @return void
-	 */
-	public function injectSettings($settings) {
-		$this->settings = $settings;
+	public function createIntegrity($directory) {
+		throw new Exception('not implemented', 1432389131);
 	}
 
 
 	/**
-	 * @return ArrayCollection<Integrity>
-	 * @throws Exception
+	 * @return \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 */
-	public function createIntegrities() {
-			throw new Exception('not implemented', 1418749455); 
+	protected function getConfiguration() {
+		return $this->mp3DocumentConfiguration;
 	}
 }
