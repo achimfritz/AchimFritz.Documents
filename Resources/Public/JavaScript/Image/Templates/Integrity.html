@@ -38,17 +38,8 @@
 		<div class="col-md-2">
 			<button ng-click="list()" class="btn btn-default" >list</button>
 		</div>
-		<div class="col-md-2">
-			<button ng-click="update(integrity.name)" class="btn btn-default btn-danger" >index</button>
-			<button ng-hide="integrity.countDiffers" ng-click="solr(integrity.name)" class="btn btn-default btn-danger" >solr</button>
-			<button ng-show="integrity.countDiffers" ng-click="initialize(integrity.name, 1)" class="btn btn-default btn-danger" >initialize exif</button>
-			<button ng-show="integrity.countDiffers" ng-click="initialize(integrity.name, 0)" class="btn btn-default btn-danger" >initialize no exif</button>
-		</div>
-		<div class="col-md-1">
-			<div ng-show="job">Job Status: {{job.status}}</div>
-		</div>
 	</div>
-	<div class="row" ng-show="job">
+	<div class="row" ng-show="job.log">
 		<div class="col-md-10">
 			<pre>
 				{{job.log}}
@@ -57,28 +48,71 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<h4>Persisted</h4>
-			<ul>
-				<li ng-repeat="document in integrity.persistedDocuments">{{document.fileName}}</li>
-			</ul>
-		</div>
-		<div class="col-md-3">
-			<h4>Solr</h4>
-			<ul>
-				<li ng-repeat="document in integrity.solrDocuments">{{document}}</li>
-			</ul>
-		</div>
-		<div class="col-md-3">
 			<h4>FileSystem</h4>
 			<ul>
 				<li ng-repeat="document in integrity.filesystemDocuments">{{document}}</li>
 			</ul>
 		</div>
 		<div class="col-md-3">
-			<h4>Thumbs</h4>
-			<ul>
-				<li ng-repeat="document in integrity.thumbs">{{document}}</li>
-			</ul>
+			<table class="table table-striped">
+				<tr>
+					<td>Count FS</td>
+					<td>{{integrity.countFileSystem}}</td>
+				</tr>
+				<tr>
+					<td>Count Solr</td>
+					<td>{{integrity.countSolr}}</td>
+				</tr>
+				<tr>
+					<td>Count Thumbs</td>
+					<td>{{integrity.thumbs.length}}</td>
+				</tr>
+				<tr>
+					<td>Count Persisted</td>
+					<td>{{integrity.persistedDocuments.length}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<table class="table table-striped">
+				<tr>
+					<td>timestamp initialized</td>
+					<td>{{integrity.timestampsAreInitialized}}</td>
+				</tr>
+				<tr>
+					<td>images rotated</td>
+					<td>{{integrity.imageIsRotated}}</td>
+				</tr>
+				<tr>
+					<td>is exif</td>
+					<td>{{integrity.isExif}}</td>
+				</tr>
+				<tr>
+					<td>geeqie metadata exists</td>
+					<td>{{integrity.geeqieMetadataExists}}</td>
+				</tr>
+			</table>
+			<table class="table table-striped">
+				<tr>
+					<td>ready for rotation</td>
+					<td>{{integrity.readyForRotation}}</td>
+				</tr>
+				<tr>
+					<td>ready for thumbs</td>
+					<td>{{integrity.readyForThumbs}}</td>
+				</tr>
+				<tr>
+					<td>next Step</td>
+					<td>{{integrity.nextStep}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<h4>next Step: {{integrity.nextStep}}</h4>
+			<button ng-hide="integrity.countDiffers" ng-click="solr(integrity.name)" class="btn btn-default btn-danger" >solr</button>
+			<button ng-show="integrity.countDiffers" ng-click="createJob(integrity.nextStep, integrity.name)" class="btn btn-default btn-danger" >create next Step {{integrity.nextStep}}</button>
+			<div ng-show="job">Job Status: {{job.status}}</div>
+		</div>
 		</div>
 	</div>
 </div>

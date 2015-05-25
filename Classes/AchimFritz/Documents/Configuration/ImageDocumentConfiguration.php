@@ -39,6 +39,13 @@ class ImageDocumentConfiguration extends FileSystemDocumentConfiguration {
 	/**
 	 * @return string
 	 */
+	public function getThumbPath() {
+		return $this->settings[$this->documentName]['thumbPath'];
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getWebThumbPath() {
 		return $this->settings[$this->documentName]['webThumbPath'];
 	}

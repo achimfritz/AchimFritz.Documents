@@ -135,8 +135,10 @@ class Integrity extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocum
 			return 'init';
 		} elseif ($this->getReadyForRotation() === TRUE){
 			return 'rotate';
-		} elseif ($this->getImageIsRotated() && $this->getTimestampsAreInitialized() === TRUE) {
+		} elseif ($this->getImageIsRotated() && $this->getTimestampsAreInitialized() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
 			return 'thumb';
+		} elseif ($this->getCountFileSystem() !== $this->getCountSolr()) {
+			return 'index';
 		} else {
 			return '';
 		}

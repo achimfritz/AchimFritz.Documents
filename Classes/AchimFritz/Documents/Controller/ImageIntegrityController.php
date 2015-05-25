@@ -64,17 +64,4 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 		$this->view->assign('integrity', $integrity);
 	}
 
-	/**
-	 * @param string $directory
-	 * @return void
-	 */
-	public function updateAction($directory) {
-		try {
-			$cnt = $this->indexService->indexDirectory($directory);
-			$this->addFlashMessage($cnt . ' documents indexed', '',  Message::SEVERITY_OK);
-		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			$this->handleException($e);
-		}
-		$this->redirect('index', NULL, NULL, array('directory' => $directory));
-	}
 }

@@ -15,6 +15,7 @@ AchimFritz:
     imageDocument:
       usbMountPoint: /mnt/sdd1
       mountPoint: /bilder/main
+      thumbPath: /data/thumbs
       backupPath: /bilder/orig
       geeqieMetadataPath: /data/home/af/.local/share/geeqie/metadata/bilder/main/
       export: /bilder/export

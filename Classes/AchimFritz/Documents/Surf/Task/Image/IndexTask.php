@@ -38,9 +38,9 @@ class IndexTask extends Task {
 	 */
 	public function execute(Node $node, Application $application, Deployment $deployment, array $options = array()) {
 		$path = $this->configuration->getMountPoint() . '/' . $application->getTarget();
-		$result = $this->shell->execute('test -d ' . $target, $node, $deployment, TRUE);
+		$result = $this->shell->execute('test -d ' . $path, $node, $deployment, TRUE);
 		if ($result === FALSE) {
-			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $target . '" not exist on node ' . $node->getName(), 1366541390);
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $path. '" not exist on node ' . $node->getName(), 1366541390);
 		}
 		$directory = $application->getTarget();
 		try {

@@ -85,9 +85,11 @@ class JobCommandController extends \TYPO3\Flow\Cli\CommandController {
 			}
 
 			$returnValue = proc_close($process);
+			var_dump($returnValue);
 			$job->setReturnValue($returnValue);
 			$job->setEndDate(new \DateTime());
 			if ($returnValue === 0) {
+			var_dump('foo');
 				$job->setStatus(Job::STATUS_SUCCESS);
 			} else {
 				$job->setStatus(Job::STATUS_FAILED);

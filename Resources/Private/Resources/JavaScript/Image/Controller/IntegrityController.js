@@ -7,7 +7,7 @@
 				.module('imageApp')
 				.controller('IntegrityController', IntegrityController);
 
-				function IntegrityController($scope, IntegrityRestService, FlashMessageService, Solr, toaster, JobRestService) {
+				function IntegrityController($scope, IntegrityRestService, FlashMessageService, Solr, toaster, JobRestService, $timeout) {
 
 								var currentDirectory = '';
 
@@ -20,7 +20,7 @@
 								};
 
 								function jobWatch(identifier) {
-												setTimeout(getJob(identifier), 2000);
+												$timeout(getJob(identifier), 4000);
 								};
 
 								function getJob(identifier) {
@@ -31,12 +31,12 @@
 																				if (job.status < 3) {
 																								jobWatch(identifier);
 																				} else if (job.status === 3) {
-																								toaster.pop('success', 'Job', 'images initialized');
-																								$scope.show(currentDirectory);
 																								// success
+																								toaster.pop('success', 'Job', 'finished');
+																								$scope.show(currentDirectory);
 																				} else if (job.status > 3) {
-																								toaster.pop('error', 'Job', 'image initialized failed');
 																								// failed
+																								toaster.pop('error', 'Job', 'failed');
 																				}
 																},
 																function (data) {
@@ -46,10 +46,10 @@
 												);
 								};
 
-								$scope.initialize = function(name, isExif) {
+								$scope.createJob = function(jobName, directory) {
 												$scope.finished = false;
-												var command = 'cd /data/home/af/dev && ./flow achimfritz.surf:surf:imageTwo --name ' + name + ' --isExif ' + isExif;
-												currentDirectory = name;
+												var command = 'cd /data/home/af/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
+												currentDirectory = directory;
 												var job = {
 																'command': command
 												};
@@ -57,8 +57,7 @@
 																function (data) {
 																				$scope.finished = true;
 																				FlashMessageService.show(data.data.flashMessages);
-																				console.log(data.data.job);
-																				getJob(data.data.job.__identity);
+																				jobWatch(data.data.job.__identity);
 																},
 																function (data) {
 								            $scope.finished = true;
@@ -67,9 +66,6 @@
 												);
 
 								}
-
-								//getJob('9f27fdb1-11c3-aaec-adb7-a60df985b3b9');
-
 
 								$scope.show = function(directory) {
 												$scope.finished = false;
@@ -89,21 +85,6 @@
 								$scope.solr = function(directory) {
 												Solr.addFilterQuery('mainDirectoryName', directory);
 												toaster.pop('success', 'Solr', 'TOOO add mainDirectoryName to FilterQueries');
-								};
-
-								$scope.update = function(directory) {
-												$scope.finished = false;
-												IntegrityRestService.update(directory).then(
-																function(data) {
-								            $scope.finished = true;
-																				FlashMessageService.show(data.data.flashMessages);
-																				$scope.show(directory);
-																},
-																function (data) {
-								            $scope.finished = true;
-																				FlashMessageService.error(data);
-																}
-												);
 								};
 
 								function list() {

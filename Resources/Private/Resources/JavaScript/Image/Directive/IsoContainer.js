@@ -7,7 +7,7 @@
 				.module('imageApp')
 				.directive('isoContainer', IsoContainer);
 
-				function IsoContainer($timeout, ngDialog, ItemService, DocumentCollectionRestService, FlashMessageService, Solr) {
+				function IsoContainer(ngDialog, ItemService, DocumentCollectionRestService, FlashMessageService, Solr) {
 
 								function update($scope) {
 												$scope.settings = Solr.getSettings();
@@ -20,22 +20,22 @@
 																if (e.keyCode == 39) {
 																				// next
 																				if ($scope.current.identifier) {
-																								next($scope);
+																								itemNext($scope);
 																				}
 																} else if (e.keyCode == 37) {
 																				// prev
 																				if ($scope.current.identifier) {
-																								prev($scope);
+																								itemPrev($scope);
 																				}
 																} else if (e.keyCode == 27) {
 																				// close
-																				ngDialog.close();
+																				ngDialog.closeAll();
 																}
 												});
 								};
 
 								function dialog($scope) {
-												ngDialog.close();
+												ngDialog.closeAll();
 												ngDialog.open({
 																template: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Image/Partials/Dialog.html',
 																scope: $scope
@@ -83,6 +83,8 @@
 																$scope.mode = 'view';
                 $scope.finished = true;
                 $scope.current = {};
+
+																bindKeys($scope);
 
                 $scope.prev = function() {
 																				itemPrev($scope);

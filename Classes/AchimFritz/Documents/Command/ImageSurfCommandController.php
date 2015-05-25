@@ -20,60 +20,75 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $deployment;
 
 	/**
-	 * initCommand($name, $verbose = FALSE)
+	 * copyCommand($name, $verbose = TRUE)
 	 * 
 	 * @param string $name
 	 * @param boolean $verbose
 	 */
-	public function initCommand($name, $verbose = FALSE) {
-		$application = new \AchimFritz\Documents\Surf\Application\Image\InitApplication();
-		$application->setTarget($name);
-		$this->deployment = $this->createDeployment($application);
-		$this->deploy($verbose);
-		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
-		$this->response->setExitCode($this->deployment->getStatus());
-	}
-
-	/**
-	 * copyCommand($name, $verbose = FALSE)
-	 * 
-	 * @param string $name
-	 * @param boolean $verbose
-	 */
-	public function copyCommand($name, $verbose = FALSE) {
+	public function copyCommand($name, $verbose = TRUE) {
 		$application = new \AchimFritz\Documents\Surf\Application\Image\CopyApplication();
 		$application->setTarget($name);
-		$this->deployment = $this->createDeployment($application);
+		$this->deployment = $this->createDeployment($application, $verbose);
 		$this->deploy($verbose);
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
 
 	/**
-	 * rotateCommand($name, $verbose = FALSE)
+	 * initCommand($name, $verbose = TRUE)
 	 * 
 	 * @param string $name
 	 * @param boolean $verbose
 	 */
-	public function rotateCommand($name, $verbose = FALSE) {
+	public function initCommand($name, $verbose = TRUE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\InitApplication();
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application, $verbose);
+		$this->deploy($verbose);
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
+	 * rotateCommand($name, $verbose = TRUE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function rotateCommand($name, $verbose = TRUE) {
 		$application = new \AchimFritz\Documents\Surf\Application\Image\RotateApplication();
 		$application->setTarget($name);
-		$this->deployment = $this->createDeployment($application);
+		$this->deployment = $this->createDeployment($application, $verbose);
 		$this->deploy($verbose);
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
 
 	/**
-	 * thumbCommand($name, $verbose = FALSE)
+	 * thumbCommand($name, $verbose = TRUE)
 	 * 
 	 * @param string $name
 	 * @param boolean $verbose
 	 */
-	public function thumbCommand($name, $verbose = FALSE) {
+	public function thumbCommand($name, $verbose = TRUE) {
 		$application = new \AchimFritz\Documents\Surf\Application\Image\ThumbApplication();
 		$application->setTarget($name);
-		$this->deployment = $this->createDeployment($application);
+		$this->deployment = $this->createDeployment($application, $verbose);
+		$this->deploy($verbose);
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
+	 * indexCommand($name, $verbose = TRUE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function indexCommand($name, $verbose = TRUE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\IndexApplication();
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application, $verbose);
 		$this->deploy($verbose);
 		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
 		$this->response->setExitCode($this->deployment->getStatus());
@@ -84,7 +99,7 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @param boolean $verbose
 	 * @return void
 	 */
-	protected function createDeployment(\AchimFritz\Documents\Surf\Application\Image\AbstractApplication $application, $verbose = FALSE) {
+	protected function createDeployment(\AchimFritz\Documents\Surf\Application\Image\AbstractApplication $application, $verbose = TRUE) {
 		$node = new \TYPO3\Surf\Domain\Model\Node('localhost');
 		$node->setHostname('localhost');
 

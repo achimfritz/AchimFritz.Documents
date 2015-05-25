@@ -38,26 +38,35 @@ class ThumbTask extends Task {
 		if ($result === FALSE) {
 			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $path . '" not exist on node ' . $node->getName(), 1366541390);
 		}
+		$integrity = $this->integrityFactory->createIntegrity($directory);
 		$fsDocs = $integrity->getFilesystemDocuments();
 		$commands = array();
-		$dimensions = array(array('800', '600'), array('1280', '1024'), array('320', '240'), array('64', '48'));
+		//$dimensions = array(array('800', '600'), array('1280', '1024'), array('320', '240'), array('64', '48'));
+		$dimensions = array(array('1280', '1024'));
 		foreach ($dimensions AS $dimension) {
-			$thumbPath = $this->configuration->getWebThumbPath() . '/' . $directory . '/' . $dimension[0] . 'x' . $dimension[1];
+			$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory;
 			if (file_exists($thumbPath) === FALSE) {
 				$commands[] = 'mkdir -p ' . $thumbPath;
 			}
 		}
+		$cnt = 0;
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . '/' . $fsDoc;
 			$imageSize = getimagesize($absolutePath);
 			foreach ($dimensions AS $dimension) {
-				$thumbPath = $this->configuration->getWebThumbPath() . '/' . $directory . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $fsDoc;
+				$cnt ++;
+				$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory . '/' . $fsDoc;
 				if ($imageSize[0] < $imageSize[1]) {
 					$param = $dimension[0];
 				} else {
 					$param = 'x' . $dimension[1];
 				}
 				$commands[] = ' convert -geometry ' . $param . ' ' . $absolutePath . ' ' . $thumbPath;
+				if ($cnt > 50) {
+					$this->shell->executeOrSimulate($commands, $node, $deployment);
+					$cnt = 0;
+					$commands = array();
+				}
 			}
 		}
 

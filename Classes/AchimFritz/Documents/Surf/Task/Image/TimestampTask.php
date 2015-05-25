@@ -46,7 +46,7 @@ class TimestampTask extends Task {
 		}
 
 		$script = '';
-		$script = 'cat ' . $this->configuration->getTimestampFile($directory) . ' |while read i; do; ';
+		$script = 'cat ' . $this->configuration->getTimestampFile($directory) . ' |while read i; do ';
 		$script .= 'tstamp=`echo $i|awk -F "|" {\'print $1\'}` && ';
 		$script .= 'file=`echo $i|awk -F "|" {\'print $2\'}` && ';
 		$script .= 'touch -t $tstamp $file; done;';
