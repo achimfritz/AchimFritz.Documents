@@ -28,7 +28,6 @@
 																this.show(data.data.flashMessages);
 												} else {
 																var severity = 'error';
-																console.log(typeof severity);
 																if (typeof data.data === 'string') {
 																				toaster.pop(severity, data.status, data.data);
 																} else {

@@ -46,7 +46,7 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 		try {
 			$integrities = $this->integrityFactory->createIntegrities();
 			$this->view->assign('integrities', $integrities);
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception $e) {
 			$this->handleException($e);
 		}
 	}

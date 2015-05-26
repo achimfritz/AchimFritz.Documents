@@ -20,7 +20,7 @@
 								};
 
 								function jobWatch(identifier) {
-												$timeout(getJob(identifier), 4000);
+												$timeout(function() {getJob(identifier)}, 1500);
 								};
 
 								function getJob(identifier) {
@@ -48,7 +48,7 @@
 
 								$scope.createJob = function(jobName, directory) {
 												$scope.finished = false;
-												var command = 'cd /data/home/af/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
+												var command = 'cd /data/www/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
 												currentDirectory = directory;
 												var job = {
 																'command': command
@@ -57,7 +57,7 @@
 																function (data) {
 																				$scope.finished = true;
 																				FlashMessageService.show(data.data.flashMessages);
-																				jobWatch(data.data.job.__identity);
+																				getJob(data.data.job.__identity);
 																},
 																function (data) {
 								            $scope.finished = true;
@@ -84,7 +84,7 @@
 
 								$scope.solr = function(directory) {
 												Solr.addFilterQuery('mainDirectoryName', directory);
-												toaster.pop('success', 'Solr', 'TOOO add mainDirectoryName to FilterQueries');
+												toaster.pop('success', 'Solr', 'mainDirectoryName ' + directory + ' added to FilterQueries');
 								};
 
 								function list() {

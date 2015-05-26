@@ -57,6 +57,10 @@ class JobCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function runCommand() {
+		$job = $this->jobRepository->findOneByStatus(Job::STATUS_RUNNING);
+		if ($job instanceof Job === TRUE) {
+			$this->quit();
+		}
 		$job = $this->jobRepository->findOneByStatus(Job::STATUS_WAITING);
 
 		$descriptorspec = array(
@@ -85,11 +89,9 @@ class JobCommandController extends \TYPO3\Flow\Cli\CommandController {
 			}
 
 			$returnValue = proc_close($process);
-			var_dump($returnValue);
 			$job->setReturnValue($returnValue);
 			$job->setEndDate(new \DateTime());
 			if ($returnValue === 0) {
-			var_dump('foo');
 				$job->setStatus(Job::STATUS_SUCCESS);
 			} else {
 				$job->setStatus(Job::STATUS_FAILED);

@@ -50,7 +50,6 @@ class SaveTimeStampsTask extends Task {
 			$commands[] = 'echo -n `stat -c %y ' . $absolutePath . '| sed \'s/\(.*\)\-\(.*\)\-\(.*\) \(.*\):\(.*\):\(.*\)\.00.*/\1\2\3\4\5.\6/\'` >> ' . $this->configuration->getTimestampFile($directory);
 			$commands[] = 'echo "|' . $absolutePath . '" >> ' . $this->configuration->getTimestampFile($directory);
 		}
-		#var_dump($commands);
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
 	}
