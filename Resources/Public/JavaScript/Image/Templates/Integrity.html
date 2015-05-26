@@ -111,6 +111,9 @@
 			<h4>next Step: {{integrity.nextStep}}</h4>
 			<button ng-hide="integrity.countDiffers" ng-click="solr(integrity.name)" class="btn btn-default btn-danger" >solr</button>
 			<button ng-show="integrity.countDiffers" ng-click="createJob(integrity.nextStep, integrity.name)" class="btn btn-default btn-danger" >create next Step {{integrity.nextStep}}</button>
+			<div ng-show="integrity.countDiffers">
+				<button ng-show="integrity.nextStep == 'rotate'" ng-click="createJob('thumb', integrity.name)" class="btn btn-default btn-danger" >create next Step thumb</button>
+			</div>
 			<div ng-show="job">Job Status: {{job.status}}</div>
 		</div>
 		</div>

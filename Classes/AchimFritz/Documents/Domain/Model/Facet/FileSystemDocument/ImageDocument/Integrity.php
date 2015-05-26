@@ -118,8 +118,7 @@ class Integrity extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocum
 	 */
 	public function getReadyForRotation() {
 		if ($this->getTimestampsAreInitialized() === TRUE &&
-			($this->getGeeqieMetadataExists() === TRUE || $this->getIsExif() === TRUE) &&
-			$this->getImageIsRotated() === FALSE
+			($this->getGeeqieMetadataExists() === TRUE || $this->getIsExif() === TRUE)
 		) {
 			return TRUE;
 		} else {
@@ -133,12 +132,15 @@ class Integrity extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocum
 	public function getNextStep() {
 		if ($this->getTimestampsAreInitialized() === FALSE) {
 			return 'init';
+		} elseif (count($this->getThumbs()) === $this->getCountFileSystem() && $this->getCountFileSystem() !== $this->getCountSolr()) {
+			return 'index';
+		} elseif ($this->getReadyForRotation() === TRUE && count($this->getThumbs()) === $this->getCountFileSystem()) {
+			return 'solr';
 		} elseif ($this->getReadyForRotation() === TRUE){
 			return 'rotate';
-		} elseif ($this->getImageIsRotated() && $this->getTimestampsAreInitialized() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
+			// TODO this never works if no image is rotated
+		} elseif ($this->getImageIsRotated() === TRUE && $this->getReadyForRotation() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
 			return 'thumb';
-		} elseif ($this->getCountFileSystem() !== $this->getCountSolr()) {
-			return 'index';
 		} else {
 			return '';
 		}
