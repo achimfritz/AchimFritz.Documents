@@ -14,6 +14,7 @@
 				"ngDialog": "*",
 				"isotope": "*",
 				"angular-utils-pagination": "*",
+				"angular-soundmanager2": "*",
     "AngularJS-Toaster": "~0.4.8"
   },
   "resolutions": {

@@ -51,6 +51,7 @@ module.exports = {
 												'bower_components/ajax-solr/core/Parameter.js',
 												'bower_components/ajax-solr/core/ParameterStore.js',
             'bower_components/AngularJS-Toaster/toaster.js',
+            'bower_components/angular-soundmanager2/dist/angular-soundmanager2.js',
 												'bower_components/isotope/dist/isotope.pkgd.js'
         ],
         dest: '../../Public/Build/Libs.js'

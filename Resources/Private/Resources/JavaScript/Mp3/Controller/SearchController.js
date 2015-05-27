@@ -9,6 +9,35 @@
 
 				function SearchController($scope, Solr) {
 
+        $scope.songs = [];
+
+								function update(search) {
+												if (search !== undefined) {
+																if (search !== '') {
+																				Solr.setSetting('q', search);
+																} else {
+																				Solr.setSetting('q', '*:*');
+																}
+												}
+												Solr.getData().then(function(data) {
+																angular.forEach(data.data.response.docs, function(doc) {
+																				//console.log('foo');
+																				var song = {
+																								id: doc.identifier,
+																								title: doc.id3Title,
+																								artist: doc.id3Artist,
+																								url: 'http://dev/' + doc.webPath
+																				};
+																				$scope.songs.push(song);
+																});
+																//console.log(data.data);
+																$scope.data = data.data;
+																
+												});
+								};
+
+
+
 								$scope.settings = Solr.getSettings();
 								$scope.facets = Solr.getFacets();
 								$scope.filterQueries = Solr.getFilterQueries();
@@ -36,18 +65,6 @@
 
 								update();
 
-								function update(search) {
-												if (search !== undefined) {
-																if (search !== '') {
-																				Solr.setSetting('q', search);
-																} else {
-																				Solr.setSetting('q', '*:*');
-																}
-												}
-												Solr.getData().then(function(data) {
-																$scope.data = data.data;
-												});
-								};
 
 				}
 }());
