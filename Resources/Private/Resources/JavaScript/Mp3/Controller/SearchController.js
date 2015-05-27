@@ -14,6 +14,12 @@
 								$scope.filterQueries = Solr.getFilterQueries();
 								$scope.search = '';
 
+								$scope.finished = true;
+								$scope.renameCategory = null;
+								var currentFacetField = null;
+								$scope.editCategory = function(facetName, facetValue) {};
+								$scope.updateCategory = function(renameCategory) {};
+
 								$scope.rmFilterQuery = function (name, value) {
 												Solr.rmFilterQuery(name, value);
 												update();
