@@ -137,6 +137,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 	protected function addMp3Fields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof Mp3Document === TRUE) {
 			$inputDocument->addField('extension', 'mp3');
+			$inputDocument->addField('webPath', $document->getWebPath());
 			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
 			$inputDocument->addField('fileHash', $document->getFileHash());
 			$inputDocument->addField('fsTitle', $document->getFsTitle());

@@ -33,6 +33,11 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	protected $solrInputDocumentFactory;
 
+	/**
+	 * @var string
+	 */
+	protected $query = '*:*';
+
 
 	/**
 	 * @access public
@@ -40,7 +45,7 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function emptyCommand() {
 		try {
-			$this->solrClientWrapper->deleteByQuery('*:*');
+			$this->solrClientWrapper->deleteByQuery($this->query);
 			$this->solrClientWrapper->commit();
 			$this->outputLine('SUCCESS: delete all documents');
 		} catch (\SolrException $e) {
@@ -94,7 +99,7 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	public function integrityCommand() {
 		$documents = $this->documentRepository->findAll();
 		$query = new \SolrQuery();
-		$query->setQuery('*:*')->setRows(0)->setStart(0);
+		$query->setQuery($this->query)->setRows(0)->setStart(0);
 		try {
 			$queryResponse = $this->solrClientWrapper->query($query);
 			$solrCnt = $queryResponse->getResponse()->response->numFound;
