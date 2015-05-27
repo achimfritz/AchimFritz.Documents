@@ -50,6 +50,21 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * copyAndInitCommand($name, $verbose = TRUE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function copyAndInitCommand($name, $verbose = TRUE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\CopyAndInitApplication();
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application, $verbose);
+		$this->deploy($verbose);
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
 	 * rotateCommand($name, $verbose = TRUE)
 	 * 
 	 * @param string $name
@@ -57,6 +72,21 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function rotateCommand($name, $verbose = TRUE) {
 		$application = new \AchimFritz\Documents\Surf\Application\Image\RotateApplication();
+		$application->setTarget($name);
+		$this->deployment = $this->createDeployment($application, $verbose);
+		$this->deploy($verbose);
+		$this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+		$this->response->setExitCode($this->deployment->getStatus());
+	}
+
+	/**
+	 * rotateAndThumbCommand($name, $verbose = TRUE)
+	 * 
+	 * @param string $name
+	 * @param boolean $verbose
+	 */
+	public function rotateAndThumbCommand($name, $verbose = TRUE) {
+		$application = new \AchimFritz\Documents\Surf\Application\Image\RotateAndThumbApplication();
 		$application->setTarget($name);
 		$this->deployment = $this->createDeployment($application, $verbose);
 		$this->deploy($verbose);

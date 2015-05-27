@@ -110,11 +110,11 @@
 		<div class="col-md-3">
 			<h4>next Step: {{integrity.nextStep}}</h4>
 			<button ng-hide="integrity.countDiffers" ng-click="solr(integrity.name)" class="btn btn-default btn-danger" >solr</button>
-			<button ng-show="integrity.countDiffers" ng-click="createJob(integrity.nextStep, integrity.name)" class="btn btn-default btn-danger" >create next Step {{integrity.nextStep}}</button>
-			<div ng-show="integrity.countDiffers">
-				<button ng-show="integrity.nextStep == 'rotate'" ng-click="createJob('thumb', integrity.name)" class="btn btn-default btn-danger" >create next Step thumb</button>
-			</div>
+			<button ng-show="integrity.countDiffers && integrity.nextStep != ''" ng-click="createJob(integrity.nextStep, integrity.name)" class="btn btn-default btn-danger" >create next Step {{integrity.nextStep}}</button>
+			<div class="alert alert-info" role="alert" ng-show="integrity.countDiffers && integrity.nextStep == ''">Opps no next step but no solr documents ... (maybe not exif nor a metadata file exists?)</div>
+			<div class="alert alert-info" role="alert" ng-show="integrity.countDiffers && integrity.nextStep == ''">although create thumbs (own risk)</div>
 			<div ng-show="job">Job Status: {{job.status}}</div>
+			<button ng-show="integrity.countDiffers && integrity.nextStep == ''" ng-click="createJob('thumb', integrity.name)" class="btn btn-default btn-danger" >create next Step thumb</button>
 		</div>
 		</div>
 	</div>

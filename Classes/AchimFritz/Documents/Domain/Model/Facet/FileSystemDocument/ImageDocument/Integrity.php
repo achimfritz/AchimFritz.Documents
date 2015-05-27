@@ -136,11 +136,10 @@ class Integrity extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocum
 			return 'index';
 		} elseif ($this->getReadyForRotation() === TRUE && count($this->getThumbs()) === $this->getCountFileSystem()) {
 			return 'solr';
-		} elseif ($this->getReadyForRotation() === TRUE){
-			return 'rotate';
-			// TODO this never works if no image is rotated
-		} elseif ($this->getImageIsRotated() === TRUE && $this->getReadyForRotation() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
+		} elseif ($this->getImageIsRotated() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
 			return 'thumb';
+		} elseif ($this->getReadyForRotation() === TRUE && count($this->getThumbs()) !== $this->getCountFileSystem()) {
+			return 'rotateandthumb';
 		} else {
 			return '';
 		}
