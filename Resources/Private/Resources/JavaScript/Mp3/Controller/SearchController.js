@@ -20,6 +20,7 @@
 																}
 												}
 												Solr.getData().then(function(data) {
+																$scope.songs = [];
 																angular.forEach(data.data.response.docs, function(doc) {
 																				//console.log('foo');
 																				var song = {
@@ -30,7 +31,6 @@
 																				};
 																				$scope.songs.push(song);
 																});
-																//console.log(data.data);
 																$scope.data = data.data;
 																
 												});
