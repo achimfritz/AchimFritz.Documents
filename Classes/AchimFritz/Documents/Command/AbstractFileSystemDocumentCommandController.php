@@ -11,6 +11,7 @@ use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Service\PathService;
+use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 
 /**
  * @Flow\Scope("singleton")
@@ -46,6 +47,13 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @Flow\Inject
 	 */
 	protected $configuration;
+
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Service\DocumentCollectionService
+	 */
+	protected $documentCollectionService;
+
 
 	/**
 	 * list --directory=2015_05_05_venedig
@@ -226,6 +234,43 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 				$this->outputLine('ERROR: ' . $e->getMessage());
 			}
 		}
+	}
+
+	/**
+	 * mergeCommand --name=2015_05_05_venedig/foo.jpg --path=tags/bestof,foo/bar
+	 * 
+	 * @param string $name 
+	 * @param string $path 
+	 * @return void
+	 */
+	public function mergeCommand($name, $path) {
+		$documentCollection = $this->createDocumentCollection($name, $path);
+		$cnt = $this->documentCollectionService->merge($documentCollection);
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: merged');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: cannot merge with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @param string $name 
+	 * @param string $path 
+	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection
+	 */
+	protected function createDocumentCollection($name, $path) {
+		$document = $this->documentRepository->findOneByName(trim($name));
+		if ($document instanceof Document === FALSE) {
+			$this->outputLine('document with ' . $name . ' no found');
+			$this->quit();
+		}
+		$documentCollection = new DocumentCollection();
+		$documentCollection->addDocument($document);
+		$category = new Category();
+		$category->setPath($path);
+		$documentCollection->setCategory($category);
+		return $documentCollection;
 	}
 
 	/**

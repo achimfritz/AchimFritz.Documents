@@ -39,6 +39,7 @@ module.exports = {
             'bower_components/bootstrap/js/tooltip.js',
             'bower_components/bootstrap/js/modal.js',
             'bower_components/bootstrap/js/tab.js',
+            'bower_components/bootstrap/js/dropdown.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-animate/angular-animate.js',
@@ -51,7 +52,8 @@ module.exports = {
 												'bower_components/ajax-solr/core/Parameter.js',
 												'bower_components/ajax-solr/core/ParameterStore.js',
             'bower_components/AngularJS-Toaster/toaster.js',
-            'bower_components/angular-soundmanager2/dist/angular-soundmanager2.js',
+            'bower_components/angular-soundmanager2/src/modules/soundmanager2.js',
+            'bower_components/angular-soundmanager2/src/*.js',
 												'bower_components/isotope/dist/isotope.pkgd.js'
         ],
         dest: '../../Public/Build/Libs.js'

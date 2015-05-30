@@ -10,6 +10,10 @@
 				function SearchController($scope, Solr) {
 
         $scope.songs = [];
+        $scope.letterNav = [];
+								$scope.showAlbums = false;
+
+								var currentLetter = null;
 
 								function update(search) {
 												if (search !== undefined) {
@@ -22,20 +26,21 @@
 												Solr.getData().then(function(data) {
 																$scope.songs = [];
 																angular.forEach(data.data.response.docs, function(doc) {
-																				//console.log('foo');
 																				var song = {
 																								id: doc.identifier,
 																								title: doc.id3Title,
 																								artist: doc.id3Artist,
+																								doc: doc,
 																								url: 'http://dev/' + doc.webPath
 																				};
 																				$scope.songs.push(song);
 																});
 																$scope.data = data.data;
-																
+																if ($scope.letterNav.length === 0) {
+																				$scope.letterNav = data.data.facet_counts.facet_fields.fsArtistLetter;
+																}
 												});
 								};
-
 
 
 								$scope.settings = Solr.getSettings();
@@ -50,11 +55,28 @@
 								$scope.updateCategory = function(renameCategory) {};
 
 								$scope.rmFilterQuery = function (name, value) {
+												if (name === 'id3Artist') {
+																$scope.showAlbums = false;
+												}
 												Solr.rmFilterQuery(name, value);
 												update();
 								};
 
+								$scope.selectLetter= function(value) {
+												if (currentLetter !== null) {
+																Solr.rmFilterQuery('fsArtistLetter', currentLetter);
+												}
+												currentLetter = value;
+												if (currentLetter !== null) {
+																Solr.addFilterQuery('fsArtistLetter', value);
+												}
+												update();
+								};
+
 								$scope.addFilterQuery = function(name, value) {
+												if (name === 'id3Artist') {
+																$scope.showAlbums = true;
+												}
 												Solr.addFilterQuery(name, value);
 												update();
 								};

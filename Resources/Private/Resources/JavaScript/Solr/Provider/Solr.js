@@ -54,7 +54,7 @@
 								var getSolrSettings = function() {
 												var res = {};
 												angular.forEach(settings, function (val, key) {
-																var a = key.replace('_', '.');
+																var a = key.replace(/_/g, '.');
 																res[a] = val;
 
 												});
@@ -127,7 +127,7 @@
 												// fq
 												angular.forEach(filterQueries, function(values, key) {
 																angular.forEach(values, function(value) {
-																				manager.store.addByValue('fq', key + ':' + value);
+																				manager.store.addByValue('fq', key + ':"' + value + '"');
 																});
 												});
 

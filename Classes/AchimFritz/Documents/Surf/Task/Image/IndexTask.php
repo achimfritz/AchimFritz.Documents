@@ -47,7 +47,7 @@ class IndexTask extends Task {
 			$cnt = $this->indexService->indexDirectory($directory);
 			$deployment->getLogger()->log('> indexed: ' . $cnt, LOG_DEBUG);
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
-			throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot index ' . $name, 1366558335);
+			throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot index ' . $directory . ' with exception: ' . $e->getMessage() . ' - ' . $e->getCode(), 1366558335);
 		}
 		
 	}
