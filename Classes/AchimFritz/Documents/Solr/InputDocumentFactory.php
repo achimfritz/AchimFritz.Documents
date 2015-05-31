@@ -146,7 +146,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('fsArtist', $document->getFsArtist());
 			$inputDocument->addField('fsProvider', $document->getFsProvider());
 			$inputDocument->addField('fsGenre', $document->getFsGenre());
-			$inputDocument->addField('fsArtistLetter', strtoupper(substr($document->getFsArtist(), 0, 1)));
+			$inputDocument->addField('fsArtistLetter', $document->getFsArtistLetter());
 			$id3Tag = $this->id3TagFactory->create($document);
 			$inputDocument->addField('id3Title', $id3Tag->getTitle());
 			$inputDocument->addField('id3Track', $id3Tag->getTrack());
