@@ -14,7 +14,7 @@
 
         <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
           <ul class="nav navbar-nav">
-				 <li class="dropdown" ng-repeat="(facet, result) in data.facet_counts.facet_fields" ng-hide="facet == 'id3Artist' || facet == 'id3Album' || facet == 'fsArtistLetter'">
+				 <li class="dropdown" ng-repeat="(facet, result) in data.facet_counts.facet_fields" ng-hide="facet == 'id3Artist' || facet == 'id3Album' || facet == 'artistLetter'">
 					<a  href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
 						{{facet}}
 						<span class="caret"></span>
@@ -70,7 +70,7 @@
 					</span>
 					<span ng-repeat="(key, value) in letterNav">
 						<button role="button" class="btn btn-default btn-xs" ng-click="selectLetter(key)">
-							<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsArtistLetter" ></nav-path>
+							<nav-path ng-attr-path="{{key}}" ng-attr-facet="artistLetter" ></nav-path>
 							({{value}}) 
 						</button>
 					</span>
@@ -81,7 +81,7 @@
 		  <div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="filter">
 					<span ng-repeat="(key, values) in filterQueries">
-						<button role="button" class="btn btn-default btn-danger" ng-click="rmFilterQuery(key, value)" ng-repeat="value in values" ng-hide="key == 'fsArtistLetter'">
+						<button role="button" class="btn btn-default btn-danger" ng-click="rmFilterQuery(key, value)" ng-repeat="value in values" ng-hide="key == 'artistLetter'">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							{{key}}
 							<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}"></filter-query> 
@@ -93,7 +93,7 @@
 
 		<div class="row">
 		  <div class="col-md-2">
-				<ul>
+				<ul ng-hide="hideArtists">
 					<li ng-repeat="(key, value) in data.facet_counts.facet_fields.id3Artist" ng-click="addFilterQuery('id3Artist', key)">
 						<nav-path ng-attr-path="{{key}}" ng-attr-facet="id3Artist" ></nav-path>
 						({{value}}) 
@@ -106,7 +106,7 @@
 					</li>
 				</ul>
 			</div>
-        <div class="col-md-4">
+        <div class="col-md-6">
 				<div class="row">
 					<div class="col-md-12">
 						found {{data.response.numFound}} (displaying {{settings.rows}})
@@ -131,10 +131,13 @@
 								  </button>
 								</td>
 								<td>
-									{{ song.doc.id3Artist}}
+									{{song.doc.id3Artist}}
 								</td>
 								<td>
-									{{ song.title }}
+									{{song.doc.id3Album}}
+								</td>
+								<td>
+									{{song.title}}
 								</td>
 							</tr>
 						</table>
@@ -143,7 +146,7 @@
         </div>
 
 
-        <div class="col-md-5">
+        <div class="col-md-4">
             <!-- init soundManager2 player -->
             <sound-manager></sound-manager>
 
@@ -259,9 +262,6 @@
 								<td>
 									<button class="btn btn-default btn-xs" play-from-playlist data-song="song"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
 									<button class="btn btn-default btn-xs" remove-from-playlist data-song="song"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-								</td>
-								<td>
-									{{song.doc.id3Artist}}
 								</td>
 								<td>
 									{{song.title}}

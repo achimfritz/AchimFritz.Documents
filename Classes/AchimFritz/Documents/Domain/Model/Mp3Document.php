@@ -81,13 +81,6 @@ class Mp3Document extends FileSystemDocument {
       }
    }
 
-	/**
-	 * @return string
-	 */
-	public function getFsArtistLetter() {
-		return strtoupper(substr($this->getFsArtist(), 0, 1));
-	}
-
    /**
     * @return string 
     */

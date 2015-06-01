@@ -12,6 +12,7 @@
         $scope.songs = [];
         $scope.letterNav = [];
 								$scope.showAlbums = false;
+								$scope.hideArtists = false;
 
 								var currentLetter = null;
 
@@ -37,7 +38,7 @@
 																});
 																$scope.data = data.data;
 																if ($scope.letterNav.length === 0) {
-																				$scope.letterNav = data.data.facet_counts.facet_fields.fsArtistLetter;
+																				$scope.letterNav = data.data.facet_counts.facet_fields.artistLetter;
 																}
 												});
 								};
@@ -55,7 +56,10 @@
 								$scope.updateCategory = function(renameCategory) {};
 
 								$scope.rmFilterQuery = function (name, value) {
-												if (name === 'id3Artist') {
+												if (name === 'fsGenre' && value === 'soundtrack') {
+																$scope.hideArtists = false;
+																$scope.showAlbums = false;
+												} else if (name === 'id3Artist') {
 																$scope.showAlbums = false;
 												}
 												Solr.rmFilterQuery(name, value);
@@ -64,17 +68,20 @@
 
 								$scope.selectLetter= function(value) {
 												if (currentLetter !== null) {
-																Solr.rmFilterQuery('fsArtistLetter', currentLetter);
+																Solr.rmFilterQuery('artistLetter', currentLetter);
 												}
 												currentLetter = value;
 												if (currentLetter !== null) {
-																Solr.addFilterQuery('fsArtistLetter', value);
+																Solr.addFilterQuery('artistLetter', value);
 												}
 												update();
 								};
 
 								$scope.addFilterQuery = function(name, value) {
-												if (name === 'id3Artist') {
+												if (name === 'fsGenre' && value === 'soundtrack') {
+																$scope.hideArtists = true;
+																$scope.showAlbums = true;
+												} else if (name === 'id3Artist') {
 																$scope.showAlbums = true;
 												}
 												Solr.addFilterQuery(name, value);

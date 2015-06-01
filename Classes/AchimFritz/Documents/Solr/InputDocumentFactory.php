@@ -146,7 +146,6 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('fsArtist', $document->getFsArtist());
 			$inputDocument->addField('fsProvider', $document->getFsProvider());
 			$inputDocument->addField('fsGenre', $document->getFsGenre());
-			$inputDocument->addField('fsArtistLetter', $document->getFsArtistLetter());
 			$id3Tag = $this->id3TagFactory->create($document);
 			$inputDocument->addField('id3Title', $id3Tag->getTitle());
 			$inputDocument->addField('id3Track', $id3Tag->getTrack());
@@ -155,6 +154,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('id3Year', $id3Tag->getYear());
 			$inputDocument->addField('id3Genre', $id3Tag->getGenre());
 			$inputDocument->addField('id3GenreId', $id3Tag->getGenreId());
+			$inputDocument->addField('artistLetter', strtoupper(substr($id3Tag->getArtist(), 0, 1)));
 		}
 		return $inputDocument;
 	}
