@@ -123,12 +123,12 @@
 						<table class="table table-striped">
 							<tr ng-repeat="song in songs">
 								<td>
-								  <button class="btn btn-default btn-xs" music-player data-type="playTrack" data-song="song" all-songs="songs" my-playlist="playlist">
-										<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
-								  </button>
-								  <button class="btn btn-default btn-xs" music-player data-type="addToPlaylist" data-song="song" all-songs="songs" my-playlist="playlist">
-									  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-								  </button>
+									<button class="btn btn-default btn-xs" music-player="play" add-song="song">
+											<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
+									</button>
+									<button class="btn btn-default btn-xs" music-player add-song="song">
+										  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</button>
 								</td>
 								<td>
 									{{song.doc.id3Artist}}
@@ -260,8 +260,12 @@
 						<table set-playlist class="table">
 							<tr ng-repeat="song in playlist" ng-class="{true: 'alert alert-info'}[currentPlaying.id == song.id]">
 								<td>
-									<button class="btn btn-default btn-xs" play-from-playlist data-song="song"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-									<button class="btn btn-default btn-xs" remove-from-playlist data-song="song"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+									<button play-from-playlist="song" class="btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+									</button>
+									<button class="btn btn-default btn-xs" remove-from-playlist="song" data-index="{{$index}}">
+										<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+									</button>
 								</td>
 								<td>
 									{{song.title}}
