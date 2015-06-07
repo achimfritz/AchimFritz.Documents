@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
 
 /**
  * @Flow\Scope("singleton")
@@ -26,10 +27,22 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $documentFactory;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @Flow\Inject
+	 */
+	protected $id3TagFactory;
+
+	/**
 	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService
+	 * @Flow\Inject
+	 */
+	protected $id3TagWriterService;
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Service\Mp3IndexService
@@ -50,4 +63,54 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 		return $this->mp3DocumentConfiguration;
 	}
 
+	/**
+	 * show --name=af/soundtrack/JudgementNight/01Justanothervictim.mp3
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function showCommand($name) {
+		parent::showCommand($name);
+		$document = $this->documentRepository->findOneByName($name);
+		if ($document instanceof Document) {
+			try {
+				$id3Tag = $this->id3TagFactory->create($document);
+				$this->outputLine('id3Title: ' . $id3Tag->getTitle());
+				$this->outputLine('id3Track: ' . $id3Tag->getTrack());
+				$this->outputLine('id3Album: ' . $id3Tag->getAlbum());
+				$this->outputLine('id3Artist: ' . $id3Tag->getArtist());
+				$this->outputLine('id3Year: ' . $id3Tag->getYear());
+				$this->outputLine('id3Genre: ' . $id3Tag->getGenre());
+				$this->outputLine('id3GenreId: ' . $id3Tag->getGenreId());
+			} catch (\AchimFritz\Documents\Linux\Exception $e) {
+				$this->outputLine('ERROR cannot create id3Tag: ' . $e->getMessage() . ' - ' . $e->getCode());
+			}
+
+		}
+	}
+
+
+	/**
+	 * tagCommand --name=af/soundtrack/JudgementNight/01Justanothervictim.mp3 --path=genre/Rock
+	 * 
+	 * @param string $name 
+	 * @param string $path 
+	 * @return void
+	 */
+	public function tagCommand($name, $path) {
+		$documentCollection = $this->createDocumentCollection($name, $path);
+		try {
+			$this->id3TagWriterService->tagDocumentCollection($documentCollection);
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: write tag ' . $path);
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\SolrClientException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
 }

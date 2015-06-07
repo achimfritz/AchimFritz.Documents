@@ -60,6 +60,19 @@ class Command {
 	}
 
 	/**
+	 * @param string $file 
+	 * @return void
+	 * @throws Exception
+	 */
+	public function writeId3Tag($file, $tagName, $tagValue) {
+		if (file_exists($file) === FALSE) {
+			throw new Exception('no such file ' . $file, 1419089788);
+		}
+		$cmd = 'eyeD3 --' . $tagName . '=' . $tagValue . ' ' . $file;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
 	 * @param string $cmd
 	 * @return array
 	 * @throws Exception

@@ -28,7 +28,6 @@ class DocumentRepository extends Repository {
 	 */   
 	protected $categoryRepository;
 
-
 	/**
 	 * @var \AchimFritz\Documents\Solr\InputDocumentFactoryInterface
 	 * @Flow\Inject
@@ -144,7 +143,5 @@ class DocumentRepository extends Repository {
 		$solrInputDocument = $this->solrInputDocumentFactory->create($object);
 		$this->solrClientWrapper->addDocument($solrInputDocument);
 	}
-
-
 
 }
