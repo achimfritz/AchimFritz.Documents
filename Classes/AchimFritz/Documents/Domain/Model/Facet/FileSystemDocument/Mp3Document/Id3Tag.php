@@ -154,4 +154,11 @@ class Id3Tag {
 	public function setGenreId($genreId) {
 		$this->genreId = $genreId;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getArtistLetter() {
+		return strtoupper(mb_substr($this->getArtist(), 0, 1, 'UTF-8'));
+	}
 }

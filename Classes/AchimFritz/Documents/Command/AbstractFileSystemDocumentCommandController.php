@@ -77,7 +77,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	/**
 	 * deleteAll --confirmed=FALSE
 	 *
-	 * @param boolean $confiremed
+	 * @param boolean $confirmed
 	 * @return void
 	 */
 	public function deleteAllCommand($confirmed = FALSE) {
@@ -280,9 +280,10 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @param string $paths
 	 * @param boolean $useThumb
 	 * @param boolean $useFullPath
+	 * @param integer $sortByPrefix
 	 * @return void
 	 */
-	public function exportCommand($name, $paths, $useThumb = FALSE, $useFullPath = FALSE) {
+	public function exportCommand($name, $paths, $useThumb = FALSE, $useFullPath = FALSE, $sortByPrefix = 0) {
 		$name = trim($name);
 		$documents = $this->documentRepository->findByCategoryPaths(explode(',', $paths));
 		$documents = $documents->toArray();
@@ -291,6 +292,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		$documentExport->setUseThumb($useThumb);
 		$documentExport->setUseFullPath($useFullPath);
 		$documentExport->setDocuments($documents);
+		$documentExport->setSortByPrefix($sortByPrefix);
 		$documentExport->setName($name);
 		try {
 			$name = $this->documentExportService->export($documentExport);

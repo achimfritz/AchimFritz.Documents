@@ -94,6 +94,22 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * delete --path=af/list/test
+	 *
+	 * @param string $path
+	 * @return void
+	 */
+	public function deleteCommand($path = 'af/list/test') {
+		$documentList = $this->documentListRepository->findOneByCategoryPath($path);
+		if ($documentList instanceof DocumentList === FALSE) {
+			$this->outputLine('WARNING: documentList not found with category.path ' . $path);
+			$this->quit();
+		}
+		$this->documentListRepository->remove($documentList);
+		$this->outputLine('documentList deleted');
+	}
+
+	/**
 	 * export --path=af/list/test
 	 *
 	 * @param string $path

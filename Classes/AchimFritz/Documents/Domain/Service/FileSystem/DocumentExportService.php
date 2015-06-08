@@ -70,7 +70,7 @@ class DocumentExportService extends AbstractExportService {
 		$prefix = '';
 		switch ($documentExport->getSortByPrefix()) {
 			case DocumentExport::SORT_BY_PREFIX_TIMESTAMP:
-				$prefix = $document->getMDateTime()->format('u') . '_';
+				$prefix = $document->getMDateTime()->format('U') . '_';
 				break;
 			case DocumentExport::SORT_BY_PREFIX_COUNTER:
 				$prefix = sprintf('%0' . $documentExport->getCounterLength() . 's', ($cnt + 1)). '_';

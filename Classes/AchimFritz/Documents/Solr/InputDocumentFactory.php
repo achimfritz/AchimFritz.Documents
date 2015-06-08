@@ -162,7 +162,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			foreach ($paths AS $path) {
 				$inputDocument->addField('paths', $path);
 			}
-			$inputDocument->addField('artistLetter', strtoupper(substr($id3Tag->getArtist(), 0, 1)));
+			$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
 		}
 		return $inputDocument;
 	}
