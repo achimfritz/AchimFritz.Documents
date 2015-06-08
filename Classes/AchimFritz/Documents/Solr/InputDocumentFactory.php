@@ -154,6 +154,14 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('id3Year', $id3Tag->getYear());
 			$inputDocument->addField('id3Genre', $id3Tag->getGenre());
 			$inputDocument->addField('id3GenreId', $id3Tag->getGenreId());
+			$paths = array(
+				'artist/' . $id3Tag->getArtist(),
+				'album/' . $id3Tag->getAlbum(),
+				'genre/' . $id3Tag->getGenre()
+			);
+			foreach ($paths AS $path) {
+				$inputDocument->addField('paths', $path);
+			}
 			$inputDocument->addField('artistLetter', strtoupper(substr($id3Tag->getArtist(), 0, 1)));
 		}
 		return $inputDocument;

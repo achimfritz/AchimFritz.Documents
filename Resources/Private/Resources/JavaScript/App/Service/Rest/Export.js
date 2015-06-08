@@ -4,7 +4,7 @@
     'use strict';
 
 				angular
-				.module('imageApp')
+				.module('app')
 				.service('ExportRestService', ExportRestService);
 
 				function ExportRestService($http) {

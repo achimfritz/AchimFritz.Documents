@@ -4,13 +4,13 @@
     'use strict';
 
 				angular
-				.module('imageApp')
-				.service('JobRestService', JobRestService);
+				.module('app')
+				.service('DocumentListRestService', DocumentListRestService);
 
-				function JobRestService($http) {
+				function DocumentListRestService($http) {
 
 								this.list = function() {
-												var url = 'achimfritz.documents/job/';
+												var url = 'achimfritz.documents/imagedocumentlist/';
 												return $http({
 																method: 'GET',
 																url: url,
@@ -21,7 +21,7 @@
 												})
 								};
 								this.show = function(identifier) {
-												var url = 'achimfritz.documents/job/?job[__identity]=' + identifier;
+												var url = 'achimfritz.documents/imagedocumentlist/?documentList[__identity]=' + identifier;
 												return $http({
 																method: 'GET',
 																url: url,
@@ -31,11 +31,10 @@
 																}
 												})
 								};
-								this.create = function(job) {
-												var url = 'achimfritz.documents/job/';
+								this.delete = function(identifier) {
+												var url = 'achimfritz.documents/imagedocumentlist/?documentList[__identity]=' + identifier;
 												return $http({
-																method: 'POST',
-																data: {'job': job},
+																method: 'DELETE',
 																url: url,
 																headers: {
 																				'Content-Type': 'application/json',

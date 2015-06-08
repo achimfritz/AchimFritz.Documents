@@ -23,6 +23,9 @@ class DocumentExportService extends AbstractExportService {
 	 * @return string
 	 */
 	public function export(DocumentExport $documentExport) {
+		if (count($documentExport->getDocuments()) === 0) {
+			throw new Exception('no documents', 1433773427);
+		}
 		$directory = $this->createExportDirectory($documentExport->getName());
 		$cnt = 0;
 		foreach ($documentExport->getDocuments() as $document) {

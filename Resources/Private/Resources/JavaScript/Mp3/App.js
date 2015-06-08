@@ -2,7 +2,7 @@
 
 (function () {
     'use strict';
-				angular.module('mp3App', ['solr', 'angularSoundManager'])
+				angular.module('mp3App', ['solr', 'app', 'angularSoundManager', 'toaster'])
 								.config(solrConfiguration);
 
 				function solrConfiguration(SolrProvider) {

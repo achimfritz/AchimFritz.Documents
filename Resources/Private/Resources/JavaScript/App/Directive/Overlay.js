@@ -3,7 +3,7 @@
 (function () {
     'use strict';
     angular
-        .module('imageApp')
+        .module('app')
         .directive('overlay', Overlay);
 
     /* @nInject */

@@ -4,7 +4,7 @@
     'use strict';
 
 				angular
-				.module('imageApp')
+				.module('app')
 				.service('CategoryRestService', CategoryRestService);
 
 				function CategoryRestService($http) {

@@ -2,7 +2,7 @@
 
 (function () {
     'use strict';
-				angular.module('imageApp', ['solr', 'ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster', 'ngDraggable'])
+				angular.module('imageApp', ['solr', 'app', 'ngRoute', 'angularUtils.directives.dirPagination', 'ngDialog', 'ngAnimate', 'toaster', 'ngDraggable'])
 				.config(paginationConfiguration)
 				.config(routeConfiguration)
 				.config(toasterConfiguration)

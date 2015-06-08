@@ -18,6 +18,8 @@ module.exports = {
         src: [
             'JavaScript/Solr/Module.js',
             'JavaScript/Solr/**/*.js',
+            'JavaScript/App/Module.js',
+            'JavaScript/App/**/*.js',
             'JavaScript/Image/App.js',
             'JavaScript/Image/**/*.js',
         ],
@@ -27,6 +29,8 @@ module.exports = {
         src: [
             'JavaScript/Solr/Module.js',
             'JavaScript/Solr/**/*.js',
+            'JavaScript/App/Module.js',
+            'JavaScript/App/**/*.js',
             'JavaScript/Mp3/App.js',
             'JavaScript/Mp3/**/*.js',
         ],
