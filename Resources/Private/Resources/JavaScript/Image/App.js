@@ -59,6 +59,10 @@
                 templateUrl: templatePath + 'SolrIntegrity.html',
                 controller: 'SolrIntegrityController'
             }).
+            when('/search', {
+                templateUrl: templatePath + 'Search.html',
+                controller: 'SearchController'
+            }).
             when('/integrity', {
                 templateUrl: templatePath + 'Integrity.html',
                 controller: 'IntegrityController'
