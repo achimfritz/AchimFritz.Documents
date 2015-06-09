@@ -7,20 +7,20 @@
 				.module('mp3App')
 				.controller('SearchController', SearchController);
 
-				function SearchController($scope, Solr, ExportRestService, FlashMessageService) {
+				function SearchController($scope, Solr, ExportRestService, FlashMessageService, DocumentCollectionRestService) {
 
         $scope.songs = [];
         $scope.letterNav = [];
 								$scope.showAlbums = false;
 								$scope.hideArtists = false;
 								$scope.form = '';
+								$scope.tagPath = '';
 
 								$scope.settings = Solr.getSettings();
 								$scope.facets = Solr.getFacets();
 								$scope.filterQueries = Solr.getFilterQueries();
 								$scope.search = '';
 								$scope.finished = true;
-								$scope.tagPath = '';
 								$scope.zip = ExportRestService.zip();
 
 								var currentFacetField = null;
@@ -51,13 +51,13 @@
 								};
 
 								$scope.writeTag = function() {
+												console.log($scope.tagPath);
 												//$scope.finished = false;
 
 												var docs = [];
 												angular.forEach($scope.songs, function (val, key) {
 																docs.push(val.doc);
 												});
-												console.log($scope.tagPath);
 												/*
 
 												ExportRestService.zipDownload($scope.zip, docs).then(function(data) {
