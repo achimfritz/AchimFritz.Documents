@@ -127,11 +127,6 @@
 						</button>
 					</div>
 				</div>
-				<div class="row" ng-show="data.response.numFound <= settings.rows">
-					<div class="col-md-12">
-						<h5> edit id3 tag</h5>
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<table class="table table-striped">
@@ -145,13 +140,19 @@
 									</button>
 								</td>
 								<td>
-									{{song.doc.id3Artist}}
+									<span ng-show="song.doc.id3Artist" editable-text="song.doc.id3Artist" onaftersave="updateId3Tag($data, 'artist', song.doc.identifier)">{{song.doc.id3Artist}}</span>
+									<span ng-hide="song.doc.id3Artist" editable-text="song.doc.fsArtist" onaftersave="updateId3Tag($data, 'artist', song.doc.identifier)">{{song.doc.fsArtist}}</span>
+									<strong ng-hide="song.doc.id3Artist" class="text-danger">!</strong>
 								</td>
 								<td>
-									{{song.doc.id3Album}}
+									<span ng-show="song.doc.id3Album" editable-text="song.doc.id3Album" onaftersave="updateId3Tag($data, 'album', song.doc.identifier)">{{song.doc.id3Album}}</span>
+									<span ng-hide="song.doc.id3Album" editable-text="song.doc.fsAlbum" onaftersave="updateId3Tag($data, 'album', song.doc.identifier)">{{song.doc.fsAlbum}}</span>
+									<strong ng-hide="song.doc.id3Album" class="text-danger">!</strong>
 								</td>
 								<td>
-									{{song.title}}
+									<span ng-show="song.doc.id3Title" editable-text="song.doc.id3Title" onaftersave="updateId3Tag($data, 'title', song.doc.identifier)">{{song.doc.id3Title}}</span>
+									<span ng-hide="song.doc.id3Title" editable-text="song.doc.fsTitle" onaftersave="updateId3Tag($data, 'title', song.doc.identifier)">{{song.doc.fsTitle}}</span>
+									<strong ng-hide="song.doc.id3Title" class="text-danger">!</strong>
 								</td>
 							</tr>
 						</table>
@@ -257,6 +258,14 @@
 									{{currentPlaying.doc.id3Album}}
 								</td>
 							</tr>
+							<tr>
+								<td>
+									id3Genre
+								</td>
+								<td>
+									 {{currentPlaying.doc.id3Genre}} / {{currentPlaying.doc.id3GenreId}}
+								</td>
+							</tr>
 						</table>
 					</div>
 					<div class="col-md-6">
@@ -269,26 +278,18 @@
 							</tr>
 							<tr>
 								<td>
-									id3Genre
+									fsTitle
 								</td>
 								<td>
-									 {{currentPlaying.doc.id3Genre}}
-								</td>
-							</tr>
-							<tr>
-								<td>
-									fsGenre
-								</td>
-								<td>
-									{{currentPlaying.doc.fsGenre}}
+									{{currentPlaying.doc.fsTitle}}
 								</td>
 							</tr>
 							<tr>
 								<td>
-									id3GenreId
+									fsTrack
 								</td>
 								<td>
-									{{currentPlaying.doc.id3GenreId}}
+									{{currentPlaying.doc.fsTrack}}
 								</td>
 							</tr>
 							<tr>
@@ -297,6 +298,22 @@
 								</td>
 								<td>
 									{{currentPlaying.doc.fsArtist}}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									fsAlbum
+								</td>
+								<td>
+									{{currentPlaying.doc.fsAlbum}}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									fsGenre
+								</td>
+								<td>
+									{{currentPlaying.doc.fsGenre}}
 								</td>
 							</tr>
 						</table>
