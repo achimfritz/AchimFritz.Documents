@@ -129,13 +129,12 @@
 								$scope.update = function(search) {
 												update(search);
 								};
-/*
+
 								$scope.nextPage = function(newPageNumber) {
 												console.log(newPageNumber);
-												$scope.settings.start = newPageNumber;
-												update();
+												//$scope.settings.start = newPageNumber;
+												//update();
 								};
-								*/
 
 								update();
 
