@@ -68,7 +68,7 @@ class Command {
 		if (file_exists($file) === FALSE) {
 			throw new Exception('no such file ' . $file, 1419089788);
 		}
-		$cmd = 'eyeD3 --' . $tagName . '=' . $tagValue . ' ' . $file;
+		$cmd = 'eyeD3 --' . $tagName . '="' . $tagValue . '" ' . $file;
 		return $this->executeCommand($cmd);
 	}
 

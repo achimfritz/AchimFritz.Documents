@@ -21,6 +21,12 @@ class DocumentCollectionId3TagController extends \AchimFritz\Rest\Controller\Res
 	 */
 	protected $id3TagWriterService;
 
+	/**   
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
+
 	/**
 	 * @var string
 	 */
@@ -50,21 +56,25 @@ class DocumentCollectionId3TagController extends \AchimFritz\Rest\Controller\Res
 	 * @return void
 	 */
 	public function createAction(DocumentCollection $documentCollection) {
-		/*
-		$cnt = $this->documentCollectionService->remove($documentCollection);
 		try {
+			$cnt = $this->id3TagWriterService->tagDocumentCollection($documentCollection);
 			$this->documentPersistenceManager->persistAll();
-			$this->addFlashMessage($cnt . ' Documents removed from ' . $documentCollection->getCategory()->getPath());
+			$this->addFlashMessage($cnt . ' Documents tagged with ' . $documentCollection->getCategory()->getPath());
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			$this->handleException($e);
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->handleException($e);
+		} catch (\SolrClientException $e) {
+			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->handleException($e);
 		}
+
 		if ($this->request->getReferringRequest() instanceof ActionRequest) {
 			$this->redirectToRequest($this->request->getReferringRequest());
 		} else {
-			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+			$this->redirect('index', 'Category', NULL, array('category' => $documentCollection->getCategory()));
 		}
-		*/
-		return 'foo';
 	}
 
 }

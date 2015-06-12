@@ -7,7 +7,7 @@
 				.module('mp3App')
 				.controller('SearchController', SearchController);
 
-				function SearchController($scope, Solr, ExportRestService, FlashMessageService, DocumentCollectionRestService) {
+				function SearchController($scope, Solr, angularPlayer, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
 
         $scope.songs = [];
         $scope.letterNav = [];
@@ -22,9 +22,30 @@
 								$scope.search = '';
 								$scope.finished = true;
 								$scope.zip = ExportRestService.zip();
+								//$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
+
 
 								var currentFacetField = null;
 								var currentLetter = null;
+
+								$scope.updateId3Tag = function(data, tagName, identifier) {
+												$scope.finished = false;
+												var mp3DocumentId3Tag = {
+																'document': identifier,
+																'tagValue': data,
+																'tagName': tagName
+												};
+												Mp3DocumentId3TagRestService.update(mp3DocumentId3Tag).then(
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.show(data.data.flashMessages);
+																}, 
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.error(data);
+																}
+												);
+								};
 
 								$scope.showForm = function(form) {
 												$scope.form = form;
@@ -51,26 +72,24 @@
 								};
 
 								$scope.writeTag = function() {
-												console.log($scope.tagPath);
-												//$scope.finished = false;
+												$scope.finished = false;
+
+												var playlist = angularPlayer.getPlaylist();
 
 												var docs = [];
-												angular.forEach($scope.songs, function (val, key) {
+												angular.forEach(playlist, function (val, key) {
 																docs.push(val.doc);
 												});
-												/*
-
-												ExportRestService.zipDownload($scope.zip, docs).then(function(data) {
-																$scope.finished = true;
-																var blob = new Blob([data.data], {
-																				type: 'application/zip'
-																});
-																saveAs(blob, $scope.zip.name + '.zip');
-												}, function(data) {
-																$scope.finished = true;
-																FlashMessageService.error(data);
-												});
-												*/
+												DocumentCollectionRestService.writeTag($scope.tagPath, docs).then(
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.show(data.data.flashMessages);
+																}, 
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.error(data);
+																}
+												);
 								};
 
 
@@ -110,6 +129,13 @@
 								$scope.update = function(search) {
 												update(search);
 								};
+/*
+								$scope.nextPage = function(newPageNumber) {
+												console.log(newPageNumber);
+												$scope.settings.start = newPageNumber;
+												update();
+								};
+								*/
 
 								update();
 

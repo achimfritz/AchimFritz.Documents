@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
 use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Mp3DocumentId3Tag;
 
 /**
  * @Flow\Scope("singleton")
@@ -18,7 +19,7 @@ class Id3TagWriterService {
 	/**
 	 * @var array<string>
 	 */
-	protected $validTagNames = array('artist', 'album', 'genre', 'year');
+	protected $validTagNames = array('artist', 'album', 'genre', 'year', 'title');
 
 	/**
 	 * @var \AchimFritz\Documents\Linux\Command
@@ -43,18 +44,30 @@ class Id3TagWriterService {
 	 * @throws Exception
 	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @throws \SolrClientException
-	 * @return void
+	 * @return integer
 	 */
 	public function tagDocumentCollection(DocumentCollection $documentCollection) {
 		$documents = $documentCollection->getDocuments();
 		$category = $documentCollection->getCategory();
-		$paths = $this->pathService->splitPaths($category->getPath());
+		$paths = $this->pathService->splitPath($category->getPath());
 		if (count($paths) !== 2) {
 			throw new Exception('count of path must be 2 ' . $category->getPath(), 1433219573);
 		}
 		foreach ($documents AS $document) {	
 			$this->tagDocument($document, $paths[0], $paths[1]);
 		}
+		return count($documents);
+	}
+
+	/**
+	 * @param Mp3DocumentId3Tag $mp3DocumentId3Tag 
+	 * @return void
+	 * @throws Exception
+	 * @throws \AchimFritz\Documents\Linux\Exception
+	 * @throws \SolrClientException
+	 */
+	public function tagMp3DocumentId3Tag(Mp3DocumentId3Tag $mp3DocumentId3Tag) {
+		$this->tagDocument($mp3DocumentId3Tag->getDocument(), $mp3DocumentId3Tag->getTagName(), $mp3DocumentId3Tag->getTagValue());
 	}
 
 	/**
@@ -66,7 +79,7 @@ class Id3TagWriterService {
 	 * @throws \SolrClientException
 	 * @return void
 	 */
-	public function tagDocument(Mp3Document $document, $tagName, $tagValue) {
+	protected function tagDocument(Mp3Document $document, $tagName, $tagValue) {
 		if (in_array($tagName, $this->validTagNames) === FALSE) {
 			throw new Exception('no valid tagName: ' . $tagName, 1433219572);
 		}

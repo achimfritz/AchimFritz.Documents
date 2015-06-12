@@ -22,8 +22,8 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function tagDocumentCollectionThrowsExceptionForInvalidePathCount() {
 		$id3TagWriterService = new Id3TagWriterService();
-		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('splitPaths'));
-		$pathService->expects($this->once())->method('splitPaths')->will($this->returnValue(array('foo')));
+		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('splitPath'));
+		$pathService->expects($this->once())->method('splitPath')->will($this->returnValue(array('foo')));
 		$this->inject($id3TagWriterService, 'pathService', $pathService);
 
 		$document = new Mp3Document();
@@ -40,8 +40,8 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function tagDocumentCollectionCallsTagDocument() {
 		$id3TagWriterService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument'));
 		$id3TagWriterService->expects($this->once())->method('tagDocument');
-		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('splitPaths'));
-		$pathService->expects($this->once())->method('splitPaths')->will($this->returnValue(array('foo', 'bar')));
+		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('splitPath'));
+		$pathService->expects($this->once())->method('splitPath')->will($this->returnValue(array('foo', 'bar')));
 		$this->inject($id3TagWriterService, 'pathService', $pathService);
 
 		$document = new Mp3Document();

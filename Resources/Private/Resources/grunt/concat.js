@@ -58,6 +58,7 @@ module.exports = {
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/angular-soundmanager2/src/modules/soundmanager2.js',
             'bower_components/angular-soundmanager2/src/*.js',
+												'bower_components/angular-xeditable/dist/js/xeditable.js',
 												'bower_components/isotope/dist/isotope.pkgd.js'
         ],
         dest: '../../Public/Build/Libs.js'
@@ -68,6 +69,7 @@ module.exports = {
             'bower_components/bootstrap/dist/css/bootstrap.css',
 												'bower_components/ngDialog/css/ngDialog.css',
             'bower_components/AngularJS-Toaster/toaster.css',
+												'bower_components/angular-xeditable/dist/css/xeditable.css',
 												'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
         dest: '../../Public/Build/Libs.css'

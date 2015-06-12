@@ -9,6 +9,7 @@
     "jquery-ui": "~1.11.3",
     "components-font-awesome": "*",
 				"ngDraggable": "*",
+				"angular-xeditable": "~0.1.8",
 				"file-saver": "*",
 				"ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
 				"ngDialog": "*",

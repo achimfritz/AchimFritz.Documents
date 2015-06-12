@@ -38,7 +38,7 @@ class InputDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function writeId3TagsCallsEyeD3() {
 		$root = vfsStream::setup('root', NULL, array('tmp' => array('fileName' => 'x')));
 		$command = $this->getMock('AchimFritz\Documents\Linux\Command', array('executeCommand'));
-		$command->expects($this->once())->method('executeCommand')->with('eyeD3 --foo=bar ' . vfsStream::url('root/tmp/fileName'));
+		$command->expects($this->once())->method('executeCommand')->with('eyeD3 --foo="bar" ' . vfsStream::url('root/tmp/fileName'));
 		$command->writeId3Tag(vfsStream::url('root/tmp/fileName'), 'foo', 'bar');
 	}
 
