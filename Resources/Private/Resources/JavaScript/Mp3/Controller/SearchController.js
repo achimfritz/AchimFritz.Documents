@@ -130,8 +130,9 @@
 												update(search);
 								};
 
-								$scope.nextPage = function(newPageNumber) {
-												console.log(newPageNumber);
+								$scope.nextPage = function(pageNumber) {
+												//Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
+												console.log(pageNumber);
 												//$scope.settings.start = newPageNumber;
 												//update();
 								};
