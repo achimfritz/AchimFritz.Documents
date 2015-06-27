@@ -115,15 +115,6 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 					}
 				}
 			}
-			/*
-			TODO if needed save in db
-			$imageSize = getimagesize($document->getAbsolutePath());
-			if ($imageSize[0] < $imageSize[1]) {
-				$inputDocument->addField('isUpright', TRUE);
-			} else {
-				$inputDocument->addField('isUpright', FALSE);
-			}
-			*/
 		}
 		return $inputDocument;
 	}

@@ -17,7 +17,7 @@ AchimFritz:
       mountPoint: /bilder/main
       thumbPath: /data/thumbs
       backupPath: /bilder/orig
-      geeqieMetadataPath: /data/home/af/.local/share/geeqie/metadata/bilder/main/
+      geeqieMetadataPath: /data/home/af/.local/share/geeqie/metadata
       export: /bilder/export
       webPath: thumbs/1280x1024
       webThumbPath: thumbs/64x48

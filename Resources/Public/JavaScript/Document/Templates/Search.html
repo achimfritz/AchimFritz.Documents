@@ -43,10 +43,11 @@
 
 <p>results: {{data.response.numFound}}</p>
 <ul>
-	<li ng-repeat="doc in data.response.docs">
+							<li dir-paginate="doc in docs | itemsPerPage: 20" total-items="100" current-page="1" >
 		{{doc.name}}
 	</li>
 </ul>
+						<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 
 <div class="row">
 <div class="col-md-3" ng-repeat="(facet, result) in data.facet_counts.facet_fields">

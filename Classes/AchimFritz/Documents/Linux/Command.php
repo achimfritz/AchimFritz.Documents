@@ -34,6 +34,35 @@ class Command {
 	}
 
 	/**
+	 * @param string $name
+	 * @param string $timestampFile
+	 * @return string
+	 * @throws Exception
+	 */
+	public function getImageTimestampFromTimestampFile($name, $timestampFile) {
+		if (file_exists($timestampFile) === FALSE) {
+			throw new Exception('no such file ' . $timestampFile, 1435403125);
+		}
+		$cmd = 'grep "' . $name . '" ' . $timestampFile . ' |awk -F "|" {\'print $1\'}';
+		$res = $this->executeCommand($cmd);
+		return $res[0];
+	}
+
+	/**
+	 * @param string $file 
+	 * @return intger
+	 * @throws Exception
+	 */
+	public function getImageOrientationFromGeeqieMetaDataFile($file) {
+		if (file_exists($file) === FALSE) {
+			throw new Exception('no such file ' . $file, 1435403124);
+		}
+		$cmd = 'grep "tiff:Orientation" ' . $file . ' |awk -F "\"" {\'print $2\'}';
+		$res = $this->executeCommand($cmd);
+		return (int)$res[0];
+	}
+
+	/**
 	 * @param string $file 
 	 * @return array
 	 * @throws Exception
@@ -42,7 +71,7 @@ class Command {
 		if (file_exists($file) === FALSE) {
 			throw new Exception('no such file ' . $file, 1419089786);
 		}
-		$cmd = 'exif -i ' . $file;
+		$cmd = 'exif -m ' . $file;
 		return $this->executeCommand($cmd);
 	}
 

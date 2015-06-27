@@ -50,7 +50,7 @@ class RotateTask extends Task {
 		} elseif ($integrity->getGeeqieMetadataExists() === TRUE) {
 			foreach ($fsDocs AS $fsDoc) {
 				$absolutePath = $path . '/' . $fsDoc;
-				$geeqieMetadata = $this->configuration->getGeeqieMetadataPath() . $mountPoint . '/' . $fsDoc . 'gq.xmp';
+				$geeqieMetadata = $this->configuration->getGeeqieMetadataPath() . $absolutePath . 'gq.xmp';
 				if (file_exists($geeqieMetadata) === FALSE) {
 					throw new \TYPO3\Surf\Exception\TaskExecutionException('no such file ' . $geeqieMetadata, 1432474725);
 				}

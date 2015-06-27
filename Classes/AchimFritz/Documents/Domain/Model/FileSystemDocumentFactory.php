@@ -24,13 +24,14 @@ class FileSystemDocumentFactory {
 		$document = $this->getDocument();
 		$document->setName($name);
 		$mDateTime = new \DateTime();
-		$splFileInfo = new \SplFileInfo($mountPoint . PathService::PATH_DELIMITER . $name);
+		$absolutePath = $mountPoint . PathService::PATH_DELIMITER . $name;
+		$splFileInfo = new \SplFileInfo($absolutePath);
 		if ($splFileInfo->isFile() === TRUE) {
 			$mDateTime = new \DateTime('@' . $splFileInfo->getMTime());
 			$document->setMDateTime($mDateTime);
 			$document->setFileHash(sha1_file($splFileInfo->getRealPath()));
 		} else {
-			throw new Exception('no such file ' . $splFileInfo->getRealPath(), 1420478777);
+			throw new Exception('no such file ' . $absolutePath, 1420478777);
 		}
 		return $document;
 	}
