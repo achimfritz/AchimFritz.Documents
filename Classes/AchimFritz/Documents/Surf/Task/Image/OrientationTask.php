@@ -65,7 +65,6 @@ class OrientationTask extends Task {
 		$commands = array();
 		$names = $this->directoryService->getSplFileInfosInDirectory($path, 'jpg');
 		foreach ($names as $name) {
-			echo '# ' . $name . "\n";
 			$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $name, $mountPoint);
 			$fileSystemProperty = $this->fileSystemPropertyFactory->create($document);
 			$timestamp = $fileSystemProperty->getTimestamp();
@@ -75,12 +74,13 @@ class OrientationTask extends Task {
 			$correctCommands = $this->exifService->getCorrectCommands($fileSystemProperty);
 			foreach ($correctCommands as $correctCommand) {
 				$commands[] = $correctCommand;
-				echo $correctCommand . "\n";
 			}
 		}
-		#var_dump($commands);
+		$geeqieMetadata = $this->configuration->getGeeqieMetadataPath() . $path;
+		$commands[] = 'if [ -d ' . $geeqieMetadata . ' ]; then mv ' . $geeqieMetadata . ' ' . $geeqieMetadata . '_done; fi';
 
-		#$this->shell->executeOrSimulate($commands, $node, $deployment);
+
+		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
 	}
 

@@ -20,8 +20,9 @@ class RotateAndThumbApplication  extends AbstractApplication {
 	 * @return void
 	 */
 	public function registerTasks(Workflow $workflow, Deployment $deployment) {
-		$workflow->addTask('achimfritz.documents:image:rotate', 'run', $this);
-		$workflow->addTask('achimfritz.documents:image:timestamp', 'run', $this);
+		#$workflow->addTask('achimfritz.documents:image:rotate', 'run', $this);
+		#$workflow->addTask('achimfritz.documents:image:timestamp', 'run', $this);
+		$workflow->addTask('achimfritz.documents:image:orientation', 'run', $this);
 		$workflow->addTask('achimfritz.documents:image:thumb', 'run', $this);
 	}
 

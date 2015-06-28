@@ -33,26 +33,14 @@ class ExifService {
 			$commands[] = 'exif -c ' . $absolutePath;
 			$commands[] = 'mv ' . $absolutePath . '.modified.jpeg ' . $absolutePath;
 			// default orientation
-			$commands[] = 'exiftool \'-ExifImageHeight<' . $fileSystemProperty->getHeight() . '\' \'-ExifImageWidth<' . $fileSystemProperty->getWidth() . '\' ' . $absolutePath;
+			$commands[] = 'exiftool -ExifImageHeight=' . $fileSystemProperty->getHeight() . ' -ExifImageWidth=' . $fileSystemProperty->getWidth() . ' ' . $absolutePath;
 			$commands[] = 'exiftool -Orientation=' . FileSystemProperty::ORIENTATION_0 . ' -n ' . $absolutePath;
 		}
-		$transform = TRUE;
-		switch ($fileSystemProperty->getGeeqieOrientation() ) {
-			case FileSystemProperty::GEEQIE_ORIENTATION_90:
-				$commands[] = 'jpegtran -rotate 90 ' . $absolutePath . ' > /tmp/jpegtran.jpg && mv /tmp/jpegtran.jpg ' . $absolutePath;
-				$commands[] = 'exiftool -Orientation=' . FileSystemProperty::ORIENTATION_90 . ' -n ' . $absolutePath;
-				break;
-			case FileSystemProperty::GEEQIE_ORIENTATION_180:
-				$commands[] = 'jpegtran -rotate 180 ' . $absolutePath . ' > /tmp/jpegtran.jpg && mv /tmp/jpegtran.jpg ' . $absolutePath;
-				$commands[] = 'exiftool -Orientation=' . FileSystemProperty::ORIENTATION_180 . ' -n ' . $absolutePath;
-				break;
-			case FileSystemProperty::GEEQIE_ORIENTATION_270:
-				$commands[] = 'jpegtran -rotate 270 ' . $absolutePath . ' > /tmp/jpegtran.jpg && mv /tmp/jpegtran.jpg ' . $absolutePath;
-				$commands[] = 'exiftool -Orientation=' . FileSystemProperty::ORIENTATION_270 . ' -n ' . $absolutePath;
-				break;
-			default:
-				$transform = FALSE;
-				break;
+		$transform = FALSE;
+		$orientation = $fileSystemProperty->getGeeqieOrientation();
+		if ($orientation > 0) {
+			$commands[] = 'exiftool -Orientation=' . $orientation . ' -n ' . $absolutePath;
+			$transform = TRUE;
 		}
 		if (
 			$transform === TRUE 
@@ -64,6 +52,8 @@ class ExifService {
 				$commands[] = 'exiftran -ai ' . $absolutePath;
 		}
 		$commands[] = 'touch -t ' . $fileSystemProperty->getTimestamp() . ' ' . $absolutePath;
+		$origFile = $absolutePath . '_original';
+		$commands[] = 'if [ -e ' . $origFile . ' ]; then rm ' . $origFile . '; fi';
 		return $commands;
 	}
 

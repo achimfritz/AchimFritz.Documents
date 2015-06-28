@@ -16,19 +16,27 @@ class FileSystemProperty {
 	const EXIF_KEY_VALUE_DELIMITER = "\t";
 	const EXIF_ORIENTATION_KEY = 'Orientation';
 	const EXIF_WIDTH_KEY = 'Pixel X Dimension';
-	const EXIF_HEIGHT_DIMENSION = 'Pixel Y Dimension';
+	const EXIF_HEIGHT_KEY = 'Pixel Y Dimension';
+	const ORIENTATION_NONE = 0;
 	const ORIENTATION_0 = 1;
-	const ORIENTATION_90 = 2;
-	const ORIENTATION_180 = 3;
-	const ORIENTATION_270 = 4;
 	const EXIF_ORIENTATION_0 = 'Top-left';
 	const EXIF_ORIENTATION_90 = 'Right-top';
 	const EXIF_ORIENTATION_180 = 'Bottom-right';
 	const EXIF_ORIENTATION_270 = 'Left-bottom';
-	const GEEQIE_ORIENTATION_0 = 0;
-	const GEEQIE_ORIENTATION_90 = 6;
-	const GEEQIE_ORIENTATION_180 = 1;
-	const GEEQIE_ORIENTATION_270 = 8;
+
+/*
+1	top	left side
+2	top	right side
+3	bottom	right side
+4	bottom	left side
+5	left side	top
+6	right side	top
+7	right side	bottom
+8	left side	bottom
+*/
+
+
+
 
 	/**
 	 * @var array
@@ -48,7 +56,7 @@ class FileSystemProperty {
 	/**
 	 * @var array
 	 */
-	protected $geeqieOrientation = self::GEEQIE_ORIENTATION_0;
+	protected $geeqieOrientation = self::ORIENTATION_NONE;
 
 	/**
 	 * @var integer
