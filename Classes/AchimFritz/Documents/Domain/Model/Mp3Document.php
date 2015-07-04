@@ -49,6 +49,19 @@ class Mp3Document extends FileSystemDocument {
 		return $pathArr[0];
 	}
 
+ /**
+  * @return string
+  */
+ public function getWebThumbPath() {
+     $info = $this->getSplFileInfo();
+     $parent = $info->getPathInfo();
+     $folder = new \SplfileInfo($parent->getRealPath() . '/Folder.jpg');
+     if ($folder->isFile()) {
+      return $this->getConfiguration()->getWebPath() . '/' . implode('/', $this->getPathArr()) . '/Folder.jpg';
+     }
+     return '';
+ }
+
    /**
     * @return string
     */
@@ -167,13 +180,5 @@ class Mp3Document extends FileSystemDocument {
 		}
 		return array($track, $name);
    }
-
-
-	/**
-	 * @return string
-	 */
-	protected function getWebDirectory() {
-		return $this->getConfiguration()->getWebPath() . PathService::PATH_DELIMITER . $this->getDirectoryName();
-	}
 
 }

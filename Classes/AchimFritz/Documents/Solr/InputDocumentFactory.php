@@ -137,14 +137,16 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('fsArtist', $document->getFsArtist());
 			$inputDocument->addField('fsProvider', $document->getFsProvider());
 			$inputDocument->addField('fsGenre', $document->getFsGenre());
+			$inputDocument->addField('webThumbPath', $document->getWebThumbPath());
 			$id3Tag = $this->id3TagFactory->create($document);
-			$inputDocument->addField('id3Title', $id3Tag->getTitle());
-			$inputDocument->addField('id3Track', $id3Tag->getTrack());
-			$inputDocument->addField('id3Album', $id3Tag->getAlbum());
-			$inputDocument->addField('id3Artist', $id3Tag->getArtist());
-			$inputDocument->addField('id3Year', $id3Tag->getYear());
-			$inputDocument->addField('id3Genre', $id3Tag->getGenre());
-			$inputDocument->addField('id3GenreId', $id3Tag->getGenreId());
+			$inputDocument->addField('title', $id3Tag->getTitle());
+			$inputDocument->addField('tack', $id3Tag->getTrack());
+			$inputDocument->addField('album', $id3Tag->getAlbum());
+			$inputDocument->addField('artist', $id3Tag->getArtist());
+			$inputDocument->addField('year', $id3Tag->getYear());
+			$inputDocument->addField('genre', $id3Tag->getGenre());
+			$inputDocument->addField('genreId', $id3Tag->getGenreId());
+   // ratings already added to field paths 
 			$paths = array(
 				'artist/' . $id3Tag->getArtist(),
 				'album/' . $id3Tag->getAlbum(),
@@ -153,7 +155,12 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			foreach ($paths AS $path) {
 				$inputDocument->addField('paths', $path);
 			}
-			$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
+			$categories = $document->getCategories();
+   foreach ($categories AS $category) {
+       $paths = $this->pathService->splitPath($category->getPath());
+       if ($paths[0] === 'rating') { 
+           //$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
+       }
 		}
 		return $inputDocument;
 	}

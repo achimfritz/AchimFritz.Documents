@@ -7,13 +7,15 @@
 				.module('imageApp')
 				.controller('IntegrityController', IntegrityController);
 
-				function IntegrityController($scope, IntegrityRestService, FlashMessageService, Solr, toaster, JobRestService, $timeout) {
+				function IntegrityController($scope, $filter, IntegrityRestService, FlashMessageService, Solr, toaster, JobRestService, $timeout) {
 
 								var currentDirectory = '';
 
 								$scope.view = 'list';
 								$scope.finished = false;
 								$scope.showAll = false;
+        var now = new Date();
+        $scope.newDirectory = $filter('date')(now, 'yyyy_MM_dd');
 
 								$scope.setShowAll = function(showAll) {
 												$scope.showAll = showAll;

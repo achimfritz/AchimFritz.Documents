@@ -73,6 +73,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 		parent::showCommand($name);
 		$document = $this->documentRepository->findOneByName($name);
 		if ($document instanceof Document) {
+   $this->outputLine('thumb: ' . $document->getWebThumbPath());
 			try {
 				$id3Tag = $this->id3TagFactory->create($document);
 				$this->outputLine('id3Title: ' . $id3Tag->getTitle());

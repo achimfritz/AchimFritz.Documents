@@ -71,6 +71,34 @@
 												});
 								};
 
+        $scope.rate = function(prefix, rate, doc) {
+												var docs = [];
+             if (prefix === 'track') {
+              docs.push(doc.doc);
+             } else {
+                var playlist = angularPlayer.getPlaylist();
+
+                angular.forEach(playlist, function (val, key) {
+                    docs.push(val.doc);
+                });
+             }
+
+            // TODO need new Controller: overwrite
+            /*
+             fixedPathDepth = 2
+            */
+												DocumentCollectionRestService.merge('rating/' + prefix + '/' + rate, docs).then(
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.show(data.data.flashMessages);
+																}, 
+																function(data) {
+																				$scope.finished = true;
+																				FlashMessageService.error(data);
+																}
+												);
+        };
+
 								$scope.writeTag = function() {
 												$scope.finished = false;
 
@@ -97,7 +125,7 @@
 												if (name === 'fsGenre' && value === 'soundtrack') {
 																$scope.hideArtists = false;
 																$scope.showAlbums = false;
-												} else if (name === 'id3Artist') {
+												} else if (name === 'artist') {
 																$scope.showAlbums = false;
 												}
 												Solr.rmFilterQuery(name, value);
@@ -119,7 +147,7 @@
 												if (name === 'fsGenre' && value === 'soundtrack') {
 																$scope.hideArtists = true;
 																$scope.showAlbums = true;
-												} else if (name === 'id3Artist') {
+												} else if (name === 'artist') {
 																$scope.showAlbums = true;
 												}
 												Solr.addFilterQuery(name, value);
@@ -157,8 +185,8 @@
 																				}
 																				var song = {
 																								id: doc.identifier,
-																								title: doc.id3Title,
-																								artist: doc.id3Artist,
+																								title: doc.title,
+																								artist: doc.artist,
 																								doc: doc,
 																								url: 'http://dev/' + doc.webPath
 																				};

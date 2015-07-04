@@ -98,6 +98,7 @@ class Command {
 			throw new Exception('no such file ' . $file, 1419089788);
 		}
 		$cmd = 'eyeD3 --' . $tagName . '="' . $tagValue . '" ' . $file;
+  file_put_contents('/tmp/eye.txt', $cmd . "\n", FILE_APPEND);
 		return $this->executeCommand($cmd);
 	}
 
