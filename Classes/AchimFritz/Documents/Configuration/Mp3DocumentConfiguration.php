@@ -17,4 +17,9 @@ class Mp3DocumentConfiguration extends FileSystemDocumentConfiguration {
 	 */
 	protected $documentName = 'mp3Document';
 
+	/**
+	 * @var string
+	 */
+	protected $fileExtension = 'mp3';
+
 }

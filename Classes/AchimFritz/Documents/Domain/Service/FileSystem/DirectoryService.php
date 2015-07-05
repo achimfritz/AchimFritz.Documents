@@ -15,6 +15,12 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class DirectoryService {
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\PathService
+	 * @Flow\Inject
+	 */
+	var $pathService;
+
+	/**
 	 * @param string $path 
 	 * @param string $extension 
 	 * @return string
@@ -95,12 +101,34 @@ class DirectoryService {
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->isDir() === TRUE && $fileInfo->isDot() === FALSE) {
 				$splFileInfos[] = clone($fileInfo);
-				
+			}
+		}
+		return $splFileInfos;
+	}
+
+	/**
+	 * @param string $path 
+	 * @return array<\SplFileInfo>
+	 * @throws Exception
+	 */
+	public function getDirectoriesInDirectoryRecursive($path, $depth = 0) {
+		$splFileInfos = [];
+		$baseDepth = $this->pathService->getPathDepth($path);
+		try {
+			$directory = new \RecursiveDirectoryIterator($path);
+			$iterator = new \RecursiveIteratorIterator($directory);
+		} catch (\Exception $e) {
+			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357156);
+		}
+		foreach ($iterator as $name => $fileInfo) {
+			if ($fileInfo->getFileName() === '.') {
+				if ($depth === 0 || (($this->pathService->getPathDepth($fileInfo->getRealPath()) - $baseDepth) === $depth)) {
+					$splFileInfos[] = clone($fileInfo);
+				}
 			}
 		}
 		return $splFileInfos;
 
 	}
-
-
 }
+

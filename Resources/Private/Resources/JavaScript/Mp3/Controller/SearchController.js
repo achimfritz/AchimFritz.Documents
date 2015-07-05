@@ -15,6 +15,7 @@
 								$scope.hideArtists = false;
 								$scope.form = '';
 								$scope.tagPath = '';
+								$scope.infoDoc = null;
 
 								$scope.settings = Solr.getSettings();
 								$scope.facets = Solr.getFacets();
@@ -49,6 +50,14 @@
 
 								$scope.showForm = function(form) {
 												$scope.form = form;
+								};
+
+								$scope.showInfo = function(doc) {
+												$scope.infoDoc = doc;
+								};
+
+								$scope.hideInfo = function() {
+												$scope.infoDoc = null
 								};
 
 								$scope.zipDownload = function() {

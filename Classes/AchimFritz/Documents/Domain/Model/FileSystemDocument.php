@@ -98,6 +98,13 @@ class FileSystemDocument extends Document {
 	/**
 	 * @return string
 	 */
+	public function getRelativeDirectoryName() {
+		return str_replace($this->getConfiguration()->getMountPoint() . PathService::PATH_DELIMITER, '', $this->getSplFileInfo()->getPathInfo()->getRealPath());
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getAbsolutePath() {
 		return $this->getConfiguration()->getMountPoint() . PathService::PATH_DELIMITER . $this->getName();
 	}

@@ -54,6 +54,24 @@ class IntegrityFactory {
 	}
 
 	/**
+	 * @param string $path 
+	 * @return array<\SplFileInfo>
+	 * @throws \AchimFritz\Documents\Domain\Service\FileSystem\Exception
+	 */
+	protected function getDocumentDirectories($path) {
+		$directories = $this->directoryService->getDirectoriesInDirectory($path);
+		return $directories;
+	}
+
+	/**
+	 * @param \SplFileInfo $fileInfo 
+	 * @return string
+	 */
+	protected function getIntegrityName(\SplFileInfo $fileInfo) {
+		return $fileInfo->getBaseName();
+	}
+
+	/**
 	 * @return ArrayCollection<Integrity>
 	 * @throws Exception
 	 */
@@ -68,13 +86,13 @@ class IntegrityFactory {
 		$path = $this->getConfiguration()->getMountPoint();
 		$fileExtension = $this->getConfiguration()->getFileExtension();
 		try {
-			$outerFileInfos = $this->directoryService->getDirectoriesInDirectory($path);
+			$outerFileInfos = $this->getDocumentDirectories($path);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
 			throw new Exception('cannot get files in ' . $path, 1419867692);
 		}
 		foreach ($outerFileInfos AS $outerFileInfo) {
 			$cnt = $this->directoryService->getCountOfFilesByExtension($outerFileInfo->getRealpath(), $fileExtension);
-			$name = $outerFileInfo->getBasename();
+			$name = $this->getIntegrityName($outerFileInfo);
 			$solrCnt = 0;
 			if (isset($facets[$name]) === TRUE) {
 				$solrCnt = $facets[$name];

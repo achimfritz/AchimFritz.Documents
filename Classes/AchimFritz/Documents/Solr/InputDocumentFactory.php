@@ -127,6 +127,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 	 */
 	protected function addMp3Fields(Document $document, \SolrInputDocument $inputDocument) {
 		if ($document instanceof Mp3Document === TRUE) {
+			$inputDocument->addField('mainDirectoryName', $document->getRelativeDirectoryName());
 			$inputDocument->addField('extension', 'mp3');
 			$inputDocument->addField('webPath', $document->getWebPath());
 			$inputDocument->addField('mDateTime', $document->getMDateTime()->format('Y-m-d\TH:i:s') . 'Z');
@@ -146,7 +147,8 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('year', $id3Tag->getYear());
 			$inputDocument->addField('genre', $id3Tag->getGenre());
 			$inputDocument->addField('genreId', $id3Tag->getGenreId());
-   // ratings already added to field paths 
+         $inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
+			// ratings already added to field paths 
 			$paths = array(
 				'artist/' . $id3Tag->getArtist(),
 				'album/' . $id3Tag->getAlbum(),
@@ -161,6 +163,8 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
        if ($paths[0] === 'rating') { 
            //$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
        }
+		}
+
 		}
 		return $inputDocument;
 	}
