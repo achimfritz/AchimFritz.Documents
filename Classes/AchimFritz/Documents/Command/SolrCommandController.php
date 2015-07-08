@@ -22,6 +22,12 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $documentRepository;
 
 	/**
+	 * @var \AchimFritz\Documents\Solr\Helper
+	 * @Flow\Inject
+	 */
+	protected $solrHelper;
+
+	/**
 	 * @var \AchimFritz\Documents\Solr\ClientWrapper
 	 * @Flow\Inject
 	 */
@@ -108,6 +114,20 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 			} else {
 				$this->outputLine('WARNIING: found ' . $solrCnt . ' solr documents and ' . count($documents) . ' persisted documents');
 			}
+		} catch (\SolrException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @param string $fq 
+	 * @return void
+	 */
+	public function fqCommand($fq) {
+		try {
+			$docs = $this->solrHelper->findDocumentsByFq($fq);
+			$documents = $this->documentRepository->findByNames($docs);
+			$this->outputLine('SUCCESS: found ' . count($documents) . ' documents');
 		} catch (\SolrException $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}

@@ -52,7 +52,7 @@ class Helper {
 		$queryResponse = $this->solrClientWrapper->query($query);
 		if ($queryResponse->getResponse()->response->docs) {
 			foreach ($queryResponse->getResponse()->response->docs AS $doc) {
-				$documents[] = $doc->fileName;
+				$documents[] = $doc->name;
 			}
 		}
 		return $documents;

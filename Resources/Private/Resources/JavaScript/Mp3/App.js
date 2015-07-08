@@ -30,7 +30,6 @@
 								SolrProvider.setHFacets({
 								});
 								SolrProvider.setSolrSetting('servlet', 'mp3');
-								SolrProvider.setSolrSetting('solrUrl', 'http://a1:8080/solr4/documents/');
 								SolrProvider.setSetting('sort', 'artist asc, album asc, track asc');
 								SolrProvider.setSetting('rows', 30);
 								SolrProvider.setSetting('facet_limit', 30);

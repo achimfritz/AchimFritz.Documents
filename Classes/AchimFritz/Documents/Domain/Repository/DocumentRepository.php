@@ -144,4 +144,15 @@ class DocumentRepository extends Repository {
 		$this->solrClientWrapper->addDocument($solrInputDocument);
 	}
 
+ /**
+  * @param array $names 
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+  */
+ public function findByNames(array $names) {
+		$query = $this->createQuery();
+		return $query->matching(
+			$query->in('name', $names)
+		)->execute();
+ }
+
 }
