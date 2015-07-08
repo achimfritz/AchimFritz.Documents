@@ -38,8 +38,10 @@
 				};
 
 				/* @ngInject */
-				function xeditableConfig(editableOptions) {
+				function xeditableConfig(editableOptions, editableThemes) {
 								editableOptions.theme = 'bs3';
+								editableThemes.bs3.inputClass = 'input-sm';
+								editableThemes.bs3.buttonsClass = 'btn-xs';
 				}
 
 }());

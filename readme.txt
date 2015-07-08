@@ -10,3 +10,9 @@ fq=paths:0/aa
 3.
 f.paths.facet.prefix=2/aa/foo
 fq=paths:1/aa/foo
+
+TODOs
+track missing in solr
+fe usability
+rating
+lists

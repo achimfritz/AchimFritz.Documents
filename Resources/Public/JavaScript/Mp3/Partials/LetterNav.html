@@ -1,0 +1,14 @@
+<div class="btn-group" role="group" aria-label="filter">
+	<span>
+		<button role="button" class="btn btn-danger btn-xs" ng-click="selectLetter(null)">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</button>
+	</span>
+	<span ng-repeat="(key, value) in letterNav">
+		<button role="button" class="btn btn-default btn-xs" ng-click="selectLetter(key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="artistLetter" ></nav-path>
+			({{value}}) 
+		</button>
+	</span>
+</div>
+

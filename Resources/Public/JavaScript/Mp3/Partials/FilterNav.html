@@ -1,0 +1,13 @@
+<ul ng-hide="hideArtists">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist" ng-click="addFilterQuery('artist', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist" ></nav-path>
+		({{value}}) 
+	</li>
+</ul>
+<ul ng-show="showAlbums">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album" ng-click="addFilterQuery('album', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="album" ></nav-path>
+		({{value}}) 
+	</li>
+</ul>
+

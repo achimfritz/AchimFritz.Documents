@@ -30,6 +30,10 @@ ul.typo3-widget-paginator {
 	margin: 0px;
 }
 
+td.mp3-song-list-controls {
+	min-width: 100px;
+}
+
 ul.draglist {
 	display: inline-block;
 	margin: 0 auto;
