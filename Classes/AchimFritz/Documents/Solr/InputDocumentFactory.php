@@ -141,7 +141,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('webThumbPath', $document->getWebThumbPath());
 			$id3Tag = $this->id3TagFactory->create($document);
 			$inputDocument->addField('title', $id3Tag->getTitle());
-			$inputDocument->addField('tack', $id3Tag->getTrack());
+			$inputDocument->addField('track', $id3Tag->getTrack());
 			$inputDocument->addField('album', $id3Tag->getAlbum());
 			$inputDocument->addField('artist', $id3Tag->getArtist());
 			$inputDocument->addField('year', $id3Tag->getYear());

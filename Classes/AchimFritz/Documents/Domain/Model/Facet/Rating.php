@@ -15,19 +15,21 @@ class Rating {
 
 	/**
 	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
 	 */
 	protected $name;
 
 	/**
 	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
 	 */
 	protected $value;
 
 	/**
 	 * @var integer
+	 * @Flow\Validate(type="NotEmpty")
 	 */
 	protected $rate;
-
 
 	/**
 	 * @return string

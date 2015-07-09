@@ -7,7 +7,7 @@
 				.module('mp3App')
 				.controller('SearchController', SearchController);
 
-				function SearchController($scope, Solr, angularPlayer, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
+				function SearchController($scope, Solr, angularPlayer, RatingRestService, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
 
         $scope.songs = [];
         $scope.letterNav = [];
@@ -80,23 +80,13 @@
 												});
 								};
 
-        $scope.rate = function(prefix, rate, doc) {
-												var docs = [];
-             if (prefix === 'track') {
-              docs.push(doc.doc);
-             } else {
-                var playlist = angularPlayer.getPlaylist();
-
-                angular.forEach(playlist, function (val, key) {
-                    docs.push(val.doc);
-                });
-             }
-
-            // TODO need new Controller: overwrite
-            /*
-             fixedPathDepth = 2
-            */
-												DocumentCollectionRestService.merge('rating/' + prefix + '/' + rate, docs).then(
+        $scope.rate = function(name, rate, value) {
+												var rating = {
+																'name': name,
+																'value': value,
+																'rate': rate
+												};
+												RatingRestService.update(rating).then(
 																function(data) {
 																				$scope.finished = true;
 																				FlashMessageService.show(data.data.flashMessages);

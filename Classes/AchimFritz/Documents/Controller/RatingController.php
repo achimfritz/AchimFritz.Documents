@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Command;
+namespace AchimFritz\Documents\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "De.AchimFritz.Intranet".*
@@ -7,12 +7,13 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Facet\Rating;
 
 /**
  * @Flow\Scope("singleton")
  */
-class RatingCommandController extends \TYPO3\Flow\Cli\CommandController {
+class RatingController extends \AchimFritz\Rest\Controller\RestController {
 
 	/**
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
@@ -27,40 +28,35 @@ class RatingCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $ratingService;
 
 	/**
-	 * @param string $name 
-	 * @param string $value 
+	 * @var string
+	 */
+	protected $resourceArgumentName = 'rating';
+
+	/**
+	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
 	 * @return void
 	 */
-	public function deleteCommand($name='artist', $value='ACDC') {
-		$rating = new Rating();
-		$rating->setName($name);
-		$rating->setValue($value);
+	public function deleteAction(Rating $rating) {
 		$documentCollection = $this->ratingService->deleteRatings($rating);
 		try {
 			$this->documentPersistenceManager->persistAll();
-			$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents affected');
+			$this->addFlashMessage(count($documentCollection->getDocuments()) . ' documents affected');
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage());
+			$this->handleException($e);
 		}
 	}
 
 	/**
-	 * @param string $name 
-	 * @param string $value 
-	 * @param int $rate
+	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
 	 * @return void
 	 */
-	public function updateCommand($name='artist', $value='ACDC', $rate=3) {
-		$rating = new Rating();
-		$rating->setName($name);
-		$rating->setValue($value);
-		$rating->setRate($rate);
+	public function updateAction(Rating $rating) {
 		$documentCollection = $this->ratingService->updateRatings($rating);
 		try {
 			$this->documentPersistenceManager->persistAll();
-			$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents affected');
+			$this->addFlashMessage(count($documentCollection->getDocuments()) . ' documents affected');
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage());
+			$this->handleException($e);
 		}
 	}
 		
