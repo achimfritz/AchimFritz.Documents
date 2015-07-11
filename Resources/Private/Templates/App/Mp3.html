@@ -1,6 +1,8 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
 <f:layout name="App" />
 
 <f:section name="Content">
+	<div id="solrSettings" data-solrSettings='{af:solrSettings(servlet: "mp3")}'></div>
 	<div ng-app="mp3App">
 		<div class="container-full" >
 			<div data-ng-view class="ngview" autoscroll="true"></div>

@@ -71,6 +71,10 @@ class ImageDocumentConfiguration extends FileSystemDocumentConfiguration {
 		return FLOW_PATH_DATA . '/AchimFritz.Documents/Image/tstamp/init/';
 	}
 
+    /**
+     * @param $directory
+     * @return string
+     */
 	public function getTimestampFile($directory) {
 		return FLOW_PATH_DATA . '/AchimFritz.Documents/Image/tstamp/init/' . $directory . '.txt';
 	}

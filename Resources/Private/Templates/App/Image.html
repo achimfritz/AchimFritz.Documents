@@ -1,6 +1,8 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
 <f:layout name="App" />
 
 <f:section name="Content">
+	<div id="solrSettings" data-solrSettings='{af:solrSettings(servlet: "image")}'></div>
 	<div ng-app="imageApp">
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">

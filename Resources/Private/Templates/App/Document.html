@@ -1,6 +1,8 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
 <f:layout name="App"/>
 
 <f:section name="Content">
+	<div id="solrSettings" data-solrSettings='{af:solrSettings(servlet: "select")}'></div>
 	<div ng-app="documentApp">
 		<div class="container-full" >
 			<div ng-controller="SearchController">

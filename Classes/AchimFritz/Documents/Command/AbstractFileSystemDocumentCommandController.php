@@ -171,6 +171,8 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('SUCCESS: insert ' . $cnt . ' documents for directory ' . $directory);
 		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
 			$this->outputLine('ERROR: ' . $directory . ' - ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $directory . ' - ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 

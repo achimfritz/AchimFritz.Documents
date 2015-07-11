@@ -43,8 +43,10 @@ class SaveTimeStampsTask extends Task {
 		if ($integrity->getTimestampsAreInitialized() === TRUE) {
 			throw new \TYPO3\Surf\Exception\TaskExecutionException('timestamps already initialized ' . $path, 1432474728);
 		}
-		$fsDocs = $integrity->getFilesystemDocuments();
 		$commands = array();
+		$dataDirectory = $this->configuration->getDataDirectory();
+		$commands[] = 'if [ ! -d ' . $dataDirectory . ' ]; then mkdir -p ' . $dataDirectory . '_done; fi';
+		$fsDocs = $integrity->getFilesystemDocuments();
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . '/' . $fsDoc;
 			$commands[] = 'echo -n `stat -c %y ' . $absolutePath . '| sed \'s/\(.*\)\-\(.*\)\-\(.*\) \(.*\):\(.*\):\(.*\)\.00.*/\1\2\3\4\5.\6/\'` >> ' . $this->configuration->getTimestampFile($directory);
