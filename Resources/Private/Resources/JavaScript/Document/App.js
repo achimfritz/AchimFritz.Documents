@@ -10,7 +10,7 @@
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');
             SolrProvider.setSolrSetting('servlet', solrSettings.servlet);
-            SolrProvider.setSolrSetting('solrUrl', 'http:/' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
+            SolrProvider.setSolrSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
         }
     }
 }());
