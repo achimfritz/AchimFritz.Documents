@@ -158,12 +158,12 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 				$inputDocument->addField('paths', $path);
 			}
 			$categories = $document->getCategories();
-   foreach ($categories AS $category) {
-       $paths = $this->pathService->splitPath($category->getPath());
-       if ($paths[0] === 'rating') { 
-           //$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
-       }
-		}
+			foreach ($categories AS $category) {
+				$paths = $this->pathService->splitPath($category->getPath());
+				if ($paths[0] === 'rating') { 
+					$inputDocument->addField($paths[1] . 'Rating', (int)$paths[2]);
+				}
+			}
 
 		}
 		return $inputDocument;

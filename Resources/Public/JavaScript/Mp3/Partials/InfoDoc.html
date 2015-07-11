@@ -1,7 +1,7 @@
 <button type="button" class="close" aria-label="Close" ng-click="hideInfo()"><span aria-hidden="true">&times;</span></button>
 <table class="table table-striped">
 	<tr>
-		<td>Track</td>
+		<td>Track ({{infoDoc.trackRating}})</td>
 		<td>
 			<button ng-click="rate('track', 1, infoDoc.name)" class="btn btn-xs btn-default">1</button>
 			<button ng-click="rate('track', 2, infoDoc.name)" class="btn btn-xs btn-default">2</button>
@@ -12,7 +12,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>Artist {{infoDoc.artist}}</td>
+		<td>Artist ({{infoDoc.artistRating}})</td>
 		<td>
 			<button ng-click="rate('artist', 1, infoDoc.artist)" class="btn btn-xs btn-default">1</button>
 			<button ng-click="rate('artist', 2, infoDoc.artist)" class="btn btn-xs btn-default">2</button>
@@ -23,7 +23,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>Album {{infoDoc.album}}</td>
+		<td>Album ({{infoDoc.albumRating}})</td>
 		<td>
 			<button ng-click="rate('album', 1, infoDoc.album)" class="btn btn-xs btn-default">1</button>
 			<button ng-click="rate('album', 2, infoDoc.album)" class="btn btn-xs btn-default">2</button>
@@ -51,9 +51,9 @@
 	<tr>
 		<td>Artist</td>
 		<td>
-			<span ng-show="infoDoc.album" editable-text="infoDoc.album" onaftersave="updateId3Tag($data, 'album', infoDoc.identifier)">{{infoDoc.album}}</span>
-			<span ng-hide="infoDoc.album" editable-text="infoDoc.fsAlbum" onaftersave="updateId3Tag($data, 'album', infoDoc.identifier)">{{infoDoc.fsAlbum}}</span>
-			<strong ng-hide="infoDoc.album" class="text-danger">!</strong>
+			<span ng-show="infoDoc.artist" editable-text="infoDoc.artist" onaftersave="updateId3Tag($data, 'artist', infoDoc.identifier)">{{infoDoc.artist}}</span>
+			<span ng-hide="infoDoc.artist" editable-text="infoDoc.fsArtist" onaftersave="updateId3Tag($data, 'artist', infoDoc.identifier)">{{infoDoc.fsArtist}}</span>
+			<strong ng-hide="infoDoc.artist" class="text-danger">!</strong>
 		</td>
 	</tr>
 	<tr>
