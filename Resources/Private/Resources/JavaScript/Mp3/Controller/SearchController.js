@@ -187,7 +187,7 @@
 																								title: doc.title,
 																								artist: doc.artist,
 																								doc: doc,
-																								url: 'http://dev/' + doc.webPath
+																								url: '/' + doc.webPath
 																				};
 																				$scope.songs.push(song);
 																});
