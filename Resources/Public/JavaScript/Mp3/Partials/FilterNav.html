@@ -1,13 +1,48 @@
-<ul ng-hide="hideArtists">
-	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist" ng-click="addFilterQuery('artist', key)">
-		<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist" ></nav-path>
-		({{value}}) 
+<ul class="nav nav-pills">
+	<li class="dropdown">
+		<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></button>
+		<ul class="dropdown-menu">
+			<li><a data-toggle="tab" href="#id3Artist">ID3 Artist</a></li>
+			<li><a data-toggle="tab" href="#id3Album">ID3 Album</a></li>
+			<li><a data-toggle="tab" href="#fsArtist">FS Artist</a></li>
+			<li><a data-toggle="tab" href="#fsAlbum">FS Album</a></li>
+
+		</ul>
 	</li>
 </ul>
-<ul ng-show="showAlbums">
-	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album" ng-click="addFilterQuery('album', key)">
-		<nav-path ng-attr-path="{{key}}" ng-attr-facet="album" ></nav-path>
-		({{value}}) 
-	</li>
-</ul>
+
+<div class="tab-content">
+	<div id="id3Artist" class="tab-pane active">
+		<ul>
+		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist" ng-click="addFilterQuery('artist', key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist" ></nav-path>
+			({{value}})
+		</li>
+			</ul>
+	</div>
+	<div id="id3Album" class="tab-pane">
+		<ul>
+		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album" ng-click="addFilterQuery('album', key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="album" ></nav-path>
+			({{value}})
+		</li>
+			</ul>
+	</div>
+	<div id="fsArtist" class="tab-pane">
+		<ul>
+		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsArtist" ng-click="addFilterQuery('fsArtist', key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsArtist" ></nav-path>
+			({{value}})
+		</li>
+			</ul>
+	</div>
+	<div id="fsAlbum" class="tab-pane">
+		<ul>
+		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsAlbum" ng-click="addFilterQuery('fsAlbum', key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsAlbum" ></nav-path>
+			({{value}})
+		</li>
+			</ul>
+	</div>
+</div>
 
