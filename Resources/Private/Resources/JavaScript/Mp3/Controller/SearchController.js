@@ -61,7 +61,8 @@
             $scope.finished = false;
 
             var docs = [];
-            angular.forEach($scope.songs, function (val, key) {
+            var playlist = angularPlayer.getPlaylist();
+            angular.forEach(playlist, function (val, key) {
                 docs.push(val.doc);
             });
 
@@ -96,6 +97,7 @@
         };
 
         $scope.writeTag = function () {
+            console.log($scope.tagPath);
             $scope.finished = false;
 
             var playlist = angularPlayer.getPlaylist();
