@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
+use AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService;
 
 /**
  * @Flow\Scope("singleton")
@@ -124,14 +125,15 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	}
 
 	/**
-	 * cddbCommand --path=tim/soundtrack/PulpFiction
+	 * cddbCommand --path=tim/soundtrack/PulpFiction --strategy=2
 	 *
 	 * @param string $path
+	 * @param int $strategy
 	 * @return void
 	 */
-	public function cddbCommand($path = 'tim/soundtrack/PulpFiction') {
+	public function cddbCommand($path = 'tim/soundtrack/PulpFiction', $strategy = CddbService::ARTIST_TITLE_SEPERATED_BY_MINUS_STRATEGY) {
 		try {
-			$this->cddbService->writeId3Tags($path);
+			$this->cddbService->writeId3Tags($path, $strategy);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write tag ' . $path);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {

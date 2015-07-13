@@ -60,10 +60,15 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 		
 	/**
+	 * @param string $path
 	 * @return void
 	 */
-	public function updateCommand() {
-		$documents = $this->documentRepository->findAll();
+	public function updateCommand($path = '') {
+		if ($path === '') {
+			$documents = $this->documentRepository->findAll();
+		} else {
+			$documents = $this->documentRepository->findByHead($path);
+		}
 		if (count($documents) === 0) {
 			$this->outputLine('WARNING: no documents found');
 			$this->quit();

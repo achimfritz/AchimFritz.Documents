@@ -21,9 +21,27 @@
 					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 						<li role="presentation" ng-repeat="(key, value) in result">
-							<a href="javascript:void" ng-click="addFilterQuery(facet, key)">
+							<a href="javascript:void()" ng-click="addFilterQuery(facet, key)">
 								<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}" ></nav-path>
 								({{value}}) 
+							</a>
+						</li>
+					</ul>
+				</li>
+				 <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+						Id3 Tag
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+						<li role="presentation">
+							<a href="javascript:void()" ng-click="addFilterQuery('!track', 0)">
+								must have
+							</a>
+						</li>
+						<li role="presentation">
+							<a href="javascript:void()" ng-click="addFilterQuery('track', 0)">
+								must not have
 							</a>
 						</li>
 					</ul>
