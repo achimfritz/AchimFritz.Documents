@@ -79,7 +79,7 @@ class Id3TagWriterService {
 	 * @throws \SolrClientException
 	 * @return void
 	 */
-	protected function tagDocument(Mp3Document $document, $tagName, $tagValue) {
+	public function tagDocument(Mp3Document $document, $tagName, $tagValue) {
 		if (in_array($tagName, $this->validTagNames) === FALSE) {
 			throw new Exception('no valid tagName: ' . $tagName, 1433219572);
 		}

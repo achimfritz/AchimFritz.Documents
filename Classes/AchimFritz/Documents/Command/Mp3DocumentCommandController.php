@@ -45,6 +45,12 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $id3TagWriterService;
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService
+	 * @Flow\Inject
+	 */
+	protected $cddbService;
+
+	/**
 	 * @var \AchimFritz\Documents\Domain\Service\Mp3IndexService
 	 * @Flow\Inject
 	 */
@@ -115,5 +121,28 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
+	}
+
+	/**
+	 * cddbCommand --path=tim/soundtrack/PulpFiction
+	 *
+	 * @param string $path
+	 * @return void
+	 */
+	public function cddbCommand($path = 'tim/soundtrack/PulpFiction') {
+		try {
+			$this->cddbService->writeId3Tags($path);
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: write tag ' . $path);
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\SolrClientException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+
 	}
 }

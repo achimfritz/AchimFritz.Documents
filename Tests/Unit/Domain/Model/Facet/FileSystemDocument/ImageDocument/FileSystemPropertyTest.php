@@ -18,7 +18,7 @@ class FileSystemPropertyTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function getValueReturnsValue() {
 		$fileSystemProperty = new FileSystemProperty();
-		$fileSystemProperty->setExifData('foo	bar');
+		$fileSystemProperty->setExifData(array('foo	bar'));
 		$val = $fileSystemProperty->getExifValue('foo');
 		$this->assertSame('bar', $val);
 	}
@@ -28,7 +28,7 @@ class FileSystemPropertyTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function getValueReturnsEmptyStringIfNotFound() {
 		$fileSystemProperty = new FileSystemProperty();
-		$fileSystemProperty->setExifData('baz	bar');
+		$fileSystemProperty->setExifData(array('baz	bar'));
 		$val = $fileSystemProperty->getExifValue('foo');
 		$this->assertSame('', $val);
 	}
