@@ -31,9 +31,9 @@ class Id3TagFactory {
 		$res = $this->linuxCommand->readId3Tags($file);
 		foreach ($res AS $line) {
 			$assoc = explode(':', $line);
-			if (count($assoc) === 2) {
-				$key = trim($assoc[0]);
-				$val = trim($assoc[1]);
+			if (count($assoc) > 1) {
+				$key = trim(array_shift($assoc));
+				$val = trim(implode(':', $assoc));
 				switch ($key) {
 					case 'Album':
 						$id3Tag->setAlbum($val);

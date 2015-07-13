@@ -26,7 +26,7 @@ Filename: 01-Im Ascheregen.mp3
 Artist: Casper
 Album: Hinterland
 Genre: Rap (15)
-Title: Im Ascheregen
+Title: Im Ascheregen:test
 Track: 1
 Year: 2013
 
@@ -84,7 +84,7 @@ Year: 2013
 		$factory = new Id3TagFactory();
 		$this->inject($factory, 'linuxCommand', $linuxCommand);
 		$id3Tag = $factory->create($document);
-		$this->assertSame('Im Ascheregen', $id3Tag->getTitle());
+		$this->assertSame('Im Ascheregen:test', $id3Tag->getTitle());
 	}
 
 	/**
