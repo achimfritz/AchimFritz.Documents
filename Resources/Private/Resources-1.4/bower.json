@@ -1,0 +1,15 @@
+{
+  "name": "achimfritz.Documents",
+  "dependencies": {
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "components-font-awesome": "*",
+				"angular-xeditable": "latest",
+				"file-saver": "*",
+				"ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
+				"angular-soundmanager2": "*"
+  }
+}

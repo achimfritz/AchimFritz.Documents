@@ -1,0 +1,15 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
+<f:layout name="App14"/>
+
+<f:section name="Content">
+	<div id="solrSettings" data-solrSettings='{af:solrSettings(servlet: "select")}'></div>
+	<div ng-app="documentApp">
+		<div class="container-full" >
+			<div ng-controller="SearchController">
+				<div ng-include="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Document/Templates/Search.html'" />
+			  </div>
+		</div>
+	</div>
+	<script src="{f:uri.resource(path: 'Build-1.4/Document.js')}" type="text/javascript" ></script>
+</f:section>
+

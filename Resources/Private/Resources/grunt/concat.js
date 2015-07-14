@@ -25,6 +25,17 @@ module.exports = {
         ],
         dest: '../../Public/Build/Image.js'
     },
+    mp2App: {
+        src: [
+            'JavaScript/Solr/Module.js',
+            'JavaScript/Solr/**/*.js',
+            'JavaScript/App/Module.js',
+            'JavaScript/App/**/*.js',
+            'JavaScript/Mp2/App.js',
+            'JavaScript/Mp2/**/*.js',
+        ],
+        dest: '../../Public/Build/Mp2.js'
+    },
     mp3App: {
         src: [
             'JavaScript/Solr/Module.js',

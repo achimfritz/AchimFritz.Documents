@@ -19,6 +19,12 @@ class AppController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @return void
 	 */
+	public function mp2Action() {
+	}
+
+	/**
+	 * @return void
+	 */
 	public function mp3Action() {
 	}
 
