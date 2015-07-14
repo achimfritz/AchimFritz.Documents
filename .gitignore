@@ -1,3 +1,6 @@
 Resources/Private/Resources/bower_components
 Resources/Private/Resources/node_modules
 Resources/Public/Build/*
+Resources/Private/Resources-1.4/bower_components
+Resources/Private/Resources-1.4/node_modules
+Resources/Public/Build-1.4/*
