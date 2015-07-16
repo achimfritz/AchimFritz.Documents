@@ -1,28 +1,27 @@
-    <nav class="navbar navbar-default navbar-static">
-      <div class="container-fluid">
-        <div class="navbar-header">
-			<span class="navbar-brand">MP3</span>
-        </div>
-
-
-        <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
-          <ul class="nav navbar-nav">
-				 <li class="dropdown" ng-repeat="(facet, result) in data.facet_counts.facet_fields" ng-hide="facet == 'artist' || facet == 'album' || facet == 'artistLetter' || facet == 'fsArtist' || facet == 'fsAlbum'">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+<nav class="navbar navbar-default navbar-static">
+	<div class="container-fluid">
+		  
+		<div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown" ng-repeat="(facet, result) in data.facet_counts.facet_fields"
+					ng-hide="facet == 'artist' || facet == 'album' || facet == 'artistLetter' || facet == 'fsArtist' || facet == 'fsAlbum'">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+					   aria-expanded="false">
 						{{facet}}
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 						<li role="presentation" ng-repeat="(key, value) in result">
 							<a href="javascript:void()" ng-click="addFilterQuery(facet, key)">
-								<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}" ></nav-path>
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}"></nav-path>
 								({{value}})
 							</a>
 						</li>
 					</ul>
 				</li>
-				 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+					   aria-expanded="false">
 						Id3 Tag
 						<span class="caret"></span>
 					</a>
@@ -40,22 +39,25 @@
 					</ul>
 				</li>
 				<li>
-					<form novalidate class="navbar-form navbar-left navbar-input-group" ng-submit="update(search)" >
+					<form novalidate class="navbar-form navbar-left navbar-input-group" ng-submit="update(search)">
 						<div class="form-group">
 							<label class="control-label" for="search">search: </label>
-							<input class="form-control" id="search" type="text" data-autocomplete data-ng-model="search" />
+							<input class="form-control" id="search" type="text" data-autocomplete
+								   data-ng-model="search"/>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="submit">&nbsp;</label>
-							<input type="submit" id="submit" value="Submit" class="form-control btn btn-default" />
+							<input type="submit" id="submit" value="Submit" class="form-control btn btn-default"/>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="rows">rows: </label>
-							<input type="text" class="form-control" id="rows" data-ng-model="settings.rows" ng-change="update()" />
+							<input type="text" class="form-control" id="rows" data-ng-model="settings.rows"
+								   ng-change="update()"/>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="facet_limit">facet.limit: </label>
-							<input type="text" class="form-control" id="facet_limit" data-ng-model="settings.facet_limit" ng-change="update()" />
+							<input type="text" class="form-control" id="facet_limit"
+								   data-ng-model="settings.facet_limit" ng-change="update()"/>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="sort">sort: </label>
@@ -66,10 +68,11 @@
 								<option value="artist asc">artist asc</option>
 							</select>
 						</div>
-					</div>
-				</li>
-         </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav> <!-- /navbar-example -->
+		</div>
+		</li>
+		</ul>
+	</div>
+	<!-- /.nav-collapse -->
+	</div><!-- /.container-fluid -->
+</nav> <!-- /navbar-example -->
 
