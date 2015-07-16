@@ -6,6 +6,7 @@
     "angular-route": "latest",
     "jquery": "latest",
     "jquery-ui": "latest",
+    "AngularJS-Toaster": "latest",
     "components-font-awesome": "*",
 				"angular-xeditable": "latest",
 				"file-saver": "*",
