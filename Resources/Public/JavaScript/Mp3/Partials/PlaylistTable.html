@@ -7,9 +7,12 @@
 			<button class="btn btn-default btn-xs" remove-from-playlist="song" data-index="{{$index}}">
 				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 			</button>
+			<button class="btn btn-default btn-xs" ng-click="showInfo(song.doc)">
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			</button>
 		</td>
 		<td>
-			{{song.title}}
+			{{song.doc.title}}
 		</td>
 	</tr>
 </table>

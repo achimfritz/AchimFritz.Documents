@@ -1,0 +1,30 @@
+
+<ul ng-show="filterNavView == 'artist'">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist" ng-click="addFilterQuery('artist', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist"></nav-path>
+		({{value}})
+	</li>
+</ul>
+
+<ul ng-show="filterNavView == 'album'">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album" ng-click="addFilterQuery('album', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="album"></nav-path>
+		({{value}})
+	</li>
+</ul>
+
+<ul ng-show="filterNavView == 'fsArtist'">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsArtist" ng-click="addFilterQuery('fsArtist', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsArtist"></nav-path>
+		({{value}})
+	</li>
+</ul>
+
+<ul ng-show="filterNavView == 'fsAlbum'">
+	<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsAlbum" ng-click="addFilterQuery('fsAlbum', key)">
+		<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsAlbum"></nav-path>
+		({{value}})
+	</li>
+</ul>
+
+

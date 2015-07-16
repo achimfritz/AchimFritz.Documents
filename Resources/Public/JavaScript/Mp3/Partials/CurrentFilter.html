@@ -1,6 +1,6 @@
 <div class="btn-group" role="group" aria-label="filter">
 	<span ng-repeat="(key, values) in filterQueries">
-		  <button role="button" class="btn btn-default btn-danger" ng-click="rmFilterQuery(key, value)" ng-repeat="value in values" ng-hide="key == 'artistLetter'">
+		  <button role="button" class="btn btn-default btn-danger btn-xs" ng-click="rmFilterQuery(key, value)" ng-repeat="value in values" ng-hide="key == 'artistLetter'">
 				 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				 {{key}}
 				 <filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}"></filter-query> 

@@ -8,6 +8,7 @@
 <ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/Nav.html'"></ng-include>
 
 
+
 <div class="row">
   <div class="col-md-12">
 		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/LetterNav.html'"></ng-include>
@@ -21,10 +22,21 @@
 
 <div class="row">
 	<div class="col-md-2" ng-hide="infoDoc">
-		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/FilterNav.html'"></ng-include>
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/FilterNav.html'"></ng-include>
+			</div>
+		</div>
+		<div class="row">&nbsp;</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/Filter.html'"></ng-include>
+			</div>
+		</div>
 	</div>
+
 	<div class="col-md-2" ng-show="infoDoc">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/InfoDoc.html'"></ng-include>
+		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/InfoDoc.html'"></ng-include>
 	</div>
 
 	<div class="col-md-6">
@@ -33,6 +45,7 @@
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/ResultHead.html'"></ng-include>
 			</div>
 		</div>
+		<div class="row">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/ResultTable.html'"></ng-include>
@@ -40,7 +53,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<!-- init soundManager2 player -->
 		<sound-manager></sound-manager>
 
@@ -82,16 +95,17 @@
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/PlayerControls2.html'"></ng-include>
 			</div>
 		</div>
+		<div class="row">&nbsp;</div>
 
 		<div class="row" ng-show="currentPlaying && playlist.length">
-			<div class="col-md-6" ng-show="currentPlaying.doc.webThumbPath">
+			<div class="col-md-5" ng-show="currentPlaying.doc.webThumbPath">
 				<img ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="200" height="200" />
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-7">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/CurrentPlaying.html'"></ng-include>
 			</div>
 		</div>
-
+		<div class="row">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/PlaylistTable.html'"></ng-include>

@@ -21,9 +21,17 @@
         $scope.search = '';
         $scope.finished = true;
         $scope.zip = ExportRestService.zip();
+        $scope.filterNavView = 'artist';
+
+        console.log($scope.filterQueries);
+
 
         var currentFacetField = null;
         var currentLetter = null;
+
+        $scope.setFilterNavView = function(filter) {
+            $scope.filterNavView = filter;
+        };
 
         $scope.updateId3Tag = function (data, tagName, identifier) {
             $scope.finished = false;
