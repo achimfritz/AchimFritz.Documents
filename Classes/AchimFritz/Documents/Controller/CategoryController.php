@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Category;
 
-class CategoryController extends \AchimFritz\Rest\Controller\RestController {
+class CategoryController extends RestController {
 
 	/**   
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager

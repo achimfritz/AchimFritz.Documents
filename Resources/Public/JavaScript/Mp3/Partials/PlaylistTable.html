@@ -1,4 +1,4 @@
-<table set-playlist class="table">
+<table set-playlist class="table small-table">
 	<tr ng-repeat="song in playlist" ng-class="{true: 'alert alert-info'}[currentPlaying.id == song.id]">
 		<td>
 			<button play-from-playlist="song" class="btn btn-default btn-xs">

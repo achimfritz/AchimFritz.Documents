@@ -13,7 +13,7 @@ use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
-class DocumentListController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentListController extends RestController {
 
 	/**
 	 * @Flow\Inject
@@ -26,11 +26,6 @@ class DocumentListController extends \AchimFritz\Rest\Controller\RestController 
 	 * @Flow\Inject
 	 */
 	protected $documentPersistenceManager;
-
-	/**
-	 * @var array
-	 */
-	protected $viewFormatToObjectNameMap = array('json' => 'AchimFritz\\Documents\\Mvc\\View\\JsonView');
 
 
 	/**

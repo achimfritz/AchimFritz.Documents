@@ -13,7 +13,7 @@ use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
-class DocumentCollectionRemoveController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentCollectionRemoveController extends RestController {
 
 	/**
 	 * @Flow\Inject

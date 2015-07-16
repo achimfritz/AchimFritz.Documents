@@ -1,31 +1,30 @@
-<table class="table table-striped">
-	<tr dir-paginate="song in songs | itemsPerPage: settings.rows" total-items="data.response.numFound" current-page="settings.start / settings.rows + 1" >
+<table class="table table-striped small-table">
+	<tr ng-repeat="song in songs">
 		<td class="mp3-song-list-controls">
 			<button class="btn btn-default btn-xs" music-player="play" add-song="song">
-					<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
+				<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
 			</button>
 			<button class="btn btn-default btn-xs" music-player add-song="song">
-				  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</button>
 			<button class="btn btn-default btn-xs" ng-click="showInfo(song.doc)">
 				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 			</button>
 		</td>
 		<td>
-			<span ng-show="song.doc.artist" editable-text="song.doc.artist" onaftersave="updateId3Tag($data, 'artist', song.doc.identifier)">{{song.doc.artist}}</span>
-			<span ng-hide="song.doc.artist" editable-text="song.doc.fsArtist" onaftersave="updateId3Tag($data, 'artist', song.doc.identifier)">{{song.doc.fsArtist}}</span>
+			<span ng-show="song.doc.artist">{{song.doc.artist}}</span>
+			<span ng-hide="song.doc.artist">{{song.doc.fsArtist}}</span>
 			<strong ng-hide="song.doc.artist" class="text-danger">!</strong>
 		</td>
 		<td>
-			<span ng-show="song.doc.album" editable-text="song.doc.album" onaftersave="updateId3Tag($data, 'album', song.doc.identifier)">{{song.doc.album}}</span>
-			<span ng-hide="song.doc.album" editable-text="song.doc.fsAlbum" onaftersave="updateId3Tag($data, 'album', song.doc.identifier)">{{song.doc.fsAlbum}}</span>
+			<span ng-show="song.doc.album">{{song.doc.album}}</span>
+			<span ng-hide="song.doc.album">{{song.doc.fsAlbum}}</span>
 			<strong ng-hide="song.doc.album" class="text-danger">!</strong>
 		</td>
 		<td>
-			<span ng-show="song.doc.title" editable-text="song.doc.title" onaftersave="updateId3Tag($data, 'title', song.doc.identifier)">{{song.doc.title}}</span>
-			<span ng-hide="song.doc.title" editable-text="song.doc.fsTitle" onaftersave="updateId3Tag($data, 'title', song.doc.identifier)">{{song.doc.fsTitle}}</span>
+			<span ng-show="song.doc.title" >{{song.doc.title}}</span>
+			<span ng-hide="song.doc.title" >{{song.doc.fsTitle}}</span>
 			<strong ng-hide="song.doc.title" class="text-danger">!</strong>
 		</td>
 	</tr>
 </table>
-

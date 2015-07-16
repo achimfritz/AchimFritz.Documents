@@ -21,7 +21,6 @@
         $scope.search = '';
         $scope.finished = true;
         $scope.zip = ExportRestService.zip();
-        //$scope.currentPage = ($scope.settings['start']/$scope.settings['rows']) + 1;
 
         var currentFacetField = null;
         var currentLetter = null;
@@ -141,13 +140,6 @@
 
         $scope.update = function (search) {
             update(search);
-        };
-
-        $scope.nextPage = function (pageNumber) {
-            //Solr.setSetting('start', ((pageNumber - 1) * $scope.settings.rows).toString());
-            console.log(pageNumber);
-            //$scope.settings.start = newPageNumber;
-            //update();
         };
 
         update();

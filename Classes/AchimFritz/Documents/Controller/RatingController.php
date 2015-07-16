@@ -13,7 +13,7 @@ use AchimFritz\Documents\Domain\Model\Facet\Rating;
 /**
  * @Flow\Scope("singleton")
  */
-class RatingController extends \AchimFritz\Rest\Controller\RestController {
+class RatingController extends RestController {
 
 	/**
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager

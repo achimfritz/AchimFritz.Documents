@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Mp3DocumentId3Tag;
 
-class Mp3DocumentId3TagController extends \AchimFritz\Rest\Controller\RestController {
+class Mp3DocumentId3TagController extends RestController {
 
 	/**
 	 * @Flow\Inject

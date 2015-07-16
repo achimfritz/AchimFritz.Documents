@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Facet\RenameCategory;
 
-class RenameCategoryController extends \AchimFritz\Rest\Controller\RestController {
+class RenameCategoryController extends RestController {
 
 	/**   
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager

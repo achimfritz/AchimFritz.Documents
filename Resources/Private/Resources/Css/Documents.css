@@ -3,10 +3,9 @@
 }
 
 .container-full {
-  margin: 0 auto;
-  width: 100%;
+	margin: 0 auto;
+	width: 100%;
 }
-
 
 .iso-item .iso-img-item {
 	padding: 3px;
@@ -23,9 +22,9 @@ ul.pagination {
 }
 
 ul.typo3-widget-paginator {
-	list-style-image:none;
-	list-style-position:outside;
-	list-style-type:none;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
 	padding: 0px;
 	margin: 0px;
 }
@@ -47,66 +46,74 @@ ul.typo3-widget-paginator li {
 	width: 1250px;
 }
 
-
 div.overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: #333;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-  z-index: 999995;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: #333333;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+	z-index: 999995;
 }
 
 .ui-autocomplete {
 	z-index: 999999;
 }
 
-        [ng-drag] {
-            -moz-user-select: -moz-none;
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+[ng-drag] {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
-        [ng-drag] {
-            width: 64px;
-            height: 48px;
-            /*background: rgba(255, 0, 0, 0.5);*/
-            /*color: white;*/
-            text-align: center;
-            padding-top: 0px;
-            display: block;
-            cursor: move;
-        }
+[ng-drag] {
+	width: 64px;
+	height: 48px;
+	/*background: rgba(255, 0, 0, 0.5);*/
+	/*color: white;*/
+	text-align: center;
+	padding-top: 0px;
+	display: block;
+	cursor: move;
+}
 
-        [ng-drag].drag-over {
-            border: solid 1px red;
-        }
+[ng-drag].drag-over {
+	border: solid 1px red;
+}
 
-        [ng-drag].dragging {
-            opacity: 0.5;
-        }
+[ng-drag].dragging {
+	opacity: 0.5;
+}
 
-        [ng-drop] {
-            /*background: rgba(0, 0, 0, 0.25);*/
-            text-align: center;
-            display: block;
-            position: relative;
-            padding: 5px;
-            width: 74px;
-            height: 58px;
-            float: left;
-        }
+[ng-drop] {
+	/*background: rgba(0, 0, 0, 0.25);*/
+	text-align: center;
+	display: block;
+	position: relative;
+	padding: 5px;
+	width: 74px;
+	height: 58px;
+	float: left;
+}
 
-        [ng-drop].drag-enter {
-            border: solid 2px red;
-        }
+[ng-drop].drag-enter {
+	border: solid 2px red;
+}
 
-        [ng-drop] div {
-            position: relative;
-            z-index: 2;
-        }
+[ng-drop] div {
+	position: relative;
+	z-index: 2;
+}
+
+.small-table > thead > tr > th,
+.small-table > tbody > tr > th,
+.small-table > tfoot > tr > th,
+.small-table > thead > tr > td,
+.small-table > tbody > tr > td,
+.small-table > tfoot > tr > td {
+	padding: 2px;
+}

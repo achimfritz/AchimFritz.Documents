@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 
-class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestController {
+class ImageIntegrityController extends RestController {
 
 	/**
 	 * @var string
@@ -33,11 +33,6 @@ class ImageIntegrityController extends \AchimFritz\Rest\Controller\RestControlle
 	 * @Flow\Inject
 	 */
 	protected $indexService;
-
-	/**
-	 * @var array
-	 */
-	protected $viewFormatToObjectNameMap = array('json' => 'AchimFritz\\Documents\\Mvc\\View\\JsonView');
 
 	/**
 	 * @return void

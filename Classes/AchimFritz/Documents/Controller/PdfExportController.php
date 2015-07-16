@@ -11,7 +11,7 @@ use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport;
 
-class PdfExportController extends \AchimFritz\Rest\Controller\RestController {
+class PdfExportController extends RestController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\PdfExportService

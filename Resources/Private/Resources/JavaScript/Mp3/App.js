@@ -2,16 +2,10 @@
 
 (function () {
     'use strict';
-    angular.module('mp3App', ['solr', 'app', 'ngRoute', 'xeditable', 'angularUtils.directives.dirPagination', 'angularSoundManager', 'toaster'])
+    angular.module('mp3App', ['solr', 'app', 'ngRoute', 'xeditable', 'angularSoundManager', 'toaster'])
         .config(routeConfiguration)
-        .config(paginationConfiguration)
         .config(solrConfiguration)
         .run(xeditableConfig);
-
-    /* @ngInject */
-    function paginationConfiguration(paginationTemplateProvider) {
-        paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/dirPagination.tpl.html');
-    }
 
     /* @ngInject */
     function routeConfiguration($routeProvider) {

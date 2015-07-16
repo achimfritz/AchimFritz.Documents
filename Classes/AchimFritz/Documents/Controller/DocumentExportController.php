@@ -13,7 +13,7 @@ use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
 use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
 
-class DocumentExportController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentExportController extends RestController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService

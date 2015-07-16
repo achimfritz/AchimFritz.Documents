@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Job;
 
-class JobController extends \AchimFritz\Rest\Controller\RestController {
+class JobController extends RestController {
 
 	/**
 	 * @Flow\Inject

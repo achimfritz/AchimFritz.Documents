@@ -11,7 +11,7 @@ use AchimFritz\Documents\Domain\Model\DocumentList;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
-class DocumentListMergeController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentListMergeController extends RestController {
 
 	/**
 	 * @Flow\Inject

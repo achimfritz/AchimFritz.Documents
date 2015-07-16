@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Model\Document;
 
-class DocumentController extends \AchimFritz\Rest\Controller\RestController {
+class DocumentController extends RestController {
 
 	/**
 	 * @Flow\Inject

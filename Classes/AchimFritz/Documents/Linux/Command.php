@@ -94,8 +94,8 @@ class Command {
 	 * @throws Exception
 	 */
 	public function writeId3Tag($file, $tagName, $tagValue) {
-		if (file_exists($file) === FALSE) {
-			throw new Exception('no such file ' . $file, 1419089788);
+		if (file_exists($file) === FALSE || is_writable($file) === FALSE) {
+			throw new Exception('no such file or not writeable ' . $file, 1419089788);
 		}
 		$cmd = 'eyeD3 --' . $tagName . '="' . $tagValue . '" ' . $file;
 		return $this->executeCommand($cmd);

@@ -9,6 +9,15 @@ class JsonView extends \AchimFritz\Rest\Mvc\View\JsonView {
 	 * @var array
 	 */
 	protected $configuration = array(
+		'mp3Document' => array(
+			'_exclude' => array('allCategories', 'category')
+		),
+		'imageDocument' => array(
+			'_exclude' => array('allCategories', 'category')
+		),
+		'document' => array(
+			'_exclude' => array('allCategories', 'category')
+		),
 		'documentLists' => array(
 			'_descendAll' => array(
 				'_descend' => array(
