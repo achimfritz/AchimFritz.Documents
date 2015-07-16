@@ -5,7 +5,7 @@
     angular.module('mp2App', ['solr', 'app', 'ngRoute', 'angularSoundManager', 'xeditable', 'toaster'])
         .config(routeConfiguration)
         .config(solrConfiguration)
-        run(xeditableConfig);
+        .run(xeditableConfig);
 
     /* @ngInject */
     function routeConfiguration($routeProvider) {
