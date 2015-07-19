@@ -7,7 +7,7 @@
         .module('mp3App')
         .controller('SearchController', SearchController);
 
-    function SearchController($scope, Solr, angularPlayer, RatingRestService, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
+    function SearchController($scope, Solr, angularPlayer, CddbRestService, RatingRestService, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
 
         $scope.songs = [];
         $scope.letterNav = [];
@@ -21,9 +21,9 @@
         $scope.search = '';
         $scope.finished = true;
         $scope.zip = ExportRestService.zip();
+        $scope.cddb = CddbRestService.cddb();
         $scope.filterNavView = 'artist';
-
-        console.log($scope.filterQueries);
+        $scope.cddbSearch = '';
 
 
         var currentFacetField = null;
@@ -62,6 +62,18 @@
 
         $scope.hideInfo = function () {
             $scope.infoDoc = null
+        };
+
+        $scope.cddbUpdate = function () {
+            $scope.finished = false;
+
+            CddbRestService.update($scope.cddb).then(function (data) {
+                $scope.finished = true;
+                FlashMessageService.show(data.data.flashMessages);
+            }, function (data) {
+                $scope.finished = true;
+                FlashMessageService.error(data);
+            });
         };
 
         $scope.zipDownload = function () {
@@ -167,6 +179,10 @@
                     if ($scope.zip.name === '') {
                         $scope.zip.name = doc.fsArtist + '_' + doc.fsAlbum;
                         $scope.zip.name = $scope.zip.name.replace(/ /g, '');
+                    }
+                    if ($scope.cddb.path === '') {
+                        $scope.cddb.path = doc.mainDirectoryName;
+                        $scope.cddbSearch = doc.fsArtist + ' ' + doc.fsAlbum;
                     }
                     var song = {
                         id: doc.identifier,

@@ -3,38 +3,38 @@
 (function () {
     'use strict';
 
-				angular
-				.module('app')
-				.service('RatingRestService', RatingRestService);
+    angular
+        .module('app')
+        .service('RatingRestService', RatingRestService);
 
-				function RatingRestService($http) {
+    function RatingRestService($http) {
 
-								this.delete = function(rating) {
-												var url = 'achimfritz.documents/rating/';
-												return $http({
-																method: 'DELETE',
-																data: {'rating': rating},
-																url: url,
-																headers: {
-																				'Content-Type': 'application/json',
-																				'Accept': 'application/json'
-																}
-												})
-								};
+        this.delete = function (rating) {
+            var url = 'achimfritz.documents/rating/';
+            return $http({
+                method: 'DELETE',
+                data: {'rating': rating},
+                url: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
 
-								this.update = function(rating) {
-												var url = 'achimfritz.documents/rating/';
-												return $http({
-																method: 'PUT',
-																data: {'rating': rating},
-																url: url,
-																headers: {
-																				'Content-Type': 'application/json',
-																				'Accept': 'application/json'
-																}
-												})
-								};
-				}
+        this.update = function (rating) {
+            var url = 'achimfritz.documents/rating/';
+            return $http({
+                method: 'PUT',
+                data: {'rating': rating},
+                url: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+    }
 }());
 
 

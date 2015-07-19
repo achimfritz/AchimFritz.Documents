@@ -134,10 +134,10 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 * @return void
 	 */
 	public function cddbCommand($path = 'tim/album/Queen_LatifahSheSA2002Various', $url = 'http://www.freedb.org/freedb/misc/9d0c4a0c', $format = Cddb::TITLE_FORMAT) {
-			$cddb = new Cddb();
-			$cddb->setPath($path);
-			$cddb->setUrl($url);
-			$cddb->setFormat($format);
+		$cddb = new Cddb();
+		$cddb->setPath($path);
+		$cddb->setUrl($url);
+		$cddb->setFormat($format);
 		try {
 			$this->cddbService->writeId3Tags($cddb);
 			$this->documentPersistenceManager->persistAll();

@@ -2,5 +2,4 @@ rm /bilder/admin
 
 index mp3 track length
 facet.limit getrennt
-FE: cddb
 

@@ -16,7 +16,7 @@ use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Cddb;
  */
 class CddbService {
 
-	const FILENAME = 'cddb.txt';
+	const FILENAME = 'Cddb.txt';
 	const ARTIST_ALBUM_DELIMITER = ' / ';
 	const ARTIST_TITLE_DELIMITER = ' - ';
 	const CDDB_TITLE = 'TTITLE';

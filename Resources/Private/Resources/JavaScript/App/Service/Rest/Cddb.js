@@ -5,14 +5,23 @@
 
     angular
         .module('app')
-        .service('Mp3DocumentId3TagRestService', Mp3DocumentId3TagRestService);
+        .service('CddbRestService', CddbRestService);
 
-    function Mp3DocumentId3TagRestService($http) {
+    function CddbRestService($http) {
 
-        this.update = function (mp3DocumentId3Tag) {
-            var url = 'achimfritz.documents/mp3documentid3tag/';
+        this.cddb = function () {
+            var cddb = {
+                'path': '',
+                'format': 1,
+                'url': ''
+            };
+            return cddb;
+        };
+
+        this.update = function (cddb) {
+            var url = 'achimfritz.documents/cddb/';
             var data = {
-                'mp3DocumentId3Tag': mp3DocumentId3Tag
+                'cddb': cddb
             };
             return $http({
                 method: 'PUT',

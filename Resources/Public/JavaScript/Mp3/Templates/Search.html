@@ -86,7 +86,43 @@
 				<input class="form-control btn btn-danger" type="submit" ng-click="showForm('')" value="Cancel" />
 			</div>
 		</div>
-
+		<div class="row form-group" ng-show="form === 'cddb'">
+			<form target="_blank" method="get" action="http://www.freedb.org/freedb_search.php">
+				<div class="col-md-6">
+					<input class="form-control" type="text" name="words" data-ng-model="cddbSearch" />
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn btn-danger" type="submit" value="Search Cddb" />
+				</div>
+			</form>
+		</div>
+		<div class="row form-group" ng-show="form === 'cddb'">
+			<div class="col-md-6">
+				<label class="control-label">Path</label>
+				<input class="form-control" type="text" data-ng-model="cddb.path" />
+			</div>
+			<div class="col-md-6">
+				<label class="control-label">Format</label>
+				<select class="form-control" data-ng-model="cddb.format">
+					<option value="1">Title (Album)</option>
+					<option value="2">Artist Title (Samper)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row form-group" ng-show="form === 'cddb'">
+			<div class="col-md-12">
+				<label class="control-label">Url</label>
+				<input class="form-control" type="text" data-ng-model="cddb.url" />
+			</div>
+		</div>
+		<div class="row form-group" ng-show="form === 'cddb'">
+			<div class="col-md-3">
+				<input class="form-control btn btn-danger" type="submit" ng-click="cddbUpdate()" value="Cddb Update" />
+			</div>
+			<div class="col-md-2">
+				<input class="form-control btn btn-danger" type="submit" ng-click="showForm('')" value="Cancel" />
+			</div>
+		</div>
 
 		
 		<div class="row">
