@@ -132,7 +132,7 @@ class CddbService {
 		$content = curl_exec($ch);
 		if(curl_errno($ch)) {
 			curl_close($ch);
-			throw new Exception('curl not success for url ' . $cddb->getUrl() . ' with error code ' . curl_errno, 1437307735);
+			throw new Exception('curl not success for url ' . $cddb->getUrl() . ' with error code ' . curl_errno($ch), 1437307735);
 
 		}
 		curl_close($ch);
