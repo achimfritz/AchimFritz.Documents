@@ -44,6 +44,7 @@
                 function (data) {
                     $scope.finished = true;
                     FlashMessageService.show(data.data.flashMessages);
+                    update();
                 },
                 function (data) {
                     $scope.finished = true;
@@ -70,6 +71,7 @@
             CddbRestService.update($scope.cddb).then(function (data) {
                 $scope.finished = true;
                 FlashMessageService.show(data.data.flashMessages);
+                update();
             }, function (data) {
                 $scope.finished = true;
                 FlashMessageService.error(data);
@@ -107,6 +109,7 @@
                 function (data) {
                     $scope.finished = true;
                     FlashMessageService.show(data.data.flashMessages);
+                    update();
                 },
                 function (data) {
                     $scope.finished = true;
@@ -129,6 +132,7 @@
                 function (data) {
                     $scope.finished = true;
                     FlashMessageService.show(data.data.flashMessages);
+                    update();
                 },
                 function (data) {
                     $scope.finished = true;

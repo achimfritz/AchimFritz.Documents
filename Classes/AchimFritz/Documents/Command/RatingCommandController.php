@@ -35,7 +35,12 @@ class RatingCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$rating = new Rating();
 		$rating->setName($name);
 		$rating->setValue($value);
-		$documentCollection = $this->ratingService->deleteRatings($rating);
+		try {
+			$documentCollection = $this->ratingService->deleteRatings($rating);
+		} catch(\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage());
+			$this->quit();
+		}
 		try {
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents affected');
@@ -55,7 +60,12 @@ class RatingCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$rating->setName($name);
 		$rating->setValue($value);
 		$rating->setRate($rate);
-		$documentCollection = $this->ratingService->updateRatings($rating);
+		try {
+			$documentCollection = $this->ratingService->updateRatings($rating);
+		} catch(\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage());
+			$this->quit();
+		}
 		try {
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: ' . count($documentCollection->getDocuments()) . ' documents affected');

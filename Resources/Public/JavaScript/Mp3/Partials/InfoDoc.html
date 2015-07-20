@@ -1,18 +1,20 @@
 <button type="button" class="close" aria-label="Close" ng-click="hideInfo()"><span aria-hidden="true">&times;</span></button>
 <table class="table table-striped small-table">
 	<tr>
-		<td>Track ({{infoDoc.trackRating}})</td>
+		<td>Title</td>
+		<td><button ng-show="infoDoc.titleRating" class="btn-xs btn btn-info">{{infoDoc.titleRating}}</button></td>
 		<td>
-			<button ng-click="rate('track', 1, infoDoc.name)" class="btn btn-xs btn-default">1</button>
-			<button ng-click="rate('track', 2, infoDoc.name)" class="btn btn-xs btn-default">2</button>
-			<button ng-click="rate('track', 3, infoDoc.name)" class="btn btn-xs btn-default">3</button>
-			<button ng-click="rate('track', 4, infoDoc.name)" class="btn btn-xs btn-default">4</button>
-			<button ng-click="rate('track', 5, infoDoc.name)" class="btn btn-xs btn-default">5</button>
-			<button ng-click="rate('track', 6, infoDoc.name)" class="btn btn-xs btn-default">6</button>
+			<button ng-click="rate('title', 1, infoDoc.name)" class="btn btn-xs btn-default">1</button>
+			<button ng-click="rate('title', 2, infoDoc.name)" class="btn btn-xs btn-default">2</button>
+			<button ng-click="rate('title', 3, infoDoc.name)" class="btn btn-xs btn-default">3</button>
+			<button ng-click="rate('title', 4, infoDoc.name)" class="btn btn-xs btn-default">4</button>
+			<button ng-click="rate('title', 5, infoDoc.name)" class="btn btn-xs btn-default">5</button>
+			<button ng-click="rate('title', 6, infoDoc.name)" class="btn btn-xs btn-default">6</button>
 		</td>
 	</tr>
 	<tr>
-		<td>Artist ({{infoDoc.artistRating}})</td>
+		<td>Artist</td>
+		<td><button ng-show="infoDoc.artistRating" class="btn-xs btn btn-info">{{infoDoc.artistRating}}</button></td>
 		<td>
 			<button ng-click="rate('artist', 1, infoDoc.artist)" class="btn btn-xs btn-default">1</button>
 			<button ng-click="rate('artist', 2, infoDoc.artist)" class="btn btn-xs btn-default">2</button>
@@ -23,7 +25,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td>Album ({{infoDoc.albumRating}})</td>
+		<td>Album</td>
+		<td><button ng-show="infoDoc.albumRating" class="btn-xs btn btn-info">{{infoDoc.albumRating}}</button></td>
 		<td>
 			<button ng-click="rate('album', 1, infoDoc.album)" class="btn btn-xs btn-default">1</button>
 			<button ng-click="rate('album', 2, infoDoc.album)" class="btn btn-xs btn-default">2</button>

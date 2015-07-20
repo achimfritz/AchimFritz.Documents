@@ -46,11 +46,11 @@ class RatingService {
 	 */
 	public function deleteRatings(Rating $rating) {
 		$documentCollection = $this->getDocumentCollection($rating);
-      $categories = $this->categoryRepository->findByPathHead('rating/' . $rating->getName());
-      foreach($categories as $category) {
+		$categories = $this->categoryRepository->findByPathHead('rating/' . $rating->getName());
+		foreach ($categories as $category) {
 			$documentCollection->setCategory($category);
 			$this->documentCollectionService->remove($documentCollection);
-      }
+		}
 		return $documentCollection;
 	}
 
@@ -70,9 +70,9 @@ class RatingService {
 	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
 	 */
 	protected function createRatings(Rating $rating, DocumentCollection $documentCollection) {
-      $category = new Category();
-      $category->setPath('rating/' . $rating->getName() . '/' . (string)$rating->getRate());
-      $documentCollection->setCategory($category);
+		$category = new Category();
+		$category->setPath('rating/' . $rating->getName() . '/' . (string)$rating->getRate());
+		$documentCollection->setCategory($category);
 		$this->documentCollectionService->merge($documentCollection);
 		return $documentCollection;
 	}
@@ -93,8 +93,10 @@ class RatingService {
 				$documents = $this->documentRepository->findByNames($docs);
 				break;
 			default:
-				$documents = array();
-				break;
+				throw new Exception('unknown name ' . $rating->getName(), 1437392282);
+		}
+		if (count($documents) === 0) {
+			throw new Exception('no documents found', 1437392281);
 		}
 		$documentCollection = new DocumentCollection();
 		foreach ($documents as $document) {
