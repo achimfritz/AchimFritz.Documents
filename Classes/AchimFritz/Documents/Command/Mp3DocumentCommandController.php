@@ -133,7 +133,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	 * @param int $format
 	 * @return void
 	 */
-	public function cddbCommand($path = 'tim/album/Queen_LatifahSheSA2002Various', $url = 'http://www.freedb.org/freedb/misc/9d0c4a0c', $format = Cddb::TITLE_FORMAT) {
+	public function cddbCommand($path = 'tim/album/Queen_LatifahSheSA2002Various', $url = '', $format = Cddb::TITLE_FORMAT) {
 		$cddb = new Cddb();
 		$cddb->setPath($path);
 		$cddb->setUrl($url);
