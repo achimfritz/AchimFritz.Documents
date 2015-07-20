@@ -83,7 +83,7 @@ class Id3TagWriterService {
 		if (in_array($tagName, $this->validTagNames) === FALSE) {
 			throw new Exception('no valid tagName: ' . $tagName, 1433219572);
 		}
-		$this->linuxCommand->writeId3Tag($document->getAbsolutePath(), $tagName, $tagValue);
+		$this->linuxCommand->writeId3Tag($document->getAbsolutePath(), $tagName, str_replace('"', '\"', $tagValue));
 		// update solr via FLOW Persistence
 		$this->documentRepository->update($document);
 	}
