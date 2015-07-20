@@ -175,6 +175,7 @@
             Solr.getData().then(function (data) {
                 $scope.songs = [];
                 $scope.zip.name = '';
+                $scope.cddb.path = '';
                 angular.forEach(data.data.response.docs, function (doc) {
                     if ($scope.zip.name === '') {
                         $scope.zip.name = doc.fsArtist + '_' + doc.fsAlbum;
