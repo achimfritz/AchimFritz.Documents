@@ -71,6 +71,7 @@ class CddbService {
 						foreach ($documents as $document) {
 							if ($document->getFsTrack() === ($track + 1)) {
 								$this->tagByFormat($document, $format, trim($val));
+								$this->id3TagWriterService->tagDocument($document, 'track', $document->getFsTrack());
 							}
 						}
 					} elseif (strpos($key, self::CDDB_ARTIST_ALBUM) !== FALSE) {

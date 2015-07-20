@@ -30,7 +30,7 @@ DGENRE=Soundtrack';
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository', array('findByHead'));
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getFsTrack'));
 		$documentRepository->expects($this->once())->method('findByHead')->will($this->returnValue(array($document)));
-		$document->expects($this->once())->method('getFsTrack')->will($this->returnValue(2));
+		$document->expects($this->any())->method('getFsTrack')->will($this->returnValue(2));
 
 		$cddbService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService', array('getFileContent', 'tagByFormat'));
 		$cddbService->expects($this->once())->method('getFileContent')->will($this->returnValue($this->validContent));

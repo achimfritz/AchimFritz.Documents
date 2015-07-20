@@ -19,7 +19,7 @@ class Id3TagWriterService {
 	/**
 	 * @var array<string>
 	 */
-	protected $validTagNames = array('artist', 'album', 'genre', 'year', 'title');
+	protected $validTagNames = array('artist', 'album', 'genre', 'year', 'title', 'track');
 
 	/**
 	 * @var \AchimFritz\Documents\Linux\Command
