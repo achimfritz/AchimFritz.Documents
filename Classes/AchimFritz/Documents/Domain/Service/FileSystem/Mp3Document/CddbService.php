@@ -18,7 +18,7 @@ class CddbService {
 
 	const FILENAME = 'Cddb.txt';
 	const ARTIST_ALBUM_DELIMITER = ' / ';
-	const ARTIST_TITLE_DELIMITER = ' - ';
+	const ARTIST_TITLE_DELIMITER = ' / ';
 	const CDDB_TITLE = 'TTITLE';
 	const CDDB_ARTIST_ALBUM = 'DTITLE';
 	const CDDB_YEAR = 'DYEAR';
@@ -156,6 +156,9 @@ class CddbService {
 				$arr = explode(self::ARTIST_TITLE_DELIMITER, $val);
 				$artist = trim(array_shift($arr));
 				$title = trim(implode(self::ARTIST_TITLE_DELIMITER, $arr));
+				if ($title === '') {
+					throw new Exception('title is empty for ' . $val, 1436793921);
+				}
 				$this->id3TagWriterService->tagDocument($document, 'artist', $artist);
 				$this->id3TagWriterService->tagDocument($document, 'title', $title);
 				break;
