@@ -49,7 +49,10 @@
 	</tr>
 	<tr>
 		<td>Track</td>
-		<td>{{infoDoc.track}}</td>
+		<td>
+			<span editable-text="infoDoc.track" onaftersave="updateId3Tag($data, 'track', infoDoc.identifier)">{{infoDoc.track}}</span>
+			<strong ng-hide="infoDoc.track" class="text-danger">!</strong>
+		</td>
 	</tr>
 	<tr>
 		<td>Artist</td>
