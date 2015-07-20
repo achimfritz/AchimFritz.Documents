@@ -62,7 +62,7 @@
         };
 
         $scope.hideInfo = function () {
-            $scope.infoDoc = null
+            $scope.infoDoc = null;
         };
 
         $scope.cddbUpdate = function () {
@@ -202,6 +202,7 @@
                 if ($scope.letterNav.length === 0) {
                     $scope.letterNav = data.data.facet_counts.facet_fields.artistLetter;
                 }
+                $scope.infoDoc = null;
             });
         };
 

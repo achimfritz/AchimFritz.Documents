@@ -61,16 +61,16 @@ module.exports = {
             'bower_components/ngDialog/js/ngDialog.js',
             'bower_components/ngDraggable/ngDraggable.js',
             'bower_components/file-saver/FileSaver.js',
-												'bower_components/angular-utils-pagination/dirPagination.js',
-												'bower_components/ajax-solr/core/Core.js',
-												'bower_components/ajax-solr/core/AbstractManager.js',
-												'bower_components/ajax-solr/core/Parameter.js',
-												'bower_components/ajax-solr/core/ParameterStore.js',
+            'bower_components/angular-utils-pagination/dirPagination.js',
+            'bower_components/ajax-solr/core/Core.js',
+            'bower_components/ajax-solr/core/AbstractManager.js',
+            'bower_components/ajax-solr/core/Parameter.js',
+            'bower_components/ajax-solr/core/ParameterStore.js',
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/angular-soundmanager2/src/modules/soundmanager2.js',
             'bower_components/angular-soundmanager2/src/*.js',
-												'bower_components/angular-xeditable/dist/js/xeditable.js',
-												'bower_components/isotope/dist/isotope.pkgd.js'
+            'bower_components/angular-xeditable/dist/js/xeditable.js',
+            'bower_components/isotope/dist/isotope.pkgd.js'
         ],
         dest: '../../Public/Build/Libs.js'
     },
@@ -78,10 +78,10 @@ module.exports = {
         src: [
             'bower_components/jquery-ui/themes/base/jquery-ui.css',
             'bower_components/bootstrap/dist/css/bootstrap.css',
-												'bower_components/ngDialog/css/ngDialog.css',
+            'bower_components/ngDialog/css/ngDialog.css',
             'bower_components/AngularJS-Toaster/toaster.css',
-												'bower_components/angular-xeditable/dist/css/xeditable.css',
-												'bower_components/ngDialog/css/ngDialog-theme-default.css'
+            'bower_components/angular-xeditable/dist/css/xeditable.css',
+            'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
         dest: '../../Public/Build/Libs.css'
     },
