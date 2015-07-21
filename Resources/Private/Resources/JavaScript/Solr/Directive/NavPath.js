@@ -11,10 +11,14 @@
         return {
             restrict: 'E',
             link: function (scope, element, attr) {
+                var val = attr.path;
                 if (Solr.isHFacet(attr.facet)) {
-                    element.replaceWith(PathService.last(attr.path));
+                    val = PathService.last(attr.path);
+                }
+                if (attr.length) {
+                    element.replaceWith(val.substr(0, attr.length));
                 } else {
-                    element.replaceWith(attr.path);
+                    element.replaceWith(val);
                 }
             }
         };

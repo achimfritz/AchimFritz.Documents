@@ -30,6 +30,7 @@
         SolrProvider.setSetting('facet_limit', 30);
         SolrProvider.setSetting('facet_sort', 'count');
         SolrProvider.setSetting('f_artistLetter_facet_sort', 'index');
+        SolrProvider.setSetting('f_artist_facet_sort', 'count');
         var solrSettingsDiv = jQuery('#solrSettings');
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');

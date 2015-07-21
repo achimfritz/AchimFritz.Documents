@@ -138,7 +138,8 @@ class CddbService {
 		}
 		curl_close($ch);
 		$cddbFileName = $this->getCddbFileName($cddb->getPath());
-		if (file_put_contents($cddbFileName, $content) === FALSE) {
+		$content = mb_convert_encoding($content, 'UTF-8', "ISO-8859-1");
+		if (@file_put_contents($cddbFileName, $content) === FALSE) {
 			throw new Exception('cannot write file . ' . $cddbFileName, 1437307737);
 		}
 	}
