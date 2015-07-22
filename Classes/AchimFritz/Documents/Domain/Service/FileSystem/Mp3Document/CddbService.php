@@ -6,6 +6,7 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3Tag;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
@@ -26,6 +27,12 @@ class CddbService {
 	const LINE_DELIMITER = '=';
 
 	/**
+	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @Flow\Inject
+	 */
+	protected $idTagFactory;
+
+	/**
 	 * @var \AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository
 	 * @Flow\Inject
 	 */
@@ -43,11 +50,79 @@ class CddbService {
 	 */
 	protected $id3TagWriterService;
 
+	/**
+	 * @param $name
+	 * @param Document $document
+	 * @param Id3Tag $id3Tag
+	 * @param bool $intCompare
+	 * @return string
+	 */
+	protected function getBestProperty($name, Document $document, Id3Tag $id3Tag, $intCompare = FALSE) {
+		$id3TagMethod = 'get' . $name;
+		$fsTagMethod = 'getFs' . $name;
+		if ($intCompare === TRUE) {
+			if ($id3Tag->$id3TagMethod() > 0) {
+				$property = $id3Tag->$id3TagMethod();
+			} else {
+				$property = $document->$fsTagMethod();
+			}
+		} else {
+			if ($id3Tag->$id3TagMethod() !== '') {
+				$property = $id3Tag->$id3TagMethod();
+			} else {
+				$property = $document->$fsTagMethod();
+			}
+		}
+		return $property;
+	}
+
 	/*
 	 * @param Cddb $cddb
 	 * @throws Exception
 	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @throws \SolrClientException
+	 * @return integer
+	 */
+	public function writeCddbFile(Cddb $cddb) {
+		$path = $cddb->getPath();
+		$format = $cddb->getFormat();
+		$documents = $this->documentRepository->findByHead($path);
+		$cddbFileName = $this->getCddbFileName($path);
+		$cnt = 0;
+		$content = array();
+		foreach ($documents as $document) {
+			$id3Tag = $this->idTagFactory->create($document);
+			if ($cnt === 0) {
+				$artist = $this->getBestProperty('Artist', $document, $id3Tag);
+				$album = $this->getBestProperty('Album', $document, $id3Tag);
+				if ($format === Cddb::TITLE_FORMAT) {
+					$content[] = self::CDDB_ARTIST_ALBUM . self::LINE_DELIMITER . $artist . self::ARTIST_ALBUM_DELIMITER . $album;
+				} else {
+					$content[] = self::CDDB_ARTIST_ALBUM . self::LINE_DELIMITER . $album;
+				}
+				$content[] = self::CDDB_YEAR . self::LINE_DELIMITER . $id3Tag->getYear();
+				$content[] = self::CDDB_GENRE . self::LINE_DELIMITER . $id3Tag->getGenre();
+			}
+			$track = $this->getBestProperty('Track', $document, $id3Tag, TRUE) - 1;
+			$title = $this->getBestProperty('Title', $document, $id3Tag);
+			if ($format === Cddb::TITLE_FORMAT) {
+				$content[] = self::CDDB_TITLE . $track . self::LINE_DELIMITER . $title;
+			} else {
+				$artist = $this->getBestProperty('Artist', $document, $id3Tag);
+				$content[] = self::CDDB_TITLE . $track . self::LINE_DELIMITER . $artist . self::ARTIST_TITLE_DELIMITER . $title;
+			}
+			$cnt++;
+		}
+		if (@file_put_contents($cddbFileName, implode("\n", $content) . "\n") === FALSE) {
+			throw new Exception('cannot write file ' . $cddbFileName, 1437564850);
+		}
+		return $cnt;
+	}
+
+	/*
+	 * @param Cddb $cddb
+	 * @throws Exception
+	 * @throws \AchimFritz\Documents\Linux\Exception
 	 * @return integer
 	 */
 	public function writeId3Tags(Cddb $cddb) {

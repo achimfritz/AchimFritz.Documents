@@ -151,6 +151,27 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
+	}
 
+	/**
+	 * writecddbCommand --path=tim/soundtrack/PulpFiction --format=2
+	 *
+	 * @param string $path
+	 * @param int $format
+	 * @return void
+	 */
+	public function writeCddbCommand($path = 'af/album/ACDC_HighVoltage', $format = Cddb::TITLE_FORMAT) {
+		$cddb = new Cddb();
+		$cddb->setPath($path);
+		$cddb->setFormat($format);
+		try {
+			$this->cddbService->writeCddbFile($cddb);
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: write file ' . $path);
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
 	}
 }
