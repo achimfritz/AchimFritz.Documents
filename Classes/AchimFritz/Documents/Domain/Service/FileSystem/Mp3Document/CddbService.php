@@ -78,8 +78,8 @@ class CddbService {
 				$content[] = self::CDDB_GENRE . self::LINE_DELIMITER . $id3Tag->getGenre();
 			}
 			$track = (int)$this->getBestProperty('Track', $document, $id3Tag, TRUE) - 1;
-			if ($track >= 0) {
-				throw new Exception('no track number', 1437564851);
+			if ($track < 0) {
+				throw new Exception('no track number for ' . $document->getName(), 1437564851);
 			}
 			$title = $this->getBestProperty('Title', $document, $id3Tag);
 			if ($format === Cddb::TITLE_FORMAT) {
