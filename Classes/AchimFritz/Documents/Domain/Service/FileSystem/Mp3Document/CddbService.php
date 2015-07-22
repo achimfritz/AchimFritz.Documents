@@ -103,7 +103,10 @@ class CddbService {
 				$content[] = self::CDDB_YEAR . self::LINE_DELIMITER . $id3Tag->getYear();
 				$content[] = self::CDDB_GENRE . self::LINE_DELIMITER . $id3Tag->getGenre();
 			}
-			$track = $this->getBestProperty('Track', $document, $id3Tag, TRUE) - 1;
+			$track = (int)$this->getBestProperty('Track', $document, $id3Tag, TRUE) - 1;
+			if ($track >= 0) {
+				throw new Exception('no track number', 1437564851);
+			}
 			$title = $this->getBestProperty('Title', $document, $id3Tag);
 			if ($format === Cddb::TITLE_FORMAT) {
 				$content[] = self::CDDB_TITLE . $track . self::LINE_DELIMITER . $title;

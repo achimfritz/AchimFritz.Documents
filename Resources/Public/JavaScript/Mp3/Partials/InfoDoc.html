@@ -50,7 +50,8 @@
 	<tr>
 		<td>Track</td>
 		<td>
-			<span editable-text="infoDoc.track" onaftersave="updateId3Tag($data, 'track', infoDoc.identifier)">{{infoDoc.track}}</span>
+			<span ng-show="infoDoc.track" editable-text="infoDoc.track" onaftersave="updateId3Tag($data, 'track', infoDoc.identifier)">{{infoDoc.track}}</span>
+			<span ng-hide="infoDoc.track" editable-text="infoDoc.fsTrack" onaftersave="updateId3Tag($data, 'track', infoDoc.identifier)">{{infoDoc.fsTrack}}</span>
 			<strong ng-hide="infoDoc.track" class="text-danger">!</strong>
 		</td>
 	</tr>
@@ -73,7 +74,9 @@
 	<tr>
 		<td>Genre</td>
 		<td>
-			<span editable-text="infoDoc.genre" onaftersave="updateId3Tag($data, 'genre', infoDoc.identifier)">{{infoDoc.genre}}</span> / {{infoDoc.genreId}}
+			<span ng-show="infoDoc.genre" editable-text="infoDoc.genre" onaftersave="updateId3Tag($data, 'genre', infoDoc.identifier)">{{infoDoc.genre}}</span>
+			<span ng-hide="infoDoc.genre" editable-text="infoDoc.fsGenre" onaftersave="updateId3Tag($data, 'genre', infoDoc.identifier)">{{infoDoc.fsGenre}}</span>
+			/ {{infoDoc.genreId}}
 			<strong ng-hide="infoDoc.genre" class="text-danger">!</strong>
 		</td>
 	</tr>
