@@ -150,17 +150,17 @@ class CddbService {
 		if ($cntCddb !== $cntDocuments) {
 			throw new Exception('cnt missmatch, got ' . $cntCddb . ' cddb documents but ' . $cntDocuments . 'documents', 1436793912);
 		}
-			if (($artist === '' && $format === Cddb::TITLE_FORMAT) || $album === '' || $genre === '' || $year === '') {
-				throw new Exception ('empty values in artist, album, year or genre', 1437307739);
+		if (($artist === '' && $format === Cddb::TITLE_FORMAT) || $album === '' || $genre === '' || $year === '') {
+			throw new Exception ('empty values in artist, album, year or genre', 1437307739);
+		}
+		foreach ($documents as $document) {
+			if ($format === Cddb::TITLE_FORMAT) {
+				$this->id3TagWriterService->tagDocument($document, 'artist', $artist);
 			}
-			foreach ($documents as $document) {
-				if ($format === Cddb::TITLE_FORMAT) {
-					$this->id3TagWriterService->tagDocument($document, 'artist', $artist);
-				}
-				$this->id3TagWriterService->tagDocument($document, 'album', $album);
-				$this->id3TagWriterService->tagDocument($document, 'genre', $genre);
-				$this->id3TagWriterService->tagDocument($document, 'year', $year);
-			}
+			$this->id3TagWriterService->tagDocument($document, 'album', $album);
+			$this->id3TagWriterService->tagDocument($document, 'genre', $genre);
+			$this->id3TagWriterService->tagDocument($document, 'year', $year);
+		}
 	}
 
 
