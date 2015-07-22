@@ -16,7 +16,7 @@ use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Cddb;
  */
 class CddbServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
-	protected $validContent = 'TTITLE1=John Travolta - Royale With = Cheese
+	protected $validContent = 'TTITLE1=John Travolta / Royale With = Cheese
 DTITLE=Soundtrack / Pulp Fiction
 DYEAR=1994
 DGENRE=Soundtrack';
@@ -34,10 +34,11 @@ DGENRE=Soundtrack';
 
 		$cddbService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService', array('getFileContent', 'tagByFormat'));
 		$cddbService->expects($this->once())->method('getFileContent')->will($this->returnValue($this->validContent));
-		$cddbService->expects($this->once())->method('tagByFormat')->with($document, Cddb::TITLE_FORMAT, 'John Travolta - Royale With = Cheese');
+		$cddbService->expects($this->once())->method('tagByFormat')->with($document, Cddb::TITLE_FORMAT, 'John Travolta / Royale With = Cheese');
 
 		$this->inject($cddbService, 'documentRepository', $documentRepository);
-		$id3TagWriterService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument'));
+		$id3TagWriterService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument', 'removeTags'));
+		$id3TagWriterService->expects($this->once())->method('removeTags')->with($document);
 		$this->inject($cddbService, 'id3TagWriterService', $id3TagWriterService);
 
 		$cddbService->writeId3Tags($cddb);
@@ -53,7 +54,7 @@ DGENRE=Soundtrack';
 		$documentRepository->expects($this->once())->method('findByHead')->will($this->returnValue(array()));
 
 		$cddbService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService', array('getCddbContent', 'tagByFormat'));
-		$cddbService->expects($this->once())->method('getCddbContent')->will($this->returnValue('TTITLE1=John Travolta - Royale With = Cheese' . "\n"));
+		$cddbService->expects($this->once())->method('getCddbContent')->will($this->returnValue('TTITLE1=John Travolta / Royale With = Cheese' . "\n"));
 
 		$this->inject($cddbService, 'documentRepository', $documentRepository);
 
@@ -65,20 +66,20 @@ DGENRE=Soundtrack';
 	/**
 	 * @test
 	 */
-	public function tagByFormatTagsArtistAndTitleForArtistTitleSeperatedByMinusStrategy() {
+	public function tagByFormatTagsArtistAndTitleForArtistTitleStrategy() {
 		$cddbService = $this->getAccessibleMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService', array('foo'));
 		$document = new Document();
 		$id3TagWriterService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument'));
 		$id3TagWriterService->expects($this->at(0))->method('tagDocument')->with($document, 'artist', 'John Travolta');
 		$id3TagWriterService->expects($this->at(1))->method('tagDocument')->with($document, 'title', 'Royale With =- Cheese');
 		$this->inject($cddbService, 'id3TagWriterService', $id3TagWriterService);
-		$cddbService->_call('tagByFormat', $document, Cddb::ARTIST_TITLE_FORMAT, 'John Travolta - Royale With =- Cheese');
+		$cddbService->_call('tagByFormat', $document, Cddb::ARTIST_TITLE_FORMAT, 'John Travolta / Royale With =- Cheese');
 	}
 
 	/**
 	 * @test
 	 */
-	public function tagByFormatTagsTitleForTitleOnlyStrategy() {
+	public function tagByFormatTagsTitleForTitleStrategy() {
 		$cddbService = $this->getAccessibleMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService', array('foo'));
 		$document = new Document();
 		$id3TagWriterService = $this->getMock('\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument'));

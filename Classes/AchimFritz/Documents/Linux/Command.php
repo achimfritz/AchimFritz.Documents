@@ -89,6 +89,21 @@ class Command {
 	}
 
 	/**
+	 * @param $file
+	 * @return void
+	 * @throws Exception
+	 */
+	public function removeId3Tags($file) {
+		if (file_exists($file) === FALSE || is_writable($file) === FALSE) {
+			throw new Exception('no such file or not writeable ' . $file, 1437576178);
+		}
+		$cmd = 'eyeD3 --remove-v1 ' . $file;
+		$this->executeCommand($cmd);
+		$cmd = 'eyeD3 --remove-v2 ' . $file;
+		$this->executeCommand($cmd);
+	}
+
+	/**
 	 * @param string $file 
 	 * @return void
 	 * @throws Exception

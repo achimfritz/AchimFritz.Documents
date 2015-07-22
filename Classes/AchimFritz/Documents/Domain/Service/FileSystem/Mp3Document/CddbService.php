@@ -50,32 +50,6 @@ class CddbService {
 	 */
 	protected $id3TagWriterService;
 
-	/**
-	 * @param $name
-	 * @param Document $document
-	 * @param Id3Tag $id3Tag
-	 * @param bool $intCompare
-	 * @return string
-	 */
-	protected function getBestProperty($name, Document $document, Id3Tag $id3Tag, $intCompare = FALSE) {
-		$id3TagMethod = 'get' . $name;
-		$fsTagMethod = 'getFs' . $name;
-		if ($intCompare === TRUE) {
-			if ($id3Tag->$id3TagMethod() > 0) {
-				$property = $id3Tag->$id3TagMethod();
-			} else {
-				$property = $document->$fsTagMethod();
-			}
-		} else {
-			if ($id3Tag->$id3TagMethod() !== '') {
-				$property = $id3Tag->$id3TagMethod();
-			} else {
-				$property = $document->$fsTagMethod();
-			}
-		}
-		return $property;
-	}
-
 	/*
 	 * @param Cddb $cddb
 	 * @throws Exception
@@ -148,6 +122,7 @@ class CddbService {
 						$track = (int)str_replace(self::CDDB_TITLE, '', $key);
 						foreach ($documents as $document) {
 							if ($document->getFsTrack() === ($track + 1)) {
+								$this->id3TagWriterService->removeTags($document);
 								$this->tagByFormat($document, $format, trim($val));
 								$this->id3TagWriterService->tagDocument($document, 'track', $document->getFsTrack());
 							}
@@ -186,6 +161,33 @@ class CddbService {
 				$this->id3TagWriterService->tagDocument($document, 'genre', $genre);
 				$this->id3TagWriterService->tagDocument($document, 'year', $year);
 			}
+	}
+
+
+	/**
+	 * @param $name
+	 * @param Document $document
+	 * @param Id3Tag $id3Tag
+	 * @param bool $intCompare
+	 * @return string
+	 */
+	protected function getBestProperty($name, Document $document, Id3Tag $id3Tag, $intCompare = FALSE) {
+		$id3TagMethod = 'get' . $name;
+		$fsTagMethod = 'getFs' . $name;
+		if ($intCompare === TRUE) {
+			if ($id3Tag->$id3TagMethod() > 0) {
+				$property = $id3Tag->$id3TagMethod();
+			} else {
+				$property = $document->$fsTagMethod();
+			}
+		} else {
+			if ($id3Tag->$id3TagMethod() !== '') {
+				$property = $id3Tag->$id3TagMethod();
+			} else {
+				$property = $document->$fsTagMethod();
+			}
+		}
+		return $property;
 	}
 
 	/**

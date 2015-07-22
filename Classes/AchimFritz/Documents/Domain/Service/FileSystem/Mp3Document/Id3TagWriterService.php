@@ -88,4 +88,13 @@ class Id3TagWriterService {
 		$this->documentRepository->update($document);
 	}
 
+	/**
+	 * @param Mp3Document $document
+	 * @return void
+	 * @throws \AchimFritz\Documents\Linux\Exception
+	 */
+	public function removeTags(Mp3Document $document) {
+		$this->linuxCommand->removeId3Tags($document->getAbsolutePath());
+	}
+
 }
