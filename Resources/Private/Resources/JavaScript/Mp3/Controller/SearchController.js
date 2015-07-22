@@ -189,6 +189,9 @@
                         $scope.cddb.path = doc.mainDirectoryName;
                         $scope.cddbSearch = doc.fsArtist + ' ' + doc.fsAlbum;
                     }
+                    if ($scope.infoDoc !== null && doc.identifier === $scope.infoDoc.identifier) {
+                        $scope.infoDoc = doc;
+                    }
                     var song = {
                         id: doc.identifier,
                         title: doc.title,
@@ -202,7 +205,6 @@
                 if ($scope.letterNav.length === 0) {
                     $scope.letterNav = data.data.facet_counts.facet_fields.artistLetter;
                 }
-                $scope.infoDoc = null;
             });
         };
 
