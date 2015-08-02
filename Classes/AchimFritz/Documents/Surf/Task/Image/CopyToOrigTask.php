@@ -37,16 +37,46 @@ class CopyToOrigTask extends Task {
 		if ($result === FALSE) {
 			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $target . '" already exist on node ' . $node->getName(), 1366541390);
 		}
-		$commands = array(
-			'mkdir ' .$target,
-			'find ' . $mountPoint . ' -name "*.jpeg" |while read i; do cp -p $i ' . $target . '/; done',
-			'find ' . $mountPoint . ' -name "*.JPEG" |while read i; do cp -p $i ' . $target . '/; done',
-			'find ' . $mountPoint . ' -name "*.jpg" |while read i; do cp -p $i ' . $target . '/; done',
-			'find ' . $mountPoint . ' -name "*.JPG" |while read i; do cp -p $i ' . $target . '/; done'
-		);
+		/*
+		 * $k = `ls -ltr *lucky_handy/*|tail -1`
+		 * find -newer $k
+		 */
+		if ($this->isLuckyHandy($application)) {
+			$path = $this->configuration->getMountPoint() . '/*lucky_handy*/*';
+			$commands = array(
+				'k=`ls -tr ' . $path . '|tail -1`',
+				'mkdir ' . $target,
+				'find ' . $mountPoint . ' -newer $k -name "*.jpeg" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -newer $k -name "*.JPEG" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -newer $k -name "*.jpg" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -newer $k -name "*.JPG" |while read i; do cp -p $i ' . $target . '/; done'
+			);
+		} else {
+			$commands = array(
+				'mkdir ' . $target,
+				'find ' . $mountPoint . ' -name "*.jpeg" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -name "*.JPEG" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -name "*.jpg" |while read i; do cp -p $i ' . $target . '/; done',
+				'find ' . $mountPoint . ' -name "*.JPG" |while read i; do cp -p $i ' . $target . '/; done'
+			);
+		}
+
 		
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 	}
 
+
+
+	/**
+	 * @param Application $application
+	 * @return bool
+	 */
+	protected function isLuckyHandy(Application $application) {
+		if (strpos($application->getTarget(), 'lucky_handy') !== FALSE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 }
-?>
