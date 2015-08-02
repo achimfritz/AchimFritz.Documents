@@ -156,10 +156,10 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	/**
 	 * removeid3tags --name=af/mix/HeavyParty_Rest/Danzig-Mother.mp3
 	 *
-	 * @param $name
+	 * @param string $name
 	 * @return void
 	 */
-	public function removeId3Tags($name) {
+	public function removeId3TagsCommand($name) {
 		$document = $this->documentRepository->findOneByName($name);
 		if ($document instanceof Document) {
 			try {
