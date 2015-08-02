@@ -37,10 +37,7 @@ class CopyToOrigTask extends Task {
 		if ($result === FALSE) {
 			throw new \TYPO3\Surf\Exception\TaskExecutionException('Target directory "' . $target . '" already exist on node ' . $node->getName(), 1366541390);
 		}
-		/*
-		 * $k = `ls -ltr *lucky_handy/*|tail -1`
-		 * find -newer $k
-		 */
+
 		if ($this->isLuckyHandy($application)) {
 			$path = $this->configuration->getMountPoint() . '/*lucky_handy*/*';
 			$commands = array(

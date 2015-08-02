@@ -47,10 +47,17 @@ class SaveTimeStampsTask extends Task {
 		$dataDirectory = $this->configuration->getDataDirectory();
 		$commands[] = 'if [ ! -d ' . $dataDirectory . ' ]; then mkdir -p ' . $dataDirectory . '_done; fi';
 		$fsDocs = $integrity->getFilesystemDocuments();
+		$cnt = 0;
 		foreach ($fsDocs AS $fsDoc) {
+			$cnt++;
 			$absolutePath = $path . '/' . $fsDoc;
 			$commands[] = 'echo -n `stat -c %y ' . $absolutePath . '| sed \'s/\(.*\)\-\(.*\)\-\(.*\) \(.*\):\(.*\):\(.*\)\.00.*/\1\2\3\4\5.\6/\'` >> ' . $this->configuration->getTimestampFile($directory);
 			$commands[] = 'echo "|' . $absolutePath . '" >> ' . $this->configuration->getTimestampFile($directory);
+			if ($cnt > 100) {
+				$this->shell->executeOrSimulate($commands, $node, $deployment);
+				$cnt = 0;
+				$commands = array();
+			}
 		}
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
