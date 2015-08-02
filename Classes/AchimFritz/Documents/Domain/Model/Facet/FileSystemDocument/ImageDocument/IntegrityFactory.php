@@ -21,11 +21,11 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 	 */
 	protected $imageDocumentConfiguration;
 
-   /**
-    * @Flow\Inject
-    * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
-    */
-   protected $documentRepository;
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\ImageDocumentRepository
+	 */
+	protected $documentRepository;
 
 	/**
 	 * @var \AchimFritz\Documents\Linux\Command
@@ -39,7 +39,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 	 */
 	public function createIntegrity($directory) {
 
-      $documents = $this->documentRepository->findByHead($directory);
+		$documents = $this->documentRepository->findByHead($directory);
 
 		// solr
 		try {
@@ -52,7 +52,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		$mountPoint = $this->getConfiguration()->getMountPoint();
 		$webPath = $this->getConfiguration()->getWebPath();
 		$fileExtension = $this->getConfiguration()->getFileExtension();
-      $path = $mountPoint . PathService::PATH_DELIMITER . $directory;
+		$path = $mountPoint . PathService::PATH_DELIMITER . $directory;
 		try {
 			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
@@ -68,8 +68,8 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		}
 
 		sort($thumbs);
-      sort($fsDocs);
-      sort($solrDocs);
+		sort($fsDocs);
+		sort($solrDocs);
 
 		$integrity = new Integrity($directory, count($fsDocs), count($solrDocs));
 		$integrity->setPersistedDocuments($documents);
@@ -81,7 +81,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		$integrity->setTimestampsAreInitialized(file_exists($this->getConfiguration()->getTimestampFile($directory)));
 
 		// rotated
-      $path = $mountPoint . PathService::PATH_DELIMITER . $directory;
+		$path = $mountPoint . PathService::PATH_DELIMITER . $directory;
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . PathService::PATH_DELIMITER . $fsDoc;
 			$imageSize = getimagesize($absolutePath);
@@ -101,12 +101,11 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		try {
 			$this->linuxCommand->getExifData($firstDoc);
 			$integrity->setIsExif(TRUE);
-		} catch(\AchimFritz\Documents\Linux\Exception $e) {
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 		}
 
 		return $integrity;
 	}
-
 
 	/**
 	 * @return \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
@@ -114,5 +113,4 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 	protected function getConfiguration() {
 		return $this->imageDocumentConfiguration;
 	}
-
 }

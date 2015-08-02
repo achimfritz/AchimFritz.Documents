@@ -45,10 +45,12 @@ class RotateTask extends Task {
 		}
 		$fsDocs = $integrity->getFilesystemDocuments();
 		$commands = array();
+		$cnt = 0;
 		if ($integrity->getIsExif() === TRUE) {
 			$commands[] = 'exiftran -ai ' . $path . '/*';
 		} elseif ($integrity->getGeeqieMetadataExists() === TRUE) {
 			foreach ($fsDocs AS $fsDoc) {
+				$cnt++;
 				$absolutePath = $path . '/' . $fsDoc;
 				$geeqieMetadata = $this->configuration->getGeeqieMetadataPath() . $absolutePath . 'gq.xmp';
 				if (file_exists($geeqieMetadata) === FALSE) {
@@ -64,6 +66,11 @@ class RotateTask extends Task {
 					$script[] = 'if [ $orientation == 6 ]; then; jpegtran -rotate 90 ' . $absolutePath . ' > /tmp/' . $fsDoc . ' && mv /tmp/' . $fsDoc . ' ' . $absolutePath . '; fi';
 					$script[] = 'if [ $orientation == 8 ]; then; jpegtran -rotate 270 ' . $absolutePath . ' > /tmp/' . $fsDoc . ' && mv /tmp/' . $fsDoc . ' ' . $absolutePath . '; fi';
 					$commands[] = implode(' && ' , $script);
+				}
+				if ($cnt > 50) {
+					$this->shell->executeOrSimulate($commands, $node, $deployment);
+					$cnt = 0;
+					$commands = array();
 				}
 			}
 		} else {
