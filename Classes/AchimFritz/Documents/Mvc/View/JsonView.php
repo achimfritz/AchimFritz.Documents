@@ -25,6 +25,7 @@ class JsonView extends \AchimFritz\Rest\Mvc\View\JsonView {
 						'_only' => array('path')
 					)
 				),
+				'_exclude' => array('documentListItems', 'document', 'documentListItem')
 			),
 		),
 		'documentList' => array(
@@ -33,11 +34,13 @@ class JsonView extends \AchimFritz\Rest\Mvc\View\JsonView {
 						'_descendAll' => array(
 							'_descend' => array(
 								'document' => array(
+									'_exclude' => array('allCategories', 'category')
 								)
 							)
 						),
 					)
 				),
+			'_exclude' => array('document', 'documentListItem')
 		),
 		'integrity' => array(
 			'_descend' => array(
