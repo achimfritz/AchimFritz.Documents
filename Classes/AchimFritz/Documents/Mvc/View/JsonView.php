@@ -50,6 +50,7 @@ class JsonView extends \AchimFritz\Rest\Mvc\View\JsonView {
 				),
 				'persistedDocuments' => array(
 					'_descendAll' => array(
+						'_exclude' => array('allCategories', 'category')
 					),
 				),
 				'thumbs' => array(

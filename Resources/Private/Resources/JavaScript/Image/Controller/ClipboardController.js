@@ -72,6 +72,34 @@
             });
         };
 
+        $scope.listMerge = function () {
+            $scope.finished = false;
+            DocumentListRestService.merge($scope.category, $scope.docs).then(
+                function (data) {
+                    $scope.finished = true;
+                    FlashMessageService.show(data.data.flashMessages);
+                },
+                function (data) {
+                    $scope.finished = true;
+                    FlashMessageService.error(data);
+                }
+            );
+        };
+
+        $scope.listRemove = function () {
+            $scope.finished = false;
+            DocumentListRestService.remove($scope.category, $scope.docs).then(
+                function (data) {
+                    $scope.finished = true;
+                    FlashMessageService.show(data.data.flashMessages);
+                },
+                function (data) {
+                    $scope.finished = true;
+                    FlashMessageService.error(data);
+                }
+            );
+        };
+
         $scope.merge = function () {
             $scope.finished = false;
             DocumentCollectionRestService.merge($scope.category, $scope.docs).then(

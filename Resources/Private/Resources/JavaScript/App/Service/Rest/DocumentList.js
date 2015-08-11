@@ -7,10 +7,15 @@
         .module('app')
         .service('DocumentListRestService', DocumentListRestService);
 
-    function DocumentListRestService($http) {
+    function DocumentListRestService($http, AppConfiguration) {
+
+        this.url = function() {
+            return AppConfiguration.getSetting('restBaseUrl') + '/' + AppConfiguration.getSetting('documentListResource') + '/';
+            console.log(AppConfiguration.getSettings());
+        }
 
         this.list = function () {
-            var url = 'achimfritz.documents/imagedocumentlist/';
+            var url =  this.url();
             return $http({
                 method: 'GET',
                 url: url,

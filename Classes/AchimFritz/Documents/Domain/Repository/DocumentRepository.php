@@ -47,6 +47,18 @@ class DocumentRepository extends Repository {
 	}
 
 	/**
+	 * @param string $head
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 */
+	public function findByTail($tail) {
+		$query = $this->createQuery();
+		$query->setOrderings(array('name' => QueryInterface::ORDER_ASCENDING));
+		return $query->matching(
+			$query->like('name', '%/' . $tail, FALSE)
+		)->execute();
+	}
+
+	/**
 	 * @param Category $category 
 	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
 	 */

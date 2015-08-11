@@ -6,6 +6,7 @@
         .config(paginationConfiguration)
         .config(routeConfiguration)
         .config(toasterConfiguration)
+        .config(appConfiguration)
         .config(solrConfiguration);
 
     /* @ngInject */
@@ -16,6 +17,11 @@
             'close-button': true
         };
         angular.extend(toasterConfig, customConfig);
+    };
+
+    /* @ngInject */
+    function appConfiguration(AppConfigurationProvider) {
+        AppConfigurationProvider.setSetting('documentListResource', 'imagedocumentlist');
     };
 
     /* @ngInject */

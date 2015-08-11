@@ -84,8 +84,8 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		$path = $mountPoint . PathService::PATH_DELIMITER . $directory;
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . PathService::PATH_DELIMITER . $fsDoc;
-			$imageSize = getimagesize($absolutePath);
-			if ($imageSize[0] < $imageSize[1]) {
+			$imageSize = @getimagesize($absolutePath);
+			if (is_array($imageSize) === TRUE && $imageSize[0] < $imageSize[1]) {
 				$integrity->setImageIsRotated(TRUE);
 				break;
 			}

@@ -79,11 +79,12 @@ class FileSystemDocumentListFactory {
 
 	/**
 	 * @param string $directory 
-	 * @param string $path 
+	 * @param string $path
+	 * @param boolean $byName
 	 * @return \AchimFritz\Documents\Domain\Model\DocumentList
 	 * @throws Exception
 	 */
-	public function createFromDirectory($directory, $path = '') {
+	public function createFromDirectory($directory, $path = '', $byName = FALSE) {
 		if (is_dir($directory) === FALSE) {
 			throw new Exception('no such directory ' . $directory, 1422200218);
 		}
@@ -100,7 +101,11 @@ class FileSystemDocumentListFactory {
 			throw new Exception('cannot get SplFileInfos with ' . $e->getMessage() . ' - ' . $e->getCode(), 1422200220);
 		}
 		foreach ($splFileInfos AS $splFileInfo) {
-			$document = $this->getDocumentByFileHash($splFileInfo);
+			if ($byName === TRUE) {
+				$document = $this->getDocumentByName($splFileInfo);
+			} else {
+				$document = $this->getDocumentByFileHash($splFileInfo);
+			}
 			$item = new DocumentListItem();
 			$item->setDocument($document);
 			$item->setSorting($cnt);
@@ -171,6 +176,24 @@ class FileSystemDocumentListFactory {
 				$msg .= ' - ' . $document->getName();
 			}
 			throw new Exception ($msg, 1422200221);
+		}
+		return $documents->current();
+	}
+
+	/**
+	 * @param \SplFileInfo $splFileInfo
+	 * @return Document
+	 * @throws Exception
+	 */
+	protected function getDocumentByName(\SplFileInfo $splFileInfo) {
+		$fileName = $splFileInfo->getBasename();
+		$documents = $this->documentRepository->findByTail($fileName);
+		if (count($documents) !== 1) {
+			$msg = 'found not exactly one document, but ' . count($documents) . ' for ' . $splFileInfo->getRealPath();
+			foreach ($documents AS $document) {
+				$msg .= ' - ' . $document->getName();
+			}
+			throw new Exception ($msg, 1422200238);
 		}
 		return $documents->current();
 	}

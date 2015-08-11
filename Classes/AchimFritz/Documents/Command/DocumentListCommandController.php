@@ -156,15 +156,16 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
-	 * createfromdirectory --directory=/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow --path=categories/diashow/hochzeit_claudi_mario/show
+	 * createfromdirectory --directory=/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow --path=categories/diashow/hochzeit_claudi_mario/show --byName=FALSE
 	 * 
 	 * @param string $directory 
-	 * @param string $path 
+	 * @param string $path
+	 * @param boolean $byName
 	 * @return void
 	 */
-	public function createFromDirectoryCommand($directory = '/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow', $path='categories/diashow/hochzeit_claudi_mario/show') {
+	public function createFromDirectoryCommand($directory = '/bilder/save_main/2007_06_23_hochzeit_claudi_mario_diashow_bildershow', $path='categories/diashow/hochzeit_claudi_mario/show', $byName = FALSE) {
 		try {
-			$documentList = $this->documentListFactory->createFromDirectory($directory, $path);
+			$documentList = $this->documentListFactory->createFromDirectory($directory, $path, $byName);
 			try {
 				$this->documentListService->merge($documentList);
 				try {

@@ -13,6 +13,7 @@
 		<button ng-show="total" class="btn btn-default" ng-click="deleteSelected()">delete selected</button>
 		<button ng-show="total" class="btn btn-default" ng-click="showForm('zip')">ZIP</button>
 		<button ng-show="total" class="btn btn-default" ng-click="showForm('pdf')">PDF</button>
+		<button ng-show="total" class="btn btn-default" ng-click="showForm('documentList')">List</button>
 	</div>
 	<div class="col-md-8">
 
@@ -26,6 +27,20 @@
 				</div>
 				<div class="col-md-4">
 					<input class="form-control btn-danger" type="submit" ng-click="remove()" value="Remove all Documents from Category" />
+				</div>
+			</div>
+		</form>
+
+		<form ng-show="form === 'documentList' && total" novalidate class="form-horizontal">
+			<div class="form-group row">
+				<div class="col-md-3">
+					<input class="form-control" id="documentList" type="text" data-ng-model="category" data-autocomplete data-global="true" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn btn-danger" type="submit" ng-click="listMerge()" value="Merge all Documents into List" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn-danger" type="submit" ng-click="listRemove()" value="Remove all Documents from List" />
 				</div>
 			</div>
 		</form>

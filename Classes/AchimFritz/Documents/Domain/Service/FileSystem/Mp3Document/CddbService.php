@@ -148,7 +148,7 @@ class CddbService {
 			}
 		}
 		if ($cntCddb !== $cntDocuments) {
-			throw new Exception('cnt missmatch, got ' . $cntCddb . ' cddb documents but ' . $cntDocuments . 'documents', 1436793912);
+			throw new Exception('cnt missmatch, got ' . $cntCddb . ' cddb documents but ' . $cntDocuments . ' documents', 1436793912);
 		}
 		if (($artist === '' && $format === Cddb::TITLE_FORMAT) || $album === '' || $genre === '' || $year === '') {
 			throw new Exception ('empty values in artist, album, year or genre', 1437307739);

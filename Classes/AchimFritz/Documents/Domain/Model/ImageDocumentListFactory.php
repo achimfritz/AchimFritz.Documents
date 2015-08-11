@@ -23,7 +23,7 @@ class ImageDocumentListFactory extends FileSystemDocumentListFactory {
 	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
 	 * @Flow\Inject
 	 */
-	protected $mp3Configuration;
+	protected $imageConfiguration;
 
 	/**
 	 * @var string
@@ -35,7 +35,7 @@ class ImageDocumentListFactory extends FileSystemDocumentListFactory {
 	 * @return \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
 	 */
 	protected function getConfiguration() {
-		return $this->mp3Configuration;
+		return $this->imaageConfiguration;
 	}
 
 	/**
