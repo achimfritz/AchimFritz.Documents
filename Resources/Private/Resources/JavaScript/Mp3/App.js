@@ -22,7 +22,7 @@
 
     /* @ngInject */
     function solrConfiguration(SolrProvider) {
-        SolrProvider.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre', 'artistLetter', 'fsAlbum', 'fsArtist']);
+        SolrProvider.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre', 'artistLetter', 'fsAlbum', 'fsArtist', 'titleRating', 'albumRating', 'artistRating']);
         SolrProvider.setHFacets({});
         SolrProvider.setSolrSetting('servlet', 'mp3');
         SolrProvider.setSetting('sort', 'artist asc, album asc, track asc');

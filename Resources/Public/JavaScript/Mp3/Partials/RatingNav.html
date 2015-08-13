@@ -1,0 +1,30 @@
+
+<span>Title:</span>
+<div class="btn-group" role="group" aria-label="filter">
+	<span ng-repeat="(key, value) in data.facet_counts.facet_fields.titleRating">
+	<button role="button" class="btn btn-default btn-xs"
+			ng-click="addFilterQuery('titleRating', key)">
+		{{key}}({{value}})
+	</button>
+	</span>
+</div>
+
+<span>Artist:</span>
+<div class="btn-group" role="group" aria-label="filter">
+	<span ng-repeat="(key, value) in data.facet_counts.facet_fields.artistRating">
+	<button role="button" class="btn btn-default btn-xs"
+			ng-click="addFilterQuery('artistRating', key)">
+		{{key}}({{value}})
+	</button>
+	</span>
+</div>
+
+<span>Album:</span>
+<div class="btn-group" role="group" aria-label="filter">
+	<span ng-repeat="(key, value) in data.facet_counts.facet_fields.albumRating">
+	<button role="button" class="btn btn-default btn-xs"
+			ng-click="addFilterQuery('albumRating', key)">
+		{{key}}({{value}})
+	</button>
+	</span>
+</div>

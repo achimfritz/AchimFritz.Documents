@@ -3,17 +3,16 @@
 
 		<div class="collapse navbar-collapse bs-example-js-navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="dropdown" ng-repeat="(facet, result) in data.facet_counts.facet_fields"
-					ng-hide="facet == 'artist' || facet == 'album' || facet == 'artistLetter' || facet == 'fsArtist' || facet == 'fsAlbum'">
+				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
 					   aria-expanded="false">
-						{{facet}}
+						fsGenre
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-						<li role="presentation" ng-repeat="(key, value) in result">
-							<a href="javascript:void()" ng-click="addFilterQuery(facet, key)">
-								<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{facet}}"></nav-path>
+						<li role="presentation" ng-repeat="(key, value) in data.facet_counts.facet_fields.fsGenre">
+							<a href="javascript:void()" ng-click="addFilterQuery('fsGenre', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsGenre"></nav-path>
 								({{value}})
 							</a>
 						</li>
@@ -22,18 +21,44 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
 					   aria-expanded="false">
-						Id3 Tag
+						fsProvider
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-						<li role="presentation">
-							<a href="javascript:void()" ng-click="addFilterQuery('!track', 0)">
-								must have
+						<li role="presentation" ng-repeat="(key, value) in data.facet_counts.facet_fields.fsProvider">
+							<a href="javascript:void()" ng-click="addFilterQuery('fsProvider', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsProvider"></nav-path>
+								({{value}})
 							</a>
 						</li>
-						<li role="presentation">
-							<a href="javascript:void()" ng-click="addFilterQuery('track', 0)">
-								must not have
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+					   aria-expanded="false">
+						genre
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+						<li role="presentation" ng-repeat="(key, value) in data.facet_counts.facet_fields.genre">
+							<a href="javascript:void()" ng-click="addFilterQuery('genre', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="genre"></nav-path>
+								({{value}})
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+					   aria-expanded="false">
+						year
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+						<li role="presentation" ng-repeat="(key, value) in data.facet_counts.facet_fields.year">
+							<a href="javascript:void()" ng-click="addFilterQuery('year', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="year"></nav-path>
+								({{value}})
 							</a>
 						</li>
 					</ul>

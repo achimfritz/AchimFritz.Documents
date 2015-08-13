@@ -43,6 +43,7 @@ class RatingService {
 	/**
 	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
 	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
 	public function deleteRatings(Rating $rating) {
 		$documentCollection = $this->getDocumentCollection($rating);
@@ -57,6 +58,7 @@ class RatingService {
 	/**
 	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
 	 * @return void
+	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
 	public function updateRatings(Rating $rating) {
 		$documentCollection = $this->deleteRatings($rating);
@@ -78,8 +80,9 @@ class RatingService {
 	}
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
-	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating
+	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection
+	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
 	protected function getDocumentCollection(Rating $rating) {
 		switch ($rating->getName()) {
@@ -88,7 +91,7 @@ class RatingService {
 				break;
 			case 'album':
 			case 'artist':
-				$fq = $rating->getName() . ':' . $rating->getValue();
+				$fq = $rating->getName() . ':"' . $rating->getValue() . '"';
 				$docs = $this->solrHelper->findDocumentsByFq($fq);
 				$documents = $this->documentRepository->findByNames($docs);
 				break;
@@ -96,7 +99,7 @@ class RatingService {
 				throw new Exception('unknown name ' . $rating->getName(), 1437392282);
 		}
 		if (count($documents) === 0) {
-			throw new Exception('no documents found', 1437392281);
+			throw new Exception('no documents found for ' . $rating->getName() . ':' . $rating->getValue(), 1437392281);
 		}
 		$documentCollection = new DocumentCollection();
 		foreach ($documents as $document) {

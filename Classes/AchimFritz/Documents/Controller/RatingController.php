@@ -37,10 +37,12 @@ class RatingController extends RestController {
 	 * @return void
 	 */
 	public function deleteAction(Rating $rating) {
-		$documentCollection = $this->ratingService->deleteRatings($rating);
 		try {
+			$documentCollection = $this->ratingService->deleteRatings($rating);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage(count($documentCollection->getDocuments()) . ' documents affected');
+		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->handleException($e);
 		}
@@ -51,10 +53,12 @@ class RatingController extends RestController {
 	 * @return void
 	 */
 	public function updateAction(Rating $rating) {
-		$documentCollection = $this->ratingService->updateRatings($rating);
 		try {
+			$documentCollection = $this->ratingService->updateRatings($rating);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage(count($documentCollection->getDocuments()) . ' documents affected');
+		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 			$this->handleException($e);
 		}
