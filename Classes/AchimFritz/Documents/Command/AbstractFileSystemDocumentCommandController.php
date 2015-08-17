@@ -323,19 +323,23 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @return void
 	 */
 	public function testDirectoryCommand($path = 'lucky/mix/Lucky3') {
-		$files = $this->directoryService->getSplFileInfosInDirectory($this->getMountPoint() . PathService::PATH_DELIMITER . $path, $this->getConfiguration()->getFileExtension());
-		$cntFs = count($files);
-		$cntDb = 0;
-		foreach ($files as $fileInfo) {
-			$fileHash = sha1_file($fileInfo->getRealPath());
-			$document = $this->documentRepository->findOneByFileHash($fileHash);
-			$this->outputLine('INFO: testing ' . $fileInfo->getRealPath());
-			if ($document instanceof Document) {
-				$cntDb++;
-				$this->outputLine('INFO: found ' . $document->getName());
-			} 
+		try {
+			$files = $this->directoryService->getSplFileInfosInDirectory($this->getMountPoint() . PathService::PATH_DELIMITER . $path, $this->getConfiguration()->getFileExtension());
+			$cntFs = count($files);
+			$cntDb = 0;
+			foreach ($files as $fileInfo) {
+				$fileHash = sha1_file($fileInfo->getRealPath());
+				$document = $this->documentRepository->findOneByFileHash($fileHash);
+				$this->outputLine('INFO: testing ' . $fileInfo->getRealPath());
+				if ($document instanceof Document) {
+					$cntDb++;
+					$this->outputLine('INFO: found ' . $document->getName());
+				} 
+			}
+			$this->outputLine('INFO: summary ' . $path . ': ' . $cntFs . ' Files and ' . $cntDb . ' Documents');
+		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
-		$this->outputLine('INFO: summary ' . $path . ': ' . $cntFs . ' Files and ' . $cntDb . ' Documents');
 	}
 
 	/**

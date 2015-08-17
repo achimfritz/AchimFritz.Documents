@@ -6,6 +6,21 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
 					   aria-expanded="false">
+						lists
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+						<li role="presentation" ng-repeat="(key, value) in data.facet_counts.facet_fields.hPaths">
+							<a href="javascript:void()" ng-click="addFilterQuery('hPaths', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
+								({{value}})
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+					   aria-expanded="false">
 						fsGenre
 						<span class="caret"></span>
 					</a>

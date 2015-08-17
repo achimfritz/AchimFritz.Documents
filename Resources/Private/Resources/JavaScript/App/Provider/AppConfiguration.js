@@ -11,7 +11,9 @@
 
         var settings = {
             'restBaseUrl': 'achimfritz.documents',
-            'documentListResource': 'documentlist'
+            'documentListResource': 'documentlist',
+            'documentListMergeResource': 'documentlistmerge',
+            'documentListRemoveResource': 'documentlistremove'
         };
 
         this.setSetting = function (name, value) {

@@ -22,6 +22,8 @@
     /* @ngInject */
     function appConfiguration(AppConfigurationProvider) {
         AppConfigurationProvider.setSetting('documentListResource', 'imagedocumentlist');
+        AppConfigurationProvider.setSetting('documentListMergeResource', 'imagedocumentlistmerge');
+        AppConfigurationProvider.setSetting('documentListRemoveResource', 'imagedocumentlistremove');
     };
 
     /* @ngInject */

@@ -79,30 +79,13 @@
         };
 
         $scope.addToList = function () {
-            var documentList = {
-		'documentListItems': [
-			{
-				'sorting': 1,
-				'document': {
-					'__identity': $scope.infoDoc.identifier
-				}
-			}
-		],
-		'category': {
-			'path': $scope.infoDoc.listItemPath
-		}
-
-            };
-/*
-            DocumentListRestService.merge(documentList).then(function (data) {
+            DocumentListRestService.merge($scope.infoDoc.listItemPath, [ $scope.infoDoc ]).then(function (data) {
                 $scope.finished = true;
                 FlashMessageService.show(data.data.flashMessages);
-                //update();
             }, function (data) {
                 $scope.finished = true;
                 FlashMessageService.error(data);
             });
-*/
         };
 
         $scope.zipDownload = function () {

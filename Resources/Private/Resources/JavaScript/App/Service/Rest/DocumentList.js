@@ -11,8 +11,38 @@
 
         this.url = function() {
             return AppConfiguration.getSetting('restBaseUrl') + '/' + AppConfiguration.getSetting('documentListResource') + '/';
-            console.log(AppConfiguration.getSettings());
-        }
+        };
+
+        this.mergeUrl = function() {
+            return AppConfiguration.getSetting('restBaseUrl') + '/' + AppConfiguration.getSetting('documentListMergeResource') + '/';
+        };
+        
+        this.removeUrl = function() {
+            return AppConfiguration.getSetting('restBaseUrl') + '/' + AppConfiguration.getSetting('documentListRemoveResource') + '/';
+        };
+
+        var buildRequest = function(path, docs) {
+            var sorting = 1;
+            var documentListItems = [];
+            var documentListItem = {};
+            angular.forEach(docs, function (val, key) {
+                documentListItem = {
+                    'sorting': sorting,
+                    'document': val.identifier
+                };
+                documentListItems.push(documentListItem);
+                sorting++;
+            });
+            var data = {
+                'documentList': {
+                    'category': {
+                        'path': path
+                    },
+                    'documentListItems': documentListItems
+                }
+            };
+            return data;
+        };
 
         this.list = function () {
             var url =  this.url();
@@ -43,6 +73,20 @@
             return $http({
                 method: 'DELETE',
                 url: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+
+        this.merge= function (path, docs) {
+            var url =  this.mergeUrl();
+            var data = buildRequest(path, docs);
+            return $http({
+                method: 'Post',
+                url: url,
+                data: data,
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
