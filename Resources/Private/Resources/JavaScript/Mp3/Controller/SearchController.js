@@ -7,7 +7,7 @@
         .module('mp3App')
         .controller('SearchController', SearchController);
 
-    function SearchController($scope, Solr, angularPlayer, CddbRestService, RatingRestService, ExportRestService, FlashMessageService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
+    function SearchController($scope, Solr, angularPlayer, CddbRestService, RatingRestService, ExportRestService, FlashMessageService, DocumentListRestService, DocumentCollectionRestService, Mp3DocumentId3TagRestService) {
 
         $scope.songs = [];
         $scope.letterNav = [];
@@ -76,6 +76,33 @@
                 $scope.finished = true;
                 FlashMessageService.error(data);
             });
+        };
+
+        $scope.addToList = function () {
+            var documentList = {
+		'documentListItems': [
+			{
+				'sorting': 1,
+				'document': {
+					'__identity': $scope.infoDoc.identifier
+				}
+			}
+		],
+		'category': {
+			'path': $scope.infoDoc.listItemPath
+		}
+
+            };
+/*
+            DocumentListRestService.merge(documentList).then(function (data) {
+                $scope.finished = true;
+                FlashMessageService.show(data.data.flashMessages);
+                //update();
+            }, function (data) {
+                $scope.finished = true;
+                FlashMessageService.error(data);
+            });
+*/
         };
 
         $scope.zipDownload = function () {

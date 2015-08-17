@@ -25,8 +25,9 @@
                 }
             })
         };
+
         this.show = function (identifier) {
-            var url = 'achimfritz.documents/imagedocumentlist/?documentList[__identity]=' + identifier;
+            var url =  this.url() + '?documentList[__identitiy]=' + identifier;
             return $http({
                 method: 'GET',
                 url: url,
@@ -36,8 +37,9 @@
                 }
             })
         };
+
         this.delete = function (identifier) {
-            var url = 'achimfritz.documents/imagedocumentlist/?documentList[__identity]=' + identifier;
+            var url =  this.url() + '?documentList[__identitiy]=' + identifier;
             return $http({
                 method: 'DELETE',
                 url: url,

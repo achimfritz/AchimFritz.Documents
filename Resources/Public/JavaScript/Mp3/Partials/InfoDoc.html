@@ -38,6 +38,17 @@
 	</tr>
 </table>
 
+<div class="row form-group">
+	<div class="col-md-8">
+		<label class="controll-label">add to List</label>
+		<input class="form-control" type="text" data-ng-model="infoDoc.listItemPath" />
+	</div>
+	<div class="col-md-3">
+		<label class="controll-label">&nbsp;</label>
+		<input class="form-control btn btn-xs btn-danger" type="submit" ng-click="addToList()" value="Ok" />
+	</div>
+</div>
+
 <table class="table table-striped small-table">
 	<tr>
 		<td>Title</td>
