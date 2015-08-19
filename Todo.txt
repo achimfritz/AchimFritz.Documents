@@ -2,4 +2,10 @@ rm /bilder/admin
 
 index mp3 track length
 facet.limit getrennt
+facet.sorting -> angular
 
+sorting: random
+update player
+autocomplete slow
+
+dialog

@@ -154,6 +154,31 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	}
 
 	/**
+	 * removeallid3tags --path=af/mix/HeavyParty_Rest
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function removeAllId3TagsCommand($path) {
+		$documents = $this->documentRepository->findByHead($path);
+		foreach ($documents as $document) {
+			try {
+				$this->id3TagWriterService->removeTags($document);
+				$this->documentPersistenceManager->persistAll();
+				$this->outputLine('SUCCESS: removed tags ' . $document->getName());
+			} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+			} catch (\AchimFritz\Documents\Linux\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+			} catch (\SolrClientException $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+			}
+		}
+	}
+
+	/**
 	 * removeid3tags --name=af/mix/HeavyParty_Rest/Danzig-Mother.mp3
 	 *
 	 * @param string $name
