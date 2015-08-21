@@ -99,7 +99,7 @@ class Mp3Document extends FileSystemDocument {
 	 */
 	public function getFsTitle() {
 		$arr = $this->splitTrackTitle();
-		return $this->insertSpaces($arr[1]);
+		return str_replace('.mp3', '', $this->insertSpaces($arr[1]));
 	}
 
 	/**
