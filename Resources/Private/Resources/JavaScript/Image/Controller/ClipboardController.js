@@ -7,7 +7,7 @@
         .module('imageApp')
         .controller('ClipboardController', ClipboardController);
 
-    function ClipboardController($scope, Solr, ClipboardFactory, DocumentCollectionRestService, ExportRestService, FlashMessageService) {
+    function ClipboardController($scope, Solr, ClipboardFactory, DocumentCollectionRestService, ExportRestService, DocumentListRestService, FlashMessageService) {
 
         var solrDocs = ClipboardFactory.getSolrDocs();
 

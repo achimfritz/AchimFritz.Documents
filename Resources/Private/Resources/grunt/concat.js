@@ -55,6 +55,7 @@ module.exports = {
             'bower_components/bootstrap/js/modal.js',
             'bower_components/bootstrap/js/tab.js',
             'bower_components/bootstrap/js/dropdown.js',
+            'bower_components/bootstrap/js/collapse.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-animate/angular-animate.js',

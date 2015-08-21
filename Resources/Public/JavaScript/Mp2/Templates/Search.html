@@ -5,29 +5,41 @@
 	<spinner></spinner>
 </div>
 
-<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/Nav.html'"></ng-include>
-
-
 <div class="row">
-  <div class="col-md-12">
-		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/LetterNav.html'"></ng-include>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/CurrentFilter.html'"></ng-include>
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/Search.html'"></ng-include>
 	</div>
+	<div class="col-md-4"></div>
 </div>
 
 <div class="row">
-	<div class="col-md-2" ng-hide="infoDoc">
-		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/FilterNav.html'"></ng-include>
+	<div class="col-md-12">
+		<input type="button" class="btn btn-accordeon" data-toggle="collapse" data-target="#toggleFilter" value="Filter">
 	</div>
-	<div class="col-md-2" ng-show="infoDoc">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/InfoDoc.html'"></ng-include>
+</div>
+
+<div id="toggleFilter">
+	<div class="row">
+	  <div class="col-md-12">
+			<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/CurrentFilter.html'"></ng-include>
+		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="row">
+	  <div class="col-md-12">
+			<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/FilterNav.html'"></ng-include>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<input type="button" class="btn btn-accordeon" data-toggle="collapse" data-target="#result" value="Result">
+	</div>
+</div>
+
+<div class="row" id="result">
+	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-12">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultHead.html'"></ng-include>
@@ -39,54 +51,25 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<input type="button" class="btn-accordeon btn" data-toggle="collapse" data-target="#player" value="Player">
+	</div>
+</div>
 
-	<div class="col-md-3">
+<div class="row" id="player">
+	<div class="col-md-12">
 		<!-- init soundManager2 player -->
 		<sound-manager></sound-manager>
-
-
-		<!-- partial Actions not work because of scope.tagPath -->
-		<div class="row form-group" ng-show="form === 'edit'">
-			<div class="col-md-6">
-				<input class="form-control" id="tagPath" type="text" data-ng-model="tagPath" data-autocomplete data-global="true" />
-			</div>
-			<div class="col-md-3">
-				<input class="form-control btn btn-danger" type="submit" ng-click="writeTag()" value="write Id3 Tag" />
-			</div>
-			<div class="col-md-2">
-				<input class="form-control btn btn-danger" type="submit" ng-click="showForm('')" value="Cancel" />
-			</div>
-		</div>
-		<div class="row form-group" ng-show="form === 'zip'">
-			<div class="col-md-4">
-				<input class="form-control" type="text" data-ng-model="zip.name" />
-			</div>
-			<div class="col-md-2 checkbox">
-				<label>
-					<input type="checkbox" value="1" data-ng-model="zip.useFullPath" />Full Path
-				</label>
-			</div>
-			<div class="col-md-3">
-				<input class="form-control btn btn-danger" type="submit" ng-click="zipDownload()" value="Zip Download" />
-			</div>
-			<div class="col-md-2">
-				<input class="form-control btn btn-danger" type="submit" ng-click="showForm('')" value="Cancel" />
-			</div>
-		</div>
-
 
 
 		<div class="row">
 			<div class="col-md-12">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls1.html'"></ng-include>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls2.html'"></ng-include>
 			</div>
 		</div>
-
 
 		<div class="row" ng-show="currentPlaying && playlist.length">
 			<div class="col-md-6" ng-show="currentPlaying.doc.webThumbPath">

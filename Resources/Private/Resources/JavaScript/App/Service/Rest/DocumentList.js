@@ -57,7 +57,7 @@
         };
 
         this.show = function (identifier) {
-            var url =  this.url() + '?documentList[__identitiy]=' + identifier;
+            var url =  this.url() + '?documentList[__identity]=' + identifier;
             return $http({
                 method: 'GET',
                 url: url,
@@ -69,10 +69,24 @@
         };
 
         this.delete = function (identifier) {
-            var url =  this.url() + '?documentList[__identitiy]=' + identifier;
+            var url =  this.url() + '?documentList[__identity]=' + identifier;
             return $http({
                 method: 'DELETE',
                 url: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+
+        this.remove= function (path, docs) {
+            var url =  this.removeUrl();
+            var data = buildRequest(path, docs);
+            return $http({
+                method: 'Post',
+                url: url,
+                data: data,
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
