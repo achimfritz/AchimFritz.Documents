@@ -2,10 +2,9 @@
 
 (function () {
     'use strict';
-    angular.module('mp2App', ['solr', 'app', 'ngRoute', 'angularSoundManager', 'xeditable'])
+    angular.module('mp2App', ['solr', 'app', 'ngRoute', 'angularSoundManager'])
         .config(routeConfiguration)
-        .config(solrConfiguration)
-								.run(xeditableConfig);
+        .config(solrConfiguration);
 
     /* @ngInject */
     function routeConfiguration($routeProvider) {
@@ -22,12 +21,12 @@
 
     /* @ngInject */
     function solrConfiguration(SolrProvider) {
-        SolrProvider.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre', 'artistLetter', 'fsAlbum', 'fsArtist']);
+        SolrProvider.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre']);
         SolrProvider.setHFacets({});
         SolrProvider.setSolrSetting('servlet', 'mp3');
-        SolrProvider.setSetting('sort', 'artist asc, album asc, track asc');
-        SolrProvider.setSetting('rows', 20);
-        SolrProvider.setSetting('facet_limit', 20);
+        SolrProvider.setSetting('sort', ' track asc, artist asc, album asc');
+        SolrProvider.setSetting('rows', 15);
+        SolrProvider.setSetting('facet_limit', 15);
         SolrProvider.setSetting('facet_sort', 'count');
         SolrProvider.setSetting('f_artistLetter_facet_sort', 'index');
         var solrSettingsDiv = jQuery('#solrSettings');
@@ -36,13 +35,6 @@
             SolrProvider.setSolrSetting('servlet', solrSettings.servlet);
             SolrProvider.setSolrSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
         }
-    }
-
-    /* @ngInject */
-    function xeditableConfig(editableOptions, editableThemes) {
-        editableOptions.theme = 'bs3';
-        editableThemes.bs3.inputClass = 'input-sm';
-        editableThemes.bs3.buttonsClass = 'btn-xs';
     }
 
 }());

@@ -4,14 +4,8 @@
 <p ng-hide="currentPlaying.doc.album">{{currentPlaying.doc.fsAlbum}}</p>
 <p ng-show="currentPlaying.doc.title">
 	{{currentPlaying.doc.title}}
-	<button class="btn btn-default btn-xs" ng-click="showInfo(currentPlaying.doc)">
-		<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-	</button>
 </p>
 <p ng-hide="currentPlaying.doc.title">
 	{{currentPlaying.doc.fsTitle}}
-	<button class="btn btn-default btn-xs" ng-click="showInfo(currentPlaying.doc)">
-		<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-	</button>
 </p>
 <p>{{ currentPostion }} / {{ currentDuration }}</p>

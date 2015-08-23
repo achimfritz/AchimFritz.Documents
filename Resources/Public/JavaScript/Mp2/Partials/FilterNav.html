@@ -8,6 +8,8 @@
 				({{value}})
 			</li>
 		</ul>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('artist', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('artist', -10)">less</button>
 	</div>
 
 	<div class="col-md-3">
@@ -19,9 +21,11 @@
 				({{value}})
 			</li>
 		</ul>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('album', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('album', -10)">less</button>
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<h4>Genre</h4>
 		<ul>
 			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.genre"
@@ -30,8 +34,10 @@
 				({{value}})
 			</li>
 		</ul>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('genre', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="changeFacetCount('genre', -10)">less</button>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<h4>FsGenre</h4>
 		<ul>
 			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsGenre"
@@ -40,6 +46,9 @@
 				({{value}})
 			</li>
 		</ul>
+	</div>
+
+	<div class="col-md-2">
 		<h4>Provider</h4>
 		<ul>
 			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsProvider"
