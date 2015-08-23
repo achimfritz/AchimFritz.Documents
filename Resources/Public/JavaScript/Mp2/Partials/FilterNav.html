@@ -1,21 +1,53 @@
 <div class="row">
-	<div id="Artist" class="col-md-3">
-	<h3>Artist</h3>
+	<div class="col-md-3">
+		<h4>Artist</h4>
 		<ul>
-		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist" ng-click="addFilterQuery('artist', key)">
-			<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist" ></nav-path>
-			({{value}})
-		</li>
-			</ul>
+			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.artist"
+				ng-click="addFilterQuery('artist', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist"></nav-path>
+				({{value}})
+			</li>
+		</ul>
 	</div>
-	<h3>Album</h3>
-	<div id="id3Album" class="col-md-3">
+
+	<div class="col-md-3">
+		<h4>Album</h4>
 		<ul>
-		<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album" ng-click="addFilterQuery('album', key)">
-			<nav-path ng-attr-path="{{key}}" ng-attr-facet="album" ></nav-path>
-			({{value}})
-		</li>
-			</ul>
+			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.album"
+				ng-click="addFilterQuery('album', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="album"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+	</div>
+
+	<div class="col-md-3">
+		<h4>Genre</h4>
+		<ul>
+			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.genre"
+				ng-click="addFilterQuery('genre', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="genre"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-3">
+		<h4>FsGenre</h4>
+		<ul>
+			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsGenre"
+				ng-click="addFilterQuery('fsGenre', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsGenre"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+		<h4>Provider</h4>
+		<ul>
+			<li ng-repeat="(key, value) in data.facet_counts.facet_fields.fsProvider"
+				ng-click="addFilterQuery('fsProvider', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsProvider"></nav-path>
+				({{value}})
+			</li>
+		</ul>
 	</div>
 </div>
 

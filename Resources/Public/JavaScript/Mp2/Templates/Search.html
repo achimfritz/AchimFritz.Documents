@@ -5,84 +5,111 @@
 	<spinner></spinner>
 </div>
 
-<div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/Search.html'"></ng-include>
-	</div>
-	<div class="col-md-4"></div>
-</div>
+
+<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/Nav.html'"></ng-include>
 
 <div class="row">
 	<div class="col-md-12">
-		<input type="button" class="btn btn-accordeon" data-toggle="collapse" data-target="#toggleFilter" value="Filter">
+		<input type="button" class="btn btn-accordeon btn-default" data-toggle="collapse"
+			   data-target="#toggleFilter" value="Filter">
 	</div>
 </div>
 
-<div id="toggleFilter">
-	<div class="row">
-	  <div class="col-md-12">
-			<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/CurrentFilter.html'"></ng-include>
-		</div>
-	</div>
+<div class="row" id="toggleFilter">
 
-	<div class="row">
-	  <div class="col-md-12">
-			<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/FilterNav.html'"></ng-include>
-		</div>
+	<div class="col-md-12">
+		<ng-include
+				src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/FilterNav.html'"></ng-include>
 	</div>
 </div>
+
+
 <div class="row">
 	<div class="col-md-12">
-		<input type="button" class="btn btn-accordeon" data-toggle="collapse" data-target="#result" value="Result">
+		<input type="button" class="btn btn-accordeon btn-default" data-toggle="collapse"
+			   data-target="#toggleResult" value="Result">
 	</div>
 </div>
 
-<div class="row" id="result">
-	<div class="col-md-12">
+<div class="row" id="toggleResult">
+
+	<div data-ng-if="!infoDoc" class="col-md-12">
 		<div class="row">
 			<div class="col-md-12">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultHead.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultHead.html'"></ng-include>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultTable.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultTable.html'"></ng-include>
 			</div>
 		</div>
 	</div>
+
+	<div data-ng-if="infoDoc" class="col-md-4">
+		<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/InfoDoc.html'"></ng-include>
+	</div>
+
+	<div data-ng-if="infoDoc" class="col-md-8">
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultHead.html'"></ng-include>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/ResultTable.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+
+
 </div>
+
+
 <div class="row">
 	<div class="col-md-12">
-		<input type="button" class="btn-accordeon btn" data-toggle="collapse" data-target="#player" value="Player">
+		<input type="button" class="btn btn-accordeon btn-default" data-toggle="collapse"
+			   data-target="#togglePlayer" value="Player">
 	</div>
 </div>
 
-<div class="row" id="player">
+
+<div class="row" id="togglePlayer">
+
+
+
 	<div class="col-md-12">
 		<!-- init soundManager2 player -->
 		<sound-manager></sound-manager>
-
-
 		<div class="row">
 			<div class="col-md-12">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls1.html'"></ng-include>
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls2.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls1.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlayerControls2.html'"></ng-include>
 			</div>
 		</div>
 
 		<div class="row" ng-show="currentPlaying && playlist.length">
 			<div class="col-md-6" ng-show="currentPlaying.doc.webThumbPath">
-				<img ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="200" height"200" />
+				<img ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="200" height=""200"
+																													   />
 			</div>
 			<div class="col-md-6">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/CurrentPlaying.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/CurrentPlaying.html'"></ng-include>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-12">
-				<ng-include src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlaylistTable.html'"></ng-include>
+				<ng-include
+						src="'/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp2/Partials/PlaylistTable.html'"></ng-include>
 			</div>
 		</div>
 	</div>

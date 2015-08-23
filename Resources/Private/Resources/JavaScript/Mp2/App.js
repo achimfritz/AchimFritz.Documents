@@ -26,8 +26,8 @@
         SolrProvider.setHFacets({});
         SolrProvider.setSolrSetting('servlet', 'mp3');
         SolrProvider.setSetting('sort', 'artist asc, album asc, track asc');
-        SolrProvider.setSetting('rows', 30);
-        SolrProvider.setSetting('facet_limit', 30);
+        SolrProvider.setSetting('rows', 20);
+        SolrProvider.setSetting('facet_limit', 20);
         SolrProvider.setSetting('facet_sort', 'count');
         SolrProvider.setSetting('f_artistLetter_facet_sort', 'index');
         var solrSettingsDiv = jQuery('#solrSettings');
