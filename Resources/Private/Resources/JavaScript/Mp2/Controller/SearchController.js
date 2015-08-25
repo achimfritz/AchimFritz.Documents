@@ -19,6 +19,13 @@
 
         var currentFacetField = null;
 
+        $scope.changeRows = function (diff) {
+            var settings = Solr.getSettings();
+            var newVal = settings['rows'] + diff;
+            Solr.setSetting('rows', newVal);
+            update($scope.search);
+        };
+
         $scope.changeFacetCount = function (facetName, diff) {
             var solrKey = 'f_' + facetName + '_facet_limit';
             var settings = Solr.getSettings();
@@ -26,8 +33,10 @@
             if (angular.isDefined(settings[solrKey])) {
                 newVal = settings[solrKey] + diff;
             }
-            Solr.setSetting(solrKey, newVal);
-            update($scope.search);
+            if (newVal > 0) {
+                Solr.setSetting(solrKey, newVal);
+                update($scope.search);
+            }
         };
 
 

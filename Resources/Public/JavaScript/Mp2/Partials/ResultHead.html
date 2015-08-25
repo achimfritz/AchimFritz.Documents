@@ -1,4 +1,6 @@
 found {{data.response.numFound}} (displaying {{settings.rows}})
+<button class="btn btn-default btn-xs" ng-click="changeRows(10)">more</button>
+<button class="btn btn-default btn-xs" ng-click="changeRows(-10)">less</button>
 <button class="btn btn-default" play-all="songs" my-playlist="playlist">
 	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
 </button>
