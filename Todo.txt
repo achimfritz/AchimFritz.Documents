@@ -1,3 +1,7 @@
+mp2:
+- year facet
+- "accordeon"
+
 rm /bilder/admin
 
 index mp3 track length

@@ -1,0 +1,49 @@
+<f:layout name="Default" />
+
+<f:section name="Title">A list of tv channels</f:section>
+
+<f:section name="Content">
+	<f:if condition="{tvChannels}">
+		<f:then>
+			<table class="table table-striped">
+				<f:for each="{tvChannels}" as="tvChannel">
+					<tr>
+						<td><f:link.action action="index" arguments="{tvChannel: tvChannel}">{tvChannel.name}</f:link.action></td>
+						<td><f:form action="index" arguments="{tvChannel: tvChannel}">
+							<f:form.hidden name="__method" value="DELETE" />
+							<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+						</f:form></td>
+					</tr>
+				</f:for>
+			</table>
+		</f:then>
+		<f:else>
+			<div class="alert alert-info" role="alert">No tv channels created yet.</div>
+		</f:else>
+	</f:if>
+	
+	<h3>create new tvChannel</h3>
+	<f:form action="index" objectName="tvChannel">
+		<input type="hidden" name="__method" value="POST" />
+		
+			<div class="form-group">
+				<label class="control-label" for="name">Name</label>
+					
+							<f:form.textfield property="name" class="form-control" id="name" />
+						
+			</div>
+		
+			<div class="form-group">
+				<label class="control-label" for="channel">Channel</label>
+					
+							<f:form.textfield property="channel" class="form-control" id="channel" />
+						
+			</div>
+		
+			<div class="form-group">
+				<f:form.submit value="Create" class="btn btn-default"/>
+			</div>
+	</f:form>
+
+</f:section>
+
