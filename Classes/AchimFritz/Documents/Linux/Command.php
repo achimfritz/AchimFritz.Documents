@@ -77,14 +77,19 @@ class Command {
 
 	/**
 	 * @param string $file 
+	 * @param boolean $xml
 	 * @return array
 	 * @throws Exception
 	 */
-	public function readId3Tags($file) {
+	public function readId3Tags($file, $xml = FALSE) {
 		if (file_exists($file) === FALSE) {
 			throw new Exception('no such file ' . $file, 1419089786);
 		}
-		$cmd = 'eyeD3 --no-color --rfc822 ' . $file;
+		$format = 'rfc822';
+		if ($xml === TRUE) {
+			$format = 'jep-118';
+		}
+		$cmd = 'eyeD3 --no-color --' . $format . ' ' . $file;
 		return $this->executeCommand($cmd);
 	}
 

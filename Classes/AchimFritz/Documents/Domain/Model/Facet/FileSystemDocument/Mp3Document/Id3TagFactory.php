@@ -62,6 +62,16 @@ class Id3TagFactory {
 				}
 			}
 		}
+		$res = $this->linuxCommand->readId3Tags($file, TRUE);
+		if (count($res) > 0) {
+			try {
+				$xml = new \SimpleXMLElement(implode('', $res));
+				$id3Tag->setLength((int)$xml->length);
+			} catch (\Exception $e) {
+				throw new \AchimFritz\Documents\Linux\Exception('cannot create SimpleXMLElement on ' . $file, 1440599809);
+			}
+		}
+
 		return $id3Tag;
 	}
 

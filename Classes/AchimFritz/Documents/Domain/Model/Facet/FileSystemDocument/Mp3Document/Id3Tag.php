@@ -14,6 +14,11 @@ use TYPO3\Flow\Annotations as Flow;
 class Id3Tag {
 
 	/**
+	 * @var integer
+	 */
+	protected $length = 0;
+
+	/**
 	 * @var string
 	 */
 	protected $artist = '';
@@ -161,4 +166,20 @@ class Id3Tag {
 	public function getArtistLetter() {
 		return strtoupper(mb_substr($this->getArtist(), 0, 1, 'UTF-8'));
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getLength() {
+		return $this->length;
+	}
+
+	/**
+	 * @param int $length
+	 */
+	public function setLength($length) {
+		$this->length = $length;
+	}
+
+
 }
