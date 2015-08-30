@@ -19,12 +19,6 @@ class App14Controller extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @return void
 	 */
-	public function mp2Action() {
-	}
-
-	/**
-	 * @return void
-	 */
 	public function mp3Action() {
 	}
 
@@ -33,6 +27,19 @@ class App14Controller extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function imageAction() {
 	}
+
+	/**
+	 * @return void
+	 */
+	public function urlBuilderAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function indexAction() {
+	}
+
 
 
 }

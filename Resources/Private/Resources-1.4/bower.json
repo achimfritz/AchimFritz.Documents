@@ -3,14 +3,15 @@
   "dependencies": {
     "bootstrap": "latest",
     "angular": "latest",
-    "angular-route": "latest",
+    "angular-sanitize": "latest",
+    "angular-new-router": "https://github.com/angular/router.git#d6e4c4d6de006af1420fe5884c742f17a966d26c",
     "jquery": "latest",
     "jquery-ui": "latest",
     "AngularJS-Toaster": "latest",
     "components-font-awesome": "*",
-				"angular-xeditable": "latest",
-				"file-saver": "*",
-				"ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
-				"angular-soundmanager2": "*"
+    "angular-xeditable": "latest",
+    "file-saver": "*",
+    "ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
+    "angular-soundmanager2": "*"
   }
 }
