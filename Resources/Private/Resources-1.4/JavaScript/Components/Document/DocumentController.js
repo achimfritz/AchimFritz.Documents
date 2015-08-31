@@ -7,6 +7,7 @@
 
     /* @ngInject */
     function DocumentController (Solr) {
+
         var vm = this;
 
 
@@ -18,6 +19,13 @@
         vm.initController();
 
         function initController() {
+            //Solr.request();
+
+            Solr.request().then(function (data) {
+                alert('x');
+                console.log(data);
+                });
+
         }
 
     }

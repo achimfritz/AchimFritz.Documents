@@ -11,8 +11,8 @@
             'achimfritz.document'
         ])
         .constant('CONFIG', {
-            "templatePath": '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/',
-            "baseUrl": '/achimfritz.documents/app14'
+            templatePath: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/',
+            baseUrl: '/achimfritz.documents/app14'
         })
         .config(TemplateMapping)
         .config(locationConfig)
@@ -43,7 +43,6 @@
             }
         ]);
     }
-
 
     /* @ngInject */
     function AppController ($router, CONFIG) {
