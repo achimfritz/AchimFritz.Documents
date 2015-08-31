@@ -7,14 +7,15 @@
         .module('achimfritz.solr')
         .service('Solr', Solr);
 
-    function Solr(CONFIG, Request, PathService) {
+    function Solr(SolrSettings, Request, PathService) {
 
         var self = this;
 
-        var settings = CONFIG.solr.settings;
-        var params = CONFIG.solr.params;
-        var facets = CONFIG.solr.facets;
-        var hFacets = CONFIG.solr.hFacets;
+        var solrSettings = SolrSettings.getSettings();
+        var settings = solrSettings.settings;
+        var params = solrSettings.params;
+        var facets = solrSettings.facets;
+        var hFacets = solrSettings.hFacets;
         var facetPrefixes = {};
         var filterQueries = {};
         var manager = new AjaxSolr.Manager(settings);

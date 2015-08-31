@@ -8,38 +8,18 @@
             'achimfritz.core',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
-            'achimfritz.document'
+            'achimfritz.document',
+            'achimfritz.mp3'
         ])
         .constant('CONFIG', {
             templatePath: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/',
-            baseUrl: '/achimfritz.documents/app14',
-            solr: {
-                settings: {
-                    'solrUrl': 'http://dev.dev.local.dev:8080/af/documents/',
-                    'servlet': 'select',
-                    'debug': true
-                },
-                params: {
-                    'rows': 10,
-                    'q': '*:*',
-                    'facet_limit': 5,
-                    'sort': 'mDateTime desc',
-                    'start': 0,
-                    'facet': true,
-                    'json.nl': 'map',
-                    'facet_mincount': 1
-                },
-                facets: ['hCategories', 'hPaths', 'paths'],
-                hFacets: {
-                    'hPaths': '0',
-                    'hCategories': '1/categories'
-                }
-            }
+            baseUrl: '/achimfritz.documents/app14'
         })
         .config(TemplateMapping)
         .config(locationConfig)
         .controller('AppController', AppController)
         .controller('UrlBuilderAppController', UrlBuilderAppController)
+        .controller('Mp3AppController', Mp3AppController)
         .controller('DocumentAppController', DocumentAppController);
 
     /* @ngInject */
@@ -49,6 +29,32 @@
                 path: CONFIG.baseUrl + '/document',
                 components: {
                     main: 'document'
+                }
+            }
+        ]);
+    }
+
+    /* @ngInject */
+    function Mp3AppController ($router, CONFIG, SolrSettings) {
+        SolrSettings.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre']);
+        SolrSettings.setHFacets({});
+        SolrSettings.setSetting('servlet', 'mp3');
+        SolrSettings.setParam('sort', ' track asc, artist asc, album asc');
+        SolrSettings.setParam('rows', 15);
+        SolrSettings.setParam('facet_limit', 15);
+        SolrSettings.setParam('facet_sort', 'count');
+        SolrSettings.setParam('f_artistLetter_facet_sort', 'index');
+        var solrSettingsDiv = jQuery('#solrSettings');
+        if (solrSettingsDiv.length) {
+            var solrSettings = solrSettingsDiv.data('solrsettings');
+            SolrSettings.setSetting('servlet', solrSettings.servlet);
+            SolrSettings.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
+        }
+        $router.config([
+            {
+                path: CONFIG.baseUrl + '/mp3',
+                components: {
+                    main: 'mp3'
                 }
             }
         ]);
@@ -100,7 +106,8 @@
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
-                'navigation': CONFIG.templatePath + 'Navigation/Navigation.html'
+                'navigation': CONFIG.templatePath + 'Navigation/Navigation.html',
+                'mp3': CONFIG.templatePath + 'Mp3/Mp3.html'
             }[name];
         });
     }

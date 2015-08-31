@@ -1,0 +1,28 @@
+<table class="table table-striped">
+	<tr ng-repeat="doc in document.data.response.docs">
+		<td class="mp3-song-list-controls">
+			<button class="btn btn-default btn-xs" music-player="play" add-song="song">
+					<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
+			</button>
+			<button class="btn btn-default btn-xs" music-player add-song="song">
+				  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button>
+		</td>
+		<td>
+			<span ng-show="song.doc.artist">{{doc.artist}}</span>
+			<span ng-hide="song.doc.artist">{{doc.fsArtist}}</span>
+			<strong ng-hide="song.doc.artist" class="text-danger">!</strong>
+		</td>
+		<td>
+			<span ng-show="song.doc.album">{{doc.album}}</span>
+			<span ng-hide="song.doc.album">{{doc.fsAlbum}}</span>
+			<strong ng-hide="song.doc.album" class="text-danger">!</strong>
+		</td>
+		<td>
+			<span ng-show="song.doc.title" >{{doc.title}}</span>
+			<span ng-hide="song.doc.title" >{{doc.fsTitle}}</span>
+			<strong ng-hide="song.doc.title" class="text-danger">!</strong>
+		</td>
+	</tr>
+</table>
+

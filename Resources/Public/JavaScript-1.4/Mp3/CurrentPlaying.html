@@ -1,0 +1,11 @@
+<p ng-show="currentPlaying.doc.artist">{{currentPlaying.doc.artist}}</p>
+<p ng-hide="currentPlaying.doc.artist">{{currentPlaying.doc.fsArtist}}</p>
+<p ng-show="currentPlaying.doc.album">{{currentPlaying.doc.album}}</p>
+<p ng-hide="currentPlaying.doc.album">{{currentPlaying.doc.fsAlbum}}</p>
+<p ng-show="currentPlaying.doc.title">
+	{{currentPlaying.doc.title}}
+</p>
+<p ng-hide="currentPlaying.doc.title">
+	{{currentPlaying.doc.fsTitle}}
+</p>
+<p>{{ currentPostion }} / {{ currentDuration }}</p>

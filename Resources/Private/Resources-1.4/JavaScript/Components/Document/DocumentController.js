@@ -6,7 +6,7 @@
         .controller('DocumentController', DocumentController);
 
     /* @ngInject */
-    function DocumentController (Solr, CONFIG, $rootScope) {
+    function DocumentController (Solr, $rootScope) {
 
         var vm = this;
 
@@ -15,18 +15,12 @@
         vm.search = '';
         vm.params = {};
 
-        /**
-        vm.templatePaths = {
-            filter: CONFIG.templatePath + 'Document/Filter.html',
-            filterQuery: CONFIG.templatePath + 'Document/FilterQuery.html',
-            resultTable: CONFIG.templatePath + 'Document/ResultTable.html'
-        };
-         */
-
         // used by the view
         vm.addFilterQuery = addFilterQuery;
         vm.rmFilterQuery = rmFilterQuery;
         vm.update = update;
+        vm.changeRows = changeRows
+        vm.changeFacetCount = changeFacetCount;
 
         // not used by the view
         vm.initController = initController;
@@ -36,7 +30,27 @@
         function initController() {
             vm.params = Solr.getParams();
             vm.filterQueries = Solr.getFilterQueries();
-            vm.update();
+            Solr.request().then(function (response){
+                vm.data = response.data;
+            })
+        }
+
+        function changeRows(diff) {
+            var newVal = vm.params['rows'] + diff;
+            Solr.setParam('rows', newVal);
+            update();
+        }
+
+        function changeFacetCount(facetName, diff) {
+            var solrKey = 'f_' + facetName + '_facet_limit';
+            var newVal = vm.params['facet_limit'] + diff;
+            if (angular.isDefined(vm.params[solrKey])) {
+                newVal = vm.params[solrKey] + diff;
+            }
+            if (newVal > 0) {
+                Solr.setParam(solrKey, newVal);
+                update();
+            }
         }
 
         function rmFilterQuery(name, value) {
@@ -59,8 +73,7 @@
                 }
             }
 
-            Solr.forceRequest().then(function (response){
-                //vm.data = response.data;
+            Solr.forceRequest().then(function (response) {
                 $rootScope.$emit('solrDataUpdate', response.data);
             })
         }
@@ -68,6 +81,7 @@
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.filterQueries = Solr.getFilterQueries();
             vm.data = data;
+            vm.params = Solr.getParams();
         });
 
     }

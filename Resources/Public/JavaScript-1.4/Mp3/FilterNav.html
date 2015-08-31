@@ -1,0 +1,62 @@
+<div class="row">
+	<div class="col-md-3">
+		<h4>Artist</h4>
+		<ul>
+			<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields.artist"
+				ng-click="document.addFilterQuery('artist', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="artist"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('artist', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('artist', -10)">less</button>
+	</div>
+
+	<div class="col-md-3">
+		<h4>Album</h4>
+		<ul>
+			<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields.album"
+				ng-click="document.addFilterQuery('album', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="album"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('album', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('album', -10)">less</button>
+	</div>
+
+	<div class="col-md-2">
+		<h4>Genre</h4>
+		<ul>
+			<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields.genre"
+				ng-click="document.addFilterQuery('genre', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="genre"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('genre', 10)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount('genre', -10)">less</button>
+	</div>
+	<div class="col-md-2">
+		<h4>FsGenre</h4>
+		<ul>
+			<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields.fsGenre"
+				ng-click="document.addFilterQuery('fsGenre', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsGenre"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+	</div>
+
+	<div class="col-md-2">
+		<h4>Provider</h4>
+		<ul>
+			<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields.fsProvider"
+				ng-click="document.addFilterQuery('fsProvider', key)">
+				<nav-path ng-attr-path="{{key}}" ng-attr-facet="fsProvider"></nav-path>
+				({{value}})
+			</li>
+		</ul>
+	</div>
+</div>
+
