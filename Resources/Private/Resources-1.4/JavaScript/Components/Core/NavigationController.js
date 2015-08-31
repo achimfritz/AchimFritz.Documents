@@ -23,8 +23,8 @@
         function initController() {
             vm.urls = [
                 {name: 'home', url: CONFIG.baseUrl + '/index'},
-                {name: 'url builder', url: CONFIG.baseUrl + '/default/urlbuilder'},
-                {name: 'document', url: CONFIG.baseUrl + '/default/document'}
+                {name: 'url builder', url: CONFIG.baseUrl + '/urlbuilder'},
+                {name: 'document', url: CONFIG.baseUrl + '/document'}
             ];
         }
 

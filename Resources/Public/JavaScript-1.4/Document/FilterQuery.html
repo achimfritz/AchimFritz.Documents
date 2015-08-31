@@ -1,0 +1,10 @@
+<h1>FilterQueries</h1>
+
+<ul data-ng-repeat="(key, values) in filterQuery.filterQueries">
+	<li data-ng-repeat="value in values">
+		<span ng-click="filterQuery.rmFilterQuery(key, value)">
+		{{key}}
+		<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
+		</span>
+	</li>
+</ul>

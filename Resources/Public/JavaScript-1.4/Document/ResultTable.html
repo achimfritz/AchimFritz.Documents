@@ -1,0 +1,11 @@
+<h1>ResultTable</h1>
+
+<p>results: {{resultTable.data.response.numFound}}</p>
+<ul>
+	<li data-ng-repeat="doc in resultTable.data.response.docs">
+		{{doc.name}}
+	</li>
+</ul>
+
+
+
