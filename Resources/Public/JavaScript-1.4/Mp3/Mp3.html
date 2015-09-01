@@ -31,7 +31,6 @@
 			</div>
 		</div>
 
-
 		<div class="col-md-6">
 			<!-- init soundManager2 player -->
 			<sound-manager></sound-manager>
@@ -42,17 +41,14 @@
 			</div>
 
 			<div class="row">
-
 				<div class="col-md-6" data-ng-if="currentPlaying && playlist.length">
-					<ng-include src="mp3.templatePaths.currentPlayer"></ng-include>
+					<ng-include src="mp3.templatePaths.currentPlaying"></ng-include>
 					<img data-ng-if="currentPlaying.doc.webThumbPath" ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="300" height="300" />
 				</div>
 
 				<div class="col-md-6">
-					<ng-include src="mp3.templatePaths.playListTable"></ng-include>
+					<ng-include src="mp3.templatePaths.playlistTable"></ng-include>
 				</div>
-
-
 
 			</div>
 		</div>

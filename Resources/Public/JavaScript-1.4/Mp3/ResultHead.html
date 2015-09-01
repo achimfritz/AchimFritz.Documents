@@ -3,10 +3,10 @@
 found {{document.data.response.numFound}} (displaying {{document.params.rows}})
 <button class="btn btn-default btn-xs" ng-click="document.changeRows(10)">more</button>
 <button class="btn btn-default btn-xs" ng-click="document.changeRows(-10)">less</button>
-<button class="btn btn-default" play-all="songs" my-playlist="playlist">
+<button class="btn btn-default" af-play-all="document.data.response.docs" my-playlist="playlist">
 	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
 </button>
-<button class="btn btn-default" play-all="songs" my-playlist="playlist" data-play="false">
+<button class="btn btn-default" af-play-all="document.data.response.docs" my-playlist="playlist" data-play="false">
 	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add All
 </button>
 

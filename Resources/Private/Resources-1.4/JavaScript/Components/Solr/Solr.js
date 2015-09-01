@@ -32,6 +32,8 @@
         self.getHFacet = getHFacet;
         self.getParams = getParams;
         self.getAutocomplete = getAutocomplete;
+        self.changeFacetCount = changeFacetCount;
+        self.changeRows = changeRows;
 
         init();
 
@@ -58,6 +60,24 @@
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        function changeFacetCount(facetName, diff) {
+            var solrKey = 'f_' + facetName + '_facet_limit';
+            var newVal = params['facet_limit'] + diff;
+            if (angular.isDefined(params[solrKey])) {
+                newVal = params[solrKey] + diff;
+            }
+            if (newVal > 0) {
+                params[solrKey] = newVal;
+            }
+        }
+
+        function changeRows(diff) {
+            var newVal = params['rows'] + diff;
+            if (newVal > 0) {
+                params['rows'] = newVal;
             }
         }
 

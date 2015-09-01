@@ -5,6 +5,8 @@
         .module('achimfritz.app', [
             'ngNewRouter',
             'ngSanitize',
+            'angularSoundManager',
+            'achimfritz.soundmanager',
             'achimfritz.core',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
@@ -36,7 +38,7 @@
 
     /* @ngInject */
     function Mp3AppController ($router, CONFIG, SolrSettings) {
-        SolrSettings.setFacets(['artist', 'album', 'genre', 'year', 'fsProvider', 'fsGenre']);
+        SolrSettings.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre']);
         SolrSettings.setHFacets({});
         SolrSettings.setSetting('servlet', 'mp3');
         SolrSettings.setParam('sort', ' track asc, artist asc, album asc');
@@ -44,6 +46,7 @@
         SolrSettings.setParam('facet_limit', 15);
         SolrSettings.setParam('facet_sort', 'count');
         SolrSettings.setParam('f_artistLetter_facet_sort', 'index');
+        SolrSettings.setParam('f_artistLetter_facet_limit', 35);
         var solrSettingsDiv = jQuery('#solrSettings');
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');

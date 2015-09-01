@@ -9,13 +9,15 @@
     function Mp3Controller (Solr, CONFIG, $rootScope) {
 
         var vm = this;
-        vm.data = {};
+        //vm.data = {};
 
         vm.templatePaths = {
             nav: CONFIG.templatePath + 'Mp3/Nav.html',
             filterNav: CONFIG.templatePath + 'Mp3/FilterNav.html',
             resultTable: CONFIG.templatePath + 'Mp3/ResultTable.html',
             playerControls: CONFIG.templatePath + 'Mp3/PlayerControls.html',
+            playlistTable: CONFIG.templatePath + 'Mp3/PlaylistTable.html',
+            currentPlaying: CONFIG.templatePath + 'Mp3/CurrentPlaying.html',
             resultHead: CONFIG.templatePath + 'Mp3/ResultHead.html'
         };
 
@@ -25,13 +27,15 @@
         vm.initController();
 
         function initController() {
+            /*
             Solr.request().then(function (response){
                 vm.data = response.data;
             })
+            */
         }
 
         $rootScope.$on('solrDataUpdate', function (event, data) {
-            vm.data = data;
+            //vm.data = data;
         });
 
     }

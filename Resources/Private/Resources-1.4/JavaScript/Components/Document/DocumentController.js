@@ -19,7 +19,7 @@
         vm.addFilterQuery = addFilterQuery;
         vm.rmFilterQuery = rmFilterQuery;
         vm.update = update;
-        vm.changeRows = changeRows
+        vm.changeRows = changeRows;
         vm.changeFacetCount = changeFacetCount;
 
         // not used by the view
@@ -36,21 +36,13 @@
         }
 
         function changeRows(diff) {
-            var newVal = vm.params['rows'] + diff;
-            Solr.setParam('rows', newVal);
-            update();
+            Solr.changeRows(diff);
+            vm.update();
         }
 
         function changeFacetCount(facetName, diff) {
-            var solrKey = 'f_' + facetName + '_facet_limit';
-            var newVal = vm.params['facet_limit'] + diff;
-            if (angular.isDefined(vm.params[solrKey])) {
-                newVal = vm.params[solrKey] + diff;
-            }
-            if (newVal > 0) {
-                Solr.setParam(solrKey, newVal);
-                update();
-            }
+            Solr.changeFacetCount(facetName, diff);
+            vm.update();
         }
 
         function rmFilterQuery(name, value) {
