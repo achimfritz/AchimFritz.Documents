@@ -7,6 +7,12 @@
   width: 100%;
 }
 
+.top2 { margin-top:2%; }
+.top3 { margin-top:3%; }
+.top5 { margin-top:5%; }
+.top7 { margin-top:7%; }
+.top1 { margin-top:1%; }
+
 
 .iso-item .iso-img-item {
 	padding: 3px;
