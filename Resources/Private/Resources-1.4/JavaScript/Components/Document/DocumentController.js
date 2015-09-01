@@ -21,6 +21,8 @@
         vm.update = update;
         vm.changeRows = changeRows;
         vm.changeFacetCount = changeFacetCount;
+        vm.overrideFilterQuery = overrideFilterQuery;
+        vm.resetFilterQueries = resetFilterQueries;
 
         // not used by the view
         vm.initController = initController;
@@ -40,6 +42,11 @@
             vm.update();
         }
 
+        function resetFilterQueries() {
+            Solr.resetFilterQueries();
+            vm.update();
+        }
+
         function changeFacetCount(facetName, diff) {
             Solr.changeFacetCount(facetName, diff);
             vm.update();
@@ -52,6 +59,11 @@
 
         function addFilterQuery(name, value) {
             Solr.addFilterQuery(name, value);
+            vm.update();
+        }
+
+        function overrideFilterQuery(name, value) {
+            Solr.overrideFilterQuery(name, value);
             vm.update();
         }
 

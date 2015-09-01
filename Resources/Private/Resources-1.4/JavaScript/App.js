@@ -5,6 +5,8 @@
         .module('achimfritz.app', [
             'ngNewRouter',
             'ngSanitize',
+            'xeditable',
+            'toaster',
             'angularSoundManager',
             'achimfritz.soundmanager',
             'achimfritz.core',
@@ -19,6 +21,7 @@
         })
         .config(TemplateMapping)
         .config(locationConfig)
+        .run(xeditableConfig)
         .controller('AppController', AppController)
         .controller('UrlBuilderAppController', UrlBuilderAppController)
         .controller('Mp3AppController', Mp3AppController)
@@ -110,7 +113,7 @@
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'navigation': CONFIG.templatePath + 'Navigation/Navigation.html',
-                'mp3': CONFIG.templatePath + 'Mp3/Mp3.html'
+                'mp3': CONFIG.templatePath + 'Mp3/Mp32.html'
             }[name];
         });
     }
@@ -122,5 +125,12 @@
             requireBase: false,
             rewriteLinks: false
         });
+    }
+
+    /* @ngInject */
+    function xeditableConfig(editableOptions, editableThemes) {
+        editableOptions.theme = 'bs3';
+        editableThemes.bs3.inputClass = 'input-sm';
+        editableThemes.bs3.buttonsClass = 'btn-xs';
     }
 }());

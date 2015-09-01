@@ -1,0 +1,8 @@
+<div class="btn-group" role="group" aria-label="filter">
+	<span ng-repeat="(key, value) in document.data.facet_counts.facet_fields.artistLetter">
+		<button role="button" class="btn btn-default btn-xs" ng-click="document.overrideFilterQuery('artistLetter', key)">
+			<nav-path ng-attr-path="{{key}}" ng-attr-facet="artistLetter" ></nav-path>
+		</button>
+	</span>
+</div>
+

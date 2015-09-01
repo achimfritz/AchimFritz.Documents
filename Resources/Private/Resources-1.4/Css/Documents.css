@@ -7,11 +7,25 @@
   width: 100%;
 }
 
-.top2 { margin-top:2%; }
-.top3 { margin-top:3%; }
-.top5 { margin-top:5%; }
-.top7 { margin-top:7%; }
-.top1 { margin-top:1%; }
+.btn-accordeon {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.small-table > thead > tr > th,
+.small-table > tbody > tr > th,
+.small-table > tfoot > tr > th,
+.small-table > thead > tr > td,
+.small-table > tbody > tr > td,
+.small-table > tfoot > tr > td {
+	padding: 2px;
+}
+
+.top2 { margin-top:0.2%; }
+.top3 { margin-top:0.3%; }
+.top5 { margin-top:0.5%; }
+.top10 { margin-top:1%; }
+.top1 { margin-top:0.1%; }
 
 
 .iso-item .iso-img-item {

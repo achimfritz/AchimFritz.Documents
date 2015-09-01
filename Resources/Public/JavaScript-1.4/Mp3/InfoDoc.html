@@ -1,0 +1,138 @@
+
+<div class="row">
+	<button type="button" class="close" aria-label="Close" ng-click="mp3.hideInfoDoc()"><span aria-hidden="true">&times;</span></button>
+	<div class="col-md-3">
+		<table class="table table-striped small-table">
+			<tr>
+				<td>Title</td>
+				<td><button ng-show="mp3.infoDoc.titleRating" class="btn-xs btn btn-info">{{mp3.infoDoc.titleRating}}</button></td>
+				<td>
+					<button ng-click="mp3.rate('title', 1, mp3.infoDoc.name)" class="btn btn-xs btn-default">1</button>
+					<button ng-click="mp3.rate('title', 2, mp3.infoDoc.name)" class="btn btn-xs btn-default">2</button>
+					<button ng-click="mp3.rate('title', 3, mp3.infoDoc.name)" class="btn btn-xs btn-default">3</button>
+					<button ng-click="mp3.rate('title', 4, mp3.infoDoc.name)" class="btn btn-xs btn-default">4</button>
+					<button ng-click="mp3.rate('title', 5, mp3.infoDoc.name)" class="btn btn-xs btn-default">5</button>
+					<button ng-click="mp3.rate('title', 6, mp3.infoDoc.name)" class="btn btn-xs btn-default">6</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Artist</td>
+				<td><button ng-show="mp3.infoDoc.artistRating" class="btn-xs btn btn-info">{{mp3.infoDoc.artistRating}}</button></td>
+				<td>
+					<button ng-click="mp3.rate('artist', 1, mp3.infoDoc.artist)" class="btn btn-xs btn-default">1</button>
+					<button ng-click="mp3.rate('artist', 2, mp3.infoDoc.artist)" class="btn btn-xs btn-default">2</button>
+					<button ng-click="mp3.rate('artist', 3, mp3.infoDoc.artist)" class="btn btn-xs btn-default">3</button>
+					<button ng-click="mp3.rate('artist', 4, mp3.infoDoc.artist)" class="btn btn-xs btn-default">4</button>
+					<button ng-click="mp3.rate('artist', 5, mp3.infoDoc.artist)" class="btn btn-xs btn-default">5</button>
+					<button ng-click="mp3.rate('artist', 6, mp3.infoDoc.artist)" class="btn btn-xs btn-default">6</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Album</td>
+				<td><button ng-show="mp3.infoDoc.albumRating" class="btn-xs btn btn-info">{{mp3.infoDoc.albumRating}}</button></td>
+				<td>
+					<button ng-click="mp3.rate('album', 1, mp3.infoDoc.album)" class="btn btn-xs btn-default">1</button>
+					<button ng-click="mp3.rate('album', 2, mp3.infoDoc.album)" class="btn btn-xs btn-default">2</button>
+					<button ng-click="mp3.rate('album', 3, mp3.infoDoc.album)" class="btn btn-xs btn-default">3</button>
+					<button ng-click="mp3.rate('album', 4, mp3.infoDoc.album)" class="btn btn-xs btn-default">4</button>
+					<button ng-click="mp3.rate('album', 5, mp3.infoDoc.album)" class="btn btn-xs btn-default">5</button>
+					<button ng-click="mp3.rate('album', 6, mp3.infoDoc.album)" class="btn btn-xs btn-default">6</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col-md-3 form-group">
+		<label class="controll-label">add to List</label>
+		<input class="form-control" type="text" data-ng-model="mp3.infoDoc.listItemPath"/>
+		<label class="controll-label">&nbsp;</label>
+		<input class="form-control btn btn-xs btn-danger" type="submit" ng-click="addToList()" value="Ok"/>
+	</div>
+
+	<div class="col-md-3">
+		<table class="table table-striped small-table">
+			<tr>
+				<td>Title</td>
+				<td>
+					<strong ng-hide="mp3.infoDoc.title" class="text-danger">!</strong>
+					<span ng-show="mp3.infoDoc.title" editable-text="mp3.infoDoc.title" onaftersave="updateId3Tag($data, 'title', mp3.infoDoc.identifier)">{{mp3.infoDoc.title}}</span>
+					<span ng-hide="mp3.infoDoc.title" editable-text="mp3.infoDoc.fsTitle" onaftersave="updateId3Tag($data, 'title', mp3.infoDoc.identifier)">{{mp3.infoDoc.fsTitle}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Track</td>
+				<td>
+					<span ng-show="mp3.infoDoc.track" editable-text="mp3.infoDoc.track" onaftersave="updateId3Tag($data, 'track', mp3.infoDoc.identifier)">{{mp3.infoDoc.track}}</span>
+					<span ng-hide="mp3.infoDoc.track" editable-text="mp3.infoDoc.fsTrack" onaftersave="updateId3Tag($data, 'track', mp3.infoDoc.identifier)">{{mp3.infoDoc.fsTrack}}</span>
+					<strong ng-hide="mp3.infoDoc.track" class="text-danger">!</strong>
+				</td>
+			</tr>
+			<tr>
+				<td>Artist</td>
+				<td>
+					<span ng-show="mp3.infoDoc.artist" editable-text="mp3.infoDoc.artist" onaftersave="updateId3Tag($data, 'artist', mp3.infoDoc.identifier)">{{mp3.infoDoc.artist}}</span>
+					<span ng-hide="mp3.infoDoc.artist" editable-text="mp3.infoDoc.fsArtist" onaftersave="updateId3Tag($data, 'artist', mp3.infoDoc.identifier)">{{mp3.infoDoc.fsArtist}}</span>
+					<strong ng-hide="mp3.infoDoc.artist" class="text-danger">!</strong>
+				</td>
+			</tr>
+			<tr>
+				<td>Album</td>
+				<td>
+					<span ng-show="mp3.infoDoc.album" editable-text="mp3.infoDoc.album" onaftersave="updateId3Tag($data, 'album', mp3.infoDoc.identifier)">{{mp3.infoDoc.album}}</span>
+					<span ng-hide="mp3.infoDoc.album" editable-text="mp3.infoDoc.fsAlbum" onaftersave="updateId3Tag($data, 'album', mp3.infoDoc.identifier)">{{mp3.infoDoc.fsAlbum}}</span>
+					<strong ng-hide="mp3.infoDoc.album" class="text-danger">!</strong>
+				</td>
+			</tr>
+			<tr>
+				<td>Genre</td>
+				<td>
+					<span ng-show="mp3.infoDoc.genre" editable-text="mp3.infoDoc.genre" onaftersave="updateId3Tag($data, 'genre', mp3.infoDoc.identifier)">{{mp3.infoDoc.genre}}</span>
+					<span ng-hide="mp3.infoDoc.genre" editable-text="mp3.infoDoc.fsGenre" onaftersave="updateId3Tag($data, 'genre', mp3.infoDoc.identifier)">{{mp3.infoDoc.fsGenre}}</span>
+					/ {{mp3.infoDoc.genreId}}
+					<strong ng-hide="mp3.infoDoc.genre" class="text-danger">!</strong>
+				</td>
+			</tr>
+			<tr>
+				<td>Year</td>
+				<td>
+					<span editable-text="mp3.infoDoc.year" onaftersave="updateId3Tag($data, 'year', mp3.infoDoc.identifier)">{{mp3.infoDoc.year}}</span>
+					<strong ng-hide="mp3.infoDoc.year" class="text-danger">!</strong>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<table class="table table-striped small-table">
+			<tr>
+				<td colspan="2">
+					<input type="text" class="form-control" value="{{mp3.infoDoc.name}}" />
+				</td>
+			</tr>
+			<tr>
+				<td>Provider</td>
+				<td>{{mp3.infoDoc.fsProvider}}</td>
+			</tr>
+			<tr>
+				<td>fsTitle</td>
+				<td>{{mp3.infoDoc.fsTitle}}</td>
+			</tr>
+			<tr>
+				<td>fsTrack</td>
+				<td>{{mp3.infoDoc.fsTrack}}</td>
+			</tr>
+			<tr>
+				<td>fsArtist</td>
+				<td>{{mp3.infoDoc.fsArtist}}</td>
+			</tr>
+			<tr>
+				<td>fsAlbum</td>
+				<td>{{mp3.infoDoc.fsAlbum}}</td>
+			</tr>
+			<tr>
+				<td>fsGenre</td>
+				<td>{{mp3.infoDoc.fsGenre}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+

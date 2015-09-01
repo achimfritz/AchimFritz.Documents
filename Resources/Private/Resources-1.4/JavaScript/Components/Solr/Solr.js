@@ -34,6 +34,8 @@
         self.getAutocomplete = getAutocomplete;
         self.changeFacetCount = changeFacetCount;
         self.changeRows = changeRows;
+        self.overrideFilterQuery = overrideFilterQuery;
+        self.resetFilterQueries = resetFilterQueries;
 
         init();
 
@@ -53,6 +55,10 @@
 
         function getFilterQueries() {
             return filterQueries;
+        }
+
+        function resetFilterQueries() {
+            filterQueries = [];
         }
 
         function isHFacet(name) {
@@ -105,6 +111,17 @@
             }
             filterQueries[name].push(value);
         }
+
+
+        function overrideFilterQuery(name, value) {
+            if (isHFacet(name) === true) {
+                // not implemented
+            } else {
+                filterQueries[name] = [];
+                filterQueries[name].push(value);
+            }
+        }
+        //Solr.addFilterQuery('artistLetter', value);
 
 
 
