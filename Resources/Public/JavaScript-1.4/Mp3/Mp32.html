@@ -1,40 +1,43 @@
 <toaster-container></toaster-container>
 
-<overlay finished="finished"></overlay>
-<div data-ng-if="!finished" class="spinner">
+<overlay finished="mp3.finished"></overlay>
+<div data-ng-if="!mp3.finished" class="spinner">
 	<spinner></spinner>
 </div>
 
 
 <div data-ng-controller="DocumentController as document">
 
-	<ng-include src="mp3.templatePaths.nav"></ng-include>
+	<ng-include src="mp3.getTemplate('Nav')"></ng-include>
 
 	<div class="row top2">
 		<div class="col-md-12">
-			<ng-include src="mp3.templatePaths.letterNav"></ng-include>
+			<ng-include src="mp3.getTemplate('LetterNav')"></ng-include>
 		</div>
 	</div>
 
 	<div class="row top1">
 		<div class="col-md-12">
-			<ng-include src="mp3.templatePaths.filterNav"></ng-include>
+			<ng-include src="mp3.getTemplate('FilterNavSelect')"></ng-include>
 		</div>
 	</div>
 
-	<ng-include data-ng-if="mp3.infoDoc" src="mp3.templatePaths.infoDoc"></ng-include>
+	<ng-include data-ng-if="mp3.infoDoc" src="mp3.getTemplate('InfoDoc')"></ng-include>
 
 	<div class="row top1">
 
 		<div class="col-md-6">
 			<div class="row">
-				<div class="col-md-12">
-					<ng-include src="mp3.templatePaths.resultHead"></ng-include>
+				<div class="col-md-10">
+					<ng-include src="mp3.getTemplate('ResultHead')"></ng-include>
+				</div>
+				<div class="col-md-2">
+					<ng-include src="mp3.getTemplate('Sort')"></ng-include>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<ng-include src="mp3.templatePaths.resultTable"></ng-include>
+					<ng-include src="mp3.getTemplate('ResultTable2')"></ng-include>
 				</div>
 			</div>
 		</div>
@@ -44,18 +47,26 @@
 			<sound-manager></sound-manager>
 			<div class="row">
 				<div class="col-md-12">
-					<ng-include src="mp3.templatePaths.playerControls"></ng-include>
+					<ng-include src="mp3.getTemplate('PlayerControls')"></ng-include>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6" data-ng-if="currentPlaying && playlist.length">
-					<ng-include src="mp3.templatePaths.currentPlaying"></ng-include>
+					<ng-include src="mp3.getTemplate('CurrentPlaying')"></ng-include>
+					<p>
+						<button class="btn btn-default btn-xs" ng-click="mp3.showInfoDoc(currentPlaying.doc)">
+							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+						</button>
+					</p>
 					<img data-ng-if="currentPlaying.doc.webThumbPath" ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="300" height="300" />
 				</div>
 
 				<div class="col-md-6">
-					<ng-include src="mp3.templatePaths.playlistTable"></ng-include>
+					<ng-include src="mp3.getTemplate('PlaylistTable2')"></ng-include>
+					<div data-ng-if="playlist.length">
+						<ng-include src="mp3.getTemplate('PlayListActions')"></ng-include>
+					</div>
 				</div>
 
 			</div>

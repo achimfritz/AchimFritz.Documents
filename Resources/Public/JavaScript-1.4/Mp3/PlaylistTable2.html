@@ -7,6 +7,9 @@
 			<button class="btn btn-default btn-xs" remove-from-playlist="song" data-index="{{$index}}">
 				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 			</button>
+			<button class="btn btn-default btn-xs" ng-click="mp3.showInfoDoc(song.doc)">
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			</button>
 		</td>
 		<td>
 			<span ng-show="song.doc.title" >{{song.doc.title.substr(0, 30)}}</span>

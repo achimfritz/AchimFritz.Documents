@@ -42,7 +42,10 @@ module.exports = {
         src: [
             'bower_components/jquery-ui/themes/base/jquery-ui.css',
             'bower_components/bootstrap/dist/css/bootstrap.css',
-            'bower_components/angular-xeditable/dist/css/xeditable.css'
+            'bower_components/ngDialog/css/ngDialog.css',
+            'bower_components/AngularJS-Toaster/toaster.css',
+            'bower_components/angular-xeditable/dist/css/xeditable.css',
+            'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
         dest: '../../Public/Build-1.4/Libs.css'
     },

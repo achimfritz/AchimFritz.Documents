@@ -40,11 +40,15 @@
     }
 
     /* @ngInject */
-    function Mp3AppController ($router, CONFIG, SolrSettings) {
+    function Mp3AppController ($router, CONFIG, SolrSettings, RestConfiguration) {
+        RestConfiguration.setSetting('documentListResource', 'mp3documentlist');
+        RestConfiguration.setSetting('documentListMergeResource', 'mp3documentlistmerge');
+        RestConfiguration.setSetting('documentListRemoveResource', 'mp3documentlistremove');
+
         SolrSettings.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre']);
         SolrSettings.setHFacets({});
         SolrSettings.setSetting('servlet', 'mp3');
-        SolrSettings.setParam('sort', ' track asc, artist asc, album asc');
+        SolrSettings.setParam('sort', 'track asc, fsTrack asc, fsTitle asc');
         SolrSettings.setParam('rows', 15);
         SolrSettings.setParam('facet_limit', 15);
         SolrSettings.setParam('facet_sort', 'count');

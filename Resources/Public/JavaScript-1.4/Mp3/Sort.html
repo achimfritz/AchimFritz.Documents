@@ -1,0 +1,7 @@
+<select class="form-control" id="sort" data-ng-model="document.params.sort" data-ng-change="document.update()">
+	<option value="mDateTime desc">mDateTime desc</option>
+	<option value="mDateTime asc">mDateTime asc</option>
+	<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
+	<option value="artist asc">artist asc</option>
+	<option value="{{mp3.random}}">random</option>
+</select>

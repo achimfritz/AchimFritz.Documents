@@ -19,6 +19,7 @@
 			<button ng-hide="doc.artist" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('fsArtist', doc.fsArtist)">
 				<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 			</button>
+
 			<span ng-show="doc.artist">{{doc.artist.substr(0, 30)}}</span>
 			<span ng-hide="doc.artist">{{doc.fsArtist.substr(0, 30)}}</span>
 			<strong ng-hide="doc.artist" class="text-danger">!</strong>
