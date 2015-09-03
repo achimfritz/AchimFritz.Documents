@@ -19,9 +19,9 @@
         vm.zip = {};
         vm.tagPath = '';
         vm.cddbSearch = '';
+        vm.playListForm = false;
 
         // used by the view
-        // V2
         vm.showInfoDoc = showInfoDoc;
         vm.hideInfoDoc = hideInfoDoc;
         vm.rate = rate;
@@ -31,6 +31,7 @@
         vm.zipDownload = zipDownload;
         vm.writeTag = writeTag;
         vm.getTemplate = getTemplate;
+        vm.setPlayListForm = setPlayListForm;
 
         // not used by the view
         vm.initController = initController;
@@ -41,28 +42,6 @@
         vm.initController();
 
         function initController() {
-            // V1
-            /*
-            vm.templatePaths = {
-                nav: CONFIG.templatePath + 'Mp3/Nav.html',
-                filterNav: CONFIG.templatePath + 'Mp3/FilterNav.html',
-                resultTable: CONFIG.templatePath + 'Mp3/ResultTable.html',
-                playerControls: CONFIG.templatePath + 'Mp3/PlayerControls.html',
-                playlistTable: CONFIG.templatePath + 'Mp3/PlaylistTable.html',
-                currentPlaying: CONFIG.templatePath + 'Mp3/CurrentPlaying.html',
-                resultHead: CONFIG.templatePath + 'Mp3/ResultHead.html'
-            };
-            // V2
-            // new
-            vm.templatePaths.letterNav = CONFIG.templatePath + 'Mp3/LetterNav.html';
-            vm.templatePaths.infoDoc = CONFIG.templatePath + 'Mp3/InfoDoc.html';
-            vm.templatePaths.sort = CONFIG.templatePath + 'Mp3/Sort.html';
-            vm.templatePaths.playListActions = CONFIG.templatePath + 'Mp3/PlayListActions.html';
-            // override
-            vm.templatePaths.filterNav = CONFIG.templatePath + 'Mp3/FilterNavSelect.html';
-            vm.templatePaths.resultTable = CONFIG.templatePath + 'Mp3/ExtendedResultTable.html';
-            */
-
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             vm.cddb = CddbRestService.cddb();
             vm.zip = ExportRestService.zip();
@@ -116,6 +95,10 @@
                 },
                 vm.restError
             );
+        }
+
+        function setPlayListForm(val) {
+            vm.playListForm = val;
         }
 
         function writeTag  () {
