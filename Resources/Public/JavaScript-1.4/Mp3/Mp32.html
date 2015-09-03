@@ -22,6 +22,12 @@
 		</div>
 	</div>
 
+	<div class="row top1">
+		<div class="col-md-12">
+			<ng-include src="mp3.getTemplate('FilterNav')"></ng-include>
+		</div>
+	</div>
+
 	<ng-include data-ng-if="mp3.infoDoc" src="mp3.getTemplate('InfoDoc')"></ng-include>
 
 	<div class="row top1">
@@ -35,17 +41,18 @@
 					<ng-include src="mp3.getTemplate('Sort')"></ng-include>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row top10">
 				<div class="col-md-12">
 					<ng-include src="mp3.getTemplate('ResultTable2')"></ng-include>
 				</div>
 			</div>
+
 		</div>
 
 		<div class="col-md-6">
 			<!-- init soundManager2 player -->
 			<sound-manager></sound-manager>
-			<div class="row">
+			<div class="row top2">
 				<div class="col-md-12">
 					<ng-include src="mp3.getTemplate('PlayerControls')"></ng-include>
 					<button class="btn btn-danger" ng-click="mp3.setPlayListForm(true)">
@@ -54,8 +61,8 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-6" data-ng-if="currentPlaying && playlist.length">
+			<div class="row top10">
+				<div class="col-md-6 text-center" data-ng-if="currentPlaying && playlist.length">
 					<ng-include src="mp3.getTemplate('CurrentPlaying')"></ng-include>
 					<p>
 						<button class="btn btn-default btn-xs" ng-click="mp3.showInfoDoc(currentPlaying.doc)">
