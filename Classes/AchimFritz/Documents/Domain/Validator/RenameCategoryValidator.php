@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Domain\Validator;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\RenameCategory;
+
 use TYPO3\Flow\Annotations as Flow;
 
 /**

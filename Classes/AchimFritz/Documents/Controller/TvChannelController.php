@@ -35,6 +35,7 @@ class TvChannelController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function showAction(TvChannel $tvChannel) {
 		$this->view->assign('tvChannel', $tvChannel);
+		$this->view->assign('tvChannels', $this->tvChannelRepository->findAll());
 	}
 
 	/**

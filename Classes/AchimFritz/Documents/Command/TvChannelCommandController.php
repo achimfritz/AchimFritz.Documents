@@ -9,6 +9,7 @@ namespace AchimFritz\Documents\Command;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\TvChannel;
 use AchimFritz\Documents\Linux\Exception as LinuxCommandException;
+use AchimFritz\Documents\Domain\Model\Facet\TvRecording;
 
 /**
  * @Flow\Scope("singleton")
@@ -22,10 +23,10 @@ class TvChannelCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $tvChannelRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Linux\Command
+	 * @var \AchimFritz\Documents\Domain\Service\TvRecordingService
 	 * @Flow\Inject
 	 */
-	protected $linuxCommand;
+	protected $tvRecordService;
 
 	/**
 	 * @return void
@@ -50,6 +51,18 @@ class TvChannelCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('ERROR: no such channel ' . $name);
 			$this->quit();
 		}
+		$tvRecording = new TvRecording();
+		$tvRecording->setLength($length);
+		$tvRecording->setStarttime($start);
+		$tvRecording->setTvChannel($tvChannel);
+		$tvRecording->setTitle($out);
+		try {
+			$this->tvRecordService->at($tvRecording);
+			$this->outputLine('SUCESS');
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage());
+		}
+
 		$recordFile = '/tmp/' . $out . '.sh';
 		$outFile = '/data2/movies/' . $out . '.ts';
 		$length = $length * 60;
