@@ -32,7 +32,7 @@ class TvRecordingController extends \AchimFritz\Rest\Controller\RestController {
 			$this->tvRecordService->at($tvRecording);
 			$this->addFlashMessage('recoding added');
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
-			$this->addErrorFlashMessage('cannot at to at');
+			$this->handleException($e);
 		}
 		$this->redirect('list', 'TvChannel');
 	}

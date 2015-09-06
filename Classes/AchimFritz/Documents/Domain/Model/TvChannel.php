@@ -46,7 +46,7 @@ class TvChannel {
 	 * @return string
 	 */
 	public function getDecodedChannel() {
-		return str_replace('(', '\(', str_replace(')', '\)', $this->channel));
+		return str_replace(' ', '\ ', str_replace('(', '\(', str_replace(')', '\)', $this->channel)));
 	}
 
 	/**
