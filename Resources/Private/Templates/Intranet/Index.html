@@ -1,0 +1,40 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Intranet Admin</f:section>
+
+<f:section name="Content">
+<f:if condition="{hostname}">
+<p>you are on <strong>{hostname}</strong></p>
+</f:if>
+
+<h2>a1 (Achims Buero, 192.168.2.1)</h2>
+<ul>
+	<li>
+		<f:link.action action="shutdown" arguments="{hostname: 'a1'}">shutdown</f:link.action>
+	</li>
+	<li>
+		<f:link.action action="isOnline" arguments="{hostname: 'a1'}">is online	</f:link.action>
+	</li>
+</ul>
+<h2>a4 (Luckys Buero (LINUX), 192.168.2.4)</h2>
+<ul>
+	<li>
+		<f:link.action action="shutdown" arguments="{hostname: 'a4'}">shutdown</f:link.action>
+	</li>
+	<li>
+		<f:link.action action="mount" arguments="{hostname: 'a4'}">mount /server</f:link.action>
+	</li>
+	<li>
+		<f:link.action action="isOnline" arguments="{hostname: 'a4'}">is online	</f:link.action>
+	</li>
+</ul>
+<h2>a9 (Laptop 192.168.2.9)</h2>
+<ul>
+	<li>
+		<f:link.action action="shutdown" arguments="{hostname: 'a9'}">shutdown</f:link.action>
+	</li>
+	<li>
+		<f:link.action action="isOnline" arguments="{hostname: 'a9'}">is online	</f:link.action>
+	</li>
+</ul>
+</f:section>

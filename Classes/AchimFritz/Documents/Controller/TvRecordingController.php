@@ -29,8 +29,8 @@ class TvRecordingController extends \AchimFritz\Rest\Controller\RestController {
 	 */
 	public function createAction(TvRecording $tvRecording) {
 		try {
-			$this->tvRecordService->at($tvRecording);
-			$this->addFlashMessage('recoding added');
+			$cmd = $this->tvRecordService->at($tvRecording);
+			$this->addFlashMessage('recoding added with cmd "' . $cmd .'"');
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->handleException($e);
 		}

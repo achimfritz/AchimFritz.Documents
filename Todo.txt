@@ -5,14 +5,12 @@ mp2:
 rm /bilder/admin
 
 index mp3 track length
-facet.limit getrennt
 facet.sorting -> angular
 
-sorting: random
 update player
 autocomplete slow
 
 dialog
 
-Return a random number between 1 and 10:
-Math.floor((Math.random() * 10) + 1); 
+"playlists"
+search amazon

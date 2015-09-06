@@ -28,7 +28,13 @@
         .controller('DocumentAppController', DocumentAppController);
 
     /* @ngInject */
-    function DocumentAppController ($router, CONFIG) {
+    function DocumentAppController ($router, CONFIG, SolrSettings) {
+        var solrSettingsDiv = jQuery('#solrSettings');
+        if (solrSettingsDiv.length) {
+            var solrSettings = solrSettingsDiv.data('solrsettings');
+            SolrSettings.setSetting('servlet', solrSettings.servlet);
+            SolrSettings.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
+        }
         $router.config([
             {
                 path: CONFIG.baseUrl + '/document',

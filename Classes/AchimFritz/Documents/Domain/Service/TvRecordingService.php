@@ -22,13 +22,13 @@ class TvRecordingService {
 
 	/**
 	 * @param TvRecording $tvRecording
-	 * @return void
+	 * @return string
 	 */
 	public function at(TvRecording $tvRecording) {
 		$recordFile = '/tmp/' . $tvRecording->getTitle() . '.sh';
 		$outFile = '/data2/movies/' . $tvRecording->getTitle() . '.ts';
 		$length = $tvRecording->getLength() * 60;
-		$content = 'screen -D -m mplayer -quiet -dumpstream dvb://' . $tvRecording->getTvChannel()->getDecodedChannel() . ' -dumpfile ' . $outFile . ' & echo $! > /tmp/STREAM-record.pid
+		$content = 'export HOME=/data/home/www-data && screen -D -m mplayer -quiet -dumpstream dvb://' . $tvRecording->getTvChannel()->getDecodedChannel() . ' -dumpfile ' . $outFile . ' & echo $! > /tmp/STREAM-record.pid
 STREAM_PROCESS=$(cat /tmp/STREAM-record.pid)
 sleep ' . $length . '
 kill $STREAM_PROCESS
@@ -38,6 +38,7 @@ rm /tmp/STREAM-record.pid';
 		}
 		$cmd = 'at -f ' . $recordFile . ' ' . $tvRecording->getStarttime();
 		$this->linuxCommand->executeCommand($cmd);
+		return $cmd;
 	}
 
 }
