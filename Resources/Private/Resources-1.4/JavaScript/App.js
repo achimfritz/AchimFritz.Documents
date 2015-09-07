@@ -51,7 +51,7 @@
         RestConfiguration.setSetting('documentListMergeResource', 'mp3documentlistmerge');
         RestConfiguration.setSetting('documentListRemoveResource', 'mp3documentlistremove');
 
-        SolrSettings.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre']);
+        SolrSettings.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
         SolrSettings.setHFacets({});
         SolrSettings.setSetting('servlet', 'mp3');
         SolrSettings.setParam('sort', 'track asc, fsTrack asc, fsTitle asc');
@@ -60,6 +60,10 @@
         SolrSettings.setParam('facet_sort', 'count');
         SolrSettings.setParam('f_artistLetter_facet_sort', 'index');
         SolrSettings.setParam('f_artistLetter_facet_limit', 35);
+        SolrSettings.setParam('f_hPaths_facet_prefix', '2/');
+        SolrSettings.setParam('f_hPaths_facet_limit', 35);
+
+
         var solrSettingsDiv = jQuery('#solrSettings');
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');

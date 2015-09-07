@@ -143,11 +143,17 @@
 		<div class="row form-group">
 
 			<form target="_blank" method="get" action="http://www.freedb.org/freedb_search.php">
-				<div class="col-md-5 col-md-offset-4">
+				<div class="col-md-5 col-md-offset-2">
 					<input class="form-control" type="text" name="words" data-ng-model="mp3.cddbSearch" />
 				</div>
 				<div class="col-md-2">
 					<input class="form-control btn btn-danger" type="submit" value="Search Cddb" />
+				</div>
+			</form>
+			<form target="_blank" method="get" action="http://www.amazon.de/s">
+					<input type="text" class="hidden" name="field-keywords" data-ng-model="mp3.cddbSearch" />
+				<div class="col-md-2">
+					<input class="form-control btn btn-danger" type="submit" value="Search Amazon" />
 				</div>
 			</form>
 
