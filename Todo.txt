@@ -14,3 +14,6 @@ dialog
 
 "playlists"
 search amazon
+
+Domain/Model/Exception weg
+TvRecording -> Package
