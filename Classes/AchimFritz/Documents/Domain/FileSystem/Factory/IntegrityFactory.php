@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument;
+namespace AchimFritz\Documents\Domain\FileSystem\Factory;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -98,7 +98,7 @@ class IntegrityFactory {
 				$solrCnt = $facets[$name];
 				unset($facets[$name]);
 			}
-			$integrity = new Integrity($name, $cnt, $solrCnt);
+			$integrity = new AchimFritz\Documents\Domain\FileSystem\Facet\Integrity($name, $cnt, $solrCnt);
 			$integrities->add($integrity);
 		}
 		return $integrities;

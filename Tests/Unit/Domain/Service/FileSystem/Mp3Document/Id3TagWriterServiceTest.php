@@ -6,10 +6,10 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem\Mp3Document;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService;
+use AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
 use AchimFritz\Documents\Domain\Model\Category;
-use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 
 /**
  * Testcase for DocumentExportService
@@ -18,7 +18,7 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception
+	 * @expectedException \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception
 	 */
 	public function tagDocumentCollectionThrowsExceptionForInvalidePathCount() {
 		$id3TagWriterService = new Id3TagWriterService();
@@ -38,7 +38,7 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function tagDocumentCollectionCallsTagDocument() {
-		$id3TagWriterService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('tagDocument'));
+		$id3TagWriterService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService', array('tagDocument'));
 		$id3TagWriterService->expects($this->once())->method('tagDocument');
 		$pathService = $this->getMock('AchimFritz\Documents\Domain\Service\PathService', array('splitPath'));
 		$pathService->expects($this->once())->method('splitPath')->will($this->returnValue(array('foo', 'bar')));
@@ -54,10 +54,10 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception
+	 * @expectedException \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception
 	 */
 	public function tagDocumentThrowsExceptionForInvalideTagName() {
-		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('foo'));
+		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService', array('foo'));
 		$id3TagWriterService->_set('validTagNames', array('artist'));
 		$document = new Mp3Document();
 		$id3TagWriterService->_call('tagDocument', $document, 'foo', 'bar');
@@ -67,7 +67,7 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function tagDocumentCallsLinuxCommandForValideTagName() {
-		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('foo'));
+		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService', array('foo'));
 		$id3TagWriterService->_set('validTagNames', array('artist'));
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$document->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
@@ -83,7 +83,7 @@ class Id3TagWriterServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function tagDocumentUpdatesDocumentForValideTagName() {
-		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService', array('foo'));
+		$id3TagWriterService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService', array('foo'));
 		$id3TagWriterService->_set('validTagNames', array('artist'));
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\Mp3Document', array('getAbsolutePath'));
 		$document->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));

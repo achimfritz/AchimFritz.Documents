@@ -8,7 +8,7 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
-use AchimFritz\Documents\Domain\Model\Facet\Rating;
+use AchimFritz\Documents\Domain\Facet\Rating;
 
 /**
  * @Flow\Scope("singleton")

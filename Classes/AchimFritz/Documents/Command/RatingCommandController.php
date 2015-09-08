@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\Rating;
+use AchimFritz\Documents\Domain\Facet\Rating;
 
 /**
  * @Flow\Scope("singleton")

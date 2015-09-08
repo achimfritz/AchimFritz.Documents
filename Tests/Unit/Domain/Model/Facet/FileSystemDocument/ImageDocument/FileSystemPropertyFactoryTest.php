@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\FileSystemDocument\
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemProperty;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\FileSystemProperty;
 
 /**
  * Testcase for FileSystemPropertyFactory
@@ -19,7 +19,7 @@ class FileSystemPropertyFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	public function createReturnsFileSystemProperty() {
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getAbsolutePath'));
 		$factory = $this->getMock(
-			'AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemPropertyFactory',
+			'AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\FileSystemPropertyFactory',
 			array('setExifData', 'setGeeqieMetaData', 'setDimensions', 'setTimestamp')
 		);
 		$fileSystemProperty = new FileSystemProperty();
@@ -34,7 +34,7 @@ class FileSystemPropertyFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function setExifDataSetsExifData() {
 		$factory = $this->getAccessibleMock(
-			'AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemPropertyFactory',
+			'AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\FileSystemPropertyFactory',
 			array('foo')
 		);
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\ImageDocument', array('getAbsolutePath'));

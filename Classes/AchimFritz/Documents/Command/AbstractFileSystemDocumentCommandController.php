@@ -7,11 +7,11 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
+use AchimFritz\Documents\Domain\FileSystem\Facet\DocumentExport;
 use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Service\PathService;
-use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 
 /**
  * @Flow\Scope("singleton")

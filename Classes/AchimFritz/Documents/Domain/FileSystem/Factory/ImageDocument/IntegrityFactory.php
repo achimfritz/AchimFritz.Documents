@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument;
+namespace AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Flow\Scope("singleton")
  */
-class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\IntegrityFactory {
+class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\IntegrityFactory {
 
 	/**
 	 * @var \AchimFritz\Documents\Configuration\ImageDocumentConfiguration
@@ -45,7 +45,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		try {
 			$solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
 		} catch (\SolrException $e) {
-			throw new Exception('cannot fetch from solr', 1418658029);
+			throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('cannot fetch from solr', 1418658029);
 		}
 
 		// fs
@@ -56,7 +56,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		try {
 			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
 		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
-			throw new Exception('cannot get files in ' . $path, 1419867691);
+			throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('cannot get files in ' . $path, 1419867691);
 		}
 
 		// thumbs
@@ -71,7 +71,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 		sort($fsDocs);
 		sort($solrDocs);
 
-		$integrity = new Integrity($directory, count($fsDocs), count($solrDocs));
+		$integrity = new AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Integrity($directory, count($fsDocs), count($solrDocs));
 		$integrity->setPersistedDocuments($documents);
 		$integrity->setSolrDocuments($solrDocs);
 		$integrity->setFilesystemDocuments($fsDocs);

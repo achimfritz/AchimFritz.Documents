@@ -8,7 +8,7 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Cddb;
+use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
 
 class CddbController extends RestController {
 

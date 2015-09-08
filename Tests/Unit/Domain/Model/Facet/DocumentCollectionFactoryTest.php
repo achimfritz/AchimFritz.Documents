@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\Facet\DocumentCollectionFactory;
+use AchimFritz\Documents\Domain\Facet\Factory\DocumentCollectionFactory;
 use AchimFritz\Documents\Domain\Model\Document;
 
 /**
@@ -17,10 +17,10 @@ class DocumentCollectionFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function createInCategoriesSetsCategory() {	
+	public function createInCategoriesSetsCategory() {
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('findInAllCategories'));
 		$documentRepository->expects($this->once())->method('findInAllCategories')->will($this->returnValue(array()));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\DocumentCollectionFactory', array('foo'));
+		$factory = $this->getMock('AchimFritz\Documents\Domain\Factory\DocumentCollectionFactory', array('foo'));
 		$this->inject($factory, 'documentRepository', $documentRepository);
 		$categories = new \Doctrine\Common\Collections\ArrayCollection();
 		$documentCollection = $factory->createInCategories('foo', $categories);
@@ -32,7 +32,7 @@ class DocumentCollectionFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function createInCategoriesSetsDocuments() {
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\DocumentRepository', array('findInAllCategories'));
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\Facet\DocumentCollectionFactory', array('foo'));
+		$factory = $this->getMock('AchimFritz\Documents\Domain\Factory\DocumentCollectionFactory', array('foo'));
 		$document = new Document();
 		$documentRepository->expects($this->once())->method('findInAllCategories')->will($this->returnValue(array($document)));
 		$this->inject($factory, 'documentRepository', $documentRepository);

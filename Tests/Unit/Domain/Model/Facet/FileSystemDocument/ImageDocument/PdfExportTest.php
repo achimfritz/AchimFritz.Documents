@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\FileSystemDocument\
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 
 /**
  * Testcase for FileSystemDocument
@@ -16,8 +16,8 @@ class PdfExportTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getPaperWidthReturnsDefaultWidthForA4() {	
-		$document = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport', array('foo'));
+	public function getPaperWidthReturnsDefaultWidthForA4() {
+		$document = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport', array('foo'));
 		$paperWidth = $document->_call('getPaperWidth');
 		$this->assertSame(2480, $paperWidth);
 	}

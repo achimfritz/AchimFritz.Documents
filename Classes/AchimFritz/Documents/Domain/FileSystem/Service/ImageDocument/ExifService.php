@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument;
+namespace AchimFritz\Documents\Domain\FileSystem\Service\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz\Documents". *
@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemProperty;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\FileSystemProperty;
 use AchimFritz\Documents\Domain\Service\PathService;
 
 /**

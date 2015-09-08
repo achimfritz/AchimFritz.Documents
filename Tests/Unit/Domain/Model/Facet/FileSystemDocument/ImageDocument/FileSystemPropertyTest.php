@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet\FileSystemDocument\
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemProperty;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\FileSystemProperty;
 
 /**
  * Testcase for FileSystemProperty

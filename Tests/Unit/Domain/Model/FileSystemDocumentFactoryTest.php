@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\FileSystemDocumentFactory;
+use AchimFritz\Documents\Domain\Factory\FileSystemDocumentFactory;
 
 /**
  * Testcase for FileSystemDocument
@@ -15,11 +15,11 @@ class FileSystemDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Model\Exception
+	 * @expectedException \AchimFritz\Documents\Domain\Factory\Exception
 	 */
-	public function createThrowsExceptionIfFileNotExists() {	
+	public function createThrowsExceptionIfFileNotExists() {
 		$factory = new FileSystemDocumentFactory();
-		$document = $factory->create('foo');
+		$factory->create('foo');
 	}
 
 }

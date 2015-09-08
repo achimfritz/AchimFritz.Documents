@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Model;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory;
+use AchimFritz\Documents\Domain\Factory\FileSystemDocumentListFactory;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument;
 use org\bovigo\vfs\vfsStream;
 
@@ -32,9 +32,9 @@ class FileSystemDocumentListFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Model\Exception
+	 * @expectedException \AchimFritz\Documents\Domain\Factory\Exception
 	 */
-	public function createFromFileThrowsExceptionIfFileNotExists() {	
+	public function createFromFileThrowsExceptionIfFileNotExists() {
 		$factory = new FileSystemDocumentListFactory();
 		$documentList = $factory->createFromFile('foo');
 	}
@@ -44,7 +44,7 @@ class FileSystemDocumentListFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 */
 	public function createFromFileReturnsList() {
 		$document = new FileSystemDocument();
-		$factory = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory', array('getDocument'));
+		$factory = $this->getMock('AchimFritz\Documents\Domain\Factory\FileSystemDocumentListFactory', array('getDocument'));
 		$factory->expects($this->once())->method('getDocument')->will($this->returnValue($document));
 		$documentList = $factory->createFromFile('vfs://root/inputFile');
 		$items = $documentList->getDocumentListItems();
@@ -53,12 +53,12 @@ class FileSystemDocumentListFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @expectedException \AchimFritz\Documents\Domain\Model\Exception
+	 * @expectedException \AchimFritz\Documents\Domain\Factory\Exception
 	 */
 	public function getDocumentThrowsExceptionIfDocumentIsNotFound() {
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\FileSystemDocumentRepository', array('findOneByName'));
 		$documentRepository->expects($this->once())->method('findOneByName')->will($this->returnValue(NULL));
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory', array('getNameFromAbsolutePath'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Factory\FileSystemDocumentListFactory', array('getNameFromAbsolutePath'));
 		$this->inject($factory, 'documentRepository', $documentRepository);
 		$document = $factory->_call('getDocument', 'foo');
 	}
@@ -70,7 +70,7 @@ class FileSystemDocumentListFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
 		$pathService = new \AchimFritz\Documents\Domain\Service\PathService();
 		$configuration = $this->getMock('AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration', array('getMountPoint'));
 		$configuration->expects($this->once())->method('getMountPoint')->will($this->returnValue('/mp'));
-		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory', array('foo'));
+		$factory = $this->getAccessibleMock('AchimFritz\Documents\Domain\Factory\FileSystemDocumentListFactory', array('foo'));
 		$this->inject($factory, 'pathService', $pathService);
 		$this->inject($factory, 'configuration', $configuration);
 		$name = $factory->_call('getNameFromAbsolutePath', '/mp/root/inputFile');

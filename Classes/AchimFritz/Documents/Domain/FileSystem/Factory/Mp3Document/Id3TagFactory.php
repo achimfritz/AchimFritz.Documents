@@ -1,11 +1,12 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document;
+namespace AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Id3Tag;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
 
@@ -62,6 +63,18 @@ class Id3TagFactory {
 				}
 			}
 		}
+		// TODO !!!
+		#$id3Tag = $this->setLength($id3Tag, $file);
+		return $id3Tag;
+	}
+
+	/**
+	 * @param Id3Tag $id3Tag
+	 * @param $file
+	 * @return Id3Tag
+	 * @throws \AchimFritz\Documents\Linux\Exception
+	 */
+	protected function setLength(Id3Tag $id3Tag, $file) {
 		$res = $this->linuxCommand->readId3Tags($file, TRUE);
 		if (count($res) > 0) {
 			try {
@@ -71,7 +84,6 @@ class Id3TagFactory {
 				throw new \AchimFritz\Documents\Linux\Exception('cannot create SimpleXMLElement on ' . $file, 1440599809);
 			}
 		}
-
 		return $id3Tag;
 	}
 

@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;

@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionRequest;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 
 class PdfExportController extends RestController {
 

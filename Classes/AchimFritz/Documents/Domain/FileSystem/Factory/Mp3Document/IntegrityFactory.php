@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document;
+namespace AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -13,7 +13,7 @@ use AchimFritz\Documents\Domain\Service\PathService;
 /**
  * @Flow\Scope("singleton")
  */
-class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\IntegrityFactory {
+class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\IntegrityFactory {
 
 	/**
 	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
@@ -32,7 +32,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\Model\Facet\FileSyst
 	 * @throws Exception
 	 */
 	public function createIntegrity($directory) {
-		throw new Exception('not implemented', 1432389131);
+		throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('not implemented', 1432389131);
 	}
 
 	/**

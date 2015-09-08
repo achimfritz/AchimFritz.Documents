@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem;
+namespace AchimFritz\Documents\Domain\FileSystem\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz\Documents". *
@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument as Document;
 use AchimFritz\Documents\Domain\Model\ImageDocument;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport;
+use AchimFritz\Documents\Domain\FileSystem\Facet\DocumentExport;
 
 /**
  * @Flow\Scope("singleton")
@@ -24,7 +24,7 @@ class DocumentExportService extends AbstractExportService {
 	 */
 	public function export(DocumentExport $documentExport) {
 		if (count($documentExport->getDocuments()) === 0) {
-			throw new Exception('no documents', 1433773427);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('no documents', 1433773427);
 		}
 		$directory = $this->createExportDirectory($documentExport->getName());
 		$cnt = 0;
@@ -47,7 +47,7 @@ class DocumentExportService extends AbstractExportService {
 		$from = $document->getAbsolutePath();
 		if ($documentExport->getUseThumb() === TRUE) {
 			if ($document instanceof ImageDocument === FALSE) {
-				throw new Exception('thumbs only supported for imageDocuments', 1416762881);
+				throw new AchimFritz\Documents\Domain\Facet\Exception('thumbs only supported for imageDocuments', 1416762881);
 			}
 			$from = $document->getAbsoluteWebThumbPath();
 		}

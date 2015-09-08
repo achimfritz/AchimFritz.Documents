@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument;
+namespace AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * @Flow\Scope("prototype")
  */
-class Integrity extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Integrity {
+class Integrity extends \AchimFritz\Documents\Domain\FileSystem\Facet\Integrity {
 
 	/**
 	 * @var array

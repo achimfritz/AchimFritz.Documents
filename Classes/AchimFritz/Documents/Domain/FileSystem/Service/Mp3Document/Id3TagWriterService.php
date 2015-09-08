@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
+namespace AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz\Documents". *
@@ -8,8 +8,8 @@ namespace AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
-use AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Mp3DocumentId3Tag;
+use AchimFritz\Documents\Domain\Facet\DocumentCollection;
+use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Mp3DocumentId3Tag;
 
 /**
  * @Flow\Scope("singleton")

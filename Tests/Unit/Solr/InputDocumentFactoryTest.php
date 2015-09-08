@@ -12,7 +12,7 @@ use AchimFritz\Documents\Domain\Model\ImageDocument;
 /**
  * Testcase for InputDocumentFactory
  */
-class InputDocumentFactoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
+class CommandTest extends \TYPO3\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test

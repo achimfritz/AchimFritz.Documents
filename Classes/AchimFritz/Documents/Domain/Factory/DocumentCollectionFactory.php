@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet;
+namespace AchimFritz\Documents\Domain\Factory;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.FileSystemDocuments".*
@@ -29,7 +29,7 @@ class DocumentCollectionFactory {
 		$documents = $this->documentRepository->findInAllCategories($categories);
 		$category = new Category();
 		$category->setPath($path);
-		$documentCollection = new DocumentCollection();
+		$documentCollection = new \AchimFritz\Documents\Domain\Facet\DocumentCollection();
 		$documentCollection->setCategory($category);
 		foreach ($documents as $document) {
 			$documentCollection->addDocument($document);

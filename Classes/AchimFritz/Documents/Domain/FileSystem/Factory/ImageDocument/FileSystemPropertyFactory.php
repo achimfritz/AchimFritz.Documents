@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument;
+namespace AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -8,6 +8,7 @@ namespace AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocume
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\ImageDocument as Document;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\FileSystemProperty;
 
 /**
  * @Flow\Scope("singleton")
@@ -31,7 +32,7 @@ class FileSystemPropertyFactory {
 	 * @return FileSystemProperty
 	 */
 	public function create(Document $document) {
-		$fileSystemProperty = new FileSystemProperty();
+		$fileSystemProperty = new \AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\FileSystemProperty();
 		$fileSystemProperty->setAbsolutePath($document->getAbsolutePath());
 		$fileSystemProperty = $this->setExifData($document, $fileSystemProperty);
 		$fileSystemProperty = $this->setGeeqieMetaData($document, $fileSystemProperty);

@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem;
+namespace AchimFritz\Documents\Domain\FileSystem\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -46,7 +46,7 @@ class DirectoryService {
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
-			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357137);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create DirectoryIterator with path ' . $path, 1419357137);
 		}
 		$cnt = 0;
 		foreach ($directoryIterator AS $fileInfo) {
@@ -68,7 +68,7 @@ class DirectoryService {
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
-			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357135);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create DirectoryIterator with path ' . $path, 1419357135);
 		}
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($extension !== '') {
@@ -96,7 +96,7 @@ class DirectoryService {
 		try {
 			$directoryIterator = new \DirectoryIterator($path);
 		} catch (\Exception $e) {
-			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357136);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create DirectoryIterator with path ' . $path, 1419357136);
 		}
 		foreach ($directoryIterator AS $fileInfo) {
 			if ($fileInfo->isDir() === TRUE && $fileInfo->isDot() === FALSE) {
@@ -118,7 +118,7 @@ class DirectoryService {
 			$directory = new \RecursiveDirectoryIterator($path);
 			$iterator = new \RecursiveIteratorIterator($directory);
 		} catch (\Exception $e) {
-			throw new Exception('cannot create DirectoryIterator with path ' . $path, 1419357156);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create DirectoryIterator with path ' . $path, 1419357156);
 		}
 		foreach ($iterator as $name => $fileInfo) {
 			if ($fileInfo->getFileName() === '.') {

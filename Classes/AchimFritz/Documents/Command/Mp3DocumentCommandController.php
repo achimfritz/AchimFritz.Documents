@@ -8,8 +8,8 @@ namespace AchimFritz\Documents\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
-use AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Cddb;
+use AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService;
+use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
 
 /**
  * @Flow\Scope("singleton")

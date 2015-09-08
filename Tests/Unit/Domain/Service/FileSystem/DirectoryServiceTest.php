@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService;
+use AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -50,7 +50,7 @@ class DirectoryServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getFileNamesInDirectoryReturnsArrayOfFileNames() {
-		$directoryService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService', array('getSplFileInfosInDirectory'));
+		$directoryService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService', array('getSplFileInfosInDirectory'));
 		$splFileInfo = new \SplFileInfo(vfsStream::url('root/images/0000_00_00_name/test.jpg'));
 		$directoryService->expects($this->once())->method('getSplFileInfosInDirectory')->will($this->returnValue(array($splFileInfo)));
 		$fileNames = $directoryService->getFileNamesInDirectory(vfsStream::url('root/images/0000_00_00_name'), 'jpg');

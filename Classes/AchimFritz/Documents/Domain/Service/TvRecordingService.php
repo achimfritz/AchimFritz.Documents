@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Model\Facet\TvRecording;
+use AchimFritz\Documents\Domain\Facet\TvRecording;
 use TYPO3\Flow\Annotations as Flow;
 
 /**

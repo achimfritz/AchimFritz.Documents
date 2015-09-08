@@ -6,7 +6,6 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Service\FileSystem\RenameService;
 
 /**
  * Testcase for RenameService
@@ -44,7 +43,7 @@ class RenameServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @dataProvider nameProvider
 	 */
 	public function getCleanNameReturnsCleanName($name, $expected) {
-		$renameService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\RenameService', array('foo'));
+		$renameService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\RenameService', array('foo'));
 		$renamed = $renameService->_call('getCleanName', $name);
 		$this->assertSame($expected, $renamed);
 	}
@@ -54,7 +53,7 @@ class RenameServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @dataProvider pathProvider
 	 */
 	public function getCleanPathReturnsCleanPath($name, $expected) {
-		$renameService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\RenameService', array('foo'));
+		$renameService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\RenameService', array('foo'));
 		$renamed = $renameService->_call('getCleanPath', $name);
 		$this->assertSame($expected, $renamed);
 	}

@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\RenameCategory;
+use AchimFritz\Documents\Domain\Facet\RenameCategory;
 use AchimFritz\Documents\Domain\Model\Category;
 
 /**

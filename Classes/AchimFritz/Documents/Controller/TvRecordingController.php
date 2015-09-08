@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\TvRecording;
+use AchimFritz\Documents\Domain\Facet\TvRecording;
 
 class TvRecordingController extends \AchimFritz\Rest\Controller\RestController {
 

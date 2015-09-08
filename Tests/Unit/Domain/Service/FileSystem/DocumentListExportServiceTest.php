@@ -6,7 +6,7 @@ namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem;
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService;
+use AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
 use AchimFritz\Documents\Domain\Model\DocumentList;
@@ -22,7 +22,7 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function exportCopiesFile() {
-		$exportService = $this->getMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('getName', 'createExportDirectory', 'createFromPath', 'createToPath', 'copyFile'));
+		$exportService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService', array('getName', 'createExportDirectory', 'createFromPath', 'createToPath', 'copyFile'));
 		$documentList = new DocumentList();
 		$document = new FileSystemDocument();
 		$documentListItem = new DocumentListItem();
@@ -42,7 +42,7 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getNameReturnsPathFromCategory() {
-		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
+		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService', array('foo'));
 		$category = new Category();
 		$category->setPath('foo/bar');
 		$documentList = new DocumentList();
@@ -56,7 +56,7 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createToPathReturnsDirectoryAndToName() {
-		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
+		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService', array('foo'));
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getFileName'));
 		$document->expects($this->once())->method('getFileName')->will($this->returnValue('baz.jpg'));
 		$documentListItem = new DocumentListItem();
@@ -69,7 +69,7 @@ class DocumentListExportServiceTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createFromPathReturnsAbsolutePath() {
-		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService', array('foo'));
+		$exportService = $this->getAccessibleMock('AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService', array('foo'));
 		$document = $this->getMock('AchimFritz\Documents\Domain\Model\FileSystemDocument', array('getAbsolutePath'));
 		$document->expects($this->once())->method('getAbsolutePath')->will($this->returnValue('foo'));
 		$from = $exportService->_call('createFromPath', $document);

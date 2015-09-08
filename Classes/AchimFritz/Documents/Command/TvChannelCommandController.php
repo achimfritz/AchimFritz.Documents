@@ -9,7 +9,7 @@ namespace AchimFritz\Documents\Command;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\TvChannel;
 use AchimFritz\Documents\Linux\Exception as LinuxCommandException;
-use AchimFritz\Documents\Domain\Model\Facet\TvRecording;
+use AchimFritz\Documents\Domain\Facet\TvRecording;
 
 /**
  * @Flow\Scope("singleton")

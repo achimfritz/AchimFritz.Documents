@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Service\FileSystem;
+namespace AchimFritz\Documents\Domain\FileSystem\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -21,11 +21,11 @@ class RenameService {
 	 */
 	public function rename($path) {
 		if (@file_exists($path) === FALSE) {
-			throw new Exception('file not exists ' . $path, 1418667068);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('file not exists ' . $path, 1418667068);
 		}
 		$renamed = $this->getCleanPath($path);
 		if (@rename($path, $renamed) === FALSE) {
-			throw new Exception('cannot rename ' . $path . ' to ' . $renamed, 1418667069);
+			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot rename ' . $path . ' to ' . $renamed, 1418667069);
 		}
 		return $renamed;
 	}

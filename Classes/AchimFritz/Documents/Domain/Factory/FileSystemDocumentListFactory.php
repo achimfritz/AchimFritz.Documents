@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Domain\Model;
+namespace AchimFritz\Documents\Domain\Factory;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.FileSystemDocuments".*
@@ -24,7 +24,7 @@ class FileSystemDocumentListFactory {
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService
 	 * @Flow\Inject
 	 */
 	protected $directoryService;
@@ -97,7 +97,7 @@ class FileSystemDocumentListFactory {
 		}
 		try {
 			$splFileInfos = $this->directoryService->getSplFileInfosInDirectory($directory, $this->extension);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			throw new Exception('cannot get SplFileInfos with ' . $e->getMessage() . ' - ' . $e->getCode(), 1422200220);
 		}
 		foreach ($splFileInfos AS $splFileInfo) {

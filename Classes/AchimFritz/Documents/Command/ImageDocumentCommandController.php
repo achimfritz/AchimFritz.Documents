@@ -7,7 +7,7 @@ namespace AchimFritz\Documents\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport;
+use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 
 /**
  * @Flow\Scope("singleton")
