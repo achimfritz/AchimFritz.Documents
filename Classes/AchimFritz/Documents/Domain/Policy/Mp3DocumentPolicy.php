@@ -24,7 +24,7 @@ class Mp3DocumentPolicy {
 	 * @return boolean
 	 */
 	public function isValid(Document $document) {
-		if (count($document->getPathArr()) !== self::PATH_DEPTH || count($document->splitArtistAlbum() !== self::ARTIST_ALBUM_PART)) {
+		if (count($document->getPathArrPlain()) !== self::PATH_DEPTH || count($document->splitArtistAlbum() !== self::ARTIST_ALBUM_PART)) {
 			return FALSE;
 		} else {
 			return TRUE;

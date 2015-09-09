@@ -113,9 +113,17 @@ class Mp3Document extends FileSystemDocument {
 	 * @return array
 	 */
 	public function getPathArr() {
-		$arr = explode('/', $this->getName());
+		$arr = $this->getPathArrPlain();
 		$s = sizeof($arr);
 		return array($arr[$s - 4], $arr[$s - 3], $arr[$s - 2]);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPathArrPlain() {
+		$arr = explode('/', $this->getName());
+		return $arr;
 	}
 
 	/**
