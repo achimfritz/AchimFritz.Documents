@@ -1,12 +1,12 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Model\Facet;
+namespace AchimFritz\Documents\Tests\Unit\Domain\Factory;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\Facet\Factory\DocumentCollectionFactory;
+
 use AchimFritz\Documents\Domain\Model\Document;
 
 /**

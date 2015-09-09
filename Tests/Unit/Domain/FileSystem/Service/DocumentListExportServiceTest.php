@@ -1,12 +1,11 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem;
+namespace AchimFritz\Documents\Tests\Unit\Domain\FileSystem\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
  *                                                                        *
  *                                                                        */
 
-use AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService;
 use AchimFritz\Documents\Domain\Model\FileSystemDocument;
 use AchimFritz\Documents\Domain\Model\Mp3Document;
 use AchimFritz\Documents\Domain\Model\DocumentList;

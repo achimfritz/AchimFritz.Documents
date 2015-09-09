@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Tests\Unit\Domain\Service\FileSystem\ImageDocument;
+namespace AchimFritz\Documents\Tests\Unit\Domain\FileSystem\Service\ImageDocument;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
