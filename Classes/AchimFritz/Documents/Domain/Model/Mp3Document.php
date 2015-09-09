@@ -8,7 +8,6 @@ namespace AchimFritz\Documents\Domain\Model;
 
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
-use AchimFritz\Documents\Domain\Service\PathService;
 
 /**
  * @Flow\Entity
@@ -113,25 +112,19 @@ class Mp3Document extends FileSystemDocument {
 	/**
 	 * @return array
 	 */
-	protected function getPathArr() {
+	public function getPathArr() {
 		$arr = explode('/', $this->getName());
 		$s = sizeof($arr);
-		if ($s < 4) {
-			throw new Exception('path too short ' . $this->getName(), 1387452317);
-		}
 		return array($arr[$s - 4], $arr[$s - 3], $arr[$s - 2]);
 	}
 
 	/**
 	 * @return array
 	 */
-	protected function splitArtistAlbum() {
+	public function splitArtistAlbum() {
 		$pathArr = $this->getPathArr();
 		$path = $pathArr[2];
 		$arr = explode('_', $path);
-		if (sizeof($arr) !== 2) {
-			throw new Exception('cannot splitArtistAlbum ' . $this->getName(), 1387452318);
-		}
 		return $arr;
 	}
 

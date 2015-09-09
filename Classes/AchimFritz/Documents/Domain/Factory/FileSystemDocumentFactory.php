@@ -23,7 +23,6 @@ class FileSystemDocumentFactory {
 	public function create($name, $mountPoint = '') {
 		$document = $this->getDocument();
 		$document->setName($name);
-		$mDateTime = new \DateTime();
 		$absolutePath = $mountPoint . PathService::PATH_DELIMITER . $name;
 		$splFileInfo = new \SplFileInfo($absolutePath);
 		if ($splFileInfo->isFile() === TRUE) {
