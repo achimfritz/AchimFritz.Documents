@@ -33,7 +33,7 @@ abstract class Task extends \TYPO3\Surf\Domain\Model\Task {
 	protected $configuration;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;

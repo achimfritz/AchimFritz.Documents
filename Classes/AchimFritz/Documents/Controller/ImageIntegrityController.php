@@ -17,7 +17,7 @@ class ImageIntegrityController extends RestController {
 	protected $resourceArgumentName = 'directory';
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
@@ -41,7 +41,7 @@ class ImageIntegrityController extends RestController {
 		try {
 			$integrities = $this->integrityFactory->createIntegrities();
 			$this->view->assign('integrities', $integrities);
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Facet\Exception $e) {
 			$this->handleException($e);
 		}
 	}
@@ -53,7 +53,7 @@ class ImageIntegrityController extends RestController {
 	public function showAction($directory) {
 		try {
 			$integrity = $this->integrityFactory->createIntegrity($directory);
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\ImageDocument\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\Exception $e) {
 			$this->handleException($e);
 		}
 		$this->view->assign('integrity', $integrity);

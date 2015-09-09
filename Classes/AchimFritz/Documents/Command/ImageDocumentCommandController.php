@@ -15,7 +15,7 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\PdfExportService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\ImageDocument\PdfExportService
 	 * @Flow\Inject
 	 */
 	protected $pdfExportService;
@@ -27,13 +27,13 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	protected $documentRepository;
 		
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
@@ -78,7 +78,7 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 		try {
 			$fileName = $this->pdfExportService->createPdf($pdfExport);
 			$this->outputLine('SUCCESS: ' . $fileName);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -118,7 +118,7 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 				$this->outputLine('next Step');
 				$this->outputLine('./flow achimfritz.documents:imagesurf:' . $nextStep . ' --name=' . $directory);
 			}
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Factory\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}

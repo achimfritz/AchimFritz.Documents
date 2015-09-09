@@ -52,7 +52,7 @@ class DocumentCollectionMergeController extends RestController {
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection $documentCollection
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
 	 * @return void
 	 */
 	public function createAction(DocumentCollection $documentCollection) {

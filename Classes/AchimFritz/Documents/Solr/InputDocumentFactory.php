@@ -29,7 +29,7 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 	protected $pathService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;

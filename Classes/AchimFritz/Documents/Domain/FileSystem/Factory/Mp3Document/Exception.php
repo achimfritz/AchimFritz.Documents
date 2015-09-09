@@ -6,5 +6,5 @@ namespace AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document;
  *                                                                        *
  *                                                                        */
 
-class Exception extends \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception {
+class Exception extends \AchimFritz\Documents\Domain\FileSystem\Factory\Exception {
 }

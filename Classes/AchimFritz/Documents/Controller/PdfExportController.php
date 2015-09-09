@@ -14,7 +14,7 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 class PdfExportController extends RestController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\PdfExportService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\ImageDocument\PdfExportService
 	 * @Flow\Inject
 	 */
 	protected $pdfExportService;
@@ -50,7 +50,7 @@ class PdfExportController extends RestController {
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\PdfExport $pdfExport
+	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport $pdfExport
 	 * @return void
 	 */
 	public function createAction(PdfExport $pdfExport) {

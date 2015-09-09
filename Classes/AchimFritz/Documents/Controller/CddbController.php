@@ -14,7 +14,7 @@ class CddbController extends RestController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService
 	 */
 	protected $cddbService;
 
@@ -30,7 +30,7 @@ class CddbController extends RestController {
 	protected $resourceArgumentName = 'cddb';
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Cddb
+	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb
 	 * @return void
 	 */
 	public function updateAction(Cddb $cddb) {
@@ -38,7 +38,7 @@ class CddbController extends RestController {
 			$this->cddbService->writeId3Tags($cddb);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Documents tagged');
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->handleException($e);

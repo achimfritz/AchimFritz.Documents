@@ -21,25 +21,25 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class OrientationTask extends Task {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\ImageDocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\ImageDocument\FileSystemPropertyFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\FileSystemPropertyFactory
 	 * @Flow\Inject
 	 */
 	protected $fileSystemPropertyFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService
 	 * @Flow\Inject
 	 */
 	protected $directoryService;
 
 	/**   
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\ImageDocument\ExifService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\ImageDocument\ExifService
 	 * @Flow\Inject
 	 */
 	protected $exifService;

@@ -16,7 +16,7 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\DocumentExport;
 class DocumentExportController extends RestController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DocumentExportService
 	 * @Flow\Inject
 	 */
 	protected $documentExportService;
@@ -52,7 +52,7 @@ class DocumentExportController extends RestController {
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\DocumentExport $documentExport
+	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\DocumentExport $documentExport
 	 * @return void
 	 */
 	public function createAction(DocumentExport $documentExport) {

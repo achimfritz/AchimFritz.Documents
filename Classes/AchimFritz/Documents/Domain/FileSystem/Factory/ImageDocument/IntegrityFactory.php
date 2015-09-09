@@ -55,7 +55,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 		$path = $mountPoint . PathService::PATH_DELIMITER . $directory;
 		try {
 			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('cannot get files in ' . $path, 1419867691);
 		}
 
@@ -63,7 +63,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $webPath . PathService::PATH_DELIMITER . $directory;
 		try {
 			$thumbs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$thumbs = array();
 		}
 

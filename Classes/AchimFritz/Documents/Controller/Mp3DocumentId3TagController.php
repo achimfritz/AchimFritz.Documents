@@ -14,7 +14,7 @@ class Mp3DocumentId3TagController extends RestController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService
 	 */
 	protected $id3TagWriterService;
 
@@ -30,7 +30,7 @@ class Mp3DocumentId3TagController extends RestController {
 	protected $resourceArgumentName = 'mp3DocumentId3Tag';
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Mp3DocumentId3Tag $mp3DocumentId3Tag
+	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Mp3DocumentId3Tag $mp3DocumentId3Tag
 	 * @return void
 	 */
 	public function updateAction(Mp3DocumentId3Tag $mp3DocumentId3Tag) {
@@ -38,7 +38,7 @@ class Mp3DocumentId3TagController extends RestController {
 			$this->id3TagWriterService->tagMp3DocumentId3Tag($mp3DocumentId3Tag);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Document tagged');
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->handleException($e);

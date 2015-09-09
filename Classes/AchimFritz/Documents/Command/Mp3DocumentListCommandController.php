@@ -28,12 +28,12 @@ class Mp3DocumentListCommandController extends DocumentListCommandController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Model\Mp3DocumentListFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentListFactory
 	 */
 	protected $documentListFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;

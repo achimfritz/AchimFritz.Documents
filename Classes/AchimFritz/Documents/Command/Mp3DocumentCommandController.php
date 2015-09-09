@@ -23,31 +23,31 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $documentRepository;
 		
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Mp3DocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $id3TagFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\IntegrityFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\IntegrityFactory
 	 * @Flow\Inject
 	 */
 	protected $integrityFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService
 	 * @Flow\Inject
 	 */
 	protected $id3TagWriterService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\CddbService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService
 	 * @Flow\Inject
 	 */
 	protected $cddbService;
@@ -114,7 +114,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 			$this->id3TagWriterService->tagDocumentCollection($documentCollection);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write tag ' . $path);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
@@ -142,7 +142,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 			$this->cddbService->writeId3Tags($cddb);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write tag ' . $path);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
@@ -166,7 +166,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->id3TagWriterService->removeTags($document);
 				$this->documentPersistenceManager->persistAll();
 				$this->outputLine('SUCCESS: removed tags ' . $document->getName());
-			} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 			} catch (\AchimFritz\Documents\Linux\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
@@ -191,7 +191,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->id3TagWriterService->removeTags($document);
 				$this->documentPersistenceManager->persistAll();
 				$this->outputLine('SUCCESS: removed tags ' . $name);
-			} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+			} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 			} catch (\AchimFritz\Documents\Linux\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
@@ -220,7 +220,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 			$this->cddbService->writeCddbFile($cddb);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write file ' . $path);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());

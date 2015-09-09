@@ -41,8 +41,8 @@ class RatingService {
 	protected $categoryRepository;
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
-	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+	 * @param AchimFritz\Documents\Domain\Facet\Rating;
+	 * @return \AchimFritz\Documents\Domain\Facet\DocumentCollection;
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
 	public function deleteRatings(Rating $rating) {
@@ -56,7 +56,7 @@ class RatingService {
 	}
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
+	 * @param AchimFritz\Documents\Domain\Facet\Rating;
 	 * @return void
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
@@ -67,9 +67,9 @@ class RatingService {
 	}
 		
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
-	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection;
+	 * @param AchimFritz\Documents\Domain\Facet\Rating;
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection;
+	 * @return \AchimFritz\Documents\Domain\Facet\DocumentCollection;
 	 */
 	protected function createRatings(Rating $rating, DocumentCollection $documentCollection) {
 		$category = new Category();
@@ -80,8 +80,8 @@ class RatingService {
 	}
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating
-	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection
+	 * @param AchimFritz\Documents\Domain\Facet\Rating
+	 * @return \AchimFritz\Documents\Domain\Facet\DocumentCollection
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 */
 	protected function getDocumentCollection(Rating $rating) {

@@ -19,19 +19,19 @@ use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentExportService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DocumentExportService
 	 * @Flow\Inject
 	 */
 	protected $documentExportService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\RenameService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\RenameService
 	 * @Flow\Inject
 	 */
 	protected $renameService;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService
 	 * @Flow\Inject
 	 */
 	protected $directoryService;
@@ -190,7 +190,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 					$this->outputLine('WARNING: ' . $integrity->getName() . ' ' . $integrity->getCountFileSystem() . ' ' . $integrity->getCountSolr());
 				}
 			}
-		} catch (\AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Factory\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -223,7 +223,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 						$this->documentRepository->update($document);
 						$updates++;
 					}
-				} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+				} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 				}
 			}
@@ -259,7 +259,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	/**
 	 * @param string $name 
 	 * @param string $path 
-	 * @return \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection
+	 * @return \AchimFritz\Documents\Domain\Facet\DocumentCollection
 	 */
 	protected function createDocumentCollection($name, $path) {
 		$document = $this->documentRepository->findOneByName(trim($name));
@@ -299,7 +299,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 		try {
 			$name = $this->documentExportService->export($documentExport);
 			$this->outputLine('SUCCESS: export to ' . $name);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -337,7 +337,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 				} 
 			}
 			$this->outputLine('INFO: summary ' . $path . ': ' . $cntFs . ' Files and ' . $cntDb . ' Documents');
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}

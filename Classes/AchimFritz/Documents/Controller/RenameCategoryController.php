@@ -36,7 +36,7 @@ class RenameCategoryController extends RestController {
 	protected $resourceArgumentName = 'renameCategory';
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\RenameCategory $renameCategory
+	 * @param \AchimFritz\Documents\Domain\Facet\RenameCategory $renameCategory
 	 * @return void
 	 */
 	public function updateAction(RenameCategory $renameCategory) {

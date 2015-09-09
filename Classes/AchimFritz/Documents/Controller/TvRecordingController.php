@@ -24,7 +24,7 @@ class TvRecordingController extends \AchimFritz\Rest\Controller\RestController {
 
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\TvRecording $tvRecording
+	 * @param \AchimFritz\Documents\Domain\Facet\TvRecording $tvRecording
 	 * @return void
 	 */
 	public function createAction(TvRecording $tvRecording) {

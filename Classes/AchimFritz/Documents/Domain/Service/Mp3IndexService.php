@@ -7,8 +7,6 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Service\PathService;
-use AchimFritz\Documents\Domain\Model\Mp3Document AS Document;
 
 /**
  * @Flow\Scope("singleton")
@@ -27,7 +25,7 @@ class Mp3IndexService extends AbstractIndexService {
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Mp3DocumentFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\Mp3DocumentFactory
 	 * @Flow\Inject
 	 */
 	protected $documentFactory;

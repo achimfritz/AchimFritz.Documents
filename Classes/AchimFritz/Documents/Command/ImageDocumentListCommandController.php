@@ -27,7 +27,7 @@ class ImageDocumentListCommandController extends DocumentListCommandController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Model\ImageDocumentListFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\ImageDocumentListFactory
 	 */
 	protected $documentListFactory;
 

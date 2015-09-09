@@ -38,7 +38,7 @@ abstract class AbstractIndexService {
 	protected $documentFactory;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService
 	 * @Flow\Inject
 	 */
 	protected $directoryService;
@@ -87,7 +87,7 @@ abstract class AbstractIndexService {
 					$cnt++;
 				}
 			}
-		} catch (\AchimFritz\Documents\Domain\Service\Filesystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\Filesystem\Service\Exception $e) {
 			throw new Exception('got Filesystem Exception with ' . $e->getMessage() . ' - ' . $e->getCode(), 1419428823);
 		}
       try {

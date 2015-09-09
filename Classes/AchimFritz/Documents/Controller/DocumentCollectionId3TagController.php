@@ -17,7 +17,7 @@ class DocumentCollectionId3TagController extends RestController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService
 	 */
 	protected $id3TagWriterService;
 
@@ -52,7 +52,7 @@ class DocumentCollectionId3TagController extends RestController {
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\DocumentCollection $documentCollection
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
 	 * @return void
 	 */
 	public function createAction(DocumentCollection $documentCollection) {
@@ -60,7 +60,7 @@ class DocumentCollectionId3TagController extends RestController {
 			$cnt = $this->id3TagWriterService->tagDocumentCollection($documentCollection);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage($cnt . ' Documents tagged with ' . $documentCollection->getCategory()->getPath());
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
 			$this->handleException($e);
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
 			$this->handleException($e);

@@ -34,7 +34,7 @@ class RenameCategoryService {
 	protected $pathService;
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Facet\RenameCategory $renameCategory
+	 * @param \AchimFritz\Documents\Domain\Facet\RenameCategory $renameCategory
 	 * @throws \AchimFritz\Documents\Domain\Service\Exception
 	 * @throws \AchimFritz\Documents\Domain\Repository\Exception
 	 * @return integer

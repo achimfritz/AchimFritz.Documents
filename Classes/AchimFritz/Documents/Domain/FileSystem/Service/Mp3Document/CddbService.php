@@ -27,7 +27,7 @@ class CddbService {
 	const LINE_DELIMITER = '=';
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Model\Facet\FileSystemDocument\Mp3Document\Id3TagFactory
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Id3TagFactory
 	 * @Flow\Inject
 	 */
 	protected $idTagFactory;
@@ -45,7 +45,7 @@ class CddbService {
 	protected $configuration;
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\Mp3Document\Id3TagWriterService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService
 	 * @Flow\Inject
 	 */
 	protected $id3TagWriterService;

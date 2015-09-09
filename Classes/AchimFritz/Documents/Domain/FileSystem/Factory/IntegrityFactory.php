@@ -41,7 +41,7 @@ class IntegrityFactory {
 
    /**
     * @Flow\Inject
-    * @var \AchimFritz\Documents\Domain\Service\FileSystem\DirectoryService
+    * @var \AchimFritz\Documents\Domain\FileSystem\Service\DirectoryService
     */
 	protected $directoryService;
 
@@ -56,7 +56,7 @@ class IntegrityFactory {
 	/**
 	 * @param string $path 
 	 * @return array<\SplFileInfo>
-	 * @throws \AchimFritz\Documents\Domain\Service\FileSystem\Exception
+	 * @throws \AchimFritz\Documents\Domain\FileSystem\Service\Exception
 	 */
 	protected function getDocumentDirectories($path) {
 		$directories = $this->directoryService->getDirectoriesInDirectory($path);
@@ -87,7 +87,7 @@ class IntegrityFactory {
 		$fileExtension = $this->getConfiguration()->getFileExtension();
 		try {
 			$outerFileInfos = $this->getDocumentDirectories($path);
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			throw new Exception('cannot get files in ' . $path, 1419867692);
 		}
 		foreach ($outerFileInfos AS $outerFileInfo) {
@@ -98,7 +98,7 @@ class IntegrityFactory {
 				$solrCnt = $facets[$name];
 				unset($facets[$name]);
 			}
-			$integrity = new AchimFritz\Documents\Domain\FileSystem\Facet\Integrity($name, $cnt, $solrCnt);
+			$integrity = new \AchimFritz\Documents\Domain\FileSystem\Facet\Integrity($name, $cnt, $solrCnt);
 			$integrities->add($integrity);
 		}
 		return $integrities;

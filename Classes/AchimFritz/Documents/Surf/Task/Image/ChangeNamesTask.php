@@ -21,7 +21,7 @@ use TYPO3\Flow\Annotations as Flow;
 class ChangeNamesTask extends Task {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\RenameService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\RenameService
 	 * @Flow\Inject
 	 */
 	protected $renameService;
@@ -49,7 +49,7 @@ class ChangeNamesTask extends Task {
 				try {
 					$renamed = $this->renameService->rename($fileInfo->getRealPath());
 					$deployment->getLogger()->log('> ' . $renamed, LOG_DEBUG);
-				} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+				} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 					throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot rename ' .$fileInfo->getRealPath() . ' on ' . $node->getName(), 1366541391);
 				}
 			}

@@ -38,7 +38,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 	/**
 	 * @param string $path 
 	 * @return array<\SplFileInfo>
-	 * @throws \AchimFritz\Documents\Domain\Service\FileSystem\Exception
+	 * @throws \AchimFritz\Documents\Domain\FileSystem\Service\Exception
 	 */
 	protected function getDocumentDirectories($path) {
 		$directories = $this->directoryService->getDirectoriesInDirectoryRecursive($path, 3);

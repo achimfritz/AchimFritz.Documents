@@ -7,7 +7,6 @@ namespace AchimFritz\Documents\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
 use AchimFritz\Documents\Domain\Facet\Rating;
 
 /**
@@ -33,7 +32,7 @@ class RatingController extends RestController {
 	protected $resourceArgumentName = 'rating';
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
+	 * @param AchimFritz\Documents\Domain\Facet\Rating;
 	 * @return void
 	 */
 	public function deleteAction(Rating $rating) {
@@ -49,7 +48,7 @@ class RatingController extends RestController {
 	}
 
 	/**
-	 * @param AchimFritz\Documents\Domain\Model\Facet\Rating;
+	 * @param AchimFritz\Documents\Domain\Facet\Rating;
 	 * @return void
 	 */
 	public function updateAction(Rating $rating) {

@@ -17,7 +17,7 @@ use AchimFritz\Documents\Domain\Service\PathService;
 class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
-	 * @var \AchimFritz\Documents\Domain\Service\FileSystem\DocumentListExportService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DocumentListExportService
 	 * @Flow\Inject
 	 */
 	protected $exportService;
@@ -30,7 +30,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Model\FileSystemDocumentListFactory
+	 * @var \AchimFritz\Documents\Domain\Factory\FileSystemDocumentListFactory
 	 */
 	protected $documentListFactory;
 
@@ -124,7 +124,7 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 		try {
 			$cnt = $this->exportService->export($documentList);
 			$this->outputLine('SUCCESS: ' . $cnt . ' documents');
-		} catch (\AchimFritz\Documents\Domain\Service\FileSystem\Exception $e) {
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$this->outputLine('ERROR: cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
