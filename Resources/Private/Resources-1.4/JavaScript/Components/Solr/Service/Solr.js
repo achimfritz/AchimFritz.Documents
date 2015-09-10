@@ -36,6 +36,7 @@
         self.changeRows = changeRows;
         self.overrideFilterQuery = overrideFilterQuery;
         self.resetFilterQueries = resetFilterQueries;
+        self.changeFacetSorting = changeFacetSorting;
 
         init();
 
@@ -67,6 +68,12 @@
             } else {
                 return false;
             }
+        }
+
+
+        function changeFacetSorting(facetName, sorting) {
+            var solrKey = 'f_' + facetName + '_facet_sort';
+            params[solrKey] = sorting;
         }
 
         function changeFacetCount(facetName, diff) {
@@ -121,9 +128,6 @@
                 filterQueries[name].push(value);
             }
         }
-        //Solr.addFilterQuery('artistLetter', value);
-
-
 
         function setFacets(newFacets) {
             facets = newFacets;

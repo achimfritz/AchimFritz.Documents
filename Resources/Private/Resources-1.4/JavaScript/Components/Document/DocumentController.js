@@ -23,6 +23,7 @@
         vm.changeFacetCount = changeFacetCount;
         vm.overrideFilterQuery = overrideFilterQuery;
         vm.resetFilterQueries = resetFilterQueries;
+        vm.changeFacetSorting = changeFacetSorting;
 
         // not used by the view
         vm.initController = initController;
@@ -49,6 +50,11 @@
 
         function changeFacetCount(facetName, diff) {
             Solr.changeFacetCount(facetName, diff);
+            vm.update();
+        }
+
+        function changeFacetSorting(facetName, sorting) {
+            Solr.changeFacetSorting(facetName, sorting);
             vm.update();
         }
 

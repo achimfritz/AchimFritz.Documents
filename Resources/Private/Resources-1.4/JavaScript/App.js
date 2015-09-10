@@ -13,7 +13,8 @@
             'achimfritz.solr',
             'achimfritz.urlBuilder',
             'achimfritz.document',
-            'achimfritz.mp3'
+            'achimfritz.mp3',
+            'achimfritz.image'
         ])
         .constant('CONFIG', {
             templatePath: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/',
@@ -25,6 +26,7 @@
         .controller('AppController', AppController)
         .controller('UrlBuilderAppController', UrlBuilderAppController)
         .controller('Mp3AppController', Mp3AppController)
+        .controller('ImageAppController', ImageAppController)
         .controller('DocumentAppController', DocumentAppController);
 
     /* @ngInject */
@@ -40,6 +42,24 @@
                 path: CONFIG.baseUrl + '/document',
                 components: {
                     main: 'document'
+                }
+            }
+        ]);
+    }
+
+    /* @ngInject */
+    function ImageAppController ($router, CONFIG, SolrSettings) {
+        var solrSettingsDiv = jQuery('#solrSettings');
+        if (solrSettingsDiv.length) {
+            var solrSettings = solrSettingsDiv.data('solrsettings');
+            SolrSettings.setSetting('servlet', solrSettings.servlet);
+            SolrSettings.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
+        }
+        $router.config([
+            {
+                path: CONFIG.baseUrl + '/image',
+                components: {
+                    main: 'image'
                 }
             }
         ]);
@@ -127,7 +147,8 @@
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'navigation': CONFIG.templatePath + 'Navigation/Navigation.html',
-                'mp3': CONFIG.templatePath + 'Mp3/Mp32.html'
+                'mp3': CONFIG.templatePath + 'Mp3/Mp32.html',
+                'image': CONFIG.templatePath + 'Image/Image.html'
             }[name];
         });
     }
