@@ -1,0 +1,26 @@
+
+<div class="row top10">
+
+	<form data-ng-submit="document.update()">
+		<div class="col-md-2">
+			<input class="form-control"  type="text" data-autocomplete data-ng-model="document.search"/>
+		</div>
+		<div class="col-md-1">
+			<input type="submit"  value="Submit" class="btn btn-default"/>
+		</div>
+	</form>
+
+	<div class="col-md-9">
+		<span ng-repeat="(key, values) in document.filterQueries">
+		<button role="button" class="btn btn-default btn-danger" ng-click="document.rmFilterQuery(key, value)" ng-repeat="value in values">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			{{key}}
+			<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}"></filter-query>
+		</button>
+		</span>
+	</div>
+
+</div>
+
+
+

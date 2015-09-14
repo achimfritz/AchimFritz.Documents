@@ -1,0 +1,19 @@
+<div class="collapse navbar-collapse">
+	<ul class="nav navbar-nav">
+		<li class="dropdown" data-ng-repeat="(facet, result) in document.data.facet_counts.facet_fields">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+			   aria-expanded="false">
+				{{facet}}
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+				<li ng-repeat="(key, value) in result" ng-click="document.addFilterQuery(facet, key)">
+					<a href="javascript:void()">
+						<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
+						({{value}})
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

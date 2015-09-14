@@ -11,6 +11,8 @@
     "components-font-awesome": "*",
     "angular-xeditable": "latest",
     "file-saver": "*",
+    "ngDialog": "*",
+    "ngDraggable": "*",
     "ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
     "angular-soundmanager2": "*"
   }

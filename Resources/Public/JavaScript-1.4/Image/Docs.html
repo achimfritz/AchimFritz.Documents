@@ -1,0 +1,34 @@
+<div class="row">
+	<div class="col-md-2">
+		<div class="radio">
+			<label>
+				<input type="radio" data-ng-model="image.mode" value="view">View Mode
+			</label>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="radio">
+			<label>
+				<input id="select-mode" type="radio" data-ng-model="image.mode" value="select">Select Mode
+			</label>
+		</div>
+	</div>
+	<div class="col-md-3">
+		found {{document.data.response.numFound}} (displaying {{document.params.rows}})
+		<button class="btn btn-default btn-xs" ng-click="document.changeRows(20)">more</button>
+		<button class="btn btn-default btn-xs" ng-click="document.changeRows(-20)">less</button>
+		<button class="btn btn-default btn-xs" ng-click="image.changeImageSize(-20)">smaller</button>
+		<button class="btn btn-default btn-xs" ng-click="image.changeImageSize(20)">bigger</button>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div style="position: relative" >
+			<div class="iso-item {{item.selected}}"  data-ng-click="image.itemClick(item)" data-ng-repeat="item in document.data.response.docs" >
+				<img width="{{image.imageWidth}}" class="iso-img-item" data-ng-src="{{item.webPreviewPath}}" />
+			</div>
+		</div>
+	</div>
+</div>

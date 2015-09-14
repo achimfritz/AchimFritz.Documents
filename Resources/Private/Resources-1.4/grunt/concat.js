@@ -28,6 +28,8 @@ module.exports = {
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/file-saver/FileSaver.js',
+            'bower_components/ngDialog/js/ngDialog.js',
+            'bower_components/ngDraggable/ngDraggable.js',
             'bower_components/ajax-solr/core/Core.js',
             'bower_components/ajax-solr/core/AbstractManager.js',
             'bower_components/ajax-solr/core/Parameter.js',

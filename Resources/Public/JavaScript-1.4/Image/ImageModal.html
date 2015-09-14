@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-md-8">
+		<img ng-src="{{ctrl.doc.webBigPath}}" />
+	</div>
+	<div class="col-md-4">
+		<button class="btn btn-default"  ng-click="prev()">prev</button>
+		<button class="btn btn-default"  ng-click="next()">next</button>
+		<ul>
+			<li>{{ctrl.doc.identifier}}</li>
+			<li>{{ctrl.doc.name}}</li>
+			<li>{{ctrl.doc.year}}</li>
+			<li>{{ctrl.doc.mDateTime}}</li>
+		</ul>
+		<input class="form-controll" data-tag-autocomplete id="addTag">
+		<button class="btn btn-default" ng-click="addTag()">add tag</button>
+		<div ng-show="current.tags">
+			<h3>tags</h3>
+			<ul>
+				<li ng-repeat="item in ctrl.doc.tags">{{item}}</li>
+			</ul>
+		</div>
+		<h3>locations</h3>
+		<ul>
+			<li ng-repeat="item in ctrl.doc.locations">{{item}}</li>
+		</ul>
+		<h3>categories</h3>
+		<ul>
+			<li ng-repeat="item in ctrl.doc.categories track by $index">{{item}}</li>
+		</ul>
+	</div>
+</div>

@@ -8,6 +8,7 @@
             'xeditable',
             'toaster',
             'angularSoundManager',
+            'ngDialog',
             'achimfritz.soundmanager',
             'achimfritz.core',
             'achimfritz.solr',
@@ -48,7 +49,18 @@
     }
 
     /* @ngInject */
-    function ImageAppController ($router, CONFIG, SolrSettings) {
+    function ImageAppController ($router, CONFIG, SolrSettings, RestConfiguration) {
+        RestConfiguration.setSetting('documentListResource', 'imagedocumentlist');
+        RestConfiguration.setSetting('documentListMergeResource', 'imagedocumentlistmerge');
+        RestConfiguration.setSetting('documentListRemoveResource', 'imagedocumentlistremove');
+
+        SolrSettings.setFacets(['hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
+        SolrSettings.setHFacets({
+            hPaths: '0',
+            hCategories: '1/categories',
+            hLocations: '1/locations'
+        });
+
         var solrSettingsDiv = jQuery('#solrSettings');
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');
