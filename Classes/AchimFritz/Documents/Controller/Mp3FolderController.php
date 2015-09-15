@@ -8,17 +8,17 @@ namespace AchimFritz\Documents\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
-use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
+use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Folder;
 
-class CddbController extends RestController {
+class Mp3FolderController extends RestController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\FolderService
 	 */
-	protected $cddbService;
+	protected $folderService;
 
-	/**   
+	/**
 	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
 	 * @Flow\Inject
 	 */
@@ -27,27 +27,20 @@ class CddbController extends RestController {
 	/**
 	 * @var string
 	 */
-	protected $resourceArgumentName = 'cddb';
+	protected $resourceArgumentName = 'folder';
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb
+	 * @param \AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Folder
 	 * @return void
 	 */
-	public function updateAction(Cddb $cddb) {
+	public function updateAction(Folder $folder) {
 		try {
-			$this->cddbService->writeId3Tags($cddb);
+			$this->folderService->update($folder);
 			$this->documentPersistenceManager->persistAll();
 			$this->addFlashMessage('Documents tagged');
-		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
-			$this->handleException($e);
-		} catch (\AchimFritz\Documents\Linux\Exception $e) {
-			$this->handleException($e);
-		} catch (\SolrClientException $e) {
-			$this->handleException($e);
-		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->handleException($e);
 		}
-
 		if ($this->request->getReferringRequest() instanceof ActionRequest) {
 			$this->redirectToRequest($this->request->getReferringRequest());
 		} else {

@@ -114,13 +114,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 			$this->id3TagWriterService->tagDocumentCollection($documentCollection);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write tag ' . $path);
-		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\AchimFritz\Documents\Linux\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\SolrClientException $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -142,13 +136,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 			$this->cddbService->writeId3Tags($cddb);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: write tag ' . $path);
-		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\AchimFritz\Documents\Linux\Exception $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\SolrClientException $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -166,13 +154,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->id3TagWriterService->removeTags($document);
 				$this->documentPersistenceManager->persistAll();
 				$this->outputLine('SUCCESS: removed tags ' . $document->getName());
-			} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\AchimFritz\Documents\Linux\Exception $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\SolrClientException $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			} catch (\AchimFritz\Documents\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
 		}
@@ -191,13 +173,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->id3TagWriterService->removeTags($document);
 				$this->documentPersistenceManager->persistAll();
 				$this->outputLine('SUCCESS: removed tags ' . $name);
-			} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\AchimFritz\Documents\Linux\Exception $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\SolrClientException $e) {
-				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			} catch (\AchimFritz\Documents\Exception $e) {
 				$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
 		} else {

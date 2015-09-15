@@ -6,7 +6,7 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller (CONFIG, $rootScope, angularPlayer, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, CddbRestService, ExportRestService) {
+    function Mp3Controller (CONFIG, $rootScope, angularPlayer, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
 
         var vm = this;
         vm.templatePaths = {};
@@ -32,6 +32,7 @@
         vm.writeTag = writeTag;
         vm.getTemplate = getTemplate;
         vm.setPlayListForm = setPlayListForm;
+        vm.folderUpdate = folderUpdate;
 
         // not used by the view
         vm.initController = initController;
@@ -43,7 +44,7 @@
 
         function initController() {
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
-            vm.cddb = CddbRestService.cddb();
+            vm.cddb = DownloadRestService.cddb();
             vm.zip = ExportRestService.zip();
         }
 
@@ -70,7 +71,12 @@
 
         function cddbUpdate() {
             vm.finished = false;
-            CddbRestService.update(vm.cddb).then(vm.restSuccess, vm.restError);
+            DownloadRestService.updateCddb(vm.cddb).then(vm.restSuccess, vm.restError);
+        }
+
+        function folderUpdate() {
+            vm.finished = false;
+            DownloadRestService.updateFolder(vm.cddb).then(vm.restSuccess, vm.restError);
         }
 
         function getPlaylistDocs() {

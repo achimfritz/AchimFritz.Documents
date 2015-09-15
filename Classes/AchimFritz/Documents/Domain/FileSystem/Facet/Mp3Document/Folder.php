@@ -12,36 +12,15 @@ use AchimFritz\Documents\Domain\Service\PathService;
 /**
  * @Flow\Scope("prototype")
  */
-class Cddb extends \AchimFritz\Documents\Domain\FileSystem\Facet\Download {
+class Folder extends \AchimFritz\Documents\Domain\FileSystem\Facet\Download {
 
-	const TITLE_FORMAT = 1;
-	const ARTIST_TITLE_FORMAT = 2;
-	const FILENAME = 'Cddb.txt';
+	const FILENAME = 'Folder.jpg';
 
 	/**
 	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 * @Flow\Inject
 	 */
 	protected $configuration;
-
-	/**
-	 * @var int
-	 */
-	protected $format = self::TITLE_FORMAT;
-
-	/**
-	 * @return int
-	 */
-	public function getFormat() {
-		return $this->format;
-	}
-
-	/**
-	 * @param int $format
-	 */
-	public function setFormat($format) {
-		$this->format = $format;
-	}
 
 	/**
 	 * @return string

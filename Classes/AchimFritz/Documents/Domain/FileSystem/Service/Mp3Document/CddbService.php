@@ -8,7 +8,6 @@ namespace AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document;
 
 use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Id3Tag;
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
 use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
 
@@ -17,7 +16,6 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
  */
 class CddbService {
 
-	const FILENAME = 'Cddb.txt';
 	const ARTIST_ALBUM_DELIMITER = ' / ';
 	const ARTIST_TITLE_DELIMITER = ' / ';
 	const CDDB_TITLE = 'TTITLE';
@@ -39,16 +37,16 @@ class CddbService {
 	protected $documentRepository;
 
 	/**
-	 * @var \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
-	 * @Flow\Inject
-	 */
-	protected $configuration;
-
-	/**
 	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Id3TagWriterService
 	 * @Flow\Inject
 	 */
 	protected $id3TagWriterService;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DownloadService
+	 * @Flow\Inject
+	 */
+	protected $downloadService;
 
 	/*
 	 * @param Cddb $cddb
@@ -61,7 +59,7 @@ class CddbService {
 		$path = $cddb->getPath();
 		$format = $cddb->getFormat();
 		$documents = $this->documentRepository->findByHead($path);
-		$cddbFileName = $this->getCddbFileName($path);
+		$cddbFileName = $cddb->getTarget();
 		$cnt = 0;
 		$content = array();
 		foreach ($documents as $document) {
@@ -198,30 +196,17 @@ class CddbService {
 		if ($cddb->getUrl() !== '') {
 			$this->fetchUrlContent($cddb);
 		}
-		return $this->getFileContent($cddb->getPath());
+		return $this->downloadService->getFileContent($cddb);
 	}
 
 	/**
 	 * @param Cddb $cddb
 	 * @return void
+	 * @throws \AchimFritz\Documents\Domain\FileSystem\Service\Exception
 	 */
 	protected function fetchUrlContent(Cddb $cddb) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $cddb->getUrl());
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		$content = curl_exec($ch);
-		if(curl_errno($ch)) {
-			$errorCode = curl_errno($ch);
-			curl_close($ch);
-			throw new Exception('curl not success for url ' . $cddb->getUrl() . ' with error code ' . $errorCode, 1437307735);
-
-		}
-		curl_close($ch);
-		$cddbFileName = $this->getCddbFileName($cddb->getPath());
-		$content = mb_convert_encoding($content, 'UTF-8', "ISO-8859-1");
-		if (@file_put_contents($cddbFileName, $content) === FALSE) {
-			throw new Exception('cannot write file . ' . $cddbFileName, 1437307737);
-		}
+		$this->downloadService->fetchUrlContent($cddb);
+		$this->downloadService->convertToUtf8($cddb);
 	}
 
 	/**
@@ -249,29 +234,6 @@ class CddbService {
 			default:
 				throw new Exception('unknown strategy ' . $format, 1436793911);
 		}
-	}
-
-	/**
-	 * @param $path
-	 * @return string
-	 */
-	protected function getCddbFileName($path) {
-		return $this->configuration->getMountPoint() . PathService::PATH_DELIMITER . $path . PathService::PATH_DELIMITER . self::FILENAME;
-	}
-
-	/**
-	 * @param $path
-	 * @return string
-	 * @throws Exception
-	 */
-	protected function getFileContent($path) {
-		try {
-			$cddbFile = new \SplFileObject($this->getCddbFileName($path));
-		} catch (\Exception $e) {
-			throw new Exception('cddb file not found', 1436720296);
-		}
-		$content = file_get_contents($cddbFile->getRealPath());
-		return $content;
 	}
 
 
