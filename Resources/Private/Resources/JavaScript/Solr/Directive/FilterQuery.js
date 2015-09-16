@@ -4,7 +4,7 @@
     'use strict';
 
     angular
-        .module('achimfritz.solr')
+        .module('solr')
         .directive('filterQuery', FilterQuery);
 
     function FilterQuery(Solr, PathService) {
