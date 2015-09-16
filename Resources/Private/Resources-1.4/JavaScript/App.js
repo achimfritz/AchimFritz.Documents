@@ -9,6 +9,7 @@
             'toaster',
             'angularSoundManager',
             'ngDialog',
+            'cfp.hotkeys',
             'achimfritz.soundmanager',
             'achimfritz.core',
             'achimfritz.solr',

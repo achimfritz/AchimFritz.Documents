@@ -28,6 +28,7 @@ module.exports = {
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/file-saver/FileSaver.js',
+            'bower_components/angular-hotkeys/build/hotkeys.js',
             'bower_components/ngDialog/js/ngDialog.js',
             'bower_components/ngDraggable/ngDraggable.js',
             'bower_components/ajax-solr/core/Core.js',
@@ -47,6 +48,7 @@ module.exports = {
             'bower_components/ngDialog/css/ngDialog.css',
             'bower_components/AngularJS-Toaster/toaster.css',
             'bower_components/angular-xeditable/dist/css/xeditable.css',
+            'bower_components/angular-hotkeys/build/hotkeys.css',
             'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
         dest: '../../Public/Build-1.4/Libs.css'

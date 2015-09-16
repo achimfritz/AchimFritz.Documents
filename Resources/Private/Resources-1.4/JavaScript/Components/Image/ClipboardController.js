@@ -1,0 +1,112 @@
+/* global angular */
+(function () {
+    'use strict';
+    angular
+        .module('achimfritz.image')
+        .controller('ClipboardController', ClipboardController);
+
+    /* @ngInject */
+    function ClipboardController ($rootScope, FlashMessageService, Solr, ExportRestService) {
+
+        var vm = this;
+        vm.docs = [];
+        vm.form = 'category';
+        vm.category = '';
+        vm.zip = {};
+        vm.pdf = {};
+        vm.finished = true;
+
+
+        // used by the view
+        vm.showForm = showForm;
+        vm.pdfDownload = pdfDownload;
+        vm.zipDownload = zipDownload;
+        vm.listMerge = listMerge;
+        vm.listRemove = listRemove;
+        vm.categoryRemove = categoryRemove;
+        vm.categoryMerge = categoryMerge;
+
+        // not used by the view
+        vm.initController = initController;
+        vm.restSuccess = restSuccess;
+        vm.restError = restError;
+
+        vm.initController();
+
+        function initController() {
+            vm.pdf = ExportRestService.pdf();
+            vm.zip = ExportRestService.zip();
+        }
+
+        function categoryMerge() {
+
+        }
+
+        function categoryRemove() {
+
+        }
+
+        function listRemove() {
+
+        }
+
+        function listMerge() {
+
+        }
+
+        function zipDownload() {
+            vm.finished = false;
+            ExportRestService.zipDownload(vm.zip, vm.docs).then(
+                function (data) {
+                    vm.finished = true;
+                    var blob = new Blob([data.data], {
+                        type: 'application/zip'
+                    });
+                    saveAs(blob, vm.zip.name + '.zip');
+                },
+                vm.restError
+            );
+        }
+
+        function pdfDownload() {
+            vm.finished = false;
+            ExportRestService.pdfDownload(vm.pdf, vm.docs).then(
+                function (data) {
+                    vm.finished = true;
+                    var blob = new Blob([data.data], {
+                        type: 'application/pdf'
+                    });
+                    saveAs(blob, 'out.pdf');
+                },
+                vm.restError
+            );
+        }
+
+        function showForm(form) {
+            vm.form = form;
+        }
+
+        function restSuccess(data) {
+            vm.finished = true;
+            FlashMessageService.show(data.data.flashMessages);
+            Solr.forceRequest().then(function (response) {
+                $rootScope.$emit('solrDataUpdate', response.data);
+            })
+        }
+
+        function restError(data) {
+            vm.finished = true;
+            FlashMessageService.error(data);
+        }
+
+        $rootScope.$on('docsUpdate', function (event, docs) {
+            vm.docs = [];
+            angular.forEach(docs, function (val, key) {
+                if (val.selected === 'selected') {
+                   vm.docs.push(val);
+                }
+            });
+        })
+
+    }
+})();

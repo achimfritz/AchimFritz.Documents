@@ -1,0 +1,106 @@
+<toaster-container></toaster-container>
+
+<overlay finished="clipboard.finished"></overlay>
+<div data-ng-if="!clipboard.finished" class="spinner">
+	<spinner></spinner>
+</div>
+
+<div class="row" data-ng-if="clipboard.docs.length">
+	<div class="col-md-2">
+		<h4>clipboard: {{clipboard.docs.length}} documents</h4>
+	</div>
+	<div class="col-md-3">
+		<button class="btn btn-default" ng-click="image.emptyList()">empty</button>
+		<button class="btn btn-default" ng-click="clipboard.showForm('category')">category</button>
+		<button class="btn btn-default" ng-click="clipboard.showForm('zip')">ZIP</button>
+		<button class="btn btn-default" ng-click="clipboard.showForm('pdf')">PDF</button>
+		<button class="btn btn-default" ng-click="clipboard.showForm('documentList')">List</button>
+		<strong>{{clipboard.form}}</strong>
+	</div>
+
+	<div class="col-md-6">
+
+		<form data-ng-if="clipboard.form === 'category'" novalidate class="form-horizontal">
+			<div class="form-group row">
+				<div class="col-md-3">
+					<input class="form-control" id="category" type="text" data-ng-model="clipboard.category" data-autocomplete data-global="true" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn btn-danger" type="submit" ng-click="clipboard.categoryMerge()" value="Merge all Documents into Category" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn-danger" type="submit" ng-click="clipboard.categoryRemove()" value="Remove all Documents from Category" />
+				</div>
+			</div>
+		</form>
+
+		<form data-ng-if="clipboard.form === 'documentList'" novalidate class="form-horizontal">
+			<div class="form-group row">
+				<div class="col-md-3">
+					<input class="form-control" id="documentList" type="text" data-ng-model="clipboard.category" data-autocomplete data-global="true" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn btn-danger" type="submit" ng-click="clipboard.listMerge()" value="Merge all Documents into List" />
+				</div>
+				<div class="col-md-4">
+					<input class="form-control btn-danger" type="submit" ng-click="clipboard.listRemove()" value="Remove all Documents from List" />
+				</div>
+			</div>
+		</form>
+
+		<form data-ng-if="clipboard.form === 'zip'" class="form-horizontal">
+			<div class="form-group">
+				<label for="name" class="col-md-1 control-label">Name</label>
+				<div class="col-md-2">
+					<input type="text" class="form-control" data-ng-model="clipboard.zip.name" id="name" required="required" />
+				</div>
+				<div class="checkbox col-md-2">
+					<label>
+						<input type="checkbox" value="1" data-ng-model="clipboard.zip.useThumb" />
+						use Thumb
+					</label>
+				</div>
+				<div class="checkbox col-md-2">
+					<label>
+						<input type="checkbox" value="1" data-ng-model="clipboard.zip.useFullPath" />
+						use Full Path
+					</label>
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn-danger" type="submit" ng-click="clipboard.zipDownload()" value="ZIP Download" />
+				</div>
+			</div>
+		</form>
+
+		<form data-ng-if="clipboard.form === 'pdf'" class="form-horizontal">
+			<div class="form-group">
+				<label for="columns" class="col-md-2 control-label">Columns</label>
+				<div class="col-md-1">
+					<input type="text" class="form-control" data-ng-model="clipboard.pdf.columns" id="columns" value="3" />
+				</div>
+				<label for="dpi" class="col-md-1 control-label">DPI</label>
+				<div class="col-md-1">
+					<input type="text" class="form-control" data-ng-model="clipboard.pdf.dpi" id="dpi" value="300" />
+				</div>
+				<label for="size" class="col-md-1 control-label">Size</label>
+				<div class="col-md-1">
+					<select class="form-control" data-ng-model="clipboard.pdf.size" id="size">
+						<option value="0">A0</option>
+						<option value="1">A1</option>
+						<option value="2">A2</option>
+						<option value="3">A3</option>
+						<option value="4">A4</option>
+						<option value="5">A5</option>
+						<option value="6">A6</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn-danger" type="submit" ng-click="clipboard.pdfDownload()" value="PDF Download" />
+				</div>
+			</div>
+		</form>
+
+
+	</div>
+</div>
+

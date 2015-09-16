@@ -3,8 +3,8 @@
 		<img ng-src="{{ctrl.doc.webBigPath}}" />
 	</div>
 	<div class="col-md-4">
-		<button class="btn btn-default"  ng-click="prev()">prev</button>
-		<button class="btn btn-default"  ng-click="next()">next</button>
+		<button class="btn btn-default"  ng-click="ctrl.itemPrev()">prev</button>
+		<button class="btn btn-default"  ng-click="ctrl.itemNext()">next ( n )</button>
 		<ul>
 			<li>{{ctrl.doc.identifier}}</li>
 			<li>{{ctrl.doc.name}}</li>
