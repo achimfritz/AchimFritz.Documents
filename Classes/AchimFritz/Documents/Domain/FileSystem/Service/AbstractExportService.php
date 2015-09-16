@@ -50,7 +50,7 @@ abstract class AbstractExportService {
 	 */
 	protected function copyFile($from, $to) {
 		if (@copy($from, $to) === FALSE) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot copy document from ' . $from . ' to ' . $to , 1416762868);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot copy document from ' . $from . ' to ' . $to , 1416762868);
 		}
 	}
 
@@ -62,13 +62,13 @@ abstract class AbstractExportService {
 	protected function zipDirectory($directory) {
 		if (@file_exists($directory . '.zip') === TRUE) {
 			if (@unlink($directory . '.zip') === FALSE) {
-				throw new AchimFritz\Documents\Domain\Facet\Exception('cannot rm existing file ' . $directory . '.zip' , 1421345343);
+				throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot rm existing file ' . $directory . '.zip' , 1421345343);
 			}
 		}
 		try {
 			$this->linuxCommand->zipDirectory($directory);
 		} catch (\AchimFritz\Documents\Linux\Exception $e) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot zip directory ' . $directory, 1421343749);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot zip directory ' . $directory, 1421343749);
 		}
 	}
 
@@ -84,7 +84,7 @@ abstract class AbstractExportService {
 			return $directory;
 		}
 		if (@mkdir($directory, 0777, TRUE) === FALSE) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create directory ' . $directory, 1416762870);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot create directory ' . $directory, 1416762870);
 		}
 		return $directory;
 	}
@@ -100,11 +100,11 @@ abstract class AbstractExportService {
 			try {
 				$this->linuxCommand->rmDirRecursive($directory);
 			} catch (\AchimFritz\Documents\Linux\Exception $e) {
-				throw new AchimFritz\Documents\Domain\Facet\Exception('cannot rm ' . $directory, 1416762866);
+				throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot rm ' . $directory, 1416762866);
 			}
 		}
 		if (@mkdir($directory) === FALSE) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot create directory ' . $directory, 1416762867);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot create directory ' . $directory, 1416762867);
 		}
 		return $directory;
 	}

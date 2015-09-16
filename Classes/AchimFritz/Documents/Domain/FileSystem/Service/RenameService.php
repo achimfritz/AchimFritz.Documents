@@ -21,11 +21,11 @@ class RenameService {
 	 */
 	public function rename($path) {
 		if (@file_exists($path) === FALSE) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('file not exists ' . $path, 1418667068);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('file not exists ' . $path, 1418667068);
 		}
 		$renamed = $this->getCleanPath($path);
 		if (@rename($path, $renamed) === FALSE) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('cannot rename ' . $path . ' to ' . $renamed, 1418667069);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('cannot rename ' . $path . ' to ' . $renamed, 1418667069);
 		}
 		return $renamed;
 	}

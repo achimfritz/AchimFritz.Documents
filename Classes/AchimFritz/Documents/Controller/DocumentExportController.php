@@ -59,7 +59,7 @@ class DocumentExportController extends RestController {
 		try {
 			$fileName = $this->documentExportService->export($documentExport);
 			$this->view->assign('fileName', $fileName);
-		} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->response->setHeader('Content-Type', 'text/html' . '; charset=UTF-8', TRUE);
 			$this->response->setStatus(500, 'Cannot export with ' . $e->getMessage() . ' - ' . $e->getCode());
 			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();

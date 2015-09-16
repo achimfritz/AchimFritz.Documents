@@ -24,7 +24,7 @@ class DocumentExportService extends AbstractExportService {
 	 */
 	public function export(DocumentExport $documentExport) {
 		if (count($documentExport->getDocuments()) === 0) {
-			throw new AchimFritz\Documents\Domain\Facet\Exception('no documents', 1433773427);
+			throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('no documents', 1433773427);
 		}
 		$directory = $this->createExportDirectory($documentExport->getName());
 		$cnt = 0;
@@ -47,7 +47,7 @@ class DocumentExportService extends AbstractExportService {
 		$from = $document->getAbsolutePath();
 		if ($documentExport->getUseThumb() === TRUE) {
 			if ($document instanceof ImageDocument === FALSE) {
-				throw new AchimFritz\Documents\Domain\Facet\Exception('thumbs only supported for imageDocuments', 1416762881);
+				throw new \AchimFritz\Documents\Domain\FileSystem\Service\Exception('thumbs only supported for imageDocuments', 1416762881);
 			}
 			$from = $document->getAbsoluteWebThumbPath();
 		}
