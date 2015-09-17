@@ -6,7 +6,7 @@
         .controller('ClipboardController', ClipboardController);
 
     /* @ngInject */
-    function ClipboardController ($rootScope, FlashMessageService, Solr, ExportRestService) {
+    function ClipboardController ($rootScope, FlashMessageService, Solr, ExportRestService, DocumentListRestService, DocumentCollectionRestService) {
 
         var vm = this;
         vm.docs = [];
@@ -39,19 +39,23 @@
         }
 
         function categoryMerge() {
-
+            vm.finished = false;
+            DocumentCollectionRestService.merge(vm.category, vm.docs).then(vm.restSuccess, vm.restError);
         }
 
         function categoryRemove() {
-
+            vm.finished = false;
+            DocumentCollectionRestService.remove(vm.category, vm.docs).then(vm.restSuccess, vm.restError);
         }
 
         function listRemove() {
-
+            vm.finished = false;
+            DocumentListRestService.remove(vm.category, vm.docs).then(vm.restSuccess, vm.restError);
         }
 
         function listMerge() {
-
+            vm.finished = false;
+            DocumentListRestService.merge(vm.category, vm.docs).then(vm.restSuccess, vm.restError);
         }
 
         function zipDownload() {
@@ -89,9 +93,6 @@
         function restSuccess(data) {
             vm.finished = true;
             FlashMessageService.show(data.data.flashMessages);
-            Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
-            })
         }
 
         function restError(data) {

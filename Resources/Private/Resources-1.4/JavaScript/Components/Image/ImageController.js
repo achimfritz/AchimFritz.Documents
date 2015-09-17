@@ -17,6 +17,10 @@
         vm.data = {};
         vm.strgPressed = false;
         vm.shiftPressed = false;
+        vm.widgets = {
+            solrIntegrity: false,
+            filterNavSelect: true
+        }
 
         // used by the view
         vm.getTemplate = getTemplate;
@@ -25,6 +29,7 @@
         vm.openImageModal = openImageModal;
         vm.itemClickSelect = itemClickSelect;
         vm.emptyList = emptyList;
+        vm.closeWidget = closeWidget;
 
         // not used by the view
         vm.initController = initController;
@@ -34,8 +39,6 @@
         vm.initController();
 
         function initController() {
-
-            vm.mode = 'select';
 
             hotkeys.bindTo($scope).add({
                 combo: 'ctrl',
@@ -68,6 +71,10 @@
             })
         }
 
+        function closeWidget(widget) {
+            vm.widgets[widget] = false;
+        }
+
         function emptyList() {
             angular.forEach(vm.data.response.docs, function (val, key) {
                 val.selected = '';
@@ -76,7 +83,6 @@
         }
 
         function itemClickSelect (doc) {
-            console.log(vm.shiftPressed);
             var docs = vm.data.response.docs;
             if (doc.selected === 'selected') {
                 doc.selected = '';
@@ -152,6 +158,7 @@
 
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.data = data;
+            $rootScope.$emit('docsUpdate', data.response.docs);
         })
 
     }

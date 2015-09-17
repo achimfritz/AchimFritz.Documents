@@ -4,7 +4,7 @@
     'use strict';
 
     angular
-        .module('imageApp')
+        .module('achimfritz.image')
         .directive('tagAutocomplete', TagAutocomplete);
 
     function TagAutocomplete(Solr) {
@@ -14,7 +14,6 @@
             scope: {},
 
             link: function (scope, element, attr) {
-                // TODO on submit ...
                 $(element).autocomplete({
                     source: function (request, response) {
                         var item = request.term;
@@ -24,7 +23,7 @@
                                 var name = key.replace('tags/', '');
                                 return {
                                     label: name + ' (' + val + ')',
-                                    value: name
+                                    value: name,
                                 };
                             }));
                         });

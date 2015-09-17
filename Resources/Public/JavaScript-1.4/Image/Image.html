@@ -8,10 +8,13 @@
 
 <div data-ng-controller="DocumentController as document">
 	<div data-ng-controller="ClipboardController as clipboard">
-		<ng-include src="image.getTemplate('Nav')"></ng-include>
-		<ng-include src="image.getTemplate('FilterNavSelect')"></ng-include>
-		<ng-include src="image.getTemplate('FilterNav')"></ng-include>
-		<ng-include src="image.getTemplate('Clipboard')"></ng-include>
-		<ng-include src="image.getTemplate('Docs')"></ng-include>
+		<div data-ng-controller="WidgetController as widget">
+			<ng-include src="image.getTemplate('Nav')"></ng-include>
+			<ng-include src="image.getTemplate('Widget')"></ng-include>
+			<ng-include src="image.getTemplate('FilterNavSelect')"></ng-include>
+			<ng-include src="image.getTemplate('FilterNav')"></ng-include>
+			<ng-include src="image.getTemplate('Clipboard')"></ng-include>
+			<ng-include src="image.getTemplate('Docs')"></ng-include>
+		</div>
 	</div>
 </div>
