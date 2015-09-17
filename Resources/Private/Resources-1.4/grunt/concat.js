@@ -26,6 +26,7 @@ module.exports = {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-new-router/dist/router.es5.js',
             'bower_components/angular-animate/angular-animate.js',
+            'bower_components/angular-livesearch/liveSearch.js',
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/file-saver/FileSaver.js',
             'bower_components/angular-hotkeys/build/hotkeys.js',

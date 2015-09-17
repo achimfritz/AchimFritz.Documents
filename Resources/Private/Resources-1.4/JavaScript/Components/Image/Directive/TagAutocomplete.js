@@ -23,7 +23,7 @@
                                 var name = key.replace('tags/', '');
                                 return {
                                     label: name + ' (' + val + ')',
-                                    value: name,
+                                    value: name
                                 };
                             }));
                         });

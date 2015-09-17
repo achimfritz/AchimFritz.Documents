@@ -10,6 +10,7 @@
             'angularSoundManager',
             'ngDialog',
             'cfp.hotkeys',
+            'LiveSearch',
             'achimfritz.soundmanager',
             'achimfritz.core',
             'achimfritz.solr',
