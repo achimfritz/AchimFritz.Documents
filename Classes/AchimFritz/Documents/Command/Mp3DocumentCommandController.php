@@ -65,6 +65,12 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $mp3DocumentConfiguration;
 
 	/**
+	 * @var \AchimFritz\Documents\Solr\Helper
+	 * @Flow\Inject
+	 */
+	protected $solrHelper;
+
+	/**
 	 * @return \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
 	 */
 	protected function getConfiguration() {
@@ -97,6 +103,40 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->outputLine('ERROR cannot create id3Tag: ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
 
+		}
+	}
+
+	/**
+	 * MassTagCommand --fq='artist:"Queen Latifah"' --path="genre/Classic Rock"
+	 *
+	 * @param string $name
+	 * @param string $path
+	 * @return void
+	 */
+	public function massTagCommand($fq = 'artist:"Queen Latifah"', $tag = 'genre/Classic Rock') {
+		#$fq = 'artist:"Queen Latifah"';
+		#$fq = 'artist:ACDC';
+		list($tagName, $tagValue) = explode('/', $tag);
+		try {
+			$docs = $this->solrHelper->findDocumentsByFq($fq);
+			$documents = $this->documentRepository->findByNames($docs);
+			foreach ($documents as $document) {
+				try {
+					$this->id3TagWriterService->tagDocument($document, $tagName, $tagValue);
+					$this->documentRepository->update($document);
+				} catch (\AchimFritz\Documents\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+				}
+			}
+			$this->outputLine('SUCCESS: found ' . count($documents) . ' documents');
+		} catch (\SolrException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: persisted ');
+		} catch (\AchimFritz\Documents\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 
