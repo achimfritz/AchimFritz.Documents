@@ -17,6 +17,7 @@ class Mp3DocumentFactory extends FileSystemDocumentFactory {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Policy\Mp3DocumentPolicy
+	 * @Flow\Inject
 	 */
 	protected $policy;
 

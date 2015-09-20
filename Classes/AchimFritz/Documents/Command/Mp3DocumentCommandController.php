@@ -184,7 +184,7 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	/**
 	 * removeallid3tags --path=af/mix/HeavyParty_Rest
 	 *
-	 * @param string $name
+	 * @param string $path
 	 * @return void
 	 */
 	public function removeAllId3TagsCommand($path) {
