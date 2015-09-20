@@ -31,6 +31,7 @@ class Mp3DocumentFactory extends FileSystemDocumentFactory {
 		if ($this->policy->isValid($document) === FALSE) {
 			throw new Exception('invalide document ' . $document->getName(), 1441819439);
 		}
+		return $document;
 	}
 
 	/**
