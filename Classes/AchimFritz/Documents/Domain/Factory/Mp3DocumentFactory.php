@@ -29,7 +29,7 @@ class Mp3DocumentFactory extends FileSystemDocumentFactory {
 	public function create($name, $mountPoint = '') {
 		$document = parent::create($name, $mountPoint);
 		if ($this->policy->isValid($document) === FALSE) {
-			throw new Exception('invalide document', 1441819439);
+			throw new Exception('invalide document ' . $document->getName(), 1441819439);
 		}
 	}
 
