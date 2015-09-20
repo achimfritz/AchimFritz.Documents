@@ -133,6 +133,9 @@ class Mp3Document extends FileSystemDocument {
 		$pathArr = $this->getPathArr();
 		$path = $pathArr[2];
 		$arr = explode('_', $path);
+		if (count($arr) !== 2) {
+			return array('Unknown', 'Unknown');
+		}
 		return $arr;
 	}
 
