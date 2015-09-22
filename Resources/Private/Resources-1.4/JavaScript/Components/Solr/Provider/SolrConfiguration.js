@@ -5,11 +5,11 @@
 
     angular
         .module('achimfritz.solr')
-        .provider('SolrSettings', SolrSettings);
+        .provider('SolrConfiguration', SolrConfiguration);
 
-    function SolrSettings() {
+    function SolrConfiguration() {
 
-        var settings = {
+        var configuration = {
             settings: {
                 'solrUrl': 'http://dev.dev.local.dev:8080/af/documents/',
                 'servlet': 'select',
@@ -37,21 +37,21 @@
         this.$get = function () {
             return {
 
-                getSettings: function () {
-                    return settings;
+                getConfiguration: function () {
+                    return configuration;
                 },
 
                 setParam: function (name, value) {
-                    settings.params[name] = value;
+                    configuration.params[name] = value;
                 },
                 setSetting: function (name, value) {
-                    settings.settings[name] = value;
+                    configuration.settings[name] = value;
                 },
                 setHFacets: function (hFacets) {
-                    settings.hFacets = hFacets;
+                    configuration.hFacets = hFacets;
                 },
                 setFacets: function (facets) {
-                    settings.facets = facets;
+                    configuration.facets = facets;
                 }
             }
         };

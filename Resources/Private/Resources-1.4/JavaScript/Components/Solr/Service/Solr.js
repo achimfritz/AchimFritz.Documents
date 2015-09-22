@@ -7,15 +7,15 @@
         .module('achimfritz.solr')
         .service('Solr', Solr);
 
-    function Solr(SolrSettings, Request, PathService) {
+    function Solr(SolrConfiguration, Request, PathService) {
 
         var self = this;
 
-        var solrSettings = SolrSettings.getSettings();
-        var settings = solrSettings.settings;
-        var params = solrSettings.params;
-        var facets = solrSettings.facets;
-        var hFacets = solrSettings.hFacets;
+        var solrConfiguration = SolrConfiguration.getConfiguration();
+        var settings = solrConfiguration.settings;
+        var params = solrConfiguration.params;
+        var facets = solrConfiguration.facets;
+        var hFacets = solrConfiguration.hFacets;
         var facetPrefixes = {};
         var filterQueries = {};
         var manager = new AjaxSolr.Manager(settings);
@@ -37,10 +37,11 @@
         self.overrideFilterQuery = overrideFilterQuery;
         self.resetFilterQueries = resetFilterQueries;
         self.changeFacetSorting = changeFacetSorting;
+        self.init = init;
 
         init();
 
-        function init () {
+        function init() {
             manager.init();
             angular.forEach(facets, function (val) {
                 manager.store.addByValue('facet.field', val);

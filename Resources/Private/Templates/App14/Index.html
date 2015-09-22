@@ -2,11 +2,13 @@
 <f:layout name="App14"/>
 
 <f:section name="Content">
+
 	<div id="solrSettings" data-solrSettings='{af:solrSettings(servlet: "select")}'></div>
+	<div id="mp3SolrSettings" data-solrSettings='{af:solrSettings(servlet: "mp3")}'></div>
+	<div id="imageSolrSettings" data-solrSettings='{af:solrSettings(servlet: "image")}'></div>
 
 	<main class="container-fluid">
-		<div class="container-fluid text-center" data-ng-app="achimfritz.app" data-ng-controller="AppController as app">
-			<div ng-viewport="navigation"></div>
+		<div class="container-fluid" data-ng-app="achimfritz.app" data-ng-controller="AppController as app">
 			<div ng-viewport="main"></div>
 		</div>
 	</main>
