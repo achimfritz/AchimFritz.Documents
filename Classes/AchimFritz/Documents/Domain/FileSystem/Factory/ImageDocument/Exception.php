@@ -6,5 +6,5 @@ namespace AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument;
  *                                                                        *
  *                                                                        */
 
-class Exception extends \AchimFritz\Documents\Domain\FileSystem\Exception {
+class Exception extends \AchimFritz\Documents\Domain\Factory\Exception {
 }

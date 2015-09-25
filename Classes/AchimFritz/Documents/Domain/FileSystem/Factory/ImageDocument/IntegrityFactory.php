@@ -45,7 +45,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 		try {
 			$solrDocs = $this->solrHelper->findDocumentsByFq('mainDirectoryName:' . $directory);
 		} catch (\SolrException $e) {
-			throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('cannot fetch from solr', 1418658029);
+			throw new Exception('cannot fetch from solr', 1418658029);
 		}
 
 		// fs
@@ -56,7 +56,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 		try {
 			$fsDocs = $this->directoryService->getFileNamesInDirectory($path, $fileExtension);
 		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
-			throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('cannot get files in ' . $path, 1419867691);
+			throw new Exception('cannot get files in ' . $path, 1419867691);
 		}
 
 		// thumbs
@@ -71,7 +71,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 		sort($fsDocs);
 		sort($solrDocs);
 
-		$integrity = new AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Integrity($directory, count($fsDocs), count($solrDocs));
+		$integrity = new \AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\Integrity($directory, count($fsDocs), count($solrDocs));
 		$integrity->setPersistedDocuments($documents);
 		$integrity->setSolrDocuments($solrDocs);
 		$integrity->setFilesystemDocuments($fsDocs);
