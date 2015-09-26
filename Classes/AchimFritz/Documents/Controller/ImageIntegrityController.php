@@ -53,10 +53,10 @@ class ImageIntegrityController extends RestController {
 	public function showAction($directory) {
 		try {
 			$integrity = $this->integrityFactory->createIntegrity($directory);
-		} catch (\AchimFritz\Documents\Domain\FileSystem\Factory\ImageDocument\Exception $e) {
+			$this->view->assign('integrity', $integrity);
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->handleException($e);
 		}
-		$this->view->assign('integrity', $integrity);
 	}
 
 }
