@@ -17,10 +17,6 @@
         vm.data = {};
         vm.strgPressed = false;
         vm.shiftPressed = false;
-        vm.widgets = {
-            solrIntegrity: false,
-            filterNavSelect: true
-        }
 
         // used by the view
         vm.getTemplate = getTemplate;
@@ -29,7 +25,6 @@
         vm.openImageModal = openImageModal;
         vm.itemClickSelect = itemClickSelect;
         vm.emptyList = emptyList;
-        vm.closeWidget = closeWidget;
 
         // not used by the view
         vm.initController = initController;
@@ -69,10 +64,6 @@
             Solr.request().then(function (response){
                 vm.data = response.data;
             })
-        }
-
-        function closeWidget(widget) {
-            vm.widgets[widget] = false;
         }
 
         function emptyList() {

@@ -11,11 +11,13 @@
         var vm = this;
         vm.widgets = {
             solrIntegrity: false,
-            filterNavSelect: true
+            filterNavSelect: true,
+            integrity: false
         };
 
         // used by the view
         vm.closeWidget = closeWidget;
+        vm.openWidget = openWidget;
 
         // not used by the view
         vm.initController = initController;
@@ -28,6 +30,10 @@
 
         function closeWidget(widget) {
             vm.widgets[widget] = false;
+        }
+
+        function openWidget(widget) {
+            vm.widgets[widget] = true;
         }
 
     }

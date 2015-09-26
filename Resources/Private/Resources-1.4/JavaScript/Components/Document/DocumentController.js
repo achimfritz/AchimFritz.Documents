@@ -24,6 +24,7 @@
         vm.overrideFilterQuery = overrideFilterQuery;
         vm.resetFilterQueries = resetFilterQueries;
         vm.changeFacetSorting = changeFacetSorting;
+        vm.setSearch = setSearch;
 
         // not used by the view
         vm.initController = initController;
@@ -70,6 +71,11 @@
 
         function overrideFilterQuery(name, value) {
             Solr.overrideFilterQuery(name, value);
+            vm.update();
+        }
+
+        function setSearch(search) {
+            vm.search = search;
             vm.update();
         }
 
