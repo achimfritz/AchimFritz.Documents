@@ -5,15 +5,20 @@ mp2:
 rm /bilder/admin
 
 index mp3 track length
-facet.sorting -> angular
 
 update player
 autocomplete slow
 
-dialog
-
-"playlists"
-search amazon
 
 Domain/Model/Exception weg
 TvRecording -> Package
+
+
+- rm Category (if emtpy) after removing documentList
+- rm/rename Category not available
+- update DocumentList PropertyMapper
+- proof livesearch
+- proof live:
+
+		lucky/mix/slow-juli05/Radiohead-KBritPopBritPopBritPopBritPoparmaPolice.mp3
+    	lucky/mix/slow-juli05/Radiohead-KarmaPolice.mp3

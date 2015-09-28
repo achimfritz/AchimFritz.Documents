@@ -12,6 +12,18 @@
 
 	<div class="row top2">
 		<div class="col-md-12">
+			<live-search id="artistSearch" type="text"
+						 live-search-callback="mp3.artistSearchCallback"
+						 live-search-item-template="{{result.label}} -- {{result.value}}</b>"
+						 live-search-select="fullName"
+						 ng-model="mp3.artistSearch" >
+			</live-search>
+		</div>
+	</div>
+
+
+	<div class="row top2">
+		<div class="col-md-12">
 			<ng-include src="mp3.getTemplate('LetterNav')"></ng-include>
 		</div>
 	</div>

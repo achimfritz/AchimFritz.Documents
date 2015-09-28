@@ -1,0 +1,49 @@
+<toaster-container></toaster-container>
+
+<overlay finished="imageList.finished"></overlay>
+<div data-ng-if="!imageList.finished" class="spinner">
+	<spinner></spinner>
+</div>
+
+
+<div data-ng-if="imageList.view === 'list'">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<tr data-ng-repeat="documentList in imageList.documentLists">
+					<td>{{documentList.category.path}}</td>
+					<td><button data-ng-click="imageList.show(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
+					<td><button data-ng-click="imageList.removeList(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</div>
+<div data-ng-if="imageList.view === 'show'">
+	<div class="row">
+		<div class="col-md-3">
+			<h2>{{imageList.documentList.category.path}}</h2>
+		</div>
+		<div class="col-md-9">
+			<button data-ng-click="imageList.list()" class="btn btn-default" >list</button>
+			<button data-ng-click="imageList.removeList(imageList.documentList.__identity)" class="btn btn-danger" >delete</button>
+			<button data-ng-click="imageList.showBig(true)" class="btn btn-default" data-ng-if="imageList.big === false">show big</button>
+			<button data-ng-click="imageList.showBig(false)" class="btn btn-default" data-ng-if="imageList.big">hide big</button>
+			<button data-ng-click="imageList.saveList()" class="btn btn-danger" >save</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="draglist">
+				<li data-ng-repeat="item in imageList.documentList.documentListItems" ng-drop="true" ng-drop-success="imageList.onDropComplete($index, $data,$event)">
+					<div ng-drag="true" ng-drag-data="item">
+						<img src="{{item.document.webPreviewPath}}" data-ng-if="imageList.big"/>
+						<img src="{{item.document.webThumbPath}}" data-ng-if="imageList.big === false"/>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>

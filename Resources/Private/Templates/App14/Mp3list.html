@@ -1,0 +1,14 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
+<f:layout name="App14"/>
+
+<f:section name="Content">
+	<div id="mp3SolrSettings" data-solrSettings='{af:solrSettings(servlet: "mp3")}'></div>
+
+	<main class="container-fluid">
+		<div class="container-fluid" ng-app="achimfritz.app" ng-controller="AppController as app">
+			<div ng-viewport="main"></div>
+		</div>
+	</main>
+</f:section>
+
+

@@ -10,6 +10,7 @@
             'angularSoundManager',
             'ngDialog',
             'cfp.hotkeys',
+            'ngDraggable',
             'LiveSearch',
             'achimfritz.soundmanager',
             'achimfritz.core',
@@ -81,9 +82,12 @@
     function AppController ($router, CONFIG, $location, RestConfiguration, SolrConfiguration) {
 
 
-        if ($location.path() === CONFIG.baseUrl + '/mp3' || $location.path() === CONFIG.baseUrl + '/app/mp3') {
+        if ($location.path() === CONFIG.baseUrl + '/mp3'
+            || $location.path() === CONFIG.baseUrl + '/mp3ipad'
+            || $location.path() === CONFIG.baseUrl + '/mp3list'
+        ) {
             mp3Config(SolrConfiguration, RestConfiguration);
-        } else if ($location.path() === CONFIG.baseUrl + '/document' || $location.path() === CONFIG.baseUrl + '/app/document') {
+        } else if ($location.path() === CONFIG.baseUrl + '/document') {
             var solrSettingsDiv = jQuery('#solrSettings');
             if (solrSettingsDiv.length) {
                 var solrSettings = solrSettingsDiv.data('solrsettings');
@@ -91,7 +95,7 @@
                 SolrConfiguration.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
             }
 
-        } else if ($location.path() === CONFIG.baseUrl + '/image' || $location.path() === CONFIG.baseUrl + '/app/image') {
+        } else if ($location.path() === CONFIG.baseUrl + '/image' || $location.path() === CONFIG.baseUrl + '/imagelist') {
             imageConfig(SolrConfiguration, RestConfiguration);
         }
 
@@ -111,19 +115,7 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/app/urlbuilder',
-                components: {
-                    main: 'urlBuilder'
-                }
-            },
-            {
                 path: CONFIG.baseUrl + '/document',
-                components: {
-                    main: 'document'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/app/document',
                 components: {
                     main: 'document'
                 }
@@ -141,15 +133,21 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/app/mp3',
+                path: CONFIG.baseUrl + '/mp3ipad',
                 components: {
-                    main: 'mp3'
+                    main: 'mp3Ipad'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/app/image',
+                path: CONFIG.baseUrl + '/imagelist',
                 components: {
-                    main: 'image'
+                    main: 'imageList'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3list',
+                components: {
+                    main: 'mp3List'
                 }
             }
         ]);
@@ -164,6 +162,9 @@
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'navigation': CONFIG.templatePath + 'Navigation/Navigation.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp32.html',
+                'mp3Ipad': CONFIG.templatePath + 'Mp3/Mp3Ipad.html',
+                'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
+                'imageList': CONFIG.templatePath + 'Image/ImageList.html',
                 'image': CONFIG.templatePath + 'Image/Image.html'
             }[name];
         });

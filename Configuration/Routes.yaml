@@ -16,38 +16,8 @@
     '@controller': 'App14'
 
 -
-  name: 'app image'
-  uriPattern: 'app/image'
-  defaults:
-    '@package': 'AchimFritz.Documents'
-    '@action': 'index'
-    '@controller': 'App14'
-
--
-  name: 'app urlbuilder'
-  uriPattern: 'app/urlbuilder'
-  defaults:
-    '@package': 'AchimFritz.Documents'
-    '@action': 'index'
-    '@controller': 'App14'
--
-  name: 'app ducument'
-  uriPattern: 'app/document'
-  defaults:
-    '@package': 'AchimFritz.Documents'
-    '@action': 'index'
-    '@controller': 'App14'
--
-  name: 'app mp3'
-  uriPattern: 'app/mp3'
-  defaults:
-    '@package': 'AchimFritz.Documents'
-    '@action': 'index'
-    '@controller': 'App14'
-
--
   name: 'app action'
-  uriPattern: 'app/app/{@action}'
+  uriPattern: 'app/{@action}'
   defaults:
     '@package': 'AchimFritz.Documents'
     '@controller': 'App14'

@@ -1,0 +1,64 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Show document list {documentList.category.path}</f:section>
+<f:section name="Content">
+
+<f:form action="index" name="documentList" arguments="{documentList: documentList}">
+   <f:form.hidden name="__method" value="DELETE" />
+   <f:form.submit value="Delete" class="btn btn-danger " />
+</f:form>
+
+<h3>Category</h3>
+<f:link.action action="index" controller="Category" arguments="{category: documentList.category}">
+	{documentList.category.path}
+</f:link.action>
+
+<h3>documentListItems</h3>
+<f:if condition="{documentList.documentListItems}">
+	<f:then>
+		<table class="table table-striped">
+			<f:for each="{documentList.documentListItems}" as="documentListItem" iteration="it">
+				<tr>
+					<td>
+						<f:link.action action="index" controller="Document" arguments="{document: documentListItem.document}">
+							{documentListItem.sorting}: {documentListItem.document.name}
+						</f:link.action>
+					</td>
+					<td>
+						<f:form action="index" objectName="documentList" controller="DocumentListRemove">
+							<input type="hidden" name="__method" value="POST" />
+							<f:form.hidden property="documentListItems.0.document" value="{documentListItem.document}" />
+							<f:form.hidden property="category.path" value="{documentList.category.path}" />
+							<f:form.submit value="Remove" class="btn btn-danger btn-xs"/>
+						</f:form>
+					</td>
+					<td>
+						<f:form action="index" objectName="documentList" controller="DocumentListMerge">
+							<input type="hidden" name="__method" value="POST" />
+							<f:form.hidden property="documentListItems.0.document" value="{documentListItem.document}" />
+							<f:form.hidden property="category.path" value="{documentList.category.path}" />
+							<label class="control-label" for="sorting">Sorting</label>
+							<f:form.textfield property="documentListItems.0.sorting" class="form-control" id="sorting" value="{documentListItem.sorting}" />
+							<f:form.submit value="Update" class="btn btn-default btn-xs"/>
+						</f:form>
+					</td>
+				</tr>
+			</f:for>
+		</table>
+
+		<h3>remove from DocumentList</h3>
+		<f:form action="index" objectName="documentList" controller="DocumentListRemove">
+			<input type="hidden" name="__method" value="POST" />
+				<f:form.select multiple="true" class="form-control" property="documentListItems" options="{documentList.documentListItems}" optionLabelField="document.name" selectAllByDefault="true" />
+				<f:form.hidden property="category.path" value="{documentList.category.path}" />
+				<div class="form-group">
+					<f:form.submit value="Remove" class="btn btn-danger"/>
+				</div>
+		</f:form>
+	</f:then>
+	<f:else>
+      <div class="alert alert-info" role="alert">no items</div>
+	</f:else>
+</f:if>
+
+</f:section>

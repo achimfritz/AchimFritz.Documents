@@ -54,11 +54,6 @@ td.mp3-song-list-controls {
 	min-width: 100px;
 }
 
-ul.draglist {
-	display: inline-block;
-	margin: 0 auto;
-}
-
 ul.typo3-widget-paginator li {
 	display: inline;
 }
@@ -83,50 +78,3 @@ div.overlay {
 .ui-autocomplete {
 	z-index: 999999;
 }
-
-        [ng-drag] {
-            -moz-user-select: -moz-none;
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        [ng-drag] {
-            width: 64px;
-            height: 48px;
-            /*background: rgba(255, 0, 0, 0.5);*/
-            /*color: white;*/
-            text-align: center;
-            padding-top: 0px;
-            display: block;
-            cursor: move;
-        }
-
-        [ng-drag].drag-over {
-            border: solid 1px red;
-        }
-
-        [ng-drag].dragging {
-            opacity: 0.5;
-        }
-
-        [ng-drop] {
-            /*background: rgba(0, 0, 0, 0.25);*/
-            text-align: center;
-            display: block;
-            position: relative;
-            padding: 5px;
-            width: 74px;
-            height: 58px;
-            float: left;
-        }
-
-        [ng-drop].drag-enter {
-            border: solid 2px red;
-        }
-
-        [ng-drop] div {
-            position: relative;
-            z-index: 2;
-        }

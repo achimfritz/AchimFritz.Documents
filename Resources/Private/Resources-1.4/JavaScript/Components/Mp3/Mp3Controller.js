@@ -6,12 +6,13 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller (CONFIG, $rootScope, angularPlayer, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
+    function Mp3Controller (CONFIG, $rootScope, angularPlayer, $q, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
 
         var vm = this;
         vm.templatePaths = {};
 
         // V2
+        var $scope = $rootScope.$new();
         vm.infoDoc = null;
         vm.finished = true;
         vm.random = 0;
@@ -20,6 +21,7 @@
         vm.tagPath = '';
         vm.cddbSearch = '';
         vm.playListForm = false;
+        vm.artistSearch = '';
 
         // used by the view
         vm.showInfoDoc = showInfoDoc;
@@ -33,6 +35,7 @@
         vm.getTemplate = getTemplate;
         vm.setPlayListForm = setPlayListForm;
         vm.folderUpdate = folderUpdate;
+        vm.artistSearchCallback = artistSearchCallback;
 
         // not used by the view
         vm.initController = initController;
@@ -50,6 +53,23 @@
 
         function getTemplate(name) {
             return CONFIG.templatePath + 'Mp3/' + name + '.html';
+        }
+
+        function artistSearchCallback(params) {
+            console.log(params);
+            var item = params.query;
+            var defer = $q.defer();
+
+            Solr.getAutocomplete(item, 'artist', true).then(function (data) {
+                var results = [];
+                angular.forEach(data.data.facet_counts.facet_fields.artist, function (key, val){
+                    results.push({label: key + ' (' + val + ')', value: key});
+
+                });
+                defer.resolve(results);
+            });
+            return defer.promise;
+
         }
 
         function showInfoDoc(doc) {

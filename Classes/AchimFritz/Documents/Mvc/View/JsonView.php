@@ -30,6 +30,9 @@ class JsonView extends \AchimFritz\Rest\Mvc\View\JsonView {
 		),
 		'documentList' => array(
 				'_descend' => array(
+					'category' => array(
+						'_only' => array('path')
+					),
 					'documentListItems' => array(
 						'_descendAll' => array(
 							'_descend' => array(

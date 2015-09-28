@@ -1,0 +1,45 @@
+
+ul.draglist {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+[ng-drag] {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+[ng-drag] {
+	text-align: center;
+	padding-top: 0px;
+	display: block;
+	cursor: move;
+}
+
+[ng-drag].drag-over {
+	border: solid 1px black;
+}
+
+[ng-drag].dragging {
+	opacity: 0.5;
+}
+
+[ng-drop] {
+	text-align: center;
+	display: block;
+	position: relative;
+	padding: 5px;
+	float: left;
+}
+
+[ng-drop].drag-enter {
+	border: solid 2px black;
+}
+
+[ng-drop] div {
+	position: relative;
+	z-index: 2;
+}

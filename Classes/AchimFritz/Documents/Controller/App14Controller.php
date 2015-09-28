@@ -25,7 +25,25 @@ class App14Controller extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @return void
 	 */
+	public function mp3listAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function mp3ipadAction() {
+	}
+
+	/**
+	 * @return void
+	 */
 	public function imageAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function imagelistAction() {
 	}
 
 	/**

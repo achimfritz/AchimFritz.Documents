@@ -44,6 +44,24 @@
             return data;
         };
 
+        this.update = function(list) {
+            console.log(list);
+            var url =  this.url();
+            return $http({
+                method: 'PUT',
+                url: url,
+                data: {
+                    documentList: {
+                        documentListItems: list.documentListItems
+                    }
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+
         this.list = function () {
             var url =  this.url();
             return $http({
