@@ -45,14 +45,20 @@
         };
 
         this.update = function(list) {
-            console.log(list);
+            var items = [];
+            var sorting = 1;
+            angular.forEach(list.documentListItems, function(item) {
+               items.push({sorting: sorting, __identity: item.__identity});
+                sorting++;
+            });
             var url =  this.url();
             return $http({
                 method: 'PUT',
                 url: url,
                 data: {
                     documentList: {
-                        documentListItems: list.documentListItems
+                        __identity: list.__identity,
+                        documentListItems: items
                     }
                 },
                 headers: {

@@ -17,6 +17,7 @@
             'achimfritz.solr',
             'achimfritz.urlBuilder',
             'achimfritz.document',
+            'achimfritz.documentlist',
             'achimfritz.mp3',
             'achimfritz.image'
         ])
