@@ -49,16 +49,16 @@ class DocumentListMergeController extends RestController {
 		$sub->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
 		$sub->allowAllProperties();
 
-		// documentListItems
-		$propertyMappingConfiguration->forProperty('documentListItems');
-		$sub = $propertyMappingConfiguration->getConfigurationFor('documentListItems');
-		$sub->allowAllProperties();
-
-		for ($i = 0; $i < 20; $i++) {
-			$sub->forProperty($i)->allowAllProperties();
-			$sub->forProperty($i)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		$argument = $this->request->getArgument($this->resourceArgumentName);
+		if (is_array($argument['documentListItems']) === TRUE) {
+			$propertyMappingConfiguration->forProperty('documentListItems');
+			$sub = $propertyMappingConfiguration->getConfigurationFor('documentListItems');
+			$sub->allowAllProperties();
+			for($i = 0; $i < count($argument['documentListItems']); $i++) {
+				$sub->forProperty($i)->allowAllProperties();
+				$sub->forProperty($i)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+			}
 		}
-
 	}
 
 	/**

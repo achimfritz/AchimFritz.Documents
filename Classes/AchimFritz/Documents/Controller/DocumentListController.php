@@ -36,6 +36,26 @@ class DocumentListController extends RestController {
 	/**
 	 * @return void
 	 */
+	public function initializeUpdateAction() {
+		parent::initializeUpdateAction();
+		if ($this->request->hasArgument($this->resourceArgumentName)) {
+			$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
+			$argument = $this->request->getArgument($this->resourceArgumentName);
+			if (is_array($argument['documentListItems']) === TRUE) {
+				$propertyMappingConfiguration->forProperty('documentListItems');
+				$sub = $propertyMappingConfiguration->getConfigurationFor('documentListItems');
+				$sub->allowAllProperties();
+				for($i = 0; $i < count($argument['documentListItems']); $i++) {
+					$sub->forProperty($i)->allowAllProperties();
+					$sub->forProperty($i)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+				}
+			}
+		}
+	}
+
+	/**
+	 * @return void
+	 */
 	public function listAction() {
 		$this->view->assign('documentLists', $this->documentListRepository->findAll());
 	}
