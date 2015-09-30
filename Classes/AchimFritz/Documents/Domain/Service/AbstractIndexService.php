@@ -93,6 +93,14 @@ abstract class AbstractIndexService {
       try {
          $this->documentPersistenceManager->persistAll();
       } catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			foreach ($fileNames AS $fileName) {
+				$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
+				$existing = $this->documentRepository->findOneByFileHash($document->getFileHash());
+				if ($existing instanceof Document === TRUE) {
+					throw new Exception('got Persistence Exception for ' . $document->getFileHash() . ' ' . $existing->getAbsolutePath() . ' : ' . $document->getAbsolutePath(), 1443631041);
+				}
+			}
+			
 			throw new Exception('got Persistence Exception with ' . $e->getMessage() . ' - ' . $e->getCode(), 1419428824);
       }	
 		return $cnt;
