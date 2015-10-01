@@ -35,7 +35,7 @@
             vm.params = Solr.getParams();
             vm.filterQueries = Solr.getFilterQueries();
             Solr.request().then(function (response){
-                vm.data = response.data;
+                $rootScope.$emit('solrDataUpdate', response.data);
             })
         }
 

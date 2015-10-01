@@ -84,7 +84,7 @@
 
 
         if ($location.path() === CONFIG.baseUrl + '/mp3'
-            || $location.path() === CONFIG.baseUrl + '/mp3ipad'
+            //|| $location.path() === CONFIG.baseUrl + '/mp3ipad'
             || $location.path() === CONFIG.baseUrl + '/mp3list'
         ) {
             mp3Config(SolrConfiguration, RestConfiguration);
@@ -98,7 +98,21 @@
 
         } else if ($location.path() === CONFIG.baseUrl + '/image' || $location.path() === CONFIG.baseUrl + '/imagelist') {
             imageConfig(SolrConfiguration, RestConfiguration);
-        }
+        } else if ($location.path() === CONFIG.baseUrl + '/mp3ipad') {
+            SolrConfiguration.setFacets([]);
+            SolrConfiguration.setHFacets({});
+            SolrConfiguration.setParam('facet_limit', 9999999);
+
+            SolrConfiguration.setFacets(['artist', 'album', 'genre']);
+            SolrConfiguration.setHFacets({});
+
+            // TODO
+            var solrSettingsDiv = jQuery('#mp3SolrSettings');
+            if (solrSettingsDiv.length) {
+                var solrSettings = solrSettingsDiv.data('solrsettings');
+                SolrConfiguration.setSetting('servlet', solrSettings.servlet);
+                SolrConfiguration.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
+            }}
 
 
 
