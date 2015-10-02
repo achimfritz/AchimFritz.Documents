@@ -37,6 +37,7 @@
         self.overrideFilterQuery = overrideFilterQuery;
         self.resetFilterQueries = resetFilterQueries;
         self.changeFacetSorting = changeFacetSorting;
+        self.facetsToKeyValue = facetsToKeyValue;
         self.init = init;
 
         init();
@@ -49,6 +50,14 @@
             angular.forEach(hFacets, function (val, key) {
                 manager.store.addByValue('f.' + key + '.facet.prefix', val);
             });
+        }
+
+        function facetsToKeyValue(facets) {
+            var res = [];
+            angular.forEach(facets, function(key, val) {
+                res.push({key: val, value: val + ' (' + key + ')'});
+            });
+            return res;
         }
 
         function getHFacet(name) {
