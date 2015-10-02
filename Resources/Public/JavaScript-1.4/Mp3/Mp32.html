@@ -7,96 +7,98 @@
 
 
 <div data-ng-controller="DocumentController as document">
+	<div data-ng-controller="LiveSearchController as liveSearch">
 
-	<ng-include src="mp3.getTemplate('Nav')"></ng-include>
+		<ng-include src="mp3.getTemplate('Nav')"></ng-include>
 
-	<div class="row top2">
-		<div class="col-md-3">
-			proof artist
-			<live-search id="artistSearch" type="text"
-						 live-search-callback="mp3.artistSearchCallback"
-						 live-search-select-callback="mp3.artistSearchSelectCallback"
-						 live-search-item-template="{{result.label}}</b>"
-						 live-search-select="value"
-						 ng-model="mp3.artistSearch">
-			</live-search>
-		</div>
-	</div>
-
-
-	<div class="row top2">
-		<div class="col-md-12">
-			<ng-include src="mp3.getTemplate('LetterNav')"></ng-include>
-		</div>
-	</div>
-
-	<div class="row top1">
-		<div class="col-md-12">
-			<ng-include src="mp3.getTemplate('FilterNavSelect')"></ng-include>
-		</div>
-	</div>
-
-	<div class="row top1">
-		<div class="col-md-12">
-			<ng-include src="mp3.getTemplate('FilterNav')"></ng-include>
-		</div>
-	</div>
-
-	<ng-include data-ng-if="mp3.infoDoc" src="mp3.getTemplate('InfoDoc')"></ng-include>
-
-	<div class="row top10">
-
-		<div class="col-md-6">
-			<div class="row ">
-				<div class="col-md-10">
-					<ng-include src="mp3.getTemplate('ResultHead')"></ng-include>
-				</div>
-				<div class="col-md-2">
-					<ng-include src="mp3.getTemplate('Sort')"></ng-include>
-				</div>
+		<div class="row top2">
+			<div class="col-md-3">
+				proof artist
+				<live-search id="artistSearch" type="text"
+							 live-search-callback="liveSearch.searchCallback"
+							 live-search-select-callback="liveSearch.selectCallback"
+							 live-search-item-template="{{result.value}}</b>"
+							 live-search-facet="spell"
+							 ng-model="mp3.artistSearch">
+				</live-search>
 			</div>
-			<div class="row top10">
-				<div class="col-md-12">
-					<ng-include src="mp3.getTemplate('ResultTable2')"></ng-include>
-				</div>
-			</div>
-
 		</div>
 
-		<div class="col-md-6">
-			<!-- init soundManager2 player -->
-			<sound-manager></sound-manager>
-			<div class="row top2">
-				<div class="col-md-12">
-					<ng-include src="mp3.getTemplate('PlayerControls')"></ng-include>
-					<button class="btn btn-danger" ng-click="mp3.setPlayListForm(true)">
-						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					</button>
-				</div>
+
+		<div class="row top2">
+			<div class="col-md-12">
+				<ng-include src="mp3.getTemplate('LetterNav')"></ng-include>
 			</div>
+		</div>
 
-			<div class="row top10">
-				<div class="col-md-6 text-center" data-ng-if="currentPlaying && playlist.length">
-					<ng-include src="mp3.getTemplate('CurrentPlaying')"></ng-include>
-					<p>
-						<button class="btn btn-default btn-xs" ng-click="mp3.showInfoDoc(currentPlaying.doc)">
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-						</button>
-					</p>
-					<img data-ng-if="currentPlaying.doc.webThumbPath" ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="300" height="300" />
-				</div>
+		<div class="row top1">
+			<div class="col-md-12">
+				<ng-include src="mp3.getTemplate('FilterNavSelect')"></ng-include>
+			</div>
+		</div>
 
-				<div class="col-md-6">
-					<div data-ng-if="playlist.length && mp3.playListForm">
-						<ng-include src="mp3.getTemplate('PlayListActions')"></ng-include>
+		<div class="row top1">
+			<div class="col-md-12">
+				<ng-include src="mp3.getTemplate('FilterNav')"></ng-include>
+			</div>
+		</div>
+
+		<ng-include data-ng-if="mp3.infoDoc" src="mp3.getTemplate('InfoDoc')"></ng-include>
+
+		<div class="row top10">
+
+			<div class="col-md-6">
+				<div class="row ">
+					<div class="col-md-10">
+						<ng-include src="mp3.getTemplate('ResultHead')"></ng-include>
 					</div>
-					<ng-include src="mp3.getTemplate('PlaylistTable2')"></ng-include>
+					<div class="col-md-2">
+						<ng-include src="mp3.getTemplate('Sort')"></ng-include>
+					</div>
+				</div>
+				<div class="row top10">
+					<div class="col-md-12">
+						<ng-include src="mp3.getTemplate('ResultTable2')"></ng-include>
+					</div>
 				</div>
 
 			</div>
+
+			<div class="col-md-6">
+				<!-- init soundManager2 player -->
+				<sound-manager></sound-manager>
+				<div class="row top2">
+					<div class="col-md-12">
+						<ng-include src="mp3.getTemplate('PlayerControls')"></ng-include>
+						<button class="btn btn-danger" ng-click="mp3.setPlayListForm(true)">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+
+				<div class="row top10">
+					<div class="col-md-6 text-center" data-ng-if="currentPlaying && playlist.length">
+						<ng-include src="mp3.getTemplate('CurrentPlaying')"></ng-include>
+						<p>
+							<button class="btn btn-default btn-xs" ng-click="mp3.showInfoDoc(currentPlaying.doc)">
+								<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+							</button>
+						</p>
+						<img data-ng-if="currentPlaying.doc.webThumbPath" ng-src="{{currentPlaying.doc.webThumbPath}}" alt="{{currentPlaying.doc.title}}" width="300" height="300" />
+					</div>
+
+					<div class="col-md-6">
+						<div data-ng-if="playlist.length && mp3.playListForm">
+							<ng-include src="mp3.getTemplate('PlayListActions')"></ng-include>
+						</div>
+						<ng-include src="mp3.getTemplate('PlaylistTable2')"></ng-include>
+					</div>
+
+				</div>
+			</div>
+
+
 		</div>
 
-
 	</div>
-
 </div>

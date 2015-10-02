@@ -8,6 +8,7 @@ angular.module("LiveSearch", ["ng"])
         scope: {
             liveSearchCallback: '=',
             liveSearchSelect: '=?',
+            liveSearchFacet: '@',
             liveSearchSelectCallback: '=',
             liveSearchItemTemplate: '@',
             liveSearchWaitTimeout: '=?',
@@ -112,7 +113,11 @@ angular.module("LiveSearch", ["ng"])
                 }
                 timeout = $timeout(function () {
                     var results = [];
-                    var promise = scope.liveSearchCallback.call(null, { query: search_string });
+                    if (attrs.liveSearchFacet) {
+                        var promise = scope.liveSearchCallback.call(null, { query: search_string, facet: attrs.liveSearchFacet });
+                    } else {
+                        var promise = scope.liveSearchCallback.call(null, { query: search_string });
+                    }
                     promise.then(function (dataArray) {
                         if (dataArray) {
                             results = dataArray.slice(0, (scope.liveSearchMaxResultSize || 20) - 1);
