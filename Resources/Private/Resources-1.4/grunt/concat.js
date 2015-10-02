@@ -7,6 +7,7 @@ module.exports = {
     },
     main: {
         src: [
+            "JavaScript/liveSearch.js",
             "JavaScript/Components/**/Module.js",
             "JavaScript/Components/**/*.js",
             "JavaScript/App.js"
@@ -26,7 +27,6 @@ module.exports = {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-new-router/dist/router.es5.js',
             'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-livesearch/liveSearch.js',
             'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/file-saver/FileSaver.js',
             'bower_components/angular-hotkeys/build/hotkeys.js',
@@ -38,6 +38,8 @@ module.exports = {
             'bower_components/ajax-solr/core/ParameterStore.js',
             'bower_components/angular-soundmanager2/src/modules/soundmanager2.js',
             'bower_components/angular-soundmanager2/src/*.js',
+            'bower_components/chosen/chosen.jquery.min.js',
+            'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/angular-xeditable/dist/js/xeditable.js'
         ],
         dest: '../../Public/Build-1.4/Libs.js'
@@ -50,6 +52,7 @@ module.exports = {
             'bower_components/AngularJS-Toaster/toaster.css',
             'bower_components/angular-xeditable/dist/css/xeditable.css',
             'bower_components/angular-hotkeys/build/hotkeys.css',
+            'bower_components/chosen/chosen.min.css',
             'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
         dest: '../../Public/Build-1.4/Libs.css'

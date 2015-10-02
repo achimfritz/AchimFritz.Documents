@@ -11,12 +11,14 @@
 	<ng-include src="mp3.getTemplate('Nav')"></ng-include>
 
 	<div class="row top2">
-		<div class="col-md-12">
+		<div class="col-md-3">
+			proof artist
 			<live-search id="artistSearch" type="text"
 						 live-search-callback="mp3.artistSearchCallback"
-						 live-search-item-template="{{result.label}} -- {{result.value}}</b>"
-						 live-search-select="fullName"
-						 ng-model="mp3.artistSearch" >
+						 live-search-select-callback="mp3.artistSearchSelectCallback"
+						 live-search-item-template="{{result.label}}</b>"
+						 live-search-select="value"
+						 ng-model="mp3.artistSearch">
 			</live-search>
 		</div>
 	</div>

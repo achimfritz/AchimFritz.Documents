@@ -11,6 +11,7 @@
             'ngDialog',
             'cfp.hotkeys',
             'ngDraggable',
+            'localytics.directives',
             'LiveSearch',
             'achimfritz.soundmanager',
             'achimfritz.core',

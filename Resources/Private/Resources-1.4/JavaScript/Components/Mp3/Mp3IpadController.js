@@ -17,6 +17,7 @@
 
         // used by the view
         vm.addFacet = addFacet;
+        vm.addFilterQuery = addFilterQuery;
 
         // not used by the view
         vm.initController = initController;
@@ -53,8 +54,24 @@
             vm.facets.genre.selected = false;
         }
 
+        function addFilterQuery(name) {
+            Solr.addFilterQuery(name, vm.facets.artist.value);
+            Solr.forceRequest().then(function (response) {
+                $rootScope.$emit('solrDataUpdate', response.data);
+            });
+        }
+
         $rootScope.$on('solrDataUpdate', function (event, data) {
-            vm.facets.artist.data = data.facet_counts.facet_fields.artist;
+            //console.log(data.facet_counts.facet_fields.artist);
+            var artists = []
+            angular.forEach(data.facet_counts.facet_fields.artist, function(key, val) {
+                artists.push({label: val + ' (' + key + ')', value: val});
+            });
+
+            //vm.facets.artist.data = artists;
+            //console.log(artists);
+            vm.facets.artist.data = artists;
+            //vm.facets.artist.data = data.facet_counts.facet_fields.artist;
             vm.facets.album.data = data.facet_counts.facet_fields.album;
             vm.facets.genre.data = data.facet_counts.facet_fields.genre;
             var filterQueries = Solr.getFilterQueries();

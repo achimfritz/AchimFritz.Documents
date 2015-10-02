@@ -31,10 +31,19 @@
 				<button data-ng-click="documentListCtrl.list()" class="btn btn-default" >list</button>
 				<button data-ng-click="documentListCtrl.removeList(documentListCtrl.documentList.__identity)" class="btn btn-danger" >delete</button>
 				<button data-ng-click="documentListCtrl.saveList()" class="btn btn-danger" >save</button>
+
+				<button class="btn btn-default" data-ng-click="mp3List.playAll(documentListCtrl.documentList.documentListItems)">
+					<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
+				</button>
 			</div>
 		</div>
+
+		<!-- init soundManager2 player -->
+		<sound-manager></sound-manager>
+
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
+
 				<table class="draglist mp3list table table-striped">
 					<tr data-ng-repeat="item in documentListCtrl.documentList.documentListItems" ng-drop="true" ng-drop-success="documentListCtrl.onDropComplete($index, $data,$event)">
 						<td ng-drag="true" ng-drag-data="item">
@@ -42,6 +51,13 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<ng-include src="mp3List.getTemplate('PlayerControls')"></ng-include>
+					</div>
+				</div>
 			</div>
 		</div>
 

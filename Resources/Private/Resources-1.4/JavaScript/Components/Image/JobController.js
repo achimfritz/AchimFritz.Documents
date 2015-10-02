@@ -51,7 +51,7 @@
 
         function jobWatch(identifier) {
             $timeout(function () {
-                vm.getJob(identifier)
+                vm.getJob(identifier);
             }, 1500)
         }
 

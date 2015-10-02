@@ -36,6 +36,7 @@
         vm.setPlayListForm = setPlayListForm;
         vm.folderUpdate = folderUpdate;
         vm.artistSearchCallback = artistSearchCallback;
+        vm.artistSearchSelectCallback = artistSearchSelectCallback;
 
         // not used by the view
         vm.initController = initController;
@@ -55,21 +56,27 @@
             return CONFIG.templatePath + 'Mp3/' + name + '.html';
         }
 
+        function artistSearchSelectCallback(params) {
+            Solr.setParam('q', params.item.value);
+            Solr.forceRequest().then(function (response) {
+                $rootScope.$emit('solrDataUpdate', response.data);
+            });
+            return params.item.value;
+        }
+
         function artistSearchCallback(params) {
-            console.log(params);
             var item = params.query;
             var defer = $q.defer();
 
             Solr.getAutocomplete(item, 'artist', true).then(function (data) {
                 var results = [];
                 angular.forEach(data.data.facet_counts.facet_fields.artist, function (key, val){
-                    results.push({label: key + ' (' + val + ')', value: key});
+                    results.push({label: val + ' (' + key + ')', value: val});
 
                 });
                 defer.resolve(results);
             });
             return defer.promise;
-
         }
 
         function showInfoDoc(doc) {
