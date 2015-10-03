@@ -58,6 +58,18 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
+
+	/**
+	 * @return void
+	 */
+	public function optimizeCommand() {
+		try {
+			$this->solrClientWrapper->optimize();
+			$this->outputLine('SUCCESS: optimized');
+		} catch (\SolrException $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
 		
 	/**
 	 * @param string $path
