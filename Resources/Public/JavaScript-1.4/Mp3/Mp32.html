@@ -7,23 +7,8 @@
 
 
 <div data-ng-controller="DocumentController as document">
-	<div data-ng-controller="LiveSearchController as liveSearch">
 
 		<ng-include src="mp3.getTemplate('Nav')"></ng-include>
-
-		<div class="row top2">
-			<div class="col-md-3">
-				proof artist
-				<live-search id="artistSearch" type="text"
-							 live-search-callback="liveSearch.searchCallback"
-							 live-search-select-callback="liveSearch.selectCallback"
-							 live-search-item-template="{{result.value}}</b>"
-							 live-search-facet="spell"
-							 ng-model="mp3.artistSearch">
-				</live-search>
-			</div>
-		</div>
-
 
 		<div class="row top2">
 			<div class="col-md-12">
@@ -100,5 +85,4 @@
 
 		</div>
 
-	</div>
 </div>
