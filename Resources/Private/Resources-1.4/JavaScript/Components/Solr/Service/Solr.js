@@ -37,7 +37,7 @@
         self.overrideFilterQuery = overrideFilterQuery;
         self.resetFilterQueries = resetFilterQueries;
         self.changeFacetSorting = changeFacetSorting;
-        self.facetsToKeyValue = facetsToKeyValue;
+        self.facetsToLabelValue = facetsToLabelValue;
         self.init = init;
 
         init();
@@ -52,10 +52,14 @@
             });
         }
 
-        function facetsToKeyValue(facets) {
+        function facetsToLabelValue(facets, q) {
             var res = [];
             angular.forEach(facets, function(key, val) {
-                res.push({key: val, value: val + ' (' + key + ')'});
+                if (q === '*:*') {
+                    res.push({label: val + ' (' + key + ')', value: val});
+                } else {
+                    res.push({label: q + ' ' + val + ' (' + key + ')', value: q + ' ' + val});
+                }
             });
             return res;
         }

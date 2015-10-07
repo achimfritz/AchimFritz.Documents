@@ -12,28 +12,27 @@
         return {
 
             scope: {
-                global: '=global'
+                global: '@',
+                field: '@'
             },
 
             link: function (scope, element, attr) {
+                var field = 'spell';
+                var global= false;
+                if (angular.isDefined(scope.field)) {
+                    field = scope.field;
+                }
+                if (angular.isDefined(scope.global)) {
+                    global = scope.global;
+                }
+
                 $(element).autocomplete({
                     source: function (request, response) {
                         var item = request.term;
-                        Solr.getAutocomplete(item, 'spell', scope.global).then(function (data) {
+                        Solr.getAutocomplete(item, field, global).then(function (data) {
                             var q = data.data.responseHeader.params.q;
-                            response($.map(data.data.facet_counts.facet_fields.spell, function (val, key) {
-                                var name = key;
-                                var label = name + ' (' + val + ')';
-                                var value = name;
-                                if (q !== '*:*') {
-                                    label = q + ' ' + label;
-                                    value = q + ' ' + value;
-                                }
-                                return {
-                                    label: label,
-                                    value: value
-                                };
-                            }));
+                            var results = Solr.facetsToLabelValue(data.data.facet_counts.facet_fields[field], q);
+                            response(results);
                         });
                     }
                 });
