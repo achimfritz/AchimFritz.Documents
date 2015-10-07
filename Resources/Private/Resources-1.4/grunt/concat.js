@@ -7,7 +7,6 @@ module.exports = {
     },
     main: {
         src: [
-            "JavaScript/liveSearch.js",
             "JavaScript/Components/**/Module.js",
             "JavaScript/Components/**/*.js",
             "JavaScript/App.js"
