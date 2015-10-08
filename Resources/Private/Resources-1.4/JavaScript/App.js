@@ -175,7 +175,6 @@
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
-                'navigation': CONFIG.templatePath + 'Navigation/Navigation.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp32.html',
                 'mp3Ipad': CONFIG.templatePath + 'Mp3/Mp3Ipad.html',
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',

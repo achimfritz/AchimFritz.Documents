@@ -6,26 +6,24 @@
         .controller('WidgetController', WidgetController);
 
     /* @ngInject */
-    function WidgetController () {
+    function WidgetController (CONFIG, $rootScope) {
 
         var vm = this;
         vm.widgets = {
             solrIntegrity: false,
-            filterNavSelect: true,
+            filterNavSelect: false,
+            clipboard: false,
+            filterNav: false,
             integrity: false
         };
 
         // used by the view
         vm.closeWidget = closeWidget;
         vm.openWidget = openWidget;
+        vm.getTemplate = getTemplate;
 
-        // not used by the view
-        vm.initController = initController;
-
-        vm.initController();
-
-        function initController() {
-
+        function getTemplate(name) {
+            return CONFIG.templatePath + 'Image/Widget/' + name + '.html';
         }
 
         function closeWidget(widget) {
@@ -35,6 +33,10 @@
         function openWidget(widget) {
             vm.widgets[widget] = true;
         }
+
+        $rootScope.$on('openWidget', function (ev, widget) {
+            vm.openWidget(widget);
+        });
 
     }
 })();

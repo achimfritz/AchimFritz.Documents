@@ -11,9 +11,19 @@
 			<li>{{ctrl.doc.year}}</li>
 			<li>{{ctrl.doc.mDateTime}}</li>
 		</ul>
-		<input class="form-controll" data-tag-autocomplete id="addTag">
-		<button class="btn btn-default">add tag</button>
-		<div ng-show="current.tags">
+
+		<div class="row">
+			<form data-ng-submit="ctrl.addTag()">
+				<div class="col-md-6">
+					<input class="form-control"  type="text" data-autocomplete data-field="tags" data-ng-model="ctrl.newTag"/>
+				</div>
+				<div class="col-md-6">
+					<input type="submit"  value="Submit" class="btn btn-default"/>
+				</div>
+			</form>
+		</div>
+
+		<div data-ng-if="ctrl.doc.tags">
 			<h3>tags</h3>
 			<ul>
 				<li ng-repeat="item in ctrl.doc.tags">{{item}}</li>

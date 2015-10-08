@@ -19,7 +19,6 @@
         vm.shiftPressed = false;
 
         // used by the view
-        vm.getTemplate = getTemplate;
         vm.itemClick = itemClick;
         vm.changeImageSize = changeImageSize;
         vm.openImageModal = openImageModal;
@@ -120,10 +119,6 @@
             }
         }
 
-        function getTemplate(name) {
-            return CONFIG.templatePath + 'Image/' + name + '.html';
-        }
-
         function restSuccess(data) {
             vm.finished = true;
             FlashMessageService.show(data.data.flashMessages);
@@ -140,7 +135,7 @@
         function openImageModal(doc) {
             $scope.dialog = ngDialog.open({
                 "data": doc,
-                "template": vm.getTemplate('ImageModal'),
+                "template": CONFIG.templatePath + 'Image/ImageModal.html',
                 "controller": 'ImageModalController',
                 "controllerAs": 'ctrl',
                 "scope": $scope

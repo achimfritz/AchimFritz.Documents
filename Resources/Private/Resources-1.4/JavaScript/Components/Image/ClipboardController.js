@@ -6,7 +6,7 @@
         .controller('ClipboardController', ClipboardController);
 
     /* @ngInject */
-    function ClipboardController ($rootScope, FlashMessageService, Solr, ExportRestService, DocumentListRestService, DocumentCollectionRestService) {
+    function ClipboardController ($rootScope, FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService) {
 
         var vm = this;
         vm.docs = [];
@@ -107,6 +107,9 @@
                    vm.docs.push(val);
                 }
             });
+            if (vm.docs.length > 0) {
+                $rootScope.$emit('openWidget', 'clipboard');
+            }
         })
 
     }
