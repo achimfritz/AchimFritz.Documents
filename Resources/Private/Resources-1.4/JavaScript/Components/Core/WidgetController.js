@@ -2,7 +2,7 @@
 (function () {
     'use strict';
     angular
-        .module('achimfritz.image')
+        .module('achimfritz.core')
         .controller('WidgetController', WidgetController);
 
     /* @ngInject */
@@ -22,8 +22,13 @@
         vm.openWidget = openWidget;
         vm.getTemplate = getTemplate;
 
-        function getTemplate(name) {
-            return CONFIG.templatePath + 'Image/Widget/' + name + '.html';
+        function getTemplate(name, namespace) {
+            if (angular.isUndefined(namespace)) {
+                namespace = 'Image';
+                return CONFIG.templatePath + namespace + '/Widget/' + name + '.html';
+            } else {
+                return CONFIG.templatePath + '/Mp3/' + name + '.html';
+            }
         }
 
         function closeWidget(widget) {

@@ -1,65 +1,70 @@
 <div data-ng-controller="DocumentListController as documentListCtrl">
+	<div data-ng-controller="PlayerController as playerCtrl">
+		<div data-ng-controller="WidgetController as widgetCtrl">
 
-	<toaster-container></toaster-container>
+			<toaster-container></toaster-container>
 
-	<overlay finished="documentListCtrl.finished"></overlay>
-	<div data-ng-if="!documentListCtrl.finished" class="spinner">
-		<spinner></spinner>
-	</div>
-
-
-	<div data-ng-if="documentListCtrl.view === 'list'">
-		<div class="row">
-			<div class="col-md-12">
-				<table class="table table-striped">
-					<tr data-ng-repeat="documentList in documentListCtrl.documentLists">
-						<td>{{documentList.category.path}}</td>
-						<td><button data-ng-click="documentListCtrl.show(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
-						<td><button data-ng-click="documentListCtrl.removeList(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
-					</tr>
-				</table>
+			<overlay finished="documentListCtrl.finished"></overlay>
+			<div data-ng-if="!documentListCtrl.finished" class="spinner">
+				<spinner></spinner>
 			</div>
-		</div>
 
-	</div>
-	<div data-ng-if="documentListCtrl.view === 'show'">
-		<div class="row">
-			<div class="col-md-3">
-				<h2>{{documentListCtrl.documentList.category.path}}</h2>
-			</div>
-			<div class="col-md-9">
-				<button data-ng-click="documentListCtrl.list()" class="btn btn-default" >list</button>
-				<button data-ng-click="documentListCtrl.removeList(documentListCtrl.documentList.__identity)" class="btn btn-danger" >delete</button>
-				<button data-ng-click="documentListCtrl.saveList()" class="btn btn-danger" >save</button>
 
-				<button class="btn btn-default" data-ng-click="mp3List.playAll(documentListCtrl.documentList.documentListItems)">
-					<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
-				</button>
-			</div>
-		</div>
-
-		<!-- init soundManager2 player -->
-		<sound-manager></sound-manager>
-
-		<div class="row">
-			<div class="col-md-6">
-
-				<table class="draglist mp3list table table-striped">
-					<tr data-ng-repeat="item in documentListCtrl.documentList.documentListItems" ng-drop="true" ng-drop-success="documentListCtrl.onDropComplete($index, $data,$event)">
-						<td ng-drag="true" ng-drag-data="item">
-							{{item.document.absolutePath}}
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="col-md-6">
+			<div data-ng-if="documentListCtrl.view === 'list'">
 				<div class="row">
 					<div class="col-md-12">
-						<ng-include src="mp3List.getTemplate('PlayerControls')"></ng-include>
+						<table class="table table-striped">
+							<tr data-ng-repeat="documentList in documentListCtrl.documentLists">
+								<td>{{documentList.category.path}}</td>
+								<td><button data-ng-click="documentListCtrl.show(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
+								<td><button data-ng-click="documentListCtrl.removeList(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
+							</tr>
+						</table>
 					</div>
 				</div>
+
+			</div>
+			<div data-ng-if="documentListCtrl.view === 'show'">
+				<!-- init soundManager2 player -->
+				<sound-manager></sound-manager>
+				<div class="row">
+					<div class="col-md-3">
+						<h2>{{documentListCtrl.documentList.category.path}}</h2>
+					</div>
+					<div class="col-md-9">
+						<button data-ng-click="documentListCtrl.list()" class="btn btn-default" >list</button>
+						<button data-ng-click="documentListCtrl.removeList(documentListCtrl.documentList.__identity)" class="btn btn-danger" >delete</button>
+						<button data-ng-click="documentListCtrl.saveList()" class="btn btn-danger" >save</button>
+
+						<button class="btn btn-success" data-ng-click="playerCtrl.playAllDocumentList(documentListCtrl.documentList.documentListItems)">
+							<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
+						</button>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6">
+
+						<table class="draglist mp3list table table-striped">
+							<tr data-ng-repeat="item in documentListCtrl.documentList.documentListItems" ng-drop="true" ng-drop-success="documentListCtrl.onDropComplete($index, $data,$event)">
+								<td ng-drag="true" ng-drag-data="item">
+									{{item.document.absolutePath}}
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<ng-include src="widgetCtrl.getTemplate('PlayerControls', 'Mp3')"></ng-include>
+								<ng-include src="widgetCtrl.getTemplate('PlaylistTable2', 'Mp3')"></ng-include>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
-
 	</div>
 </div>

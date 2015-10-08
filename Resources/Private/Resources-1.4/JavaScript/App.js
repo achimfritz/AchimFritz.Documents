@@ -12,7 +12,6 @@
             'cfp.hotkeys',
             'ngDraggable',
             'localytics.directives',
-            'achimfritz.soundmanager',
             'achimfritz.core',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
