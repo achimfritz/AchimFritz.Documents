@@ -14,8 +14,18 @@
             filterNavSelect: false,
             clipboard: false,
             filterNav: false,
-            integrity: false
+            integrity: false,
+            docs: true
         };
+        vm.namespace = "Image";
+
+        vm.initController = initController;
+
+        vm.initController();
+
+        function initController() {
+            console.log(vm.namespace);
+        }
 
         // used by the view
         vm.closeWidget = closeWidget;
