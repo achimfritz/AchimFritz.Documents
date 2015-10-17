@@ -54,6 +54,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 */
 	protected $documentCollectionService;
 
+	/**
+	 * @var \AchimFritz\Documents\Domain\Factory\FileSystemDocumentFactory
+	 * @Flow\Inject
+	 */
+	protected $documentFactory;
+
 
 	/**
 	 * list --directory=2015_05_05_venedig
@@ -97,6 +103,7 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('WARNING: will realy delete ' . $cnt . ' documents from persistence layer');
 		}
 	}
+
 
 
 	/**
@@ -171,6 +178,20 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('SUCCESS: insert ' . $cnt . ' documents for directory ' . $directory);
 		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->outputLine('ERROR: ' . $directory . ' - ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @param string $directory
+	 * @return void
+	 * @throws \AchimFritz\Documents\Domain\Factory\Exception
+	 */
+	public function showDirectoryCommand($directory) {
+		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directory;
+		$fileNames = $this->directoryService->getFileNamesInDirectory($path, $this->getFileExtension());
+		foreach ($fileNames AS $fileName) {
+			$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
+			$this->outputLine($document->getName() . ': ' . $document->getFileHash());
 		}
 	}
 
