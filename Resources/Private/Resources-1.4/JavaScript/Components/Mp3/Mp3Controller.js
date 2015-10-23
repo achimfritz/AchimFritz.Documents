@@ -6,10 +6,9 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller (CONFIG, $rootScope, angularPlayer, $q, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
+    function Mp3Controller (CONFIG, $rootScope, angularPlayer, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
 
         var vm = this;
-        vm.templatePaths = {};
 
         // V2
         var $scope = $rootScope.$new();
@@ -32,7 +31,6 @@
         vm.cddbUpdate = cddbUpdate;
         vm.zipDownload = zipDownload;
         vm.writeTag = writeTag;
-        vm.getTemplate = getTemplate;
         vm.setPlayListForm = setPlayListForm;
         vm.folderUpdate = folderUpdate;
 
@@ -48,10 +46,6 @@
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             vm.cddb = DownloadRestService.cddb();
             vm.zip = ExportRestService.zip();
-        }
-
-        function getTemplate(name) {
-            return CONFIG.templatePath + 'Mp3/' + name + '.html';
         }
 
         function showInfoDoc(doc) {

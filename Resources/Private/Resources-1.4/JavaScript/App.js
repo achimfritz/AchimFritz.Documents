@@ -13,6 +13,7 @@
             'ngDraggable',
             'localytics.directives',
             'achimfritz.core',
+            'achimfritz.widget',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
             'achimfritz.document',
@@ -32,7 +33,7 @@
 
 
     /* @ngInject */
-    function imageConfig(SolrConfiguration, RestConfiguration) {
+    function imageConfig(SolrConfiguration, RestConfiguration, WidgetConfiguration) {
         RestConfiguration.setSetting('documentListResource', 'imagedocumentlist');
         RestConfiguration.setSetting('documentListMergeResource', 'imagedocumentlistmerge');
         RestConfiguration.setSetting('documentListRemoveResource', 'imagedocumentlistremove');
@@ -42,6 +43,15 @@
             hPaths: '0',
             hCategories: '1/categories',
             hLocations: '1/locations'
+        });
+        WidgetConfiguration.setNamespace('Image');
+        WidgetConfiguration.setWidgets({
+            solrIntegrity: false,
+            filterNav: false,
+            filterNavSelect: false,
+            clipboard: false,
+            integrity: false,
+            docs: true
         });
 
         var solrSettingsDiv = jQuery('#imageSolrSettings');
@@ -53,7 +63,7 @@
     }
 
     /* @ngInject */
-    function mp3Config(SolrConfiguration, RestConfiguration) {
+    function mp3Config(SolrConfiguration, RestConfiguration, WidgetConfiguration) {
 
         RestConfiguration.setSetting('documentListResource', 'mp3documentlist');
         RestConfiguration.setSetting('documentListMergeResource', 'mp3documentlistmerge');
@@ -70,6 +80,16 @@
         SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
         SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
 
+        WidgetConfiguration.setNamespace('Mp3');
+        WidgetConfiguration.setWidgets({
+            letterNav: false,
+            filterNav: false,
+            filterNavSelect: false,
+            integrity: false,
+            lists: false,
+            docs: true
+        });
+
         var solrSettingsDiv = jQuery('#mp3SolrSettings');
         if (solrSettingsDiv.length) {
             var solrSettings = solrSettingsDiv.data('solrsettings');
@@ -79,14 +99,14 @@
     }
 
     /* @ngInject */
-    function AppController ($router, CONFIG, $location, RestConfiguration, SolrConfiguration) {
+    function AppController ($router, CONFIG, $location, RestConfiguration, SolrConfiguration, WidgetConfiguration) {
 
 
         if ($location.path() === CONFIG.baseUrl + '/mp3'
             //|| $location.path() === CONFIG.baseUrl + '/mp3ipad'
             || $location.path() === CONFIG.baseUrl + '/mp3list'
         ) {
-            mp3Config(SolrConfiguration, RestConfiguration);
+            mp3Config(SolrConfiguration, RestConfiguration, WidgetConfiguration);
         } else if ($location.path() === CONFIG.baseUrl + '/document') {
             var solrSettingsDiv = jQuery('#solrSettings');
             if (solrSettingsDiv.length) {
@@ -96,7 +116,7 @@
             }
 
         } else if ($location.path() === CONFIG.baseUrl + '/image' || $location.path() === CONFIG.baseUrl + '/imagelist') {
-            imageConfig(SolrConfiguration, RestConfiguration);
+            imageConfig(SolrConfiguration, RestConfiguration, WidgetConfiguration);
         } else if ($location.path() === CONFIG.baseUrl + '/mp3ipad') {
             SolrConfiguration.setFacets([]);
             SolrConfiguration.setHFacets({});

@@ -22,8 +22,8 @@
                 if (angular.isDefined(scope.field)) {
                     field = scope.field;
                 }
-                if (angular.isDefined(scope.global)) {
-                    global = scope.global;
+                if (angular.isDefined(scope.global) && scope.global === "1") {
+                    global = true;
                 }
 
                 $(element).autocomplete({

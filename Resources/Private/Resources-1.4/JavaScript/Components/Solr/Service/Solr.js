@@ -60,6 +60,7 @@
             });
             return res;
         }
+
         function facetsToLabelValue(facets, q) {
             var res = [];
             angular.forEach(facets, function(key, val) {

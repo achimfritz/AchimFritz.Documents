@@ -2,29 +2,23 @@
 (function () {
     'use strict';
     angular
-        .module('achimfritz.core')
+        .module('achimfritz.widget')
         .controller('WidgetController', WidgetController);
 
     /* @ngInject */
-    function WidgetController (CONFIG, $rootScope) {
+    function WidgetController (CONFIG, $rootScope, WidgetConfiguration) {
 
         var vm = this;
-        vm.widgets = {
-            solrIntegrity: false,
-            filterNavSelect: false,
-            clipboard: false,
-            filterNav: false,
-            integrity: false,
-            docs: true
-        };
-        vm.namespace = "Image";
+        vm.widgets = {};
+        vm.namespace = '';
 
         vm.initController = initController;
 
         vm.initController();
 
         function initController() {
-            console.log(vm.namespace);
+            vm.namespace = WidgetConfiguration.getNamespace();
+            vm.widgets = WidgetConfiguration.getWidgets();
         }
 
         // used by the view
@@ -32,13 +26,8 @@
         vm.openWidget = openWidget;
         vm.getTemplate = getTemplate;
 
-        function getTemplate(name, namespace) {
-            if (angular.isUndefined(namespace)) {
-                namespace = 'Image';
-                return CONFIG.templatePath + namespace + '/Widget/' + name + '.html';
-            } else {
-                return CONFIG.templatePath + '/Mp3/' + name + '.html';
-            }
+        function getTemplate(name) {
+            return CONFIG.templatePath + vm.namespace + '/Widget/' + name + '.html';
         }
 
         function closeWidget(widget) {
