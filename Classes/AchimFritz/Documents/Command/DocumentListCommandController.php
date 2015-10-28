@@ -147,10 +147,10 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 				} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 					$this->outputLine('ERROR: ' . $e->getMessage());
 				}
-			} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			} catch (\AchimFritz\Documents\Exception $e) {
 				$this->outputLine('ERROR: cannot merge documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
-		} catch (\AchimFritz\Documents\Domain\Model\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->outputLine('ERROR: cannot create documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
@@ -174,10 +174,10 @@ class DocumentListCommandController extends \TYPO3\Flow\Cli\CommandController {
 				} catch (\AchimFritz\Documents\Persistence\Exception $e) {
 					$this->outputLine('ERROR: ' . $e->getMessage());
 				}
-			} catch (\AchimFritz\Documents\Domain\Service\Exception $e) {
+			} catch (\AchimFritz\Documents\Exception $e) {
 				$this->outputLine('ERROR: cannot merge documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 			}
-		} catch (\AchimFritz\Documents\Domain\Model\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->outputLine('ERROR: cannot create documentList with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}

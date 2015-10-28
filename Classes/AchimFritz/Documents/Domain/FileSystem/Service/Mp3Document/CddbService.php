@@ -59,6 +59,9 @@ class CddbService {
 		$path = $cddb->getPath();
 		$format = $cddb->getFormat();
 		$documents = $this->documentRepository->findByHead($path);
+		if (count($documents) === 0) {
+			throw new Exception('count of documents is 0 for ' . $path, 1445700828);
+		}
 		$cddbFileName = $cddb->getTarget();
 		$cnt = 0;
 		$content = array();
@@ -105,6 +108,9 @@ class CddbService {
 		$path = $cddb->getPath();
 		$format = $cddb->getFormat();
 		$documents = $this->documentRepository->findByHead($path);
+		if (count($documents) === 0) {
+			throw new Exception('count of documents is 0 for ' . $path, 1445700829);
+		}
 		$cntDocuments = count($documents);
 		$cntCddb = 0;
 		$content = $this->getCddbContent($cddb);

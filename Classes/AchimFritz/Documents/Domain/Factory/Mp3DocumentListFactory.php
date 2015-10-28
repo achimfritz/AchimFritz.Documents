@@ -7,6 +7,7 @@ namespace AchimFritz\Documents\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use AchimFritz\Documents\Domain\Model\Mp3DocumentList;
 
 /**
  * @Flow\Scope("singleton")

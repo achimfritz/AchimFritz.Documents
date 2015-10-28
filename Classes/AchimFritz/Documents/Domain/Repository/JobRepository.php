@@ -14,6 +14,12 @@ use TYPO3\Flow\Persistence\Repository;
  */
 class JobRepository extends Repository {
 
-	// add customized methods here
+	/**
+	 * @var array
+	 */
+	protected $defaultOrderings = array(
+		'createDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
+	);
+
 
 }
