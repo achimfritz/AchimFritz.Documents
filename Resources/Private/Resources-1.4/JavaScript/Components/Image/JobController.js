@@ -6,7 +6,7 @@
         .controller('JobController', JobController);
 
     /* @ngInject */
-    function JobController (JobRestService, FlashMessageService, toaster, $timeout, $rootScope, $filter) {
+    function JobController (JobRestService, FlashMessageService, toaster, $timeout, $rootScope, $filter, AppConfiguration) {
 
         var vm = this;
 
@@ -34,8 +34,8 @@
 
             vm.finished = false;
             vm.directory = directory;
-            var command = 'cd /data/www/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
-            //var command = 'cd /var/www/dev/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
+            var applicationRoot = AppConfiguration.getApplicationRoot();
+            var command = 'cd ' + applicationRoot + ' && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
             var job = {
                 'command': command
             };

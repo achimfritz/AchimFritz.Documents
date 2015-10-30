@@ -11,7 +11,7 @@
 
         var namespace = '';
 
-        var documentRoot = '';
+        var applicationRoot = '';
 
         var restBaseUrl = 'achimfritz.documents';
 
@@ -30,11 +30,11 @@
                 getNamespacedResourceUrl: function (name) {
                     return restBaseUrl + '/' + namespace + resources[name] + '/';
                 },
-                setDocumentRoot: function (newDocumentRoot) {
-                    documentRoot = newDocumentRoot;
+                setApplicationRoot: function (newApplicationRoot) {
+                    applicationRoot = newApplicationRoot;
                 },
-                getDocumentRoot: function () {
-                    return documentRoot;
+                getApplicationRoot: function () {
+                    return applicationRoot;
                 },
                 setNamespace: function (newNamespace) {
                     namespace = newNamespace;

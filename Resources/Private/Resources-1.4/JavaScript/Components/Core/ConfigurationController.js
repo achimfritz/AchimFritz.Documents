@@ -21,7 +21,7 @@
                 var frontendConfiguration = frontendConfigurationDiv.data('frontendconfiguration');
                 var solrSettings = frontendConfiguration.solrSettings;
                 SolrConfiguration.setSetting('solrUrl', 'http://' + solrSettings.hostname + ':' + solrSettings.port + '/' + solrSettings.path + '/');
-                AppConfiguration.setDocumentRoot(frontendConfiguration.documentRoot);
+                AppConfiguration.setApplicationRoot(frontendConfiguration.applicationRoot);
             }
         }
 

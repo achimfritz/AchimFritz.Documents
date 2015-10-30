@@ -33,7 +33,7 @@ class FrontendConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\Abstr
 	protected function render() {
 		$configuration = array(
 			'solrSettings' => $this->settings['solr'],
-			'documentRoot' => FLOW_PATH_WEB
+			'applicationRoot' => FLOW_PATH_ROOT
 		);
 		return json_encode($configuration);
 	}
