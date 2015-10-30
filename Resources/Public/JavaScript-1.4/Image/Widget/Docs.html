@@ -23,13 +23,11 @@
 		</div>
 	</div>
 
-
 	<div class="row">
 		<div class="col-md-12">
-			<div style="position: relative" >
-				<div class="iso-item {{item.selected}}"  data-ng-click="image.itemClick(item)" data-ng-repeat="item in document.data.response.docs" >
-					<img width="{{image.imageWidth}}" class="iso-img-item" data-ng-src="{{item.webPreviewPath}}" />
-				</div>
+			<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
+			<div dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound" class="iso-item {{doc.selected}}"  data-ng-click="image.itemClick(doc)" >
+				<img width="{{image.imageWidth}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,10 @@
+<div class="row">
+	<div class="col-md-12">
+		<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>
 <table class="table table-striped small-table">
-	<tr ng-repeat="doc in document.data.response.docs">
+	<tr dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound">
 		<td class="mp3-song-list-controls">
 			<button class="btn btn-default btn-xs" music-player="play" add-song="{id: doc.identifier, url: doc.webPath, title: doc.title, doc: doc}">
 				<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
