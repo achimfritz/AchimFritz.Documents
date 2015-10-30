@@ -25,6 +25,7 @@
         vm.resetFilterQueries = resetFilterQueries;
         vm.changeFacetSorting = changeFacetSorting;
         vm.setSearch = setSearch;
+        vm.nextPage = nextPage;
 
         // not used by the view
         vm.initController = initController;
@@ -35,6 +36,11 @@
             Solr.request().then(function (response){
                 $rootScope.$emit('solrDataUpdate', response.data);
             })
+        }
+
+        function nextPage(pageNumber) {
+            Solr.setParam('start', ((pageNumber - 1) * vm.params.rows).toString());
+            vm.update();
         }
 
         function changeRows(diff) {

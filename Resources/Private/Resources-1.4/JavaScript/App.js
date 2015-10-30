@@ -11,6 +11,7 @@
             'ngDialog',
             'cfp.hotkeys',
             'ngDraggable',
+            'angularUtils.directives.dirPagination',
             'localytics.directives',
             'achimfritz.core',
             'achimfritz.widget',
@@ -27,6 +28,7 @@
         })
         .config(TemplateMapping)
         .config(locationConfig)
+        .config(paginationConfiguration)
         .run(xeditableConfig)
         .controller('AppController', AppController);
 
@@ -86,6 +88,12 @@
             }
         ]);
     }
+
+    /* @ngInject */
+    function paginationConfiguration(paginationTemplateProvider) {
+        paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/dirPagination.tpl.html');
+    };
+
 
     /* @ngInject */
     function TemplateMapping($componentLoaderProvider, CONFIG) {

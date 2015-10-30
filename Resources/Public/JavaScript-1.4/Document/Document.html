@@ -34,12 +34,13 @@
 		</div>
 	</form>
 
+	<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
+	<div dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound">
+		{{doc.name}}
+	</div>
+
+
 	<p>results: {{document.data.response.numFound}}</p>
-	<ul>
-		<li data-ng-repeat="doc in document.data.response.docs">
-			{{doc.name}}
-		</li>
-	</ul>
 
 	<ul data-ng-repeat="(key, values) in document.filterQueries">
 		<li data-ng-repeat="value in values">
