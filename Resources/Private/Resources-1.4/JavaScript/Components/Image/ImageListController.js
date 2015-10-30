@@ -6,7 +6,7 @@
         .controller('ImageListController', ImageListController);
 
     /* @ngInject */
-    function ImageListController (FlashMessageService, DocumentListRestService) {
+    function ImageListController (AppConfiguration) {
 
         var vm = this;
         vm.big = false;
@@ -20,6 +20,7 @@
         vm.initController();
 
         function initController() {
+            AppConfiguration.setNamespace('image');
         }
 
         function showBig(showBig) {

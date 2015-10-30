@@ -6,7 +6,7 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller (CONFIG, $rootScope, angularPlayer, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
+    function Mp3Controller ($rootScope, angularPlayer, WidgetConfiguration, SolrConfiguration, AppConfiguration, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
 
         var vm = this;
 
@@ -43,6 +43,28 @@
         vm.initController();
 
         function initController() {
+            AppConfiguration.setNamespace('mp3');
+            WidgetConfiguration.setNamespace('Mp3');
+            WidgetConfiguration.setWidgets({
+                letterNav: false,
+                filterNav: false,
+                filterNavSelect: false,
+                integrity: false,
+                lists: false,
+                docs: true
+            });
+            SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
+            SolrConfiguration.setHFacets({});
+            SolrConfiguration.setParam('sort', 'track asc, fsTrack asc, fsTitle asc');
+            SolrConfiguration.setParam('rows', 15);
+            SolrConfiguration.setParam('facet_limit', 15);
+            SolrConfiguration.setParam('facet_sort', 'count');
+            SolrConfiguration.setParam('f_artistLetter_facet_sort', 'index');
+            SolrConfiguration.setParam('f_artistLetter_facet_limit', 35);
+            SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
+            SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
+            SolrConfiguration.setSetting('servlet', 'mp3');
+
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             vm.cddb = DownloadRestService.cddb();
             vm.zip = ExportRestService.zip();

@@ -1,3 +1,4 @@
+{namespace af=AchimFritz\Documents\ViewHelpers}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,20 +12,21 @@
 		<f:base />
 	</head>
 	<body>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><f:link.action action="index">home</f:link.action></li>
-				<li><f:link.action action="urlbuilder">urlbuilder</f:link.action></li>
-				<li><f:link.action action="document">document</f:link.action></li>
-				<li><f:link.action action="mp3">mp3</f:link.action></li>
-				<li><f:link.action action="mp3list">mp3 lists</f:link.action></li>
-				<li><f:link.action action="mp3ipad">mp3 ipad</f:link.action></li>
-				<li><f:link.action action="image">image</f:link.action></li>
-				<li><f:link.action action="imagelist">image lists</f:link.action></li>
-			</ul>
-		</div>
-	</nav>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><f:link.action action="index">home</f:link.action></li>
+					<li><f:link.action action="urlbuilder">urlbuilder</f:link.action></li>
+					<li><f:link.action action="document">document</f:link.action></li>
+					<li><f:link.action action="mp3">mp3</f:link.action></li>
+					<li><f:link.action action="mp3list">mp3 lists</f:link.action></li>
+					<li><f:link.action action="mp3ipad">mp3 ipad</f:link.action></li>
+					<li><f:link.action action="image">image</f:link.action></li>
+					<li><f:link.action action="imagelist">image lists</f:link.action></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="frontendConfiguration" data-frontendConfiguration='{af:frontendConfiguration()}'></div>
 		<f:render section="Content" />
 	</body>
 </html>

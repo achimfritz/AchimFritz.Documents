@@ -33,7 +33,6 @@
             } else if (!loading) {
                 loading = true;
                 initialized = false;
-                //console.log(url);
                 $http.jsonp(url).then(
                     function (response) {
                         result = response;

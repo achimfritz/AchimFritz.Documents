@@ -6,7 +6,7 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, FlashMessageService, Solr, CONFIG, ngDialog, hotkeys) {
+    function ImageController ($rootScope, FlashMessageService, Solr, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -33,6 +33,25 @@
         vm.initController();
 
         function initController() {
+
+            AppConfiguration.setNamespace('image');
+
+            SolrConfiguration.setFacets(['hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
+            SolrConfiguration.setHFacets({
+                hPaths: '0',
+                hCategories: '1/categories',
+                hLocations: '1/locations'
+            });
+            SolrConfiguration.setSetting('servlet', 'image');
+            WidgetConfiguration.setNamespace('Image');
+            WidgetConfiguration.setWidgets({
+                solrIntegrity: false,
+                filterNav: false,
+                filterNavSelect: false,
+                clipboard: false,
+                integrity: false,
+                docs: true
+            });
 
             hotkeys.bindTo($scope).add({
                 combo: 'ctrl',

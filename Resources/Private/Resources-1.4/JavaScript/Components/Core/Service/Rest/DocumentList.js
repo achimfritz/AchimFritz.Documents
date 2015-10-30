@@ -7,18 +7,18 @@
         .module('achimfritz.core')
         .service('DocumentListRestService', DocumentListRestService);
 
-    function DocumentListRestService($http, RestConfiguration) {
+    function DocumentListRestService($http, AppConfiguration) {
 
         this.url = function() {
-            return RestConfiguration.getSetting('restBaseUrl') + '/' + RestConfiguration.getSetting('documentListResource') + '/';
+            return AppConfiguration.getNamespacedResourceUrl('documentListResource');
         };
 
         this.mergeUrl = function() {
-            return RestConfiguration.getSetting('restBaseUrl') + '/' + RestConfiguration.getSetting('documentListMergeResource') + '/';
+            return AppConfiguration.getNamespacedResourceUrl('documentListMergeResource');
         };
         
         this.removeUrl = function() {
-            return RestConfiguration.getSetting('restBaseUrl') + '/' + RestConfiguration.getSetting('documentListRemoveResource') + '/';
+            return AppConfiguration.getNamespacedResourceUrl('documentListRemoveResource');
         };
 
         var buildRequest = function(path, docs) {

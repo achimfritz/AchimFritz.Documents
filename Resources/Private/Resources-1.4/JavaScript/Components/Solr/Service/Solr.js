@@ -11,14 +11,16 @@
 
         var self = this;
 
-        var solrConfiguration = SolrConfiguration.getConfiguration();
-        var settings = solrConfiguration.settings;
-        var params = solrConfiguration.params;
-        var facets = solrConfiguration.facets;
-        var hFacets = solrConfiguration.hFacets;
+        var solrConfiguration = {};
+        var settings = {};
+        var params = {};
+        var facets = {};
+        var hFacets = {};
+        var manager = {};
+
         var facetPrefixes = {};
         var filterQueries = {};
-        var manager = new AjaxSolr.Manager(settings);
+        var initialized = false;
 
         self.request = request;
         self.forceRequest = forceRequest;
@@ -41,9 +43,15 @@
         self.facetsToLabelValue = facetsToLabelValue;
         self.init = init;
 
-        init();
 
         function init() {
+
+            solrConfiguration = SolrConfiguration.getConfiguration();
+            settings = solrConfiguration.settings;
+            params = solrConfiguration.params;
+            facets = solrConfiguration.facets;
+            hFacets = solrConfiguration.hFacets;
+            manager = new AjaxSolr.Manager(settings);
             manager.init();
             angular.forEach(facets, function (val) {
                 manager.store.addByValue('facet.field', val);
@@ -51,6 +59,7 @@
             angular.forEach(hFacets, function (val, key) {
                 manager.store.addByValue('f.' + key + '.facet.prefix', val);
             });
+            initialized = true;
         }
 
         function facetsToKeyValue(facets) {
@@ -189,6 +198,9 @@
         }
 
         function getAutocomplete (search, searchField, global) {
+            if (initialized === false) {
+                self.init();
+            }
             if (global === true) {
                 // remove all fq
                 manager.store.remove('fq');
@@ -213,6 +225,9 @@
         };
 
         function buildUrl() {
+            if (initialized === false) {
+                self.init();
+            }
             var params = getSolrParams();
             angular.forEach(params, function (val, key) {
                 manager.store.addByValue(key, val);

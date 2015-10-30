@@ -8,6 +8,7 @@
     "jquery": "latest",
     "jquery-ui": "latest",
     "AngularJS-Toaster": "latest",
+    "angular-utils-pagination": "latest",
     "components-font-awesome": "*",
     "angular-xeditable": "latest",
     "file-saver": "*",

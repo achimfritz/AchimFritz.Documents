@@ -6,7 +6,7 @@
         .controller('DocumentController', DocumentController);
 
     /* @ngInject */
-    function DocumentController (Solr, $rootScope) {
+    function DocumentController (Solr, $rootScope, SolrConfiguration) {
 
         var vm = this;
 
@@ -32,8 +32,6 @@
         vm.initController();
 
         function initController() {
-            vm.params = Solr.getParams();
-            vm.filterQueries = Solr.getFilterQueries();
             Solr.request().then(function (response){
                 $rootScope.$emit('solrDataUpdate', response.data);
             })

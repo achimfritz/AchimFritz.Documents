@@ -6,7 +6,7 @@
         .controller('Mp3IpadController', Mp3IpadController);
 
     /* @ngInject */
-    function Mp3IpadController (Solr, $rootScope) {
+    function Mp3IpadController (Solr, $rootScope, SolrConfiguration) {
 
         var vm = this;
         vm.facets = {
@@ -21,8 +21,21 @@
 
         // not used by the view
         vm.disableAllFacets = disableAllFacets;
+        vm.initController = initController;
 
-        vm.disableAllFacets();
+        vm.initController();
+
+        function initController() {
+            SolrConfiguration.setFacets([]);
+            SolrConfiguration.setHFacets({});
+            SolrConfiguration.setParam('facet_limit', 9999999);
+
+            SolrConfiguration.setFacets(['artist', 'album', 'genre']);
+            SolrConfiguration.setHFacets({});
+            SolrConfiguration.setSetting('servlet', 'mp3');
+
+            vm.disableAllFacets();
+        }
 
 
         function addFacet(name) {
