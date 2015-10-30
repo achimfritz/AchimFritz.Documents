@@ -17,6 +17,14 @@ use TYPO3\Flow\Persistence\Repository;
 class DocumentListRepository extends Repository {
 
 	/**
+	 * @var array
+	 */
+	protected $defaultOrderings = array(
+		'category.path' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING
+	);
+
+
+	/**
 	 * @Flow\Inject
 	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
 	 */   

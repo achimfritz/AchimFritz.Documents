@@ -34,8 +34,8 @@
 
             vm.finished = false;
             vm.directory = directory;
-            //var command = 'cd /data/www/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
-            var command = 'cd /var/www/dev/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
+            var command = 'cd /data/www/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
+            //var command = 'cd /var/www/dev/dev && ./flow achimfritz.documents:imagesurf:' + jobName + ' --name ' + directory;
             var job = {
                 'command': command
             };

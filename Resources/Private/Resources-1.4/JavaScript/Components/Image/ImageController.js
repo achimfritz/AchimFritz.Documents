@@ -73,9 +73,9 @@
                 }
             }).add({
                 combo: 'shift',
-                action: 'keyup',
+                action: 'keydown',
                 callback: function () {
-                    vm.shiftPressed = false;
+                    vm.shiftPressed = true;
                 }
             });
 

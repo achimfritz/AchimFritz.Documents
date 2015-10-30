@@ -107,10 +107,10 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	}
 
 	/**
-	 * MassTagCommand --fq='artist:"Queen Latifah"' --path="genre/Classic Rock"
+	 * MassTagCommand --fq='artist:"Queen Latifah"' --tag="genre/Classic Rock"
 	 *
-	 * @param string $name
-	 * @param string $path
+	 * @param string $fq
+	 * @param string $tag
 	 * @return void
 	 */
 	public function massTagCommand($fq = 'artist:"Queen Latifah"', $tag = 'genre/Classic Rock') {

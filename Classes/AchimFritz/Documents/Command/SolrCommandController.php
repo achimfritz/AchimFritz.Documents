@@ -138,13 +138,19 @@ class SolrCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @param string $fq 
+	 * @param boolean $detail
 	 * @return void
 	 */
-	public function fqCommand($fq) {
+	public function fqCommand($fq, $detail = FALSE) {
 		try {
 			$docs = $this->solrHelper->findDocumentsByFq($fq);
 			$documents = $this->documentRepository->findByNames($docs);
 			$this->outputLine('SUCCESS: found ' . count($documents) . ' documents');
+			if ($detail === TRUE) {
+				foreach ($documents as $document) {
+					$this->outputLine($document->getName());
+				}
+			}
 		} catch (\SolrException $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
