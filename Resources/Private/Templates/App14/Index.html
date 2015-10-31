@@ -2,7 +2,8 @@
 
 <f:section name="Content">
 	<main class="container-fluid">
-		<div class="container-fluid" data-ng-app="achimfritz.app" data-ng-controller="AppController as app">
+		<!-- do not use data-ng-app because angular soundmanager has an selector of ng-app -->
+		<div class="container-fluid" ng-app="achimfritz.app" data-ng-controller="AppController as app">
 			<div data-ng-controller="ConfigurationController as configuration"></div>
 			<div ng-viewport="main"></div>
 		</div>
