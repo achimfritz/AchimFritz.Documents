@@ -6,7 +6,7 @@
         .controller('PlayerController', PlayerController);
 
     /* @ngInject */
-    function PlayerController (angularPlayer, CONFIG,  $timeout) {
+    function PlayerController (angularPlayer, $timeout) {
 
         var vm = this;
 
@@ -51,9 +51,6 @@
         function playAllDocumentList(documentListItems) {
             //console.log(documentListItems);
             $timeout(function () {
-
-
-
                 angularPlayer.clearPlaylist(function (data) {
                     //add songs to playlist
                     for (var i = 0; i < documentListItems.length; i++) {
@@ -67,10 +64,6 @@
                     angularPlayer.play();
                 });
             });
-        }
-
-        function getTemplate(name) {
-            return CONFIG.templatePath + 'Mp3/' + name + '.html';
         }
 
     }
