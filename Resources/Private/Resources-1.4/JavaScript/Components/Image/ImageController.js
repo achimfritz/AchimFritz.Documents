@@ -6,7 +6,7 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, FlashMessageService, Solr, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
+    function ImageController ($rootScope, Solr, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -27,8 +27,6 @@
 
         // not used by the view
         vm.initController = initController;
-        vm.restSuccess = restSuccess;
-        vm.restError = restError;
 
         vm.initController();
 
@@ -124,7 +122,7 @@
                 doc.selected = 'selected';
             }
             $rootScope.$emit('docsUpdate', docs);
-        };
+        }
 
         function changeImageSize(diff) {
             vm.imageWidth += diff;
@@ -136,19 +134,6 @@
             } else {
                 return vm.openImageModal(doc);
             }
-        }
-
-        function restSuccess(data) {
-            vm.finished = true;
-            FlashMessageService.show(data.data.flashMessages);
-            Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
-            })
-        }
-
-        function restError(data) {
-            vm.finished = true;
-            FlashMessageService.error(data);
         }
 
         function openImageModal(doc) {
