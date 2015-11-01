@@ -6,7 +6,7 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, Solr, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
+    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration, PathService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -17,6 +17,8 @@
         vm.data = {};
         vm.strgPressed = false;
         vm.shiftPressed = false;
+        vm.renameCategory = false;
+        vm.renameCategoryFacet = '';
 
         // used by the view
         vm.itemClick = itemClick;
@@ -24,6 +26,7 @@
         vm.openImageModal = openImageModal;
         vm.itemClickSelect = itemClickSelect;
         vm.emptyList = emptyList;
+        vm.showRenameCategoryForm = showRenameCategoryForm;
 
         // not used by the view
         vm.initController = initController;
@@ -76,10 +79,20 @@
                     vm.shiftPressed = true;
                 }
             });
+        }
 
-            Solr.request().then(function (response){
-                vm.data = response.data;
-            })
+        function showRenameCategoryForm(facetName, facetValue) {
+            vm.renameCategoryFacet = facetName;
+            var path = '';
+            if (PathService.depth(facetValue) === 1) {
+                path = facetName + PathService.delimiter + facetValue;
+            } else {
+                path = PathService.slice(facetValue, 1);
+            }
+            vm.renameCategory = {
+                'oldPath': path,
+                'newPath': path
+            };
         }
 
         function emptyList() {
@@ -148,6 +161,8 @@
 
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.data = data;
+            vm.renameCategory = null;
+            vm.renameCategoryFacet = '';
             $rootScope.$emit('docsUpdate', data.response.docs);
         })
 

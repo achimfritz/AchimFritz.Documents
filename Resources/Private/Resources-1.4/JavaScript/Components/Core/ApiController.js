@@ -6,7 +6,7 @@
         .controller('ApiController', ApiController);
 
     /* @ngInject */
-    function ApiController(FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService) {
+    function ApiController(FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, $rootScope, PathService, Solr) {
 
         var vm = this;
 
@@ -19,7 +19,7 @@
         vm.listRemove = listRemove;
         vm.categoryRemove = categoryRemove;
         vm.categoryMerge = categoryMerge;
-        vm.renameCategory = renameCategory;
+        vm.categoryUpdate = categoryUpdate;
 
         // not used by the view
         vm.initController = initController;
@@ -81,9 +81,19 @@
             );
         }
 
-        function renameCategory(renameCategory) {
+        function categoryUpdate(renameCategory, facetName) {
             vm.finished = false;
-            CategoryRestService.update(renameCategory).then(vm.restSuccess, vm.restError);
+            CategoryRestService.update(renameCategory).then(
+                function(data) {
+                    vm.restSuccess(data);
+                    Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
+                    Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
+                    Solr.request().then(function (response){
+                        $rootScope.$emit('solrDataUpdate', response.data);
+                    })
+                },
+                vm.restError
+            );
         }
 
         function restSuccess(data) {

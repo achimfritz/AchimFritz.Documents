@@ -155,6 +155,7 @@
         function overrideFilterQuery(name, value) {
             if (isHFacet(name) === true) {
                 // not implemented
+
             } else {
                 filterQueries[name] = [];
                 filterQueries[name].push(value);
