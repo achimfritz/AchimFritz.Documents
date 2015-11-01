@@ -6,7 +6,7 @@
         .controller('DocumentController', DocumentController);
 
     /* @ngInject */
-    function DocumentController (Solr, $rootScope, SolrConfiguration) {
+    function DocumentController (Solr, $rootScope) {
 
         var vm = this;
 
@@ -26,6 +26,7 @@
         vm.changeFacetSorting = changeFacetSorting;
         vm.setSearch = setSearch;
         vm.nextPage = nextPage;
+
 
         // not used by the view
         vm.initController = initController;
