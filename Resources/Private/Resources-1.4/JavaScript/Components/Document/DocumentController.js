@@ -26,6 +26,7 @@
         vm.changeFacetSorting = changeFacetSorting;
         vm.setSearch = setSearch;
         vm.nextPage = nextPage;
+        vm.showAllRows = showAllRows;
 
 
         // not used by the view
@@ -46,6 +47,11 @@
 
         function changeRows(diff) {
             Solr.changeRows(diff);
+            vm.update();
+        }
+
+        function showAllRows() {
+            Solr.setParam('rows', vm.data.response.numFound);
             vm.update();
         }
 

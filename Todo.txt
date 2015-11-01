@@ -23,5 +23,4 @@ TvRecording -> Package
 		lucky/mix/slow-juli05/Radiohead-KBritPopBritPopBritPopBritPoparmaPolice.mp3
     	lucky/mix/slow-juli05/Radiohead-KarmaPolice.mp3
 
-show all results
 edit mp3 categories (and id3 tags (massTag))

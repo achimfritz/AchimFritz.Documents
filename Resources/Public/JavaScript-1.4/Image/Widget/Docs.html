@@ -16,6 +16,7 @@
 		</div>
 		<div class="col-md-4">
 			found {{document.data.response.numFound}} (displaying {{document.params.rows}})
+			<button class="btn btn-danger btn-xs" ng-click="document.showAllRows()" data-ng-if="document.data.response.numFound < 1000">show all results</button>
 			<button class="btn btn-default btn-xs" ng-click="document.changeRows(20)">more</button>
 			<button class="btn btn-default btn-xs" ng-click="document.changeRows(-20)">less</button>
 			<button class="btn btn-default btn-xs" ng-click="image.changeImageSize(-20)">smaller</button>
