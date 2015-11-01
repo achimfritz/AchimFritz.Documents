@@ -1,10 +1,3 @@
-<toaster-container></toaster-container>
-
-<overlay finished="clipboard.finished"></overlay>
-<div data-ng-if="!clipboard.finished" class="spinner">
-	<spinner></spinner>
-</div>
-
 <div class="row" data-ng-if="widget.widgets.clipboard">
 	<div class="col-md-2">
 		<h4>clipboard: {{clipboard.docs.length}} documents</h4>
@@ -26,10 +19,10 @@
 					<input class="form-control" id="category" type="text" data-ng-model="clipboard.category" data-autocomplete data-global="1" />
 				</div>
 				<div class="col-md-4">
-					<input class="form-control btn btn-danger" type="submit" ng-click="clipboard.categoryMerge()" value="Merge all Documents into Category" />
+					<input class="form-control btn btn-danger" type="submit" ng-click="api.categoryMerge(clipboard.category, clipboard.docs)" value="Merge all Documents into Category" />
 				</div>
 				<div class="col-md-4">
-					<input class="form-control btn-danger" type="submit" ng-click="clipboard.categoryRemove()" value="Remove all Documents from Category" />
+					<input class="form-control btn-danger" type="submit" ng-click="api.categoryRemove(clipboard.category, clipboard.docs)" value="Remove all Documents from Category" />
 				</div>
 			</div>
 		</form>
@@ -40,10 +33,10 @@
 					<input class="form-control" id="documentList" type="text" data-ng-model="clipboard.category" data-autocomplete data-global="true" />
 				</div>
 				<div class="col-md-4">
-					<input class="form-control btn btn-danger" type="submit" ng-click="clipboard.listMerge()" value="Merge all Documents into List" />
+					<input class="form-control btn btn-danger" type="submit" ng-click="api.listMerge(clipboard.category, clipboard.docs)" value="Merge all Documents into List" />
 				</div>
 				<div class="col-md-4">
-					<input class="form-control btn-danger" type="submit" ng-click="clipboard.listRemove()" value="Remove all Documents from List" />
+					<input class="form-control btn-danger" type="submit" ng-click="api.listRemove(clipboard.category, clipboard.docs)" value="Remove all Documents from List" />
 				</div>
 			</div>
 		</form>
@@ -67,7 +60,7 @@
 					</label>
 				</div>
 				<div class="col-md-2">
-					<input class="form-control btn-danger" type="submit" ng-click="clipboard.zipDownload()" value="ZIP Download" />
+					<input class="form-control btn-danger" type="submit" ng-click="api.zipDownload(clipboard.zip, clipboard.docs)" value="ZIP Download" />
 				</div>
 			</div>
 		</form>
@@ -95,7 +88,7 @@
 					</select>
 				</div>
 				<div class="col-md-2">
-					<input class="form-control btn-danger" type="submit" ng-click="clipboard.pdfDownload()" value="PDF Download" />
+					<input class="form-control btn-danger" type="submit" ng-click="api.pdfDownload(clipboard.pdf, clipboard.docs)" value="PDF Download" />
 				</div>
 			</div>
 		</form>
