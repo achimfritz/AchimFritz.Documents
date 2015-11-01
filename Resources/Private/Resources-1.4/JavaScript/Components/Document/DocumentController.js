@@ -104,12 +104,5 @@
             vm.data = data;
             vm.params = Solr.getParams();
         });
-
-        $rootScope.$on('filterQueryRenamed', function (event, data) {
-            vm.filterQueries = Solr.getFilterQueries();
-            vm.data = data;
-            vm.params = Solr.getParams();
-        });
-
     }
 })();
