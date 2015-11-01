@@ -88,7 +88,7 @@
                     vm.restSuccess(data);
                     Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
                     Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
-                    Solr.request().then(function (response){
+                    Solr.forceRequest().then(function (response){
                         $rootScope.$emit('solrDataUpdate', response.data);
                     })
                 },
