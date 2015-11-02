@@ -22,15 +22,9 @@
         vm.categoryUpdate = categoryUpdate;
 
         // not used by the view
-        vm.initController = initController;
         vm.restSuccess = restSuccess;
         vm.restError = restError;
 
-        vm.initController();
-
-        function initController() {
-
-        }
 
         function categoryMerge(category, docs) {
             vm.finished = false;
@@ -53,7 +47,6 @@
         }
 
         function zipDownload(zip, docs) {
-            console.log('dsfds');
             vm.finished = false;
             ExportRestService.zipDownload(zip, docs).then(
                 function (data) {

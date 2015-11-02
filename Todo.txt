@@ -24,3 +24,8 @@ TvRecording -> Package
     	lucky/mix/slow-juli05/Radiohead-KarmaPolice.mp3
 
 edit mp3 categories (and id3 tags (massTag))
+checkbox 4 widgets
+checkbox 4 filters
+-> 2 level navi?
+use api consistencly
+usability / start page / applications
