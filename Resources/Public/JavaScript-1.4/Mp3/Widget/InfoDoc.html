@@ -10,36 +10,36 @@
 				<td>Title</td>
 				<td><button ng-show="mp3.infoDoc.titleRating" class="btn-xs btn btn-info">{{mp3.infoDoc.titleRating}}</button></td>
 				<td>
-					<button ng-click="mp3.rate({name: 'title', rate: 1, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">1</button>
-					<button ng-click="mp3.rate({name: 'title', rate: 2, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">2</button>
-					<button ng-click="mp3.rate({name: 'title', rate: 3, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">3</button>
-					<button ng-click="mp3.rate({name: 'title', rate: 4, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">4</button>
-					<button ng-click="mp3.rate({name: 'title', rate: 5, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">5</button>
-					<button ng-click="mp3.rate({name: 'title', rate: 6, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">6</button>
+					<button ng-click="api.rate({name: 'title', rate: 1, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">1</button>
+					<button ng-click="api.rate({name: 'title', rate: 2, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">2</button>
+					<button ng-click="api.rate({name: 'title', rate: 3, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">3</button>
+					<button ng-click="api.rate({name: 'title', rate: 4, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">4</button>
+					<button ng-click="api.rate({name: 'title', rate: 5, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">5</button>
+					<button ng-click="api.rate({name: 'title', rate: 6, value: mp3.infoDoc.name})" class="btn btn-xs btn-default">6</button>
 				</td>
 			</tr>
 			<tr>
 				<td>Artist</td>
 				<td><button ng-show="mp3.infoDoc.artistRating" class="btn-xs btn btn-info">{{mp3.infoDoc.artistRating}}</button></td>
 				<td>
-					<button ng-click="mp3.rate({name: 'artist', rate: 1, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">1</button>
-					<button ng-click="mp3.rate({name: 'artist', rate: 2, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">2</button>
-					<button ng-click="mp3.rate({name: 'artist', rate: 3, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">3</button>
-					<button ng-click="mp3.rate({name: 'artist', rate: 4, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">4</button>
-					<button ng-click="mp3.rate({name: 'artist', rate: 5, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">5</button>
-					<button ng-click="mp3.rate({name: 'artist', rate: 6, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">6</button>
+					<button ng-click="api.rate({name: 'artist', rate: 1, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">1</button>
+					<button ng-click="api.rate({name: 'artist', rate: 2, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">2</button>
+					<button ng-click="api.rate({name: 'artist', rate: 3, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">3</button>
+					<button ng-click="api.rate({name: 'artist', rate: 4, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">4</button>
+					<button ng-click="api.rate({name: 'artist', rate: 5, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">5</button>
+					<button ng-click="api.rate({name: 'artist', rate: 6, value: mp3.infoDoc.artist})" class="btn btn-xs btn-default">6</button>
 				</td>
 			</tr>
 			<tr>
 				<td>Album</td>
 				<td><button ng-show="mp3.infoDoc.albumRating" class="btn-xs btn btn-info">{{mp3.infoDoc.albumRating}}</button></td>
 				<td>
-					<button ng-click="mp3.rate({name: 'album', rate: 1, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">1</button>
-					<button ng-click="mp3.rate({name: 'album', rate: 2, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">2</button>
-					<button ng-click="mp3.rate({name: 'album', rate: 3, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">3</button>
-					<button ng-click="mp3.rate({name: 'album', rate: 4, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">4</button>
-					<button ng-click="mp3.rate({name: 'album', rate: 5, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">5</button>
-					<button ng-click="mp3.rate({name: 'album', rate: 6, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">6</button>
+					<button ng-click="api.rate({name: 'album', rate: 1, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">1</button>
+					<button ng-click="api.rate({name: 'album', rate: 2, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">2</button>
+					<button ng-click="api.rate({name: 'album', rate: 3, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">3</button>
+					<button ng-click="api.rate({name: 'album', rate: 4, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">4</button>
+					<button ng-click="api.rate({name: 'album', rate: 5, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">5</button>
+					<button ng-click="api.rate({name: 'album', rate: 6, value: mp3.infoDoc.album})" class="btn btn-xs btn-default">6</button>
 				</td>
 			</tr>
 		</table>
@@ -54,39 +54,39 @@
 				<td>Title</td>
 				<td>
 					<strong ng-hide="mp3.infoDoc.title" class="text-danger">!</strong>
-					<span ng-show="mp3.infoDoc.title" editable-text="mp3.infoDoc.title" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'title', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.title}}</span>
-					<span ng-hide="mp3.infoDoc.title" editable-text="mp3.infoDoc.fsTitle" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'title', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsTitle}}</span>
+					<span ng-show="mp3.infoDoc.title" editable-text="mp3.infoDoc.title" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'title', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.title}}</span>
+					<span ng-hide="mp3.infoDoc.title" editable-text="mp3.infoDoc.fsTitle" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'title', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsTitle}}</span>
 				</td>
 			</tr>
 			<tr>
 				<td>Track</td>
 				<td>
-					<span ng-show="mp3.infoDoc.track" editable-text="mp3.infoDoc.track" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'track', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.track}}</span>
-					<span ng-hide="mp3.infoDoc.track" editable-text="mp3.infoDoc.fsTrack" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'track', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsTrack}}</span>
+					<span ng-show="mp3.infoDoc.track" editable-text="mp3.infoDoc.track" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'track', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.track}}</span>
+					<span ng-hide="mp3.infoDoc.track" editable-text="mp3.infoDoc.fsTrack" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'track', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsTrack}}</span>
 					<strong ng-hide="mp3.infoDoc.track" class="text-danger">!</strong>
 				</td>
 			</tr>
 			<tr>
 				<td>Artist</td>
 				<td>
-					<span ng-show="mp3.infoDoc.artist" editable-text="mp3.infoDoc.artist" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'artist', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.artist}}</span>
-					<span ng-hide="mp3.infoDoc.artist" editable-text="mp3.infoDoc.fsArtist" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'artist', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsArtist}}</span>
+					<span ng-show="mp3.infoDoc.artist" editable-text="mp3.infoDoc.artist" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'artist', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.artist}}</span>
+					<span ng-hide="mp3.infoDoc.artist" editable-text="mp3.infoDoc.fsArtist" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'artist', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsArtist}}</span>
 					<strong ng-hide="mp3.infoDoc.artist" class="text-danger">!</strong>
 				</td>
 			</tr>
 			<tr>
 				<td>Album</td>
 				<td>
-					<span ng-show="mp3.infoDoc.album" editable-text="mp3.infoDoc.album" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'album', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.album}}</span>
-					<span ng-hide="mp3.infoDoc.album" editable-text="mp3.infoDoc.fsAlbum" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'album', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsAlbum}}</span>
+					<span ng-show="mp3.infoDoc.album" editable-text="mp3.infoDoc.album" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'album', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.album}}</span>
+					<span ng-hide="mp3.infoDoc.album" editable-text="mp3.infoDoc.fsAlbum" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'album', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsAlbum}}</span>
 					<strong ng-hide="mp3.infoDoc.album" class="text-danger">!</strong>
 				</td>
 			</tr>
 			<tr>
 				<td>Genre</td>
 				<td>
-					<span ng-show="mp3.infoDoc.genre" editable-text="mp3.infoDoc.genre" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'genre', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.genre}}</span>
-					<span ng-hide="mp3.infoDoc.genre" editable-text="mp3.infoDoc.fsGenre" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'genre', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsGenre}}</span>
+					<span ng-show="mp3.infoDoc.genre" editable-text="mp3.infoDoc.genre" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'genre', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.genre}}</span>
+					<span ng-hide="mp3.infoDoc.genre" editable-text="mp3.infoDoc.fsGenre" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'genre', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.fsGenre}}</span>
 					/ {{mp3.infoDoc.genreId}}
 					<strong ng-hide="mp3.infoDoc.genre" class="text-danger">!</strong>
 				</td>
@@ -94,7 +94,7 @@
 			<tr>
 				<td>Year</td>
 				<td>
-					<span editable-text="mp3.infoDoc.year" onaftersave="mp3.updateId3Tag({tagValue: $data, tagName: 'year', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.year}}</span>
+					<span editable-text="mp3.infoDoc.year" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'year', document: mp3.infoDoc.identifier})">{{mp3.infoDoc.year}}</span>
 					<strong ng-hide="mp3.infoDoc.year" class="text-danger">!</strong>
 				</td>
 			</tr>
@@ -133,10 +133,10 @@
 
 		<div class="row form-group">
 			<div class="col-md-5 col-md-offset-5">
-				<input class="form-control" type="text" data-ng-model="mp3.infoDoc.listItemPath" />
+				<input class="form-control" type="text" data-autocomplete data-global="1" data-ng-model="mp3.category" />
 			</div>
 			<div class="col-md-2">
-				<input class="form-control btn btn-xs btn-danger" type="submit" ng-click="mp3.addToList()" value="Add to Playlist"/>
+				<input class="form-control btn btn-xs btn-danger" type="submit" ng-click="api.listMergeOne(mp3.category, mp3.infoDoc)" value="Add to Playlist"/>
 			</div>
 		</div>
 

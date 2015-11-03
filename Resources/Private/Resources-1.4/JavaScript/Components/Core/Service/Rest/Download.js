@@ -9,15 +9,6 @@
 
     function DownloadRestService($http) {
 
-        this.cddb = function () {
-            var cddb = {
-                'path': '',
-                'format': 1,
-                'url': ''
-            };
-            return cddb;
-        };
-
         this.updateFolder = function (cddb) {
             var folder = {
                 path: cddb.path,

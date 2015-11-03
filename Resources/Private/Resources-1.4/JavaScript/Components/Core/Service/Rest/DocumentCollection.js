@@ -9,7 +9,7 @@
 
     function DocumentCollectionRestService($http) {
 
-        var buildRequest = function (category, docs) {
+        var buildRequest = function (path, docs) {
             var documents = [];
             angular.forEach(docs, function (val, key) {
                 documents.push(val.identifier);
@@ -18,7 +18,7 @@
             var data = {
                 'documentCollection': {
                     'category': {
-                        'path': category
+                        'path': path
                     },
                     'documents': documents
                 }
@@ -26,9 +26,9 @@
             return data;
         };
 
-        this.writeTag = function (category, docs) {
+        this.writeTag = function (path, docs) {
             var url = 'achimfritz.documents/documentcollectionid3tag/';
-            var data = buildRequest(category, docs);
+            var data = buildRequest(path, docs);
             return $http({
                 method: 'POST',
                 url: url,
@@ -40,9 +40,9 @@
             })
         };
 
-        this.remove = function (category, docs) {
+        this.remove = function (path, docs) {
             var url = 'achimfritz.documents/documentcollectionremove/';
-            var data = buildRequest(category, docs);
+            var data = buildRequest(path, docs);
             return $http({
                 method: 'POST',
                 url: url,
@@ -53,9 +53,9 @@
                 }
             })
         };
-        this.merge = function (category, docs) {
+        this.merge = function (path, docs) {
             var url = 'achimfritz.documents/documentcollectionmerge/';
-            var data = buildRequest(category, docs);
+            var data = buildRequest(path, docs);
             return $http({
                 method: 'POST',
                 url: url,

@@ -25,8 +25,16 @@
         vm.initController();
 
         function initController() {
-            vm.pdf = ExportRestService.pdf();
-            vm.zip = ExportRestService.zip();
+            vm.pdf = {
+                'columns': 3,
+                'size': 4,
+                'dpi': 72
+            };
+            vm.zip = {
+                'name': 'download',
+                'useThumb': false,
+                'useFullPath': false
+            };
         }
 
         function showForm(form) {

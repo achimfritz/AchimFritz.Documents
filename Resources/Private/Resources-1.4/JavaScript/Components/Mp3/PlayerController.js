@@ -14,6 +14,7 @@
         vm.playAllDocumentList = playAllDocumentList;
         vm.playAll = playAll;
         vm.addAll = addAll;
+        vm.getPlaylistDocs = getPlaylistDocs;
 
         function playAll(docs) {
             $timeout(function () {
@@ -64,6 +65,15 @@
                     angularPlayer.play();
                 });
             });
+        }
+
+        function getPlaylistDocs() {
+            var docs = [];
+            var playlist = angularPlayer.getPlaylist();
+            angular.forEach(playlist, function (val, key) {
+                docs.push(val.doc);
+            });
+            return docs;
         }
 
     }

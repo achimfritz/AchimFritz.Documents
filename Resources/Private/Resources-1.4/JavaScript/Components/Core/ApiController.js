@@ -6,7 +6,7 @@
         .controller('ApiController', ApiController);
 
     /* @ngInject */
-    function ApiController(FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, $rootScope, PathService, Solr) {
+    function ApiController(FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
 
         var vm = this;
 
@@ -15,35 +15,76 @@
         // used by the view
         vm.pdfDownload = pdfDownload;
         vm.zipDownload = zipDownload;
+
         vm.listMerge = listMerge;
         vm.listRemove = listRemove;
+        vm.listMergeOne = listMergeOne;
+
         vm.categoryRemove = categoryRemove;
         vm.categoryMerge = categoryMerge;
+        vm.categoryMergeOne = categoryMergeOne;
         vm.categoryUpdate = categoryUpdate;
+
+        vm.rate = rate;
+        vm.updateId3Tag = updateId3Tag;
+        vm.cddbUpdate = cddbUpdate;
+        vm.writeId3Tag = writeId3Tag;
+        vm.folderUpdate = folderUpdate;
 
         // not used by the view
         vm.restSuccess = restSuccess;
         vm.restError = restError;
+        vm.restSuccessAndUpdate = restSuccessAndUpdate;
 
 
-        function categoryMerge(category, docs) {
+        function categoryMerge(path, docs) {
             vm.finished = false;
-            DocumentCollectionRestService.merge(category, docs).then(vm.restSuccess, vm.restError);
+            DocumentCollectionRestService.merge(path, docs).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+        function categoryRemove(path, docs) {
+            vm.finished = false;
+            DocumentCollectionRestService.remove(path, docs).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+        function writeId3Tag(tagPath, docs) {
+            vm.finished = false;
+            DocumentCollectionRestService.writeTag(tagPath, docs).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+        function categoryMergeOne(path, doc) {
+            return vm.categoryMerge(path, [ doc ]);
         }
 
-        function categoryRemove(category, docs) {
+
+        function listRemove(path, docs) {
             vm.finished = false;
-            DocumentCollectionRestService.remove(category, docs).then(vm.restSuccess, vm.restError);
+            DocumentListRestService.remove(path, docs).then(vm.restSuccess, vm.restError);
+        }
+        function listMerge(path, docs) {
+            vm.finished = false;
+            DocumentListRestService.merge(path, docs).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+        function listMergeOne(path, doc) {
+            return vm.listMerge(path, [ doc ]);
         }
 
-        function listRemove(category, docs) {
+
+        function updateId3Tag (mp3DocumentId3Tag) {
             vm.finished = false;
-            DocumentListRestService.remove(category, docs).then(vm.restSuccess, vm.restError);
+            Mp3DocumentId3TagRestService.update(mp3DocumentId3Tag).then(vm.restSuccessAndUpdate, vm.restError);
         }
 
-        function listMerge(category, docs) {
+        function rate(rating) {
             vm.finished = false;
-            DocumentListRestService.merge(category, docs).then(vm.restSuccess, vm.restError);
+            RatingRestService.update(rating).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+
+        function cddbUpdate(cddb) {
+            vm.finished = false;
+            DownloadRestService.updateCddb(cddb).then(vm.restSuccessAndUpdate, vm.restError);
+        }
+
+        function folderUpdate(cddb) {
+            vm.finished = false;
+            DownloadRestService.updateFolder(cddb).then(vm.restSuccessAndUpdate, vm.restError);
         }
 
         function zipDownload(zip, docs) {
@@ -78,15 +119,21 @@
             vm.finished = false;
             CategoryRestService.update(renameCategory).then(
                 function(data) {
-                    vm.restSuccess(data);
                     Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
                     Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
-                    Solr.forceRequest().then(function (response){
-                        $rootScope.$emit('solrDataUpdate', response.data);
-                    })
+                    vm.restSuccessAndUpdate(data);
+
                 },
                 vm.restError
             );
+        }
+
+        function restSuccessAndUpdate(data) {
+            vm.restSuccess(data);
+            Solr.forceRequest().then(function (response){
+                $rootScope.$emit('solrDataUpdate', response.data);
+            })
+
         }
 
         function restSuccess(data) {

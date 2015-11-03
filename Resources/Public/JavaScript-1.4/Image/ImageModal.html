@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-ng-controller="ApiController as api">
 	<div class="col-md-8">
 		<img ng-src="{{ctrl.doc.webBigPath}}" />
 	</div>
@@ -13,9 +13,9 @@
 		</ul>
 
 		<div class="row">
-			<form data-ng-submit="ctrl.addTag()">
+			<form data-ng-submit="api.categoryMergeOne('tags/' + ctrl.path, ctrl.doc)">
 				<div class="col-md-6">
-					<input class="form-control"  type="text" data-autocomplete data-global="1" data-field="tags" data-ng-model="ctrl.newTag"/>
+					<input class="form-control"  type="text" data-autocomplete data-global="1" data-field="tags" data-ng-model="ctrl.path"/>
 				</div>
 				<div class="col-md-6">
 					<input type="submit"  value="Submit" class="btn btn-default"/>

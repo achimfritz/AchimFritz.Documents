@@ -6,14 +6,14 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller ($rootScope, angularPlayer, WidgetConfiguration, SolrConfiguration, AppConfiguration, RatingRestService, Mp3DocumentId3TagRestService, DocumentCollectionRestService, FlashMessageService, Solr, DocumentListRestService, DownloadRestService, ExportRestService) {
+    function Mp3Controller ($rootScope, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
 
         var vm = this;
 
         // V2
         var $scope = $rootScope.$new();
         vm.infoDoc = null;
-        vm.finished = true;
+        vm.category = '';
         vm.random = 0;
         vm.cddb = {};
         vm.zip = {};
@@ -25,20 +25,10 @@
         // used by the view
         vm.showInfoDoc = showInfoDoc;
         vm.hideInfoDoc = hideInfoDoc;
-        vm.rate = rate;
-        vm.updateId3Tag = updateId3Tag;
-        vm.addToList = addToList;
-        vm.cddbUpdate = cddbUpdate;
-        vm.zipDownload = zipDownload;
-        vm.writeTag = writeTag;
         vm.setPlayListForm = setPlayListForm;
-        vm.folderUpdate = folderUpdate;
 
         // not used by the view
         vm.initController = initController;
-        vm.restSuccess = restSuccess;
-        vm.restError = restError;
-        vm.getPlaylistDocs = getPlaylistDocs;
 
         vm.initController();
 
@@ -66,8 +56,16 @@
             SolrConfiguration.setSetting('servlet', 'mp3');
 
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
-            vm.cddb = DownloadRestService.cddb();
-            vm.zip = ExportRestService.zip();
+            vm.cddb = {
+                'path': '',
+                'format': 1,
+                'url': ''
+            };
+            vm.zip = {
+                'name': 'download',
+                'useThumb': false,
+                'useFullPath': false
+            };
         }
 
         function showInfoDoc(doc) {
@@ -82,76 +80,8 @@
             vm.infoDoc = null;
         }
 
-        function rate(rating) {
-            vm.finished = false;
-            RatingRestService.update(rating).then(vm.restSuccess, vm.restError);
-        }
-
-        function cddbUpdate() {
-            vm.finished = false;
-            DownloadRestService.updateCddb(vm.cddb).then(vm.restSuccess, vm.restError);
-        }
-
-        function folderUpdate() {
-            vm.finished = false;
-            DownloadRestService.updateFolder(vm.cddb).then(vm.restSuccess, vm.restError);
-        }
-
-        function getPlaylistDocs() {
-            var docs = [];
-            var playlist = angularPlayer.getPlaylist();
-            angular.forEach(playlist, function (val, key) {
-                docs.push(val.doc);
-            });
-            return docs;
-        }
-
-        function zipDownload () {
-            vm.finished = false;
-            var docs = vm.getPlaylistDocs();
-            ExportRestService.zipDownload(vm.zip, docs).then(
-                function (data) {
-                    vm.finished = true;
-                    var blob = new Blob([data.data], {
-                        type: 'application/zip'
-                    });
-                    saveAs(blob, vm.zip.name + '.zip');
-                },
-                vm.restError
-            );
-        }
-
         function setPlayListForm(val) {
             vm.playListForm = val;
-        }
-
-        function writeTag  () {
-            vm.finished = false;
-            var docs = vm.getPlaylistDocs();
-            DocumentCollectionRestService.writeTag(vm.tagPath, docs).then(vm.restSuccess, vm.restError);
-        }
-
-        function addToList() {
-            vm.finished = false;
-            DocumentListRestService.merge(vm.infoDoc.listItemPath, [ vm.infoDoc ]).then(vm.restSuccess, vm.restError);
-        }
-
-        function updateId3Tag (mp3DocumentId3Tag) {
-            vm.finished = false;
-            Mp3DocumentId3TagRestService.update(mp3DocumentId3Tag).then(vm.restSuccess, vm.restError);
-        }
-
-        function restSuccess(data) {
-            vm.finished = true;
-            FlashMessageService.show(data.data.flashMessages);
-            Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
-            })
-        }
-
-        function restError(data) {
-            vm.finished = true;
-            FlashMessageService.error(data);
         }
 
         $rootScope.$on('solrDataUpdate', function (event, data) {

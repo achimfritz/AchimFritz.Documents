@@ -6,7 +6,7 @@
         .controller('ImageModalController', ImageModalController);
 
     /* @ngInject */
-    function ImageModalController ($rootScope, FlashMessageService, ListService, $scope, hotkeys, DocumentCollectionRestService) {
+    function ImageModalController (ListService, $scope, hotkeys) {
 
         var vm = this;
         vm.doc = $scope.ngDialogData;
@@ -14,13 +14,10 @@
         // used by the view
         vm.itemNext = itemNext;
         vm.itemPrev = itemPrev;
-        vm.newTag = '';
+        vm.path = '';
 
         // not used by the view
         vm.initController = initController;
-        vm.restSuccess = restSuccess;
-        vm.restError = restError;
-        vm.addTag = addTag;
 
         vm.initController();
 
@@ -39,30 +36,12 @@
             });
         }
 
-        function addTag() {
-            DocumentCollectionRestService.merge('tags/' + vm.newTag, [vm.doc]).then(vm.restSuccess, vm.restError);
-        }
-
         function itemNext() {
             vm.doc = ListService.getNext(vm.doc);
         }
 
         function itemPrev() {
             vm.doc = ListService.getPrev(vm.doc);
-        }
-
-
-        function restSuccess(data) {
-            //vm.finished = true;
-            FlashMessageService.show(data.data.flashMessages);
-            Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
-            })
-        }
-
-        function restError(data) {
-            //vm.finished = true;
-            FlashMessageService.error(data);
         }
 
     }

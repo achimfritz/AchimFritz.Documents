@@ -9,24 +9,6 @@
 
     function ExportRestService($http) {
 
-        this.zip = function () {
-            var zip = {
-                'name': 'download',
-                'useThumb': false,
-                'useFullPath': false
-            };
-            return zip;
-        };
-
-        this.pdf = function () {
-            var pdf = {
-                'columns': 3,
-                'size': 4,
-                'dpi': 72
-            };
-            return pdf;
-        };
-
         this.pdfDownload = function (pdf, docs) {
             var url = 'achimfritz.documents/pdfexport/';
             var documents = [];

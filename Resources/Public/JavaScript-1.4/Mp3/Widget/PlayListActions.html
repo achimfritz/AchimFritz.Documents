@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-md-4">
 		<label class="control-label">&nbsp;</label>
-		<input class="form-control btn btn-danger" type="submit" ng-click="mp3.writeTag()" value="write Id3 Tag" />
+		<input class="form-control btn btn-danger" type="submit" ng-click="api.writeId3Tag(mp3.tagPath, player.getPlaylistDocs())" value="write Id3 Tag" />
 	</div>
 </div>
 
@@ -26,7 +26,7 @@
 	</div>
 	<div class="col-md-4">
 		<label class="control-label">&nbsp;</label>
-		<input class="form-control btn btn-danger" type="submit" ng-click="mp3.zipDownload()" value="Zip Download" />
+		<input class="form-control btn btn-danger" type="submit" ng-click="api.zipDownload(mp3.zip, player.getPlaylistDocs())" value="Zip Download" />
 	</div>
 </div>
 
