@@ -19,6 +19,7 @@
         vm.getTemplate = getTemplate;
         vm.getWidgetTemplate = getWidgetTemplate;
         vm.toggleWidget = toggleWidget;
+        vm.toggleFilter = toggleFilter;
 
         vm.initController = initController;
 
@@ -28,6 +29,14 @@
             vm.namespace = WidgetConfiguration.getNamespace();
             vm.widgets = WidgetConfiguration.getWidgets();
             vm.filters = WidgetConfiguration.getFilters();
+        }
+
+        function toggleFilter(name) {
+            if (vm.filters[name] === false) {
+                vm.filters[name] = true;
+            } else {
+                vm.filters[name] = false;
+            }
         }
 
         function getTemplate(name) {

@@ -1,0 +1,43 @@
+<div class="collapse navbar-collapse">
+
+	<div class="row">
+
+		<div class="col-md-1" data-ng-repeat="(name, enabled) in widget.filters">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="1" data-ng-model="enabled" data-ng-change="widget.toggleFilter(name)"/>{{name}}
+				</label>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="row">
+
+		<div data-ng-repeat="(name, enabled) in widget.filters">
+			<div data-ng-if="enabled">
+				<div class="col-md-3">
+					<h4>
+						{{name}}
+						<input type="checkbox" value="1" data-ng-model="enabled" data-ng-change="widget.toggleFilter(name)"/>
+
+					</h4>
+					<ul>
+						<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields[name]"
+							ng-click="document.addFilterQuery(name, key)">
+							<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{name}}"></nav-path>
+							({{value}})
+						</li>
+					</ul>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetSorting(name, 'index')">index</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetSorting(name, 'count')">count</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, 10)">more</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, -10)">less</button>
+				</div>
+			</div>
+			</di
+
+		</div>
+	</div>
+</div>

@@ -46,12 +46,23 @@
             SolrConfiguration.setSetting('servlet', 'image');
             WidgetConfiguration.setNamespace('Image');
             WidgetConfiguration.setWidgets({
+                docs: true,
+                filter: true,
                 solrIntegrity: false,
                 filterNav: false,
                 filterNavSelect: false,
                 clipboard: false,
-                integrity: false,
-                docs: true
+                integrity: false
+            });
+            WidgetConfiguration.setFilters({
+                hCategories: false,
+                hLocations: false,
+                hPaths: false,
+                year: false,
+                tags: false,
+                parties: false,
+                mainDirectoryName: false,
+                collections: false
             });
 
             hotkeys.bindTo($scope).add({

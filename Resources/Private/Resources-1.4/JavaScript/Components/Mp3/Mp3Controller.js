@@ -21,13 +21,11 @@
         vm.cddbSearch = '';
         vm.playListForm = false;
         vm.artistSearch = '';
-        vm.facets = {};
 
         // used by the view
         vm.showInfoDoc = showInfoDoc;
         vm.hideInfoDoc = hideInfoDoc;
         vm.setPlayListForm = setPlayListForm;
-        vm.toggleFacet = toggleFacet;
 
         // not used by the view
         vm.initController = initController;
@@ -48,6 +46,18 @@
                 integrity: false,
                 lists: false
             });
+            WidgetConfiguration.setFilters({
+                artist: false,
+                album: false,
+                genre: false,
+                artistLetter: false,
+                year: false,
+                fsProvider: false,
+                fsGenre: false,
+                hPaths: false,
+                fsArtist: false,
+                fsAlbum: false
+            });
             SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
             SolrConfiguration.setHFacets({});
             SolrConfiguration.setParam('sort', 'track asc, fsTrack asc, fsTitle asc');
@@ -59,18 +69,6 @@
             SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
             SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
             SolrConfiguration.setSetting('servlet', 'mp3');
-            vm.facets = {
-                artist: true,
-                album: true,
-                genre: true,
-                artistLetter: false,
-                year: false,
-                fsProvider: false,
-                fsGenre: false,
-                hPaths: false,
-                fsArtist: false,
-                fsAlbum: false
-            };
 
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             vm.cddb = {
@@ -83,14 +81,6 @@
                 'useThumb': false,
                 'useFullPath': false
             };
-        }
-
-        function toggleFacet(name) {
-            if (vm.facets[name] === false) {
-                vm.facets[name] = true;
-            } else {
-                vm.facets[name] = false;
-            }
         }
 
         function showInfoDoc(doc) {
