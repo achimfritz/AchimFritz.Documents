@@ -6,7 +6,7 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration, PathService) {
+    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration, PathService, FilterConfiguration) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -54,7 +54,7 @@
                 clipboard: false,
                 integrity: false
             });
-            WidgetConfiguration.setFilters({
+            FilterConfiguration.setFilters({
                 hCategories: false,
                 hLocations: false,
                 hPaths: false,

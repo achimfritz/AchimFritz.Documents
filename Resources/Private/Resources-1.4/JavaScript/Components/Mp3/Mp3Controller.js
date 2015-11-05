@@ -6,7 +6,7 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller ($rootScope, WidgetConfiguration, SolrConfiguration, AppConfiguration) {
+    function Mp3Controller ($rootScope, WidgetConfiguration, SolrConfiguration, AppConfiguration, FilterConfiguration) {
 
         var vm = this;
 
@@ -46,7 +46,7 @@
                 integrity: false,
                 lists: false
             });
-            WidgetConfiguration.setFilters({
+            FilterConfiguration.setFilters({
                 artist: false,
                 album: false,
                 genre: false,

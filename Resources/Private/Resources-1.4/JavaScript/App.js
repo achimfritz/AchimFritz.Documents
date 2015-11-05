@@ -15,6 +15,7 @@
             'localytics.directives',
             'achimfritz.core',
             'achimfritz.widget',
+            'achimfritz.filter',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
             'achimfritz.document',
