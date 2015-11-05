@@ -10,6 +10,7 @@
     function WidgetConfiguration() {
 
         var widgets = {};
+        var filters = {};
         var namespace = '';
 
         // Public API
@@ -20,6 +21,12 @@
                 },
                 setWidgets: function (newWidgets) {
                     widgets = newWidgets;
+                },
+                getFilters: function () {
+                    return filters;
+                },
+                setFilters: function (newFilters) {
+                    filters = newFilters;
                 },
                 getNamespace: function () {
                     return namespace;

@@ -10,7 +10,15 @@
 
         var vm = this;
         vm.widgets = {};
+        vm.filters = {};
         vm.namespace = '';
+
+        // used by the view
+        vm.closeWidget = closeWidget;
+        vm.openWidget = openWidget;
+        vm.getTemplate = getTemplate;
+        vm.getWidgetTemplate = getWidgetTemplate;
+        vm.toggleWidget = toggleWidget;
 
         vm.initController = initController;
 
@@ -19,19 +27,28 @@
         function initController() {
             vm.namespace = WidgetConfiguration.getNamespace();
             vm.widgets = WidgetConfiguration.getWidgets();
+            vm.filters = WidgetConfiguration.getFilters();
         }
-
-        // used by the view
-        vm.closeWidget = closeWidget;
-        vm.openWidget = openWidget;
-        vm.getTemplate = getTemplate;
 
         function getTemplate(name) {
             return CONFIG.templatePath + vm.namespace + '/Widget/' + name + '.html';
         }
 
+        function getWidgetTemplate(name) {
+            return CONFIG.templatePath + 'Widget/' + name + '.html';
+        }
+
         function closeWidget(widget) {
             vm.widgets[widget] = false;
+        }
+
+        function toggleWidget(widget) {
+            if (vm.widgets[widget] === true) {
+                vm.widgets[widget] = false;
+            } else {
+                vm.widgets[widget] = true;
+            }
+
         }
 
         function openWidget(widget) {

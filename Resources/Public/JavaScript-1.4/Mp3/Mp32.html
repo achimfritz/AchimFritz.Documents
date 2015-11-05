@@ -21,6 +21,12 @@
 						</div>
 					</div>
 
+					<div class="row top2" data-ng-if="widget.widgets.filter">
+						<div class="col-md-12">
+							<ng-include src="widget.getTemplate('Filter')"></ng-include>
+						</div>
+					</div>
+
 					<div class="row top2" data-ng-if="widget.widgets.letterNav">
 						<div class="col-md-12">
 							<ng-include src="widget.getTemplate('LetterNav')"></ng-include>
