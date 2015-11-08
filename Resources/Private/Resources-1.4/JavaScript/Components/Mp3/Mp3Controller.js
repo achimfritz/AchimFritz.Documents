@@ -60,7 +60,7 @@
             });
             SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
             SolrConfiguration.setHFacets({});
-            SolrConfiguration.setParam('sort', 'track asc, fsTrack asc, fsTitle asc');
+            SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
             SolrConfiguration.setParam('rows', 15);
             SolrConfiguration.setParam('facet_limit', 15);
             SolrConfiguration.setParam('facet_sort', 'count');
