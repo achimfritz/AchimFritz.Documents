@@ -17,15 +17,15 @@ TvRecording -> Package
 - rm Category (if emtpy) after removing documentList
 - rm/rename Category not available
 - update DocumentList PropertyMapper
-- proof livesearch
 - proof live:
 
 		lucky/mix/slow-juli05/Radiohead-KBritPopBritPopBritPopBritPoparmaPolice.mp3
     	lucky/mix/slow-juli05/Radiohead-KarmaPolice.mp3
 
-edit mp3 categories (and id3 tags (massTag))
-checkbox 4 widgets
-checkbox 4 filters
 -> 2 level navi?
 use api consistencly
 usability / start page / applications
+lucky mode
+
+sort / bilder sort
+mp3 ipad truthly
