@@ -6,9 +6,9 @@ namespace AchimFritz\Documents\Command;
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\Facet\RenameCategory;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Mp3Document as Document;
-use AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService;
 use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
 
 /**
@@ -65,10 +65,10 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	protected $mp3DocumentConfiguration;
 
 	/**
-	 * @var \AchimFritz\Documents\Solr\Helper
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\RenameId3TagsService
 	 * @Flow\Inject
 	 */
-	protected $solrHelper;
+	protected $renameId3TagsService;
 
 	/**
 	 * @return \AchimFritz\Documents\Configuration\Mp3DocumentConfiguration
@@ -107,32 +107,18 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 	}
 
 	/**
-	 * MassTagCommand --fq='artist:"Queen Latifah"' --tag="genre/Classic Rock"
+	 * MassTagCommand --path='artist/Queen Latifah' --tag="genre/Classic Rock"
 	 *
-	 * @param string $fq
+	 * @param string $path
 	 * @param string $tag
 	 * @return void
 	 */
-	public function massTagCommand($fq = 'artist:"Queen Latifah"', $tag = 'genre/Classic Rock') {
-		#$fq = 'artist:"Queen Latifah"';
-		#$fq = 'artist:ACDC';
-		list($tagName, $tagValue) = explode('/', $tag);
+	public function massTagCommand($path = 'artist/Queen Latifah', $tag = 'genre/Classic Rock') {
+		$renameCategory = new RenameCategory();
+		$renameCategory->setOldPath($path);
+		$renameCategory->setNewPath($tag);
 		try {
-			$docs = $this->solrHelper->findDocumentsByFq($fq);
-			$documents = $this->documentRepository->findByNames($docs);
-			foreach ($documents as $document) {
-				try {
-					$this->id3TagWriterService->tagDocument($document, $tagName, $tagValue);
-					$this->documentRepository->update($document);
-				} catch (\AchimFritz\Documents\Exception $e) {
-					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-				}
-			}
-			$this->outputLine('SUCCESS: found ' . count($documents) . ' documents');
-		} catch (\SolrException $e) {
-			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
-		}
-		try {
+			$this->renameId3TagsService->rename($renameCategory);
 			$this->documentPersistenceManager->persistAll();
 			$this->outputLine('SUCCESS: persisted ');
 		} catch (\AchimFritz\Documents\Exception $e) {

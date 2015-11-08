@@ -1,24 +1,27 @@
 <div data-ng-controller="DocumentController as document">
 	<div data-ng-controller="ApiController as api">
 		<div data-ng-controller="ClipboardController as clipboard">
-			<div data-ng-controller="WidgetController as widget">
+			<div data-ng-controller="FilterController as filterCtrl">
 
-				<toaster-container></toaster-container>
+				<div data-ng-controller="WidgetController as widget">
 
-				<overlay finished="api.finished"></overlay>
-				<div data-ng-if="!api.finished" class="spinner">
-					<spinner></spinner>
+					<toaster-container></toaster-container>
+
+					<overlay finished="api.finished"></overlay>
+					<div data-ng-if="!api.finished" class="spinner">
+						<spinner></spinner>
+					</div>
+
+					<ng-include src="widget.getTemplate('Nav')"></ng-include>
+					<ng-include src="widget.getTemplate('Widget')"></ng-include>
+					<ng-include src="widget.getTemplate('Filter')"></ng-include>
+					<ng-include src="widget.getTemplate('FilterNavSelect')"></ng-include>
+					<ng-include src="widget.getTemplate('SolrIntegrity')"></ng-include>
+					<ng-include src="widget.getTemplate('Integrity')"></ng-include>
+					<ng-include src="widget.getTemplate('FilterNav')"></ng-include>
+					<ng-include src="widget.getTemplate('Clipboard')"></ng-include>
+					<ng-include src="widget.getTemplate('Docs')"></ng-include>
 				</div>
-
-				<ng-include src="widget.getTemplate('Nav')"></ng-include>
-				<ng-include src="widget.getTemplate('Widget')"></ng-include>
-				<ng-include src="widget.getTemplate('Filter')"></ng-include>
-				<ng-include src="widget.getTemplate('FilterNavSelect')"></ng-include>
-				<ng-include src="widget.getTemplate('SolrIntegrity')"></ng-include>
-				<ng-include src="widget.getTemplate('Integrity')"></ng-include>
-				<ng-include src="widget.getTemplate('FilterNav')"></ng-include>
-				<ng-include src="widget.getTemplate('Clipboard')"></ng-include>
-				<ng-include src="widget.getTemplate('Docs')"></ng-include>
 			</div>
 		</div>
 	</div>

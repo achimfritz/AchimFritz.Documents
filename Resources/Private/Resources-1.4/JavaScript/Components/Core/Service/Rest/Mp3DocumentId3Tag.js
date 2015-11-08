@@ -24,6 +24,22 @@
                 }
             })
         };
+
+        this.massTag = function (renameCategory) {
+            var url = 'achimfritz.documents/mp3massid3tag/';
+            var data = {
+                'renameCategory': renameCategory
+            };
+            return $http({
+                method: 'PUT',
+                url: url,
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
     }
 }());
 

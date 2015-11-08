@@ -23,7 +23,9 @@
         vm.categoryRemove = categoryRemove;
         vm.categoryMerge = categoryMerge;
         vm.categoryMergeOne = categoryMergeOne;
+
         vm.categoryUpdate = categoryUpdate;
+        vm.id3TagUpdate = id3TagUpdate;
 
         vm.rate = rate;
         vm.updateId3Tag = updateId3Tag;
@@ -121,6 +123,23 @@
                 function(data) {
                     Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
                     Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
+                    vm.restSuccessAndUpdate(data);
+
+                },
+                vm.restError
+            );
+        }
+
+        function id3TagUpdate(renameCategory, facetName) {
+            vm.finished = false;
+            var rename = {
+              oldPath: facetName + PathService.delimiter + renameCategory.oldPath,
+              newPath: facetName + PathService.delimiter + renameCategory.newPath
+            };
+            Mp3DocumentId3TagRestService.massTag(rename).then(
+                function(data) {
+                    Solr.rmFilterQuery(facetName, renameCategory.oldPath);
+                    Solr.addFilterQuery(facetName, renameCategory.newPath);
                     vm.restSuccessAndUpdate(data);
 
                 },
