@@ -30,3 +30,5 @@ lucky mode
 sort / bilder sort
 mp3 ipad truthly
 rating filter
+
+mp3 bitrate
