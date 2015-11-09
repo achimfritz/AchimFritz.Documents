@@ -8,11 +8,11 @@
 	</div>
 	<div class="col-md-9">
 		<select class="form-control" id="sort" data-ng-model="document.params.sort" data-ng-change="document.update()">
-			<option value="album asc, artist asc, track asc">album artist track</option>
+
 			<option value="mDateTime desc">mDateTime desc</option>
 			<option value="mDateTime asc">mDateTime asc</option>
-			<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
-			<option value="artist asc">artist asc</option>
+			<option value="name asc">name asc</option>
+			<option value="name desc">name desc</option>
 			<option value="{{document.random}}">random</option>
 		</select>
 	</div>

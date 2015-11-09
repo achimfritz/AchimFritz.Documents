@@ -14,7 +14,6 @@
         var $scope = $rootScope.$new();
         vm.infoDoc = null;
         vm.category = '';
-        vm.random = 0;
         vm.cddb = {};
         vm.zip = {};
         vm.tagPath = '';
@@ -74,7 +73,6 @@
             SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
             SolrConfiguration.setSetting('servlet', 'mp3');
 
-            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             vm.cddb = {
                 'path': '',
                 'format': 1,
@@ -107,7 +105,6 @@
             vm.zip.name = '';
             vm.cddb.path = '';
             var found = false;
-            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             if (vm.infoDoc !== null) {
                 angular.forEach(data.response.docs, function(doc) {
                     if (doc.identifier === vm.infoDoc.identifier) {

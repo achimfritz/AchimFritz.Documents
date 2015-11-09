@@ -14,6 +14,7 @@
         vm.data = {};
         vm.search = '';
         vm.params = {};
+        vm.random = 0;
 
         // used by the view
         vm.addFilterQuery = addFilterQuery;
@@ -27,6 +28,7 @@
         vm.setSearch = setSearch;
         vm.nextPage = nextPage;
         vm.showAllRows = showAllRows;
+        vm.newRandom = newRandom;
 
 
         // not used by the view
@@ -35,9 +37,16 @@
         vm.initController();
 
         function initController() {
+            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             Solr.request().then(function (response){
                 $rootScope.$emit('solrDataUpdate', response.data);
             })
+        }
+
+        function newRandom() {
+            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+            Solr.setParam('sort', vm.random);
+            vm.update();
         }
 
         function nextPage(pageNumber) {
