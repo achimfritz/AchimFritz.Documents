@@ -41,7 +41,7 @@
 
         function categoryMerge(path, docs) {
             vm.finished = false;
-            DocumentCollectionRestService.merge(path, docs).then(vm.restSuccessAndUpdate, vm.restError);
+            DocumentCollectionRestService.merge(path, docs).then(vm.restSuccess, vm.restError);
         }
         function categoryRemove(path, docs) {
             vm.finished = false;
