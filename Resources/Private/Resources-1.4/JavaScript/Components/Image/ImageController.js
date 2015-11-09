@@ -61,6 +61,9 @@
                 mainDirectoryName: false,
                 collections: false
             });
+            FilterConfiguration.setConfiguration({
+                categories: ['hPaths', 'hLocations', 'hCategories', 'parties', 'tags']
+            });
 
             hotkeys.bindTo($scope).add({
                 combo: 'ctrl',

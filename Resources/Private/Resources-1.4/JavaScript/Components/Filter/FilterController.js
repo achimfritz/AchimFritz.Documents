@@ -10,19 +10,10 @@
 
         var vm = this;
         vm.filters = {};
+        vm.configuration = {};
         vm.renameCategory = false;
         vm.renameCategoryFacet = '';
         vm.editType = '';
-
-        var configuration = {
-            image: {
-                categories: ['hPaths', 'hLocations', 'hCategories', 'parties', 'tags']
-            },
-            mp3: {
-                categories: ['hPaths'],
-                id3Tags: ['artist', 'album', 'genre', 'year']
-            }
-        };
 
         // used by the view
         vm.toggleFilter = toggleFilter;
@@ -34,12 +25,13 @@
         vm.initController();
 
         function initController() {
-             vm.filters = FilterConfiguration.getFilters();
+            vm.filters = FilterConfiguration.getFilters();
+            vm.configuration = FilterConfiguration.getConfiguration();
         }
 
-        function isEditable(namespace, editType, key) {
-            if (angular.isDefined(configuration[namespace][editType])) {
-                var config = configuration[namespace][editType];
+        function isEditable(editType, key) {
+            if (angular.isDefined(vm.configuration[editType])) {
+                var config = vm.configuration[editType];
                 if (config.indexOf(key) >= 0) {
                     return true;
                 }

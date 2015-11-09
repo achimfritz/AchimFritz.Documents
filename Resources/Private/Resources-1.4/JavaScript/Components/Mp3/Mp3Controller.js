@@ -58,6 +58,10 @@
                 fsArtist: false,
                 fsAlbum: false
             });
+            FilterConfiguration.setConfiguration({
+                categories: ['hPaths'],
+                id3Tags: ['artist', 'album', 'genre', 'year']
+            });
             SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
             SolrConfiguration.setHFacets({});
             SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
