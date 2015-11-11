@@ -27,6 +27,7 @@
                             url: docs[i]['webPath'],
                             doc: docs[i]
                         };
+                        //console.log(song);
                         angularPlayer.addTrack(song);
                     }
                 });

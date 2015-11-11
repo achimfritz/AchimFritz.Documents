@@ -2,8 +2,8 @@
 	<div data-ng-controller="Mp3Controller as mp3">
 		<div data-ng-controller="PlayerController as playerCtrl">
 			<div data-ng-controller="WidgetController as widget">
-				<div class="row">
-					<div class="col-md-3">
+				<div class="row text-center">
+					<div class="col-md-12">
 							<button class="btn btn-default" ng-click="mp3Ipad.addFacet('artist')" data-ng-if="mp3Ipad.facets.artist.selected === false">
 								Artist
 							</button>
@@ -14,7 +14,7 @@
 								Genre
 							</button>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-12">
 
 						<div data-ng-if="mp3Ipad.facets.artist.enabled">
 							<div data-ng-if="mp3Ipad.facets.artist.selected === false">

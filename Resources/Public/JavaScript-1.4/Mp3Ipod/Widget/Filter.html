@@ -1,0 +1,56 @@
+<div data-ng-if="mp3Ipod.facets.artist.enabled">
+	<div data-ng-if="mp3Ipod.facets.artist.selected === false">
+		<label>Artist</label>
+		<select chosen options="mp3Ipod.facets.artist.data"
+				data-ng-change="mp3Ipod.addFilterQuery('artist')"
+				data-ng-model="mp3Ipod.facets.artist.value"
+				data-ng-options="data.key as data.value for data in mp3Ipod.facets.artist.data">
+		</select>
+	</div>
+	<div data-ng-if="mp3Ipod.facets.artist.selected">
+		<label>Album</label>
+		<select chosen options="mp3Ipod.facets.album.data"
+				data-ng-change="mp3Ipod.addFilterQuery('album')"
+				data-ng-model="mp3Ipod.facets.album.value"
+				data-ng-options="data.key as data.value for data in mp3Ipod.facets.album.data">
+		</select>
+	</div>
+</div>
+
+<div data-ng-if="mp3Ipod.facets.album.enabled">
+	<label>Album</label>
+	<select chosen options="mp3Ipod.facets.album.data"
+			data-ng-change="mp3Ipod.addFilterQuery('album')"
+			data-ng-model="mp3Ipod.facets.album.value"
+			data-ng-options="data.key as data.value for data in mp3Ipod.facets.album.data">
+	</select>
+</div>
+
+<div data-ng-if="mp3Ipod.facets.genre.enabled">
+	<div data-ng-if="mp3Ipod.facets.genre.selected === false">
+		<label>Genre</label>
+		<select chosen options="mp3Ipod.facets.genre.data"
+				data-ng-change="mp3Ipod.addFilterQuery('genre')"
+				data-ng-model="mp3Ipod.facets.genre.value"
+				data-ng-options="data.key as data.value for data in mp3Ipod.facets.genre.data">
+		</select>
+	</div>
+	<div data-ng-if="mp3Ipod.facets.genre.selected === true">
+		<div data-ng-if="mp3Ipod.facets.artist.selected === false">
+			<label>Artist</label>
+			<select chosen options="mp3Ipod.facets.artist.data"
+					data-ng-change="mp3Ipod.addFilterQuery('artist')"
+					data-ng-model="mp3Ipod.facets.artist.value"
+					data-ng-options="data.key as data.value for data in mp3Ipod.facets.artist.data">
+			</select>
+		</div>
+		<div data-ng-if="mp3Ipod.facets.artist.selected">
+			<label>Album</label>
+			<select chosen options="mp3Ipod.facets.album.data"
+					data-ng-change="mp3Ipod.addFilterQuery('album')"
+					data-ng-model="mp3Ipod.facets.album.value"
+					data-ng-options="data.key as data.value for data in mp3Ipod.facets.album.data">
+			</select>
+		</div>
+	</div>
+</div>

@@ -2,13 +2,14 @@
 (function () {
     'use strict';
     angular
-        .module('achimfritz.mp3')
-        .controller('Mp3IpadController', Mp3IpadController);
+        .module('achimfritz.mp3ipod')
+        .controller('Mp3IpodController', Mp3IpodController);
 
     /* @ngInject */
-    function Mp3IpadController (Solr, $rootScope, SolrConfiguration) {
+    function Mp3IpodController (Solr, $rootScope, SolrConfiguration, WidgetConfiguration) {
 
         var vm = this;
+        //var $scope = $rootScope.$new();
         vm.facets = {
             artist: {},
             album: {},
@@ -26,8 +27,7 @@
         vm.initController();
 
         function initController() {
-            SolrConfiguration.setFacets([]);
-            SolrConfiguration.setHFacets({});
+            WidgetConfiguration.setNamespace('Mp3Ipod');
             SolrConfiguration.setParam('facet_limit', 9999999);
 
             SolrConfiguration.setFacets(['artist', 'album', 'genre']);
