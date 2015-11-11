@@ -32,3 +32,6 @@ mp3 ipad truthly
 rating filter
 
 mp3 bitrate
+
+facet sort asc/desc
++10 +100
