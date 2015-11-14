@@ -229,7 +229,7 @@ class CddbService {
 				$artist = trim(array_shift($arr));
 				$title = trim(implode(self::ARTIST_TITLE_DELIMITER, $arr));
 				if ($title === '') {
-					throw new Exception('title is empty for ' . $val, 1436793921);
+					throw new Exception('title is empty for ' . $val . ' ' . $document->getName(), 1436793921);
 				}
 				$this->id3TagWriterService->tagDocument($document, 'artist', $artist);
 				$this->id3TagWriterService->tagDocument($document, 'title', $title);
