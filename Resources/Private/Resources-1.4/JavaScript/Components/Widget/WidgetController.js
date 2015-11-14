@@ -68,5 +68,9 @@
             vm.openWidget(widget);
         });
 
+        $rootScope.$on('closeWidget', function (ev, widget) {
+            vm.closeWidget(widget);
+        });
+
     }
 })();

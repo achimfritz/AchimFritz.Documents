@@ -9,7 +9,6 @@
     function Mp3IpodController (Solr, $rootScope, SolrConfiguration, WidgetConfiguration) {
 
         var vm = this;
-        //var $scope = $rootScope.$new();
         vm.facets = {
             artist: {},
             album: {},
@@ -28,6 +27,14 @@
 
         function initController() {
             WidgetConfiguration.setNamespace('Mp3Ipod');
+            WidgetConfiguration.setWidgets({
+                currentFilter: true,
+                filter: false,
+                mainNav: true,
+                playerTable: false,
+                resultTable: false,
+                currentPlaying: false
+            });
             SolrConfiguration.setParam('facet_limit', 9999999);
 
             SolrConfiguration.setFacets(['artist', 'album', 'genre']);
@@ -41,6 +48,7 @@
         function addFacet(name) {
             vm.disableAllFacets();
             vm.facets[name]['enabled'] = true;
+            $rootScope.$emit('openWidget', 'filter');
         }
 
         function disableAllFacets() {
