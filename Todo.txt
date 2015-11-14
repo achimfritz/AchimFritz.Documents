@@ -4,7 +4,6 @@ mp2:
 
 rm /bilder/admin
 
-index mp3 track length
 
 update player
 autocomplete slow
@@ -35,3 +34,10 @@ mp3 bitrate
 
 facet sort asc/desc
 +10 +100
+
+index mp3 track length and bitrate
+image nav as widget
+search centered
+widget nav oben als checkbox
+bilder hoehe als referenz
+current filter in filter
