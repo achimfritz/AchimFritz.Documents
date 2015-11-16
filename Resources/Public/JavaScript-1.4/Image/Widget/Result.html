@@ -14,7 +14,7 @@
 				</label>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-5">
 			found {{document.data.response.numFound}} (displaying {{document.params.rows}})
 			<button class="btn btn-danger btn-xs" ng-click="document.showAllRows()" data-ng-if="document.data.response.numFound < 1000">show all results</button>
 			<button class="btn btn-default btn-xs" ng-click="document.changeRows(20)">more</button>
@@ -22,16 +22,16 @@
 			<button class="btn btn-default btn-xs" ng-click="image.changeImageSize(-20)">smaller</button>
 			<button class="btn btn-default btn-xs" ng-click="image.changeImageSize(20)">bigger</button>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<ng-include src="widget.getTemplate('Sort')"></ng-include>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 text-center">
 			<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
 			<div dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound" class="iso-item {{doc.selected}}"  data-ng-click="image.itemClick(doc)" >
-				<img width="{{image.imageWidth}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
+				<img height="{{image.imageHeight}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
 			</div>
 		</div>
 	</div>

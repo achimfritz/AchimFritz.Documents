@@ -13,7 +13,7 @@
         vm.templatePaths = {};
         vm.finished = true;
         vm.mode = 'view';
-        vm.imageWidth = 320;
+        vm.imageHeight = 240;
         vm.data = {};
         vm.strgPressed = false;
         vm.shiftPressed = false;
@@ -133,7 +133,7 @@
         }
 
         function changeImageSize(diff) {
-            vm.imageWidth += diff;
+            vm.imageHeight += diff;
         }
 
         function itemClick(doc) {
