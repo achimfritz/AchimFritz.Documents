@@ -4,10 +4,10 @@ found {{document.data.response.numFound}} (displaying {{document.params.rows}})
 <button class="btn btn-danger btn-xs" ng-click="document.showAllRows()" data-ng-if="document.data.response.numFound < 1000">show all results</button>
 <button class="btn btn-default btn-xs" ng-click="document.changeRows(10)">more</button>
 <button class="btn btn-default btn-xs" ng-click="document.changeRows(-10)">less</button>
-<button class="btn btn-success" data-ng-click="playerCtrl.playAll(document.data.response.docs)">
+<button class="btn btn-success btn-xs" data-ng-click="playerCtrl.playAll(document.data.response.docs)">
 	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play All
 </button>
-<button class="btn btn-success" data-ng-click="playerCtrl.addAll(document.data.response.docs)">
+<button class="btn btn-success btn-xs" data-ng-click="playerCtrl.addAll(document.data.response.docs)">
 	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>Add All
 </button>
 

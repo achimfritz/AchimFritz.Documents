@@ -37,22 +37,21 @@
 
 
             WidgetConfiguration.setWidgets({
-                filter: true,
-                docs: true,
-                letterNav: false,
-                filterNav: false,
-                filterNavSelect: false,
+                result: true,
+                filter: false,
                 integrity: false,
-                lists: false
+                lists: false,
+                player: false
             });
+
             FilterConfiguration.setFilters({
-                artist: false,
+                artist: true,
+                genre: true,
+                fsProvider: true,
+                fsGenre: true,
                 album: false,
-                genre: false,
                 artistLetter: false,
                 year: false,
-                fsProvider: false,
-                fsGenre: false,
                 hPaths: false,
                 fsArtist: false,
                 fsAlbum: false
@@ -100,6 +99,13 @@
         function setPlayListForm(val) {
             vm.playListForm = val;
         }
+
+        $rootScope.$on('player:playlist', function(event, playlist){
+            if (playlist.length === 0) {
+                $rootScope.$emit('closeWidget', 'player');
+                $rootScope.$emit('openWidget', 'result');
+            }
+        });
 
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.zip.name = '';

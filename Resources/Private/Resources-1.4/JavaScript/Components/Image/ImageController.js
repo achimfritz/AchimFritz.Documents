@@ -43,17 +43,15 @@
             SolrConfiguration.setSetting('servlet', 'image');
             WidgetConfiguration.setNamespace('Image');
             WidgetConfiguration.setWidgets({
-                docs: true,
-                filter: true,
+                result: true,
+                filter: false,
                 solrIntegrity: false,
-                filterNav: false,
-                filterNavSelect: false,
                 clipboard: false,
                 integrity: false
             });
             FilterConfiguration.setFilters({
-                hCategories: false,
-                hLocations: false,
+                hCategories: true,
+                hLocations: true,
                 hPaths: false,
                 year: false,
                 tags: false,

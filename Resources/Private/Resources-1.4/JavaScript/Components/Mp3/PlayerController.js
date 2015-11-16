@@ -6,7 +6,7 @@
         .controller('PlayerController', PlayerController);
 
     /* @ngInject */
-    function PlayerController (angularPlayer, $timeout) {
+    function PlayerController (angularPlayer, $timeout, $rootScope) {
 
         var vm = this;
 
@@ -33,6 +33,8 @@
                 });
                 //play first song
                 angularPlayer.play();
+                $rootScope.$emit('openWidget', 'player');
+                $rootScope.$emit('closeWidget', 'result');
             });
         }
 
@@ -47,6 +49,7 @@
                     };
                     angularPlayer.addTrack(song);
                 }
+                $rootScope.$emit('openWidget', 'player');
             });
         }
 

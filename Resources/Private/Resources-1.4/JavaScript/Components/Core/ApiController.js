@@ -119,15 +119,31 @@
 
         function categoryUpdate(renameCategory, facetName) {
             vm.finished = false;
-            CategoryRestService.update(renameCategory).then(
-                function(data) {
-                    Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
-                    Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
-                    vm.restSuccessAndUpdate(data);
+            if (Solr.isHFacet(facetName) === true) {
+                CategoryRestService.update(renameCategory).then(
+                    function(data) {
+                        Solr.rmFilterQuery(facetName, PathService.prependLevel(renameCategory.oldPath));
+                        Solr.addFilterQuery(facetName, PathService.prependLevel(renameCategory.newPath));
+                        vm.restSuccessAndUpdate(data);
 
-                },
-                vm.restError
-            );
+                    },
+                    vm.restError
+                );
+            } else {
+                var rename = {
+                    oldPath: facetName + PathService.delimiter + renameCategory.oldPath,
+                    newPath: facetName + PathService.delimiter + renameCategory.newPath
+                };
+                CategoryRestService.update(rename).then(
+                    function(data) {
+                        Solr.rmFilterQuery(facetName, renameCategory.oldPath);
+                        Solr.addFilterQuery(facetName, renameCategory.newPath);
+                        vm.restSuccessAndUpdate(data);
+
+                    },
+                    vm.restError
+                );
+            }
         }
 
         function id3TagUpdate(renameCategory, facetName) {

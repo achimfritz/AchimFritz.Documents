@@ -12,15 +12,33 @@
 						<spinner></spinner>
 					</div>
 
-					<ng-include src="widget.getTemplate('Nav')"></ng-include>
-					<ng-include src="widget.getTemplate('Widget')"></ng-include>
-					<ng-include src="widget.getTemplate('Filter')"></ng-include>
-					<ng-include src="widget.getTemplate('FilterNavSelect')"></ng-include>
+					<div class="row">
+						<ng-include src="widget.getTemplate('Search')"></ng-include>
+						<ng-include src="widget.getTemplate('Widget')"></ng-include>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<ng-include src="widget.getTemplate('CurrentFilter')"></ng-include>
+						</div>
+					</div>
+					<div class="row top10" data-ng-if="filterCtrl.renameCategory">
+						<ng-include src="widget.getTemplate('RenameCategory')"></ng-include>
+					</div>
+
+					<div class="row top2" data-ng-if="widget.widgets.filter">
+						<div class="col-md-12">
+							<ng-include src="widget.getTemplate('Filter')"></ng-include>
+						</div>
+					</div>
+
+
 					<ng-include src="widget.getTemplate('SolrIntegrity')"></ng-include>
 					<ng-include src="widget.getTemplate('Integrity')"></ng-include>
 					<ng-include src="widget.getTemplate('FilterNav')"></ng-include>
 					<ng-include src="widget.getTemplate('Clipboard')"></ng-include>
-					<ng-include src="widget.getTemplate('Docs')"></ng-include>
+
+					<ng-include src="widget.getTemplate('Result')"></ng-include>
 				</div>
 			</div>
 		</div>

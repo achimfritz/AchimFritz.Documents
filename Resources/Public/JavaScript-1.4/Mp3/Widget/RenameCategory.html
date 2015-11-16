@@ -1,0 +1,18 @@
+	<div class="form-group">
+		<div class="col-md-2">
+			<span data-ng-if="filterCtrl.editType === 'category'">rename</span>
+			<span data-ng-if="filterCtrl.editType === 'id3Tag'">rename {{filterCtrl.renameCategoryFacet}} to</span>
+			{{filterCtrl.renameCategory.oldPath}}
+		</div>
+		<div class="col-md-3">
+			<input class="form-control" id="category" type="text" data-ng-model="filterCtrl.renameCategory.newPath" data-autocomplete data-global="1" />
+		</div>
+		<div class="col-md-2">
+			<input class="form-control btn btn-danger" data-ng-if="filterCtrl.editType === 'category'" type="submit" data-ng-click="api.categoryUpdate(filterCtrl.renameCategory, filterCtrl.renameCategoryFacet)" value="Rename" />
+			<input class="form-control btn btn-danger" data-ng-if="filterCtrl.editType === 'id3Tag'" type="submit" data-ng-click="api.id3TagUpdate(filterCtrl.renameCategory, filterCtrl.renameCategoryFacet)" value="Rename" />
+		</div>
+		<div class="col-md-2">
+			<button class="form-control btn btn-default" type="button" data-ng-click="filterCtrl.renameCategory = null" >Cancel</button>
+		</div>
+	</div>
+</div>

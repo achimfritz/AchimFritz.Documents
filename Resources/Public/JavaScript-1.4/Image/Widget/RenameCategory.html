@@ -1,0 +1,16 @@
+	<div class="form-group">
+		<div class="col-md-2">
+			<span">rename</span>
+			{{filterCtrl.renameCategory.oldPath}}
+		</div>
+		<div class="col-md-3">
+			<input class="form-control" id="category" type="text" data-ng-model="filterCtrl.renameCategory.newPath" data-autocomplete data-global="1" />
+		</div>
+		<div class="col-md-2">
+			<input class="form-control btn btn-danger" type="submit" data-ng-click="api.categoryUpdate(filterCtrl.renameCategory, filterCtrl.renameCategoryFacet)" value="Rename" />
+		</div>
+		<div class="col-md-2">
+			<button class="form-control btn btn-default" type="button" data-ng-click="filterCtrl.renameCategory = null" >Cancel</button>
+		</div>
+	</div>
+</div>
