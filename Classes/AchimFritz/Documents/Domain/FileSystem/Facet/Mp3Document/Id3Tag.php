@@ -19,6 +19,11 @@ class Id3Tag {
 	protected $length = 0;
 
 	/**
+	 * @var integer
+	 */
+	protected $bitrate = 0;
+
+	/**
 	 * @var string
 	 */
 	protected $artist = '';
@@ -47,7 +52,6 @@ class Id3Tag {
 	 * @var integer
 	 */
 	protected $genreId = 0;
-
 
 	/**
 	 * @var integer
@@ -181,5 +185,18 @@ class Id3Tag {
 		$this->length = $length;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getBitrate() {
+		return $this->bitrate;
+	}
+
+	/**
+	 * @param int $bitrate
+	 */
+	public function setBitrate($bitrate) {
+		$this->bitrate = $bitrate;
+	}
 
 }

@@ -98,6 +98,8 @@ class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandCont
 				$this->outputLine('id3Year: ' . $id3Tag->getYear());
 				$this->outputLine('id3Genre: ' . $id3Tag->getGenre());
 				$this->outputLine('id3GenreId: ' . $id3Tag->getGenreId());
+				$this->outputLine('id3Length: ' . $id3Tag->getLength());
+				$this->outputLine('id3Bitrate: ' . $id3Tag->getBitrate());
 				$this->outputLine('artistLetter: ' . $id3Tag->getArtistLetter());
 			} catch (\AchimFritz\Documents\Linux\Exception $e) {
 				$this->outputLine('ERROR cannot create id3Tag: ' . $e->getMessage() . ' - ' . $e->getCode());

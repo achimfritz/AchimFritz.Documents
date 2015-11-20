@@ -148,7 +148,8 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('year', $id3Tag->getYear());
 			$inputDocument->addField('genre', $id3Tag->getGenre());
 			$inputDocument->addField('genreId', $id3Tag->getGenreId());
-         $inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
+			$inputDocument->addField('bitrate', $id3Tag->getBitrate());
+			$inputDocument->addField('artistLetter', $id3Tag->getArtistLetter());
 			// ratings already added to field paths 
 			$paths = array(
 				'artist/' . $id3Tag->getArtist(),

@@ -34,54 +34,43 @@ class Id3TagFactory {
 			$assoc = explode(':', $line);
 			if (count($assoc) > 1) {
 				$key = trim(array_shift($assoc));
-				$val = trim(implode(':', $assoc));
 				switch ($key) {
-					case 'Album':
-						$id3Tag->setAlbum($val);
+					case 'Time':
+						#Time: 05:02     MPEG1, Layer III        [ 160 kb/s @ 44100 Hz - Stereo ]
+						$min = trim($assoc[0]);
+						$sec  = substr($assoc[1], 0 ,2);
+						$bitrate = (int)preg_replace('/.*\[ (.*) kb.*/' , '$1', $line);
+						$length = 60 * (int)$min + (int)$sec;
+						$id3Tag->setLength($length);
+						$id3Tag->setBitrate($bitrate);
 						break;
-					case 'Genre':
-						$arr = explode('(', $val);
-						$id3Tag->setGenre(trim($arr[0]));
-						if (count($arr) === 2) {
-							$id3Tag->setGenreId((int)str_replace(')', '', $arr[1]));
+					case 'title':
+						#title: foo title        artist: ACDC
+						$arr = explode('artist:', implode(':', $assoc));
+						$id3Tag->setArtist(trim($arr[1]));
+						$id3Tag->setTitle(trim($arr[0]));
+						break;
+					case 'album':
+						#album: High Voltage             year: 1976
+						$arr = explode('year:', implode(':', $assoc));
+						$id3Tag->setAlbum(trim($arr[0]));
+						$id3Tag->setYear((int)trim($arr[1]));
+						break;
+					case 'track':
+						#track: 1                genre: Rock (id 17)
+						$arr = explode('genre:', implode(':', $assoc));
+						$id3Tag->setTrack((int)trim($arr[0]));
+						if (count($arr) > 1) {
+							$genre = explode('(id', trim($arr[1]));
+							$id3Tag->setGenre(trim($genre[0]));
+							if (count($genre) === 2) {
+								$id3Tag->setGenreId((int)str_replace(')', '', $genre[1]));
+							}
 						}
-						break;
-					case 'Track':
-						$id3Tag->setTrack((int)$val);
-						break;
-					case 'Year':
-						$id3Tag->setYear((int)$val);
-						break;
-					case 'Artist':
-						$id3Tag->setArtist($val);
-						break;
-					case 'Title':
-						$id3Tag->setTitle($val);
 						break;
 					default:
 						break;
 				}
-			}
-		}
-		// TODO !!!
-		#$id3Tag = $this->setLength($id3Tag, $file);
-		return $id3Tag;
-	}
-
-	/**
-	 * @param Id3Tag $id3Tag
-	 * @param $file
-	 * @return Id3Tag
-	 * @throws \AchimFritz\Documents\Linux\Exception
-	 */
-	protected function setLength(Id3Tag $id3Tag, $file) {
-		$res = $this->linuxCommand->readId3Tags($file, TRUE);
-		if (count($res) > 0) {
-			try {
-				$xml = new \SimpleXMLElement(implode('', $res));
-				$id3Tag->setLength((int)$xml->length);
-			} catch (\Exception $e) {
-				throw new \AchimFritz\Documents\Linux\Exception('cannot create SimpleXMLElement on ' . $file, 1440599809);
 			}
 		}
 		return $id3Tag;
