@@ -31,8 +31,8 @@ DGENRE=Soundtrack';
 		$documentRepository->expects($this->once())->method('findByHead')->will($this->returnValue(array($document)));
 		$document->expects($this->any())->method('getFsTrack')->will($this->returnValue(2));
 
-		$cddbService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService', array('getFileContent', 'tagByFormat'));
-		$cddbService->expects($this->once())->method('getFileContent')->will($this->returnValue($this->validContent));
+		$cddbService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService', array('getCddbContent', 'tagByFormat'));
+		$cddbService->expects($this->once())->method('getCddbContent')->will($this->returnValue($this->validContent));
 		$cddbService->expects($this->once())->method('tagByFormat')->with($document, Cddb::TITLE_FORMAT, 'John Travolta / Royale With = Cheese');
 
 		$this->inject($cddbService, 'documentRepository', $documentRepository);
@@ -48,17 +48,16 @@ DGENRE=Soundtrack';
 	 * @test
 	 * @expectedException \AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\Exception
 	 */
-	public function writeId3TagsThrowsExceptionIfCountDiffer() {
+	public function writeId3TagsThrowsExceptionIfNoDocumentsFound() {
 		$documentRepository = $this->getMock('AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository', array('findByHead'));
 		$documentRepository->expects($this->once())->method('findByHead')->will($this->returnValue(array()));
 
-		$cddbService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService', array('getCddbContent', 'tagByFormat'));
-		$cddbService->expects($this->once())->method('getCddbContent')->will($this->returnValue('TTITLE1=John Travolta / Royale With = Cheese' . "\n"));
+		$cddbService = $this->getMock('AchimFritz\Documents\Domain\FileSystem\Service\Mp3Document\CddbService', array('foo'));
 
 		$this->inject($cddbService, 'documentRepository', $documentRepository);
 
 		$cddb = new Cddb();
-		$cddb->setPath('foo');
+		$cddb->setPath('bar');
 		$cddbService->writeId3Tags($cddb);
 	}
 
