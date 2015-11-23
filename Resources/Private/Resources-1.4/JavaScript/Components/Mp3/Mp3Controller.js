@@ -39,6 +39,7 @@
             WidgetConfiguration.setWidgets({
                 result: true,
                 filter: false,
+                ratingFilter: false,
                 integrity: false,
                 lists: false,
                 player: false
