@@ -1,13 +1,4 @@
-mp2:
-- year facet
-- "accordeon"
-
 rm /bilder/admin
-
-
-update player
-autocomplete slow
-
 
 Domain/Model/Exception weg
 TvRecording -> Package
@@ -26,18 +17,7 @@ use api consistencly
 usability / start page / applications
 lucky mode
 
-sort / bilder sort
-mp3 ipad truthly
-rating filter
+bilder: allFilter month day
 
-mp3 bitrate
-
-facet sort asc/desc
-+10 +100
-
-index mp3 track length and bitrate
-image nav as widget
-search centered
-widget nav oben als checkbox
-bilder hoehe als referenz
-current filter in filter
+mp3 ipad
+rm Resources

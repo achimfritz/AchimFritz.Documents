@@ -34,7 +34,7 @@
 
             AppConfiguration.setNamespace('image');
 
-            SolrConfiguration.setFacets(['hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
+            SolrConfiguration.setFacets(['pathParts', 'day', 'month', 'hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
             SolrConfiguration.setHFacets({
                 hPaths: '0',
                 hCategories: '1/categories',
@@ -50,10 +50,13 @@
                 integrity: false
             });
             FilterConfiguration.setFilters({
-                hCategories: true,
-                hLocations: true,
+                pathParts: true,
+                hCategories: false,
+                hLocations: false,
                 hPaths: false,
-                year: false,
+                year: true,
+                month: false,
+                day: false,
                 tags: false,
                 parties: false,
                 mainDirectoryName: false,

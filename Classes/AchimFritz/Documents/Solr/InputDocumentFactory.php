@@ -114,6 +114,10 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 						$inputDocument->addField('h' . ucfirst($paths[0]), $hPath);
 					}
 				}
+				array_shift($paths);
+				foreach ($paths as $path) {
+					$inputDocument->addField('pathParts', $path);
+				}
 			}
 		}
 		return $inputDocument;
