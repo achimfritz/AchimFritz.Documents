@@ -6,7 +6,7 @@
         .controller('Mp3IpodFilterController', Mp3IpodFilterController);
 
     /* @ngInject */
-    function Mp3IpodFilterController (Solr, $location, $routeParams, SolrConfiguration) {
+    function Mp3IpodFilterController (Solr, $location, $routeParams, Mp3IpodSolrService) {
 
         var vm = this;
         vm.result = {};
@@ -23,15 +23,11 @@
 
         function initController() {
             vm.filter = $routeParams.filter;
-            SolrConfiguration.setParam('facet_limit', 9999999);
 
-            SolrConfiguration.setFacets([vm.filter]);
-            SolrConfiguration.setHFacets({});
-            SolrConfiguration.setSetting('servlet', 'mp3');
+            Mp3IpodSolrService.initialize();
 
-            Solr.init();
-            Solr.resetFilterQueries();
-            Solr.forceRequest().then(function (response) {
+            Mp3IpodSolrService.request('all', 'all', 'all').then(function (response) {
+                console.log(response.data.facet_counts.facet_fields);
                 vm.result.data = Solr.facetsToKeyValue(response.data.facet_counts.facet_fields[vm.filter]);
             });
         }
