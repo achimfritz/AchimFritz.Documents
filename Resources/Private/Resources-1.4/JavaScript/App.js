@@ -77,6 +77,48 @@
                 }
             },
             {
+                path: CONFIG.baseUrl + '/mp3ipod/filter/:filter',
+                components: {
+                    main: 'mp3IpodFilter'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/subfilter/:filter/:filterValue/:subFilter',
+                components: {
+                    main: 'mp3IpodSubFilter'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/result/:filter/:filterValue/:subFilter/:subFilterValue',
+                components: {
+                    main: 'mp3IpodResult'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/player/:filter/:filterValue/:subFilter/:subFilterValue',
+                components: {
+                    main: 'mp3IpodPlayer'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:filter/:filterValue/:subFilter/:subFilterValue',
+                components: {
+                    main: 'mp3IpodCurrentPlaying'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/playlist/:filter/:filterValue/:subFilter/:subFilterValue',
+                components: {
+                    main: 'mp3IpodPlaylist'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/start',
+                components: {
+                    main: 'mp3IpodStart'
+                }
+            },
+            {
                 path: CONFIG.baseUrl + '/imagelist',
                 components: {
                     main: 'imageList'
@@ -106,6 +148,13 @@
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
                 'mp3Ipod': CONFIG.templatePath + 'Mp3Ipod/Mp3Ipod.html',
+                'mp3IpodFilter': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodFilter.html',
+                'mp3IpodCurrentPlaying': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodCurrentPlaying.html',
+                'mp3IpodPlaylist': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodPlaylist.html',
+                'mp3IpodSubFilter': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodSubFilter.html',
+                'mp3IpodResult': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodResult.html',
+                'mp3IpodPlayer': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodPlayer.html',
+                'mp3IpodStart': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodStart.html',
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
                 'imageList': CONFIG.templatePath + 'Image/ImageList.html',
                 'image': CONFIG.templatePath + 'Image/Image.html'

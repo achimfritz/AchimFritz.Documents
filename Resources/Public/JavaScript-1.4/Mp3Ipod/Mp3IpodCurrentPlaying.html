@@ -1,0 +1,48 @@
+
+
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodCurrentPlaying.back()">&lt; back</button>
+		<strong> {{ mp3IpodCurrentPlaying.filterValue }} {{ mp3IpodCurrentPlaying.subFilterValue }}</strong>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodCurrentPlaying.toPlaylist()">&gt; playlist</button>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<button play-music class="btn btn-default btn-xs"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+		<button pause-music class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
+		<button stop-music class="btn btn-default btn-xs"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+		<button prev-track class="btn btn-default btn-xs"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></button>
+		<button next-track class="btn btn-default btn-xs"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+		<button ng-show="repeat == false" repeat-music class="btn btn-default btn-xs"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+		<button ng-show="repeat == true" repeat-music class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+		<button clear-playlist class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+		Volume: {{ volume }}
+		<button music-volume data-type="increase" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
+		<button music-volume data-type="decrease" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-volume-down" aria-hidden="true"></span></button>
+		<button ng-show="mute== false" mute-music class="btn btn-default btn-xs"><span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span></button>
+		<button ng-show="mute== true" mute-music class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span></button>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p ng-show="currentPlaying.doc.artist">{{mp3IpodCurrentPlaying.song.doc.artist}}</p>
+		<p ng-hide="currentPlaying.doc.artist">{{mp3IpodCurrentPlaying.song.doc.fsArtist}}</p>
+		<p ng-show="currentPlaying.doc.album">{{mp3IpodCurrentPlaying.song.doc.album}}</p>
+		<p ng-hide="currentPlaying.doc.album">{{mp3IpodCurrentPlaying.song.doc.fsAlbum}}</p>
+		<p ng-show="currentPlaying.doc.title">
+			{{mp3IpodCurrentPlaying.song.doc.title}}
+		</p>
+		<p ng-hide="currentPlaying.doc.title">
+			{{mp3IpodCurrentPlaying.song.doc.fsTitle}}
+		</p>
+		<p>{{ mp3IpodCurrentPlaying.currentPostion }} / {{ mp3IpodCurrentPlaying.song.doc.length }}</p>
+	</div>
+</div>

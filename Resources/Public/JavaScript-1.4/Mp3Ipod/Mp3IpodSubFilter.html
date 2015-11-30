@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodSubFilter.back()">&lt; back</button>
+		<strong>{{ mp3IpodSubFilter.filterValue }}</strong> Select {{ mp3IpodSubFilter.subFilter }}
+	</div>
+</div>
+
+<div class="row ">
+	<div class="col-md-12">
+		<select data-ng-if="mp3IpodSubFilter.result.data"
+				chosen options="mp3IpodSubFilter.result.data"
+				data-ng-change="mp3IpodSubFilter.addFilterQuery()"
+				data-ng-model="mp3IpodSubFilter.result.value"
+				data-ng-options="data.key as data.value for data in mp3IpodSubFilter.result.data">
+		</select>
+	</div>
+</div>
+
+
+

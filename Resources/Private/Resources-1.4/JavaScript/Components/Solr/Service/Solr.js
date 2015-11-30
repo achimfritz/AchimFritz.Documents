@@ -91,7 +91,7 @@
         }
 
         function resetFilterQueries() {
-            filterQueries = [];
+            filterQueries = {};
         }
 
         function isHFacet(name) {

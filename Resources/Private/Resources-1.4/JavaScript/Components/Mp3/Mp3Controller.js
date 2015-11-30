@@ -25,6 +25,7 @@
         vm.showInfoDoc = showInfoDoc;
         vm.hideInfoDoc = hideInfoDoc;
         vm.setPlayListForm = setPlayListForm;
+        vm.togglePlayer = togglePlayer;
 
         // not used by the view
         vm.initController = initController;
@@ -103,9 +104,25 @@
 
         $rootScope.$on('player:playlist', function(event, playlist){
             if (playlist.length === 0) {
+                vm.togglePlayer(false);
+            }
+        });
+
+        function togglePlayer(enable) {
+            if (enable === true) {
+                $rootScope.$emit('openWidget', 'player');
+                $rootScope.$emit('closeWidget', 'result');
+            } else {
                 $rootScope.$emit('closeWidget', 'player');
                 $rootScope.$emit('openWidget', 'result');
             }
+        }
+
+
+
+
+        $rootScope.$on('music:isPlaying', function(event, isPlaying){
+            vm.togglePlayer(true);
         });
 
         $rootScope.$on('solrDataUpdate', function (event, data) {

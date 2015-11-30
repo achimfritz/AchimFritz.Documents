@@ -1,0 +1,47 @@
+
+
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.back()">&lt; back</button>
+		<strong> {{ mp3IpodResult.filterValue }} {{ mp3IpodResult.subFilterValue }}</strong>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.playAll()">
+			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>&nbsp; play
+		</button>
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.addAll()">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; add
+		</button>
+		<button class="btn btn-default btn-xs" data-ng-if="mp3IpodResult.isPlaying" data-ng-click="mp3IpodResult.toCurrentPlaying()">&gt; current Playing</button>
+		<button class="btn btn-default btn-xs" data-ng-if="mp3IpodResult.playlist.length" data-ng-click="mp3IpodResult.toPlaylist()">&gt; playlist</button>
+	</div>
+</div>
+
+<div class="row text-left">
+	<div class="col-md-12">
+		<table class="table table-striped small-table">
+			<tr data-ng-repeat="doc in mp3IpodResult.docs">
+				<td>
+					<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.playOne(doc)">
+						<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
+					</button>
+					<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.addOne(doc)">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</td>
+				<td>
+					<span ng-show="doc.track" >{{("00" + doc.track).substr(-2, 2)}}</span>
+					<span ng-hide="doc.track" >{{("00" + doc.fsTrack).substr(-2, 2)}}</span>
+					<span ng-show="doc.title" >{{doc.title.substr(0, 30)}}</span>
+					<span ng-hide="doc.title" >{{doc.fsTitle.substr(0, 30)}}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+

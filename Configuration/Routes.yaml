@@ -9,15 +9,47 @@
 
 -
   name: 'app'
-  uriPattern: 'app'
-  defaults:
-    '@package': 'AchimFritz.Documents'
-    '@action': 'index'
-    '@controller': 'App14'
-
--
-  name: 'app action'
   uriPattern: 'app/{@action}'
   defaults:
     '@package': 'AchimFritz.Documents'
     '@controller': 'App14'
+
+-
+  name: 'app sub'
+  uriPattern: 'app/{action}/{sub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'
+
+-
+  name: 'app sub sub'
+  uriPattern: 'app/{action}/{sub}/{subsub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'
+
+-
+  name: 'app sub sub sub'
+  uriPattern: 'app/{action}/{sub}/{subsub}/{subsubsub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'
+
+-
+  name: 'app sub sub sub sub'
+  uriPattern: 'app/{action}/{sub}/{subsub}/{subsubsub}/{subsubsubsub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'
+
+-
+  name: 'app sub sub sub'
+  uriPattern: 'app/{action}/{sub}/{subsub}/{subsubsub}/{subsubsubsub}/{subsubsubsubsub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'

@@ -17,19 +17,14 @@
 						<ng-include src="widget.getTemplate('Filter')"></ng-include>
 					</div>
 				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.resultTable">
+				<div class="row text-center" data-ng-if="widget.widgets.result">
 					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('ResultTable')"></ng-include>
+						<ng-include src="widget.getTemplate('Result')"></ng-include>
 					</div>
 				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.playerTable">
+				<div class="row text-center" data-ng-if="widget.widgets.player">
 					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('PlayerTable')"></ng-include>
-					</div>
-				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.currentPlaying">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('CurrentPlaying')"></ng-include>
+						<ng-include src="widget.getTemplate('Player')"></ng-include>
 					</div>
 				</div>
 			</div>

@@ -6,7 +6,7 @@
         .controller('PlayerController', PlayerController);
 
     /* @ngInject */
-    function PlayerController (angularPlayer, $timeout, $rootScope) {
+    function PlayerController (Mp3PlayerService) {
 
         var vm = this;
 
@@ -17,67 +17,19 @@
         vm.getPlaylistDocs = getPlaylistDocs;
 
         function playAll(docs) {
-            $timeout(function () {
-                angularPlayer.clearPlaylist(function (data) {
-                    //add songs to playlist
-                    for (var i = 0; i < docs.length; i++) {
-                        var song = {
-                            id: docs[i]['identifier'],
-                            title: docs[i]['title'],
-                            url: docs[i]['webPath'],
-                            doc: docs[i]
-                        };
-                        //console.log(song);
-                        angularPlayer.addTrack(song);
-                    }
-                });
-                //play first song
-                angularPlayer.play();
-                $rootScope.$emit('openWidget', 'player');
-                $rootScope.$emit('closeWidget', 'result');
-            });
+            Mp3PlayerService.playAll(docs);
         }
 
         function addAll(docs) {
-            $timeout(function () {
-                for (var i = 0; i < docs.length; i++) {
-                    var song = {
-                        id: docs[i]['identifier'],
-                        title: docs[i]['title'],
-                        url: docs[i]['webPath'],
-                        doc: docs[i]
-                    };
-                    angularPlayer.addTrack(song);
-                }
-                $rootScope.$emit('openWidget', 'player');
-            });
+            Mp3PlayerService.addAll(docs);
         }
 
         function playAllDocumentList(documentListItems) {
-            //console.log(documentListItems);
-            $timeout(function () {
-                angularPlayer.clearPlaylist(function (data) {
-                    //add songs to playlist
-                    for (var i = 0; i < documentListItems.length; i++) {
-                        var song = {
-                            id: documentListItems[i]['document']['__identity'],
-                            title: documentListItems[i]['document']['absolutePath'],
-                            url: '/' + documentListItems[i]['document']['webPath']
-                        };
-                        angularPlayer.addTrack(song);
-                    }
-                    angularPlayer.play();
-                });
-            });
+            Mp3PlayerService.playAllDocumentList(documentListItems);
         }
 
         function getPlaylistDocs() {
-            var docs = [];
-            var playlist = angularPlayer.getPlaylist();
-            angular.forEach(playlist, function (val, key) {
-                docs.push(val.doc);
-            });
-            return docs;
+            return Mp3PlayerService.getPlaylistDocs();
         }
 
     }

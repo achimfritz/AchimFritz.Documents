@@ -18,6 +18,7 @@
         // used by the view
         vm.addFacet = addFacet;
         vm.addFilterQuery = addFilterQuery;
+        vm.togglePlayer = togglePlayer;
 
         // not used by the view
         vm.disableAllFacets = disableAllFacets;
@@ -31,9 +32,8 @@
                 currentFilter: true,
                 filter: false,
                 mainNav: true,
-                playerTable: false,
-                resultTable: false,
-                currentPlaying: false
+                player: false,
+                result: false
             });
             SolrConfiguration.setParam('facet_limit', 9999999);
 
@@ -66,11 +66,36 @@
             });
         }
 
+        function togglePlayer(enable) {
+            if (enable === true) {
+                $rootScope.$emit('openWidget', 'player');
+                $rootScope.$emit('closeWidget', 'result');
+                $rootScope.$emit('closeWidget', 'currentFilter');
+                $rootScope.$emit('closeWidget', 'filter');
+            } else {
+                $rootScope.$emit('closeWidget', 'player');
+                $rootScope.$emit('openWidget', 'result');
+                $rootScope.$emit('openWidget', 'currentFilter');
+                $rootScope.$emit('openWidget', 'filter');
+            }
+        }
+
+        $rootScope.$on('player:playlist', function(event, playlist){
+            if (playlist.length === 0) {
+                vm.togglePlayer(false);
+            }
+        });
+
+        $rootScope.$on('music:isPlaying', function(event, isPlaying){
+            vm.togglePlayer(true);
+        });
+
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.facets.artist.data = Solr.facetsToKeyValue(data.facet_counts.facet_fields.artist);
             vm.facets.album.data = Solr.facetsToKeyValue(data.facet_counts.facet_fields.album);
             vm.facets.genre.data = Solr.facetsToKeyValue(data.facet_counts.facet_fields.genre);
             var filterQueries = Solr.getFilterQueries();
+
             if (angular.isDefined(filterQueries['artist']) && filterQueries.artist.length > 0) {
                 vm.facets.artist.selected = true;
             } else {
@@ -81,6 +106,18 @@
             } else {
                 vm.facets.genre.selected = false;
             }
+
+            if ((angular.isDefined(filterQueries['artist']) && filterQueries.artist.length > 0) ||
+                (angular.isDefined(filterQueries['genre']) && filterQueries.genre.length > 0) ||
+                (angular.isDefined(filterQueries['album']) && filterQueries.album.length > 0)
+            ){
+                $rootScope.$emit('closeWidget', 'mainNav');
+                $rootScope.$emit('openWidget', 'result');
+            } else {
+                $rootScope.$emit('openWidget', 'mainNav');
+                $rootScope.$emit('closeWidget', 'result');
+            }
+
         });
 
     }
