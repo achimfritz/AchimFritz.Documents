@@ -6,15 +6,14 @@
         .controller('Mp3IpodResultController', Mp3IpodResultController);
 
     /* @ngInject */
-    function Mp3IpodResultController (Solr, $location, $routeParams, Mp3IpodSolrService, SolrConfiguration, angularPlayer, $timeout, Mp3PlayerService, $rootScope) {
+    function Mp3IpodResultController ($location, $routeParams, Mp3IpodSolrService, angularPlayer, $timeout, Mp3PlayerService, $rootScope) {
 
         var vm = this;
         var $scope = $rootScope.$new();
         vm.docs = {};
-        vm.filter = '';
-        vm.subFilter = '';
-        vm.filterValue = '';
-        vm.subFilterValue = '';
+        vm.genre = '';
+        vm.artist = '';
+        vm.album = '';
 
         // used by the view
         vm.back = back;
@@ -34,41 +33,14 @@
         vm.initController();
 
         function initController() {
-            vm.filter = $routeParams.filter;
-            vm.subFilter = $routeParams.subFilter;
-            vm.filterValue = $routeParams.filterValue;
-            vm.subFilterValue = $routeParams.subFilterValue;
-
-/*
-            Mp3IpodSolrService.initialize();
-
-            Mp3IpodSolrService.request('all', 'all', 'all').then(function (response) {
-                console.log(response.data.facet_counts.facet_fields);
-                vm.result.data = Solr.facetsToKeyValue(response.data.facet_counts.facet_fields[vm.filter]);
-            });
-*/
-
-            SolrConfiguration.setParam('facet_limit', 0);
-
-            SolrConfiguration.setFacets([]);
-            SolrConfiguration.setHFacets({});
-            SolrConfiguration.setSetting('servlet', 'mp3');
-            Solr.init();
-
-            Solr.resetFilterQueries();
-            Solr.setParam('rows', 500);
-            Solr.addFilterQuery(vm.filter, vm.filterValue);
-            if (vm.subFilter !== 'all') {
-                Solr.addFilterQuery(vm.subFilter, vm.subFilterValue);
-            }
-
+            vm.genre = $routeParams.genre;
+            vm.artist = $routeParams.artist;
+            vm.album = $routeParams.album;
             Mp3PlayerService.initialize();
-
-            Solr.forceRequest().then(function (response) {
+            Mp3IpodSolrService.initialize();
+            Mp3IpodSolrService.request(vm.genre, vm.artist, vm.album).then(function (response) {
                 vm.docs = response.data.response.docs;
             });
-
-
 
             vm.playlist = angularPlayer.getPlaylist(); //on load
             vm.isPlaying = angularPlayer.isPlayingStatus();
@@ -76,31 +48,13 @@
 
         function back() {
             $scope.$destroy();
-            if (vm.filter === 'album') {
-                $location.path('app/mp3ipod/filter/album');
-            } else {
-                $location.path('app/mp3ipod/subfilter/' + vm.filter + '/' + vm.filterValue + '/' + vm.subFilter);
-            }
+            $location.path('app/mp3ipod/album/' + vm.genre + '/' + vm.artist);
         }
 
         function playAll() {
             Mp3PlayerService.playAll(vm.docs);
             vm.toCurrentPlaying();
         }
-
-        $scope.$on('music:isPlaying', function(event, data) {
-            $scope.$apply(function() {
-                vm.isPlaying = data;
-            });
-        });
-
-        $scope.$on('player:playlist', function(event, data) {
-            $scope.$apply(function() {
-                vm.playlist = data;
-            });
-        });
-
-
 
         function addAll() {
             Mp3PlayerService.addAll(vm.docs);
@@ -130,6 +84,19 @@
             $scope.$destroy();
             $location.path(path);
         }
+
+        $scope.$on('music:isPlaying', function(event, data) {
+            $scope.$apply(function() {
+                vm.isPlaying = data;
+            });
+        });
+
+        $scope.$on('player:playlist', function(event, data) {
+            $scope.$apply(function() {
+                vm.playlist = data;
+            });
+        });
+
 
     }
 })();

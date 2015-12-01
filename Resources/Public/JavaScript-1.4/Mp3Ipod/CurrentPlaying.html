@@ -3,7 +3,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodCurrentPlaying.back()">&lt; back</button>
-		<strong> {{ mp3IpodCurrentPlaying.filterValue }} {{ mp3IpodCurrentPlaying.subFilterValue }}</strong>
 	</div>
 </div>
 <div class="row">
@@ -31,8 +30,16 @@
 	</div>
 </div>
 
+<div class="row" data-ng-if="mp3IpodCurrentPlaying.song.doc.webThumbPath">
+	<div class="col-md-12">
+		<img data-ng-src="{{mp3IpodCurrentPlaying.song.doc.webThumbPath}}"
+			 alt="{{mp3IpodCurrentPlaying.song.doc.title}}"
+			 width="300" height="300" />
+	</div>
+</div>
+
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<p ng-show="currentPlaying.doc.artist">{{mp3IpodCurrentPlaying.song.doc.artist}}</p>
 		<p ng-hide="currentPlaying.doc.artist">{{mp3IpodCurrentPlaying.song.doc.fsArtist}}</p>
 		<p ng-show="currentPlaying.doc.album">{{mp3IpodCurrentPlaying.song.doc.album}}</p>

@@ -1,34 +1,15 @@
-<div data-ng-controller="DocumentController as document">
-		<div data-ng-controller="PlayerController as playerCtrl">
-			<div data-ng-controller="WidgetController as widget">
-				<sound-manager></sound-manager>
-				<div class="row text-center" data-ng-if="widget.widgets.mainNav">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('MainNav')"></ng-include>
-					</div>
-				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.currentFilter">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('CurrentFilter')"></ng-include>
-					</div>
-				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.filter">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('Filter')"></ng-include>
-					</div>
-				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.result">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('Result')"></ng-include>
-					</div>
-				</div>
-				<div class="row text-center" data-ng-if="widget.widgets.player">
-					<div class="col-md-12">
-						<ng-include src="widget.getTemplate('Player')"></ng-include>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
+<button class="btn btn-default btn-xs" data-ng-click="mp3Ipod.forward('artist')">
+	Artist
+</button>
+<button class="btn btn-default btn-xs" data-ng-click="mp3Ipod.forward('album')">
+	Album
+</button>
+<button class="btn btn-default btn-xs" data-ng-click="mp3Ipod.forward('genre')">
+	Genre
+</button>
+<button class="btn btn-default btn-xs" data-ng-click="mp3Ipod.forward('list')">
+	Playlists
+</button>
+<button class="btn btn-default btn-xs" data-ng-click="mp3Ipod.forward('search')">
+	Search
+</button>

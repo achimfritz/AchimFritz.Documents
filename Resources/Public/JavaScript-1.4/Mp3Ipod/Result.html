@@ -3,7 +3,9 @@
 <div class="row">
 	<div class="col-md-12">
 		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodResult.back()">&lt; back</button>
-		<strong> {{ mp3IpodResult.filterValue }} {{ mp3IpodResult.subFilterValue }}</strong>
+		<strong data-ng-if="mp3IpodResult.genre != 'all'"> {{ mp3IpodResult.genre }}</strong>
+		<strong data-ng-if="mp3IpodResult.artist != 'all'"> {{ mp3IpodResult.artist }}</strong>
+		<strong data-ng-if="mp3IpodResult.album != 'all'"> {{ mp3IpodResult.album }}</strong>
 	</div>
 </div>
 <div class="row">
@@ -19,7 +21,7 @@
 	</div>
 </div>
 
-<div class="row text-left">
+<div class="row">
 	<div class="col-md-12">
 		<table class="table table-striped small-table">
 			<tr data-ng-repeat="doc in mp3IpodResult.docs">

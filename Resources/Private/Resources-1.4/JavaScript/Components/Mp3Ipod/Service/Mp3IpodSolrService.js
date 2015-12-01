@@ -13,6 +13,7 @@
 
         self.request = request;
         self.initialize = initialize;
+        self.facetsToKeyValue = facetsToKeyValue;
 
         function initialize() {
             if (initialized === false) {
@@ -24,8 +25,15 @@
 
                 Solr.init();
                 Solr.setParam('rows', 999);
+                Solr.setParam('sort', 'track asc, fsTrack asc, album asc, artist asc');
                 initialized = true;
             }
+        }
+
+        function facetsToKeyValue(facets) {
+            var keyValues = Solr.facetsToKeyValue(facets);
+            //keyValues.shift({key: 'all', value: 'all'});
+            return keyValues;
         }
 
         function request(genre, artist, album) {

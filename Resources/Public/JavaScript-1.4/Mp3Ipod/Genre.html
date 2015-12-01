@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodGenre.back()">&lt; back</button>
+		Select Genre
+	</div>
+</div>
+
+<div class="row ">
+	<div class="col-md-12">
+		<select data-ng-if="mp3IpodGenre.result.data"
+				chosen options="mp3IpodGenre.result.data"
+				data-ng-change="mp3IpodGenre.forward()"
+				data-ng-model="mp3IpodGenre.result.value"
+				data-ng-options="data.key as data.value for data in mp3IpodGenre.result.data">
+		</select>
+	</div>
+</div>
+
+
+

@@ -70,6 +70,7 @@
                     main: 'image'
                 }
             },
+
             {
                 path: CONFIG.baseUrl + '/mp3ipod',
                 components: {
@@ -77,47 +78,54 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/filter/:filter',
+                path: CONFIG.baseUrl + '/mp3ipod/genre',
                 components: {
-                    main: 'mp3IpodFilter'
+                    main: 'mp3IpodGenre'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/subfilter/:filter/:filterValue/:subFilter',
+                path: CONFIG.baseUrl + '/mp3ipod/search',
                 components: {
-                    main: 'mp3IpodSubFilter'
+                    main: 'mp3IpodSearch'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/result/:filter/:filterValue/:subFilter/:subFilterValue',
+                path: CONFIG.baseUrl + '/mp3ipod/list',
+                components: {
+                    main: 'mp3IpodList'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/artist/:genre',
+                components: {
+                    main: 'mp3IpodArtist'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/album/:genre/:artist',
+                components: {
+                    main: 'mp3IpodAlbum'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album',
                 components: {
                     main: 'mp3IpodResult'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/player/:filter/:filterValue/:subFilter/:subFilterValue',
-                components: {
-                    main: 'mp3IpodPlayer'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:filter/:filterValue/:subFilter/:subFilterValue',
+                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:genre/:artist/:album',
                 components: {
                     main: 'mp3IpodCurrentPlaying'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/playlist/:filter/:filterValue/:subFilter/:subFilterValue',
+                path: CONFIG.baseUrl + '/mp3ipod/playlist/:genre/:artist/:album',
                 components: {
                     main: 'mp3IpodPlaylist'
                 }
             },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/start',
-                components: {
-                    main: 'mp3IpodStart'
-                }
-            },
+
             {
                 path: CONFIG.baseUrl + '/imagelist',
                 components: {
@@ -147,14 +155,18 @@
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
+
                 'mp3Ipod': CONFIG.templatePath + 'Mp3Ipod/Mp3Ipod.html',
-                'mp3IpodFilter': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodFilter.html',
-                'mp3IpodCurrentPlaying': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodCurrentPlaying.html',
-                'mp3IpodPlaylist': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodPlaylist.html',
-                'mp3IpodSubFilter': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodSubFilter.html',
-                'mp3IpodResult': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodResult.html',
-                'mp3IpodPlayer': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodPlayer.html',
-                'mp3IpodStart': CONFIG.templatePath + 'Mp3Ipod/Mp3IpodStart.html',
+                'mp3IpodArtist': CONFIG.templatePath + 'Mp3Ipod/Artist.html',
+                'mp3IpodAlbum': CONFIG.templatePath + 'Mp3Ipod/Album.html',
+                'mp3IpodGenre': CONFIG.templatePath + 'Mp3Ipod/Genre.html',
+                'mp3IpodCurrentPlaying': CONFIG.templatePath + 'Mp3Ipod/CurrentPlaying.html',
+                'mp3IpodPlaylist': CONFIG.templatePath + 'Mp3Ipod/Playlist.html',
+                'mp3IpodResult': CONFIG.templatePath + 'Mp3Ipod/Result.html',
+                'mp3IpodPlayer': CONFIG.templatePath + 'Mp3Ipod/Player.html',
+                'mp3IpodSearch': CONFIG.templatePath + 'Mp3Ipod/Search.html',
+                'mp3IpodList': CONFIG.templatePath + 'Mp3Ipod/List.html',
+
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
                 'imageList': CONFIG.templatePath + 'Image/ImageList.html',
                 'image': CONFIG.templatePath + 'Image/Image.html'

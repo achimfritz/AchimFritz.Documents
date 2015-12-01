@@ -12,11 +12,6 @@
         var $scope = $rootScope.$new();
         vm.song = {};
         vm.currentPostion = '';
-
-        vm.filter = '';
-        vm.subFilter = '';
-        vm.filterValue = '';
-        vm.subFilterValue = '';
         vm.toPlaylist = toPlaylist;
 
 
@@ -29,10 +24,6 @@
         vm.initController();
 
         function initController() {
-            vm.filter = $routeParams.filter;
-            vm.subFilter = $routeParams.subFilter;
-            vm.filterValue = $routeParams.filterValue;
-            vm.subFilterValue = $routeParams.subFilterValue;
             $timeout(function () {
                 vm.song = angularPlayer.currentTrackData();
 

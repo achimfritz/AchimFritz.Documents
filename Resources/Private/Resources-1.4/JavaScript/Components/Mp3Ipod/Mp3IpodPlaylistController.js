@@ -11,10 +11,6 @@
         var vm = this;
         var $scope = $rootScope.$new();
         vm.docs = {};
-        vm.filter = '';
-        vm.subFilter = '';
-        vm.filterValue = '';
-        vm.subFilterValue = '';
 
         vm.playlist = {};
         vm.isPlaying = false;
@@ -30,11 +26,6 @@
         vm.initController();
 
         function initController() {
-            vm.filter = $routeParams.filter;
-            vm.subFilter = $routeParams.subFilter;
-            vm.filterValue = $routeParams.filterValue;
-            vm.subFilterValue = $routeParams.subFilterValue;
-
             $timeout(function () {
                 vm.playlist = angularPlayer.getPlaylist(); //on load
                 if (vm.playlist.length === 0) {
