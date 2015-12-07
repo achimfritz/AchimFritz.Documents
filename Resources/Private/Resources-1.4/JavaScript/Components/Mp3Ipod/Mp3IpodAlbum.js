@@ -26,7 +26,7 @@
             vm.genre = $routeParams.genre;
             vm.artist = $routeParams.artist;
             Mp3IpodSolrService.initialize();
-            Mp3IpodSolrService.request(vm.genre, vm.artist, 'all').then(function (response) {
+            Mp3IpodSolrService.request(vm.genre, vm.artist, 'all', 'all', 'all').then(function (response) {
                 vm.result.data = Mp3IpodSolrService.facetsToKeyValue(response.data.facet_counts.facet_fields.album);
             });
         }
@@ -42,7 +42,7 @@
         }
 
         function forward() {
-            $location.path('app/mp3ipod/result/' + vm.genre + '/' +vm.artist + '/' + vm.result.value);
+            $location.path('app/mp3ipod/result/' + vm.genre + '/' +vm.artist + '/' + vm.result.value + '/all/all');
         }
 
     }

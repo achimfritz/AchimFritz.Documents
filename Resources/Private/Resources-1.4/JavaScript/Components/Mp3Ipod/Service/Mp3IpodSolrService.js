@@ -6,7 +6,7 @@
         .service('Mp3IpodSolrService', Mp3IpodSolrService);
 
     /* @ngInject */
-    function Mp3IpodSolrService (Solr, SolrConfiguration) {
+    function Mp3IpodSolrService (Solr, SolrConfiguration, $q, AppConfiguration, DocumentListRestService) {
 
         var self = this;
         var initialized = false;
@@ -19,7 +19,7 @@
             if (initialized === false) {
                 SolrConfiguration.setParam('facet_limit', 9999999);
 
-                SolrConfiguration.setFacets(['artist', 'genre', 'album']);
+                SolrConfiguration.setFacets(['artist', 'genre', 'album', 'spell']);
                 SolrConfiguration.setHFacets({});
                 SolrConfiguration.setSetting('servlet', 'mp3');
 
@@ -36,8 +36,13 @@
             return keyValues;
         }
 
-        function request(genre, artist, album) {
+        function request(genre, artist, album, list, search) {
             Solr.resetFilterQueries();
+            if (search !== 'all') {
+                Solr.setParam('q', search);
+            } else {
+                Solr.setParam('q', '*:*');
+            }
             if (genre !== 'all') {
                 Solr.addFilterQuery('genre', genre);
             }
@@ -46,6 +51,31 @@
             }
             if (artist !== 'all') {
                 Solr.addFilterQuery('artist', artist);
+            }
+            if (list !== 'all') {
+
+                var deferred = $q.defer();
+                AppConfiguration.setNamespace('mp3');
+                DocumentListRestService.show(list).then(
+                    function (result) {
+                        // sorting missmatch !!!
+                        // better? use API SolrDocumentListController->show(documentList)
+                        Solr.addFilterQuery('hPaths', '2/' + result.data.documentList.category.path);
+                        Solr.forceRequest().then(
+                            function (response) {
+                                deferred.resolve(response)
+                            },
+                            function (data, status, header, config) {
+                                deferred.reject(data, status, header, config);
+                            }
+                        );
+                    },
+                    function (data, status, header, config) {
+                        deferred.reject(data, status, header, config);
+                    }
+                );
+
+                return deferred.promise;
             }
             return Solr.forceRequest();
         }

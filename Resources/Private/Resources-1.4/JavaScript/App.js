@@ -84,7 +84,7 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/search',
+                path: CONFIG.baseUrl + '/mp3ipod/search/:search',
                 components: {
                     main: 'mp3IpodSearch'
                 }
@@ -108,19 +108,19 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album',
+                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album/:list/:search',
                 components: {
                     main: 'mp3IpodResult'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:genre/:artist/:album',
+                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:genre/:artist/:album/:list/:search',
                 components: {
                     main: 'mp3IpodCurrentPlaying'
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/playlist/:genre/:artist/:album',
+                path: CONFIG.baseUrl + '/mp3ipod/playlist/:genre/:artist/:album/:list/:search',
                 components: {
                     main: 'mp3IpodPlaylist'
                 }

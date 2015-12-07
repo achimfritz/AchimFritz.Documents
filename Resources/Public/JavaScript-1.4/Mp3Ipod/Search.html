@@ -3,3 +3,18 @@
 		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodSearch.back()">&lt; back</button>
 	</div>
 </div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<form data-ng-submit="mp3IpodSearch.update()">
+			<div class="col-md-2">
+				<input class="form-control" type="text" data-autocomplete data-field="spell" data-global="1"
+					   data-ng-model="mp3IpodSearch.search"/>
+			</div>
+			<div class="col-md-1">
+				<input type="submit" value="Submit" class="btn btn-default"/>
+			</div>
+		</form>
+	</div>
+</div>

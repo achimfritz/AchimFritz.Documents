@@ -47,8 +47,16 @@
     '@action': 'index'
 
 -
-  name: 'app sub sub sub'
+  name: 'app sub sub sub sub sub'
   uriPattern: 'app/{action}/{sub}/{subsub}/{subsubsub}/{subsubsubsub}/{subsubsubsubsub}'
+  defaults:
+    '@package': 'AchimFritz.Documents'
+    '@controller': 'App14'
+    '@action': 'index'
+
+-
+  name: 'app sub sub sub sub sub sub'
+  uriPattern: 'app/{action}/{sub}/{subsub}/{subsubsub}/{subsubsubsub}/{subsubsubsubsub}/{subsubsubsubsubsub}'
   defaults:
     '@package': 'AchimFritz.Documents'
     '@controller': 'App14'

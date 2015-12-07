@@ -3,3 +3,14 @@
 		<button class="btn btn-default btn-xs" data-ng-click="mp3IpodList.back()">&lt; back</button>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped small-table">
+			<tr data-ng-repeat="documentList in mp3IpodList.documentLists">
+				<td>{{documentList.category.path}}</td>
+				<td><button data-ng-click="mp3IpodList.play(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -18,6 +18,8 @@
                 $location.path('app/mp3ipod/album/all/all');
             } else if (name === 'artist') {
                 $location.path('app/mp3ipod/artist/all');
+            } else if (name === 'search') {
+                $location.path('app/mp3ipod/search/all');
             } else {
                 $location.path('app/mp3ipod/' + name);
             }

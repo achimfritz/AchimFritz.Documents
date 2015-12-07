@@ -36,9 +36,12 @@
             vm.genre = $routeParams.genre;
             vm.artist = $routeParams.artist;
             vm.album = $routeParams.album;
+            vm.list = $routeParams.list;
+            vm.search = $routeParams.search;
+            console.log($routeParams);
             Mp3PlayerService.initialize();
             Mp3IpodSolrService.initialize();
-            Mp3IpodSolrService.request(vm.genre, vm.artist, vm.album).then(function (response) {
+            Mp3IpodSolrService.request(vm.genre, vm.artist, vm.album, vm.list, vm.search).then(function (response) {
                 vm.docs = response.data.response.docs;
             });
 
@@ -48,7 +51,13 @@
 
         function back() {
             $scope.$destroy();
-            $location.path('app/mp3ipod/album/' + vm.genre + '/' + vm.artist);
+            if (vm.search !== 'all') {
+                $location.path('app/mp3ipod/search/' + vm.search);
+            } else if (vm.list !== 'all') {
+                $location.path('app/mp3ipod/list/' + vm.list);
+            } else {
+                $location.path('app/mp3ipod/album/' + vm.genre + '/' + vm.artist);
+            }
         }
 
         function playAll() {

@@ -24,7 +24,7 @@
         function initController() {
             vm.genre = $routeParams.genre;
             Mp3IpodSolrService.initialize();
-            Mp3IpodSolrService.request(vm.genre, 'all', 'all').then(function (response) {
+            Mp3IpodSolrService.request(vm.genre, 'all', 'all', 'all', 'all').then(function (response) {
                 vm.result.data = Mp3IpodSolrService.facetsToKeyValue(response.data.facet_counts.facet_fields.artist);
             });
         }

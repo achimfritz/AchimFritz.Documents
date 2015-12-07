@@ -202,11 +202,10 @@
             if (initialized === false) {
                 self.init();
             }
+            buildUrl();
             if (global === true) {
                 // remove all fq
                 manager.store.remove('fq');
-            } else {
-                buildUrl();
             }
             manager.store.addByValue('rows', 0);
             var words = search.split(' ');
