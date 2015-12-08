@@ -25,3 +25,11 @@ rm Resources
 all
 proof list
 account
+search mp3 list
+mp3ipod -> edit (one)
+lucky/list/80erGothic_granaten
+
+view stuff
+- rating
+- newest
+- more/less than one song
