@@ -54,7 +54,7 @@
             if (vm.search !== 'all') {
                 $location.path('app/mp3ipod/search/' + vm.search);
             } else if (vm.list !== 'all') {
-                $location.path('app/mp3ipod/list/' + vm.list);
+                $location.path('app/mp3ipod/list');
             } else {
                 $location.path('app/mp3ipod/album/' + vm.genre + '/' + vm.artist);
             }

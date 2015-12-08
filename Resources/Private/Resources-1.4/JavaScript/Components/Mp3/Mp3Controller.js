@@ -63,14 +63,14 @@
                 id3Tags: ['artist', 'album', 'genre', 'year']
             });
             SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
-            SolrConfiguration.setHFacets({});
+            SolrConfiguration.setHFacets({hPaths: '0'});
             SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
             SolrConfiguration.setParam('rows', 15);
             SolrConfiguration.setParam('facet_limit', 15);
             SolrConfiguration.setParam('facet_sort', 'count');
             SolrConfiguration.setParam('f_artistLetter_facet_sort', 'index');
             SolrConfiguration.setParam('f_artistLetter_facet_limit', 35);
-            SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
+           // SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
             SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
             SolrConfiguration.setSetting('servlet', 'mp3');
 
