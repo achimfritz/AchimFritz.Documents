@@ -32,7 +32,7 @@
 
         function facetsToKeyValue(facets) {
             var keyValues = Solr.facetsToKeyValue(facets);
-            //keyValues.shift({key: 'all', value: 'all'});
+            keyValues.unshift({key: 'all', value: 'all'});
             return keyValues;
         }
 
