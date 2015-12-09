@@ -32,6 +32,14 @@
         .config(locationConfig)
         .config(paginationConfiguration)
         .run(xeditableConfig)
+       /*
+        .config(['$componentLoaderProvider', function($componentLoaderProvider){
+            $componentLoaderProvider.setTemplateMapping(function (name) {
+                return CONFIG.templatePath + name + '/' + name + '.html';
+                //return 'parallel/components/' + name + '/' + name + '.html';
+            });
+        }])
+        */
         .controller('AppController', AppController);
 
 
@@ -84,18 +92,6 @@
                 }
             },
             {
-                path: CONFIG.baseUrl + '/mp3ipod/search/:search',
-                components: {
-                    main: 'mp3IpodSearch'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/list',
-                components: {
-                    main: 'mp3IpodList'
-                }
-            },
-            {
                 path: CONFIG.baseUrl + '/mp3ipod/artist/:genre',
                 components: {
                     main: 'mp3IpodArtist'
@@ -107,6 +103,27 @@
                     main: 'mp3IpodAlbum'
                 }
             },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album',
+                components: {
+                    main: 'mp3IpodResult'
+                }
+            },
+
+
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/search/:search',
+                components: {
+                    main: 'mp3IpodSearch'
+                }
+            },
+            {
+                path: CONFIG.baseUrl + '/mp3ipod/list',
+                components: {
+                    main: 'mp3IpodList'
+                }
+            },
+
             {
                 path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album/:list/:search',
                 components: {
@@ -149,6 +166,13 @@
 
     /* @ngInject */
     function TemplateMapping($componentLoaderProvider, CONFIG) {
+
+        /*
+        $componentLoaderProvider.setTemplateMapping(function (name) {
+            var templateName = name.charAt(0).toUpperCase() + name.slice(1);
+            return CONFIG.templatePath + templateName + '/' + templateName + '.html';
+        });
+*/
         $componentLoaderProvider.setTemplateMapping(function (name) {
             return {
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',

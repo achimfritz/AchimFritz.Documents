@@ -6,7 +6,7 @@
         .controller('Mp3IpodGenreController', Mp3IpodGenreController);
 
     /* @ngInject */
-    function Mp3IpodGenreController ($location, $routeParams, Mp3IpodSolrService) {
+    function Mp3IpodGenreController ($location, $routeParams, Mp3IpodSolrService, Solr) {
 
         var vm = this;
         vm.result = {};
@@ -21,8 +21,11 @@
         vm.initController();
 
         function initController() {
+
             Mp3IpodSolrService.initialize();
-            Mp3IpodSolrService.request('all', 'all', 'all', 'all', 'all').then(function (response) {
+            Mp3IpodSolrService.setFilterParams('all', 'all', 'all');
+            Solr.forceRequest().then(function (response) {
+
                 vm.result.data = Mp3IpodSolrService.facetsToKeyValue(response.data.facet_counts.facet_fields.genre);
             });
         }

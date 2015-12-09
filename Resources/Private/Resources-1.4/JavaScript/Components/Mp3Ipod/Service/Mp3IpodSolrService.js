@@ -14,6 +14,7 @@
         self.request = request;
         self.initialize = initialize;
         self.facetsToKeyValue = facetsToKeyValue;
+        self.setFilterParams = setFilterParams;
 
         function initialize() {
             if (initialized === false) {
@@ -24,8 +25,8 @@
                 SolrConfiguration.setSetting('servlet', 'mp3');
 
                 Solr.init();
-                Solr.setParam('rows', 999);
-                Solr.setParam('sort', 'track asc, fsTrack asc, album asc, artist asc');
+                //Solr.setParam('rows', 999);
+                //Solr.setParam('sort', 'track asc, fsTrack asc, album asc, artist asc');
                 initialized = true;
             }
         }
@@ -36,13 +37,8 @@
             return keyValues;
         }
 
-        function request(genre, artist, album, list, search) {
+        function setFilterParams(genre, artist, album) {
             Solr.resetFilterQueries();
-            if (search !== 'all') {
-                Solr.setParam('q', search);
-            } else {
-                Solr.setParam('q', '*:*');
-            }
             if (genre !== 'all') {
                 Solr.addFilterQuery('genre', genre);
             }
@@ -52,6 +48,27 @@
             if (artist !== 'all') {
                 Solr.addFilterQuery('artist', artist);
             }
+        }
+
+        function request(genre, artist, album, list, search) {
+            Solr.resetFilterQueries();
+
+            if (search !== 'all') {
+                Solr.setParam('q', search);
+            } else {
+                Solr.setParam('q', '*:*');
+            }
+
+            if (genre !== 'all') {
+                Solr.addFilterQuery('genre', genre);
+            }
+            if (album !== 'all') {
+                Solr.addFilterQuery('album', album);
+            }
+            if (artist !== 'all') {
+                Solr.addFilterQuery('artist', artist);
+            }
+
             if (list !== 'all') {
 
                 var deferred = $q.defer();

@@ -6,7 +6,7 @@
         .controller('Mp3IpodArtistController', Mp3IpodArtistController);
 
     /* @ngInject */
-    function Mp3IpodArtistController ($location, $routeParams, Mp3IpodSolrService) {
+    function Mp3IpodArtistController ($location, $routeParams, Mp3IpodSolrService, Solr) {
 
         var vm = this;
         vm.result = {};
@@ -24,7 +24,8 @@
         function initController() {
             vm.genre = $routeParams.genre;
             Mp3IpodSolrService.initialize();
-            Mp3IpodSolrService.request(vm.genre, 'all', 'all', 'all', 'all').then(function (response) {
+            Mp3IpodSolrService.setFilterParams(vm.genre, 'all', 'all');
+            Solr.forceRequest().then(function (response) {
                 vm.result.data = Mp3IpodSolrService.facetsToKeyValue(response.data.facet_counts.facet_fields.artist);
             });
         }
