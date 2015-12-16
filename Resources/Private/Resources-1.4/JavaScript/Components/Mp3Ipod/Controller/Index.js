@@ -3,10 +3,10 @@
     'use strict';
     angular
         .module('achimfritz.mp3ipod')
-        .controller('Mp3IpodController', Mp3IpodController);
+        .controller('Mp3IpodIndexController', Mp3IpodIndexController);
 
     /* @ngInject */
-    function Mp3IpodController ($location) {
+    function Mp3IpodIndexController ($location) {
 
         var vm = this;
 

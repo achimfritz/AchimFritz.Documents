@@ -82,7 +82,7 @@
             {
                 path: CONFIG.baseUrl + '/mp3ipod',
                 components: {
-                    main: 'mp3Ipod'
+                    main: 'mp3IpodIndex'
                 }
             },
             {
@@ -174,12 +174,16 @@
         });
 */
         $componentLoaderProvider.setTemplateMapping(function (name) {
+            var res = name.split('mp3Ipod');
+            if (res.length === 2) {
+                return CONFIG.templatePath + 'Mp3Ipod/' + res[1] + '.html';
+            }
             return {
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
-
+/*
                 'mp3Ipod': CONFIG.templatePath + 'Mp3Ipod/Mp3Ipod.html',
                 'mp3IpodArtist': CONFIG.templatePath + 'Mp3Ipod/Artist.html',
                 'mp3IpodAlbum': CONFIG.templatePath + 'Mp3Ipod/Album.html',
@@ -190,7 +194,7 @@
                 'mp3IpodPlayer': CONFIG.templatePath + 'Mp3Ipod/Player.html',
                 'mp3IpodSearch': CONFIG.templatePath + 'Mp3Ipod/Search.html',
                 'mp3IpodList': CONFIG.templatePath + 'Mp3Ipod/List.html',
-
+*/
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
                 'imageList': CONFIG.templatePath + 'Image/ImageList.html',
                 'image': CONFIG.templatePath + 'Image/Image.html'
