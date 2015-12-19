@@ -6,7 +6,7 @@
         .controller('Mp3Controller', Mp3Controller);
 
     /* @ngInject */
-    function Mp3Controller ($rootScope, WidgetConfiguration, SolrConfiguration, AppConfiguration, FilterConfiguration) {
+    function Mp3Controller ($rootScope, WidgetConfiguration, SolrConfiguration, AppConfiguration, FilterConfiguration, Solr) {
 
         var vm = this;
 
@@ -64,7 +64,8 @@
             });
             SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
             SolrConfiguration.setHFacets({hPaths: '0'});
-            SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
+            //SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
+            SolrConfiguration.setParam('sort', 'mDateTime desc');
             SolrConfiguration.setParam('rows', 15);
             SolrConfiguration.setParam('facet_limit', 15);
             SolrConfiguration.setParam('facet_sort', 'count');
@@ -102,12 +103,6 @@
             vm.playListForm = val;
         }
 
-        $rootScope.$on('player:playlist', function(event, playlist){
-            if (playlist.length === 0) {
-                vm.togglePlayer(false);
-            }
-        });
-
         function togglePlayer(enable) {
             if (enable === true) {
                 $rootScope.$emit('openWidget', 'player');
@@ -118,7 +113,11 @@
             }
         }
 
-
+        $rootScope.$on('player:playlist', function(event, playlist){
+            if (playlist.length === 0) {
+                vm.togglePlayer(false);
+            }
+        });
 
 
         $rootScope.$on('music:isPlaying', function(event, isPlaying){
@@ -128,6 +127,10 @@
         $rootScope.$on('solrDataUpdate', function (event, data) {
             vm.zip.name = '';
             vm.cddb.path = '';
+            var params = Solr.getParams();
+            if (params['q'] !== '*:*') {
+                $rootScope.$emit('openWidget', 'filter');
+            }
             var found = false;
             if (vm.infoDoc !== null) {
                 angular.forEach(data.response.docs, function(doc) {
