@@ -41,6 +41,7 @@
         self.changeFacetSorting = changeFacetSorting;
         self.facetsToKeyValue = facetsToKeyValue;
         self.facetsToLabelValue = facetsToLabelValue;
+        self.hasFilterQuery = hasFilterQuery;
         self.init = init;
 
 
@@ -124,6 +125,10 @@
             if (newVal > 0) {
                 params['rows'] = newVal;
             }
+        }
+
+        function hasFilterQuery(name) {
+            return angular.isDefined(filterQueries[name]);
         }
 
         function rmFilterQuery(name, value) {

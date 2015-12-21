@@ -1,0 +1,20 @@
+<f:layout name="Music"/>
+
+<f:section name="Content">
+	<main class="container-fluid">
+		<!-- do not use data-ng-app because angular soundmanager has an selector of ng-app -->
+		<div class="container-fluid" ng-app="achimfritz.app" data-ng-controller="AppController as app">
+			<div data-ng-controller="MusicConfigurationController as musicConfiguration"></div>
+			<toaster-container></toaster-container>
+			<div data-ng-controller="DocumentController as document">
+				<div class="row">
+					<div class="col-md-12" data-ng-viewport="navigation"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-12" data-ng-viewport="main"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+</f:section>
+

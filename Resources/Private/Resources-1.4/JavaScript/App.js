@@ -22,6 +22,7 @@
             'achimfritz.documentlist',
             'achimfritz.mp3',
             'achimfritz.mp3ipod',
+            'achimfritz.music',
             'achimfritz.image'
         ])
         .constant('CONFIG', {
@@ -32,20 +33,13 @@
         .config(locationConfig)
         .config(paginationConfiguration)
         .run(xeditableConfig)
-       /*
-        .config(['$componentLoaderProvider', function($componentLoaderProvider){
-            $componentLoaderProvider.setTemplateMapping(function (name) {
-                return CONFIG.templatePath + name + '/' + name + '.html';
-                //return 'parallel/components/' + name + '/' + name + '.html';
-            });
-        }])
-        */
         .controller('AppController', AppController);
 
 
 
     /* @ngInject */
     function AppController ($router, CONFIG) {
+
 
         $router.config([
             {
@@ -79,6 +73,45 @@
                 }
             },
 
+
+            {
+                path: CONFIG.baseUrl + '/music',
+                components: {
+                    main: 'musicResult',
+                    navigation: 'musicNavigation'
+                }
+            },
+
+            /*
+            {
+                path: CONFIG.baseUrl + '/music',
+                redirectTo: CONFIG.baseUrl + '/music/result'
+            },
+*/
+            {
+                path: CONFIG.baseUrl + '/music/result',
+                components: {
+                    main: 'musicResult',
+                    navigation: 'musicNavigation'
+                }
+            },
+
+            {
+                path: CONFIG.baseUrl + '/music/filter',
+                components: {
+                    main: 'musicFilter',
+                    navigation: 'musicNavigation'
+                }
+            },
+
+            {
+                path: CONFIG.baseUrl + '/music/player',
+                components: {
+                    main: 'musicPlayer',
+                    navigation: 'musicNavigation'
+                }
+            },
+
             {
                 path: CONFIG.baseUrl + '/mp3ipod',
                 components: {
@@ -91,6 +124,11 @@
                     main: 'mp3IpodGenre'
                 }
             },
+            /*
+            nur/ohne mit einem artist
+            filter on after search
+            sort newest
+             */
             {
                 path: CONFIG.baseUrl + '/mp3ipod/artist/:genre',
                 components: {
@@ -178,23 +216,15 @@
             if (res.length === 2) {
                 return CONFIG.templatePath + 'Mp3Ipod/' + res[1] + '.html';
             }
+            res = name.split('music');
+            if (res.length === 2) {
+                return CONFIG.templatePath + 'Music/' + res[1] + '.html';
+            }
             return {
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
                 'document': CONFIG.templatePath + 'Document/Document.html',
                 'default': CONFIG.templatePath + 'Default/Default.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
-/*
-                'mp3Ipod': CONFIG.templatePath + 'Mp3Ipod/Mp3Ipod.html',
-                'mp3IpodArtist': CONFIG.templatePath + 'Mp3Ipod/Artist.html',
-                'mp3IpodAlbum': CONFIG.templatePath + 'Mp3Ipod/Album.html',
-                'mp3IpodGenre': CONFIG.templatePath + 'Mp3Ipod/Genre.html',
-                'mp3IpodCurrentPlaying': CONFIG.templatePath + 'Mp3Ipod/CurrentPlaying.html',
-                'mp3IpodPlaylist': CONFIG.templatePath + 'Mp3Ipod/Playlist.html',
-                'mp3IpodResult': CONFIG.templatePath + 'Mp3Ipod/Result.html',
-                'mp3IpodPlayer': CONFIG.templatePath + 'Mp3Ipod/Player.html',
-                'mp3IpodSearch': CONFIG.templatePath + 'Mp3Ipod/Search.html',
-                'mp3IpodList': CONFIG.templatePath + 'Mp3Ipod/List.html',
-*/
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
                 'imageList': CONFIG.templatePath + 'Image/ImageList.html',
                 'image': CONFIG.templatePath + 'Image/Image.html'

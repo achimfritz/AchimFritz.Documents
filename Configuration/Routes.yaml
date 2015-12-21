@@ -16,11 +16,11 @@
 
 -
   name: 'app sub'
-  uriPattern: 'app/{action}/{sub}'
+  uriPattern: 'app/{@action}/{sub}'
   defaults:
     '@package': 'AchimFritz.Documents'
     '@controller': 'App14'
-    '@action': 'index'
+    #'@action': 'index'
 
 -
   name: 'app sub sub'

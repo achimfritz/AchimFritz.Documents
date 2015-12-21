@@ -1,0 +1,59 @@
+<div data-ng-controller="FilterController as filter">
+
+	<div class="row top5">
+		<div class="col-md-12">
+			<ul class="nav nav-pills">
+				<li
+						data-ng-repeat="(name, enabled) in filter.filters"
+						data-ng-class="{'active' : enabled}">
+					<a href="javascript:void(0)" data-ng-click="filter.toggleFilter(name)">
+						{{name.substr(0, 13)}}
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="row top5">
+
+		<div data-ng-repeat="(name, enabled) in filter.filters">
+			<div data-ng-if="enabled">
+				<div class="col-md-3">
+					<span class="label label-default">{{name}}</span>
+						<button class="btn btn-default btn-xs" data-ng-click="filter.toggleFilter(name)">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+						</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetSorting(name, 'index')">index</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetSorting(name, 'count')">count</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, 10)">+10</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, 100)">+100</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, -10)">-10</button>
+					<button class="btn btn-default btn-xs" ng-click="document.changeFacetCount(name, -100)">-100</button>
+
+					<ul>
+						<li ng-repeat="(key, value) in document.data.facet_counts.facet_fields[name]">
+							<span ng-click="document.addFilterQuery(name, key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{name}}"></nav-path>
+								({{value}})
+							</span>
+
+							<span
+									data-ng-show="filter.isEditable('categories', name)"
+									class="glyphicon glyphicon-pencil"
+									aria-hidden="true"
+									data-ng-click="musicFilter.showRenameCategoryForm(name, key, 'category')">
+							</span>
+							<span
+									data-ng-show="filter.isEditable('id3Tags', name)"
+									class="glyphicon glyphicon-pencil"
+									aria-hidden="true"
+									data-ng-click="musicFilter.showRenameCategoryForm(name, key, 'id3Tag')">
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

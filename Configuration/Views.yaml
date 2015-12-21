@@ -1,4 +1,4 @@
 -
-  requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html") && isController("App14")'
+  requestFilter: 'isPackage("AchimFritz.Documents") && isFormat("html") && isController("App14") && !isAction("music")'
   options:
     templatePathAndFilename: resource://AchimFritz.Documents/Private/Templates/App14/Index.html
