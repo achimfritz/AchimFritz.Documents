@@ -14,7 +14,7 @@
         // used by the view
         vm.playAll = playAll;
         vm.addAll = addAll;
-        vm.showInfoDoc = showInfoDoc;
+        vm.editDoc = editDoc;
 
         Mp3PlayerService.initialize();
 
@@ -30,12 +30,12 @@
             Mp3PlayerService.addAll(docs);
         }
 
-        function showInfoDoc(doc) {
+        function editDoc(doc) {
             $scope.dialog = ngDialog.open({
                 "data" : doc,
-                "template" : CONFIG.templatePath + 'Music/InfoDoc.html',
-                "controller" : 'MusicInfoDocController',
-                "controllerAs" : 'musicInfoDoc',
+                "template" : CONFIG.templatePath + 'Music/EditDoc.html',
+                "controller" : 'MusicEditDocController',
+                "controllerAs" : 'musicEditDoc',
                 "scope" : $scope
             });
         }

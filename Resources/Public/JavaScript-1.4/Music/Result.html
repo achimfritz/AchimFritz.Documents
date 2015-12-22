@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="col-md-2 col-md-offset-5 text-center">
 		<span class="label label-default">found {{document.data.response.numFound}} (displaying {{document.params.rows}})</span>
@@ -6,15 +5,19 @@
 </div>
 
 <div class="row top5">
-	<div class="col-md-1">
+	<div class="col-md-2">
 		<button class="btn btn-success" data-ng-click="musicResult.playAll(document.data.response.docs)">
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
 		</button>
 		<button class="btn btn-default" data-ng-click="musicResult.addAll(document.data.response.docs)">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		</button>
+		<button data-ng-if="document.params.sort === document.random" class="btn btn-default" data-ng-click="document.newRandom()">
+			<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+		</button>
 	</div>
-	<div class="col-md-2 col-md-offset-2">
+
+	<div class="col-md-2">
 		<select class="form-control" id="sort" data-ng-model="document.params.sort" data-ng-change="document.update()">
 			<option value="album asc, artist asc, track asc">album artist track</option>
 			<option value="mDateTime desc">mDateTime desc</option>
@@ -24,12 +27,13 @@
 			<option value="{{document.random}}">random</option>
 		</select>
 	</div>
-	<div class="col-md-2">
+
+	<div class="col-md-6">
 		<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-2 text-right">
 		<button class="btn btn-default" type="button" data-ng-click="document.showAllRows()"
-				data-ng-if="document.data.response.numFound < 1000 && document.data.response.numFound > document.params.rows">
+				data-ng-if="document.data.response.numFound < 500 && document.data.response.numFound > document.params.rows">
 			all
 		</button>
 		<button class="btn btn-default" type="button" data-ng-click="document.changeRows(10)"
@@ -40,13 +44,6 @@
 				data-ng-if="document.params.rows > 10">
 			less
 		</button>
-	</div>
-	<div class="col-md-1">
-		<span data-ng-if="document.params.sort === document.random">
-			<button class="btn btn-default" data-ng-click="document.newRandom()">
-				<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-			</button>
-		</span>
 	</div>
 </div>
 
@@ -61,7 +58,7 @@
 					<button class="btn btn-default btn-xs" music-player add-song="{id: doc.identifier, url: doc.webPath, title: doc.title, doc: doc}">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
-					<button class="btn btn-default btn-xs" ng-click="musicResult.showInfoDoc(doc)">
+					<button class="btn btn-default btn-xs" ng-click="musicResult.editDoc(doc)">
 						<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 					</button>
 				</td>

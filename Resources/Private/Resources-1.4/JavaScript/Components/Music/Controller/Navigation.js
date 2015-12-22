@@ -6,7 +6,7 @@
         .controller('MusicNavigationController', MusicNavigationController);
 
     /* @ngInject */
-    function MusicNavigationController ($location, CONFIG, $rootScope) {
+    function MusicNavigationController ($location, CONFIG, $rootScope, $timeout) {
 
         var vm = this;
         vm.items = [
@@ -17,8 +17,14 @@
         vm.forward = forward;
 
         var path = $location.path();
+        if (path === CONFIG.baseUrl + '/music' || path === CONFIG.baseUrl + '/music/') {
+            $timeout(function () {
+                forward('result');
+            });
+        }
         var newLocation = path.replace(CONFIG.baseUrl + '/music/', '');
         setActive(newLocation);
+
 
         function setActive(newLocation) {
             angular.forEach(vm.items, function(item) {

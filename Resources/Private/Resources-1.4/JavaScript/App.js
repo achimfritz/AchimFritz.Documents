@@ -73,7 +73,6 @@
                 }
             },
 
-
             {
                 path: CONFIG.baseUrl + '/music',
                 components: {
@@ -82,12 +81,7 @@
                 }
             },
 
-            /*
-            {
-                path: CONFIG.baseUrl + '/music',
-                redirectTo: CONFIG.baseUrl + '/music/result'
-            },
-*/
+
             {
                 path: CONFIG.baseUrl + '/music/result',
                 components: {
@@ -234,11 +228,13 @@
 
     /* @ngInject */
     function locationConfig($locationProvider) {
+
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false,
             rewriteLinks: false
         });
+
     }
 
     /* @ngInject */

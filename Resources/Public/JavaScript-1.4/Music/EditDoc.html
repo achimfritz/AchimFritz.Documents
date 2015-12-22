@@ -1,0 +1,210 @@
+<div data-ng-controller="ApiController as api">
+	<overlay finished="api.finished"></overlay>
+	<div data-ng-if="!api.finished" class="spinner">
+		<spinner></spinner>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<input type="text" class="form-control" value="{{musicEditDoc.doc.name}}" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4" data-ng-if="musicEditDoc.doc.title">
+			<table class="table small-table">
+				<tr>
+					<td>Title</td>
+						<td><button data-ng-show="musicEditDoc.doc.titleRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.titleRating}}</button></td>
+					<td>
+						<button ng-click="api.rate({name: 'title', rate: 1, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="api.rate({name: 'title', rate: 2, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="api.rate({name: 'title', rate: 3, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="api.rate({name: 'title', rate: 4, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="api.rate({name: 'title', rate: 5, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="api.rate({name: 'title', rate: 6, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">6</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-4" data-ng-if="musicEditDoc.doc.artist">
+			<table class="table small-table">
+				<tr>
+					<td>Artist</td>
+					<td><button ng-show="musicEditDoc.doc.artistRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.artistRating}}</button></td>
+					<td>
+						<button ng-click="api.rate({name: 'artist', rate: 1, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="api.rate({name: 'artist', rate: 2, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="api.rate({name: 'artist', rate: 3, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="api.rate({name: 'artist', rate: 4, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="api.rate({name: 'artist', rate: 5, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="api.rate({name: 'artist', rate: 6, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">6</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-4" data-ng-if="musicEditDoc.doc.album">
+			<table class="table small-table">
+				<tr>
+					<td>Album</td>
+					<td><button ng-show="musicEditDoc.doc.albumRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.albumRating}}</button></td>
+					<td>
+						<button ng-click="api.rate({name: 'album', rate: 1, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="api.rate({name: 'album', rate: 2, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="api.rate({name: 'album', rate: 3, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="api.rate({name: 'album', rate: 4, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="api.rate({name: 'album', rate: 5, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="api.rate({name: 'album', rate: 6, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">6</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<table class="table small-table">
+				<tr>
+					<td>Title</td>
+					<td>
+						<strong ng-hide="musicEditDoc.doc.title" class="text-danger">!</strong>
+						<span ng-show="musicEditDoc.doc.title" editable-text="musicEditDoc.doc.title" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'title', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.title}}</span>
+						<span ng-hide="musicEditDoc.doc.title" editable-text="musicEditDoc.doc.fsTitle" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'title', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.fsTitle}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Track</td>
+					<td>
+						<span ng-show="musicEditDoc.doc.track" editable-text="musicEditDoc.doc.track" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'track', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.track}}</span>
+						<span ng-hide="musicEditDoc.doc.track" editable-text="musicEditDoc.doc.fsTrack" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'track', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.fsTrack}}</span>
+						<strong ng-hide="musicEditDoc.doc.track" class="text-danger">!</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>Artist</td>
+					<td>
+						<span ng-show="musicEditDoc.doc.artist" editable-text="musicEditDoc.doc.artist" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'artist', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.artist}}</span>
+						<span ng-hide="musicEditDoc.doc.artist" editable-text="musicEditDoc.doc.fsArtist" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'artist', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.fsArtist}}</span>
+						<strong ng-hide="musicEditDoc.doc.artist" class="text-danger">!</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>Album</td>
+					<td>
+						<span ng-show="musicEditDoc.doc.album" editable-text="musicEditDoc.doc.album" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'album', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.album}}</span>
+						<span ng-hide="musicEditDoc.doc.album" editable-text="musicEditDoc.doc.fsAlbum" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'album', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.fsAlbum}}</span>
+						<strong ng-hide="musicEditDoc.doc.album" class="text-danger">!</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>Genre</td>
+					<td>
+						<span ng-show="musicEditDoc.doc.genre" editable-text="musicEditDoc.doc.genre" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'genre', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.genre}}</span>
+						<span ng-hide="musicEditDoc.doc.genre" editable-text="musicEditDoc.doc.fsGenre" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'genre', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.fsGenre}}</span>
+						/ {{musicEditDoc.doc.genreId}}
+						<strong ng-hide="musicEditDoc.doc.genre" class="text-danger">!</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>Year</td>
+					<td>
+						<span editable-text="musicEditDoc.doc.year" onaftersave="api.updateId3Tag({tagValue: $data, tagName: 'year', document: musicEditDoc.doc.identifier})">{{musicEditDoc.doc.year}}</span>
+						<strong ng-hide="musicEditDoc.doc.year" class="text-danger">!</strong>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-6">
+			<table class="table small-table">
+				<tr>
+					<td>fsTitle</td>
+					<td>{{musicEditDoc.doc.fsTitle}}</td>
+				</tr>
+				<tr>
+					<td>fsTrack</td>
+					<td>{{musicEditDoc.doc.fsTrack}}</td>
+				</tr>
+				<tr>
+					<td>fsArtist</td>
+					<td>{{musicEditDoc.doc.fsArtist}}</td>
+				</tr>
+				<tr>
+					<td>fsAlbum</td>
+					<td>{{musicEditDoc.doc.fsAlbum}}</td>
+				</tr>
+				<tr>
+					<td>fsGenre</td>
+					<td>{{musicEditDoc.doc.fsGenre}}</td>
+				</tr>
+				<tr>
+					<td>Provider</td>
+					<td>{{musicEditDoc.doc.fsProvider}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="row form-group">
+				<div class="col-md-5 col-md-offset-5">
+					<input class="form-control" type="text" data-autocomplete data-global="1" data-ng-model="musicEditDoc.category" />
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn btn-xs btn-danger" type="submit" ng-click="api.listMergeOne(musicEditDoc.category, musicEditDoc.doc)" value="Add to Playlist"/>
+				</div>
+			</div>
+
+			<div class="row form-group">
+
+				<form target="_blank" method="get" action="http://www.freedb.org/freedb_search.php">
+					<div class="col-md-5 col-md-offset-3">
+						<input class="form-control" type="text" name="words" data-ng-model="musicEditDoc.cddbSearch" />
+					</div>
+					<div class="col-md-2">
+						<input class="form-control btn btn-danger" type="submit" value="Search Cddb" />
+					</div>
+				</form>
+				<form target="_blank" method="get" action="http://www.amazon.de/s">
+					<input type="text" class="hidden" name="field-keywords" data-ng-model="musicEditDoc.cddbSearch" />
+					<div class="col-md-2">
+						<input class="form-control btn btn-danger" type="submit" value="Search Amazon" />
+					</div>
+				</form>
+
+			</div>
+			<div class="row form-group">
+
+				<div class="col-md-3">
+					<label class="control-label">Path</label>
+					<input class="form-control" type="text" data-ng-model="musicEditDoc.cddb.path" />
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Format</label>
+					<select class="form-control" data-ng-model="musicEditDoc.cddb.format">
+						<option value="1">Title (Album)</option>
+						<option value="2">Artist Title (Sampler)</option>
+					</select>
+				</div>
+
+				<div class="col-md-3">
+					<label class="control-label">Url</label>
+					<input class="form-control" type="text" data-ng-model="musicEditDoc.cddb.url" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="control-label">&nbsp;</label>
+					<input class="form-control btn btn-danger" type="submit" ng-click="api.cddbUpdate(musicEditDoc.cddb)" value="Cddb Update" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="control-label">&nbsp;</label>
+					<input class="form-control btn btn-danger" type="submit" ng-click="api.folderUpdate(musicEditDoc.cddb)" value="Folder Update" />
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+

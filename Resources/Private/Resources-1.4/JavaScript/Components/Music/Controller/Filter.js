@@ -21,6 +21,8 @@
                 editType: editType
             };
 
+
+
             $scope.dialog = ngDialog.open({
                 "data" : data,
                 "template" : CONFIG.templatePath + 'Music/EditCategory.html',

@@ -3,10 +3,10 @@
     'use strict';
     angular
         .module('achimfritz.music')
-        .controller('MusicInfoDocController', MusicInfoDocController);
+        .controller('MusicEditDocController', MusicEditDocController);
 
     /* @ngInject */
-    function MusicInfoDocController ($scope, ngDialog, $rootScope) {
+    function MusicEditDocController ($scope, ngDialog, $rootScope) {
 
         var vm = this;
 
@@ -20,17 +20,10 @@
             'format': 1,
             'url': ''
         };
-        vm.zip = {
-            'name': 'download',
-            'useThumb': false,
-            'useFullPath': false
-        };
 
         docUpdate();
 
         function docUpdate() {
-            vm.zip.name = vm.doc.fsArtist + '_' + vm.doc.fsAlbum;
-            vm.zip.name = vm.zip.name.replace(/ /g, '');
             vm.cddb.path = vm.doc.mainDirectoryName;
             vm.cddbSearch = vm.doc.fsArtist + ' ' + vm.doc.fsAlbum;
         }
@@ -45,7 +38,7 @@
                     found = true;
                     docUpdate();
                 }
-            })
+            });
             if (found === false) {
                 ngDialog.close($scope.dialog.id);
             }

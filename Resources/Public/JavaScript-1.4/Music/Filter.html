@@ -1,5 +1,6 @@
 <div data-ng-controller="FilterController as filter">
 
+
 	<div class="row top5">
 		<div class="col-md-12">
 			<ul class="nav nav-pills">
@@ -10,9 +11,15 @@
 						{{name.substr(0, 13)}}
 					</a>
 				</li>
+				<li data-ng-if="document.data.response.numFound < 500" data-ng-controller="MusicResultController as musicResult">
+					<button class="btn btn-success" data-ng-click="musicResult.playAll(document.data.response.docs)">
+						<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+					</button>
+				</li>
 			</ul>
 		</div>
 	</div>
+
 
 
 	<div class="row top5">

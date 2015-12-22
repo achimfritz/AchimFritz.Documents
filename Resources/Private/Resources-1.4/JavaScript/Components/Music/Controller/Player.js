@@ -14,11 +14,9 @@
         vm.song = {};
         vm.currentPostion = 0;
 
-        vm.docs = {};
         vm.playlist = {};
-        vm.isPlaying = false;
 
-        vm.showInfoDoc = showInfoDoc;
+        vm.editPlaylist = editPlaylist;
 
         function toResult () {
             $timeout(function () {
@@ -27,23 +25,20 @@
             });
         }
 
-
         $timeout(function () {
             vm.song = angularPlayer.currentTrackData();
             vm.playlist = angularPlayer.getPlaylist();
-            vm.isPlaying = angularPlayer.isPlayingStatus();
-
             if (angular.isDefined(vm.song) === false) {
                 toResult();
             }
         });
 
-        function showInfoDoc(doc) {
+        function editPlaylist() {
             $scope.dialog = ngDialog.open({
-                "data" : doc,
-                "template" : CONFIG.templatePath + 'Music/InfoDoc.html',
-                "controller" : 'MusicInfoDocController',
-                "controllerAs" : 'musicInfoDoc',
+                "data" : vm.playlist,
+                "template" : CONFIG.templatePath + 'Music/EditPlaylist.html',
+                "controller" : 'MusicEditPlaylistController',
+                "controllerAs" : 'musicEditPlaylist',
                 "scope" : $scope
             });
         }
@@ -68,13 +63,6 @@
                 vm.playlist = playlist;
             });
         });
-
-        $scope.$on('music:isPlaying', function(event, data) {
-            $scope.$apply(function() {
-                vm.isPlaying = data;
-            });
-        });
-
 
     }
 })();

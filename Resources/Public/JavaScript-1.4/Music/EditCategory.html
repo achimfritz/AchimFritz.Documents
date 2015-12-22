@@ -4,14 +4,20 @@
 		<spinner></spinner>
 	</div>
 	<div class="row">
+		<div class="col-md-12 text-center">
+			<span class="label label-default" data-ng-if="musicEditCategory.renameCategory && musicEditCategory.editType === 'id3Tag'">
+				rename {{musicEditCategory.renameCategoryFacet}} {{musicEditCategory.renameCategory.oldPath}}
+			</span>
+			<span class="label label-default" data-ng-if="musicEditCategory.renameCategory && musicEditCategory.editType === 'category'">
+				rename {{musicEditCategory.renameCategory.oldPath}}
+			</span>
+		</div>
+	</div>
+	<div class="row">
 		<form  data-ng-if="musicEditCategory.renameCategory && musicEditCategory.editType === 'id3Tag'"
 			   data-ng-submit="api.id3TagUpdate(musicEditCategory.renameCategory, musicEditCategory.renameCategoryFacet)">
 			<div class="form-group">
-				<div class="col-md-5 col-md-offset-1">
-					<span>rename {{musicEditCategory.renameCategoryFacet}} to</span>
-					{{musicEditCategory.renameCategory.oldPath}}
-				</div>
-				<div class="col-md-3">
+				<div class="col-md-3 col-md-offset-3">
 					<input class="form-control" id="id3Tag" type="text" data-ng-model="musicEditCategory.renameCategory.newPath" data-autocomplete data-global="1" />
 				</div>
 				<div class="col-md-2">
@@ -23,10 +29,6 @@
 		<form data-ng-if="musicEditCategory.renameCategory && musicEditCategory.editType === 'category'"
 			  data-ng-submit="api.categoryUpdate(musicEditCategory.renameCategory, musicEditCategory.renameCategoryFacet)">
 			<div class="form-group">
-				<div class="col-md-5 col-md-offset-1">
-					<span>rename</span>
-					{{musicEditCategory.renameCategory.oldPath}}
-				</div>
 				<div class="col-md-3">
 					<input class="form-control" id="category" type="text" data-ng-model="musicEditCategory.renameCategory.newPath" data-autocomplete data-global="1" />
 				</div>
