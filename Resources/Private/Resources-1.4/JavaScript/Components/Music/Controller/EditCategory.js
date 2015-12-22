@@ -16,8 +16,6 @@
         vm.renameCategoryFacet = data.facetName;
         vm.editType = data.editType;
 
-        console.log(data);
-
         if (PathService.depth(data.facetValue) === 1) {
             path = data.facetValue;
         } else {

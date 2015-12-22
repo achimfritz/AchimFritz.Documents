@@ -154,11 +154,8 @@
             };
             Mp3DocumentId3TagRestService.massTag(rename).then(
                 function(data) {
-                    if (Solr.hasFilterQuery(facetName) === true) {
-                        Solr.rmFilterQuery(facetName, renameCategory.oldPath);
-                        Solr.addFilterQuery(facetName, renameCategory.newPath);
-                    }
-                    vm.restSuccessAndUpdate(data);
+                    $rootScope.$emit('apiId3TagUpdate', {facetName: facetName, renameCategory: renameCategory});
+                    vm.restSuccess(data);
 
                 },
                 vm.restError
@@ -166,9 +163,8 @@
         }
 
         function restSuccessAndUpdate(data) {
-            console.log(data);
+            // @deprecated
             vm.restSuccess(data);
-
             Solr.forceRequest().then(function (response){
                 $rootScope.$emit('solrDataUpdate', response.data);
             })
@@ -178,6 +174,7 @@
 
         function restSuccess(data) {
             vm.finished = true;
+            $rootScope.$emit('apiRestSuccess');
             FlashMessageService.show(data.data.flashMessages);
         }
 

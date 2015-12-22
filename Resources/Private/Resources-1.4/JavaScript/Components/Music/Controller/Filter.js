@@ -6,7 +6,7 @@
         .controller('MusicFilterController', MusicFilterController);
 
     /* @ngInject */
-    function MusicFilterController (ngDialog, $rootScope, CONFIG) {
+    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -21,6 +21,16 @@
                 editType: editType
             };
 
+            $rootScope.$on('apiId3TagUpdate', function (event, data) {
+                ngDialog.close($scope.dialog.id);
+                if (Solr.hasFilterQuery(data.facetName) === true) {
+                    Solr.rmFilterQuery(data.facetName, data.renameCategory.oldPath);
+                    Solr.addFilterQuery(data.facetName, data.renameCategory.newPath);
+                }
+                Solr.forceRequest().then(function (response) {
+                    $rootScope.$emit('solrDataUpdate', response.data);
+                });
+            });
 
 
             $scope.dialog = ngDialog.open({
