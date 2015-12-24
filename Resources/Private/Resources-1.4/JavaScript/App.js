@@ -91,6 +91,14 @@
             },
 
             {
+                path: CONFIG.baseUrl + '/music/list',
+                components: {
+                    main: 'musicList',
+                    navigation: 'musicNavigation'
+                }
+            },
+
+            {
                 path: CONFIG.baseUrl + '/music/filter',
                 components: {
                     main: 'musicFilter',

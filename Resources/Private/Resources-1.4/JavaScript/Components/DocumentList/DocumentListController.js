@@ -6,7 +6,7 @@
         .controller('DocumentListController', DocumentListController);
 
     /* @ngInject */
-    function DocumentListController (FlashMessageService, DocumentListRestService) {
+    function DocumentListController (FlashMessageService, DocumentListRestService, $rootScope) {
 
         var vm = this;
         vm.finished = true;
@@ -88,6 +88,7 @@
                     vm.finished = true;
                     vm.documentList = data.data.documentList;
                     vm.view = 'show';
+                    $rootScope.$emit('documentListLoaded', data.data.documentList);
                 },
                 vm.restError
             );

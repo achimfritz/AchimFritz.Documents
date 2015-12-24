@@ -11,6 +11,7 @@
         var vm = this;
         vm.items = [
             {name: 'result', active: true, location: 'result'},
+            {name: 'playlists', active: false, location: 'list'},
             {name: 'filter', active: false, location: 'filter'},
             {name: 'player', active: false, location: 'player'}
         ];

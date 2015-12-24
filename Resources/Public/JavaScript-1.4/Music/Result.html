@@ -48,14 +48,14 @@
 </div>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-8 col-md-offset-2">
 		<table class="table table-striped small-table">
 			<tr dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound">
 				<td class="mp3-song-list-controls">
-					<button class="btn btn-default btn-xs" music-player="play" add-song="{id: doc.identifier, url: doc.webPath, title: doc.title, doc: doc}">
+					<button class="btn btn-default btn-xs" data-ng-click="musicResult.playOne(doc)">
 						<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
 					</button>
-					<button class="btn btn-default btn-xs" music-player add-song="{id: doc.identifier, url: doc.webPath, title: doc.title, doc: doc}">
+					<button class="btn btn-default btn-xs" data-ng-click="musicResult.addOne(doc)">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 					<button class="btn btn-default btn-xs" ng-click="musicResult.editDoc(doc)">

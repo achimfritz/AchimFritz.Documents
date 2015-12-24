@@ -28,7 +28,7 @@
         $timeout(function () {
             vm.song = angularPlayer.currentTrackData();
             vm.playlist = angularPlayer.getPlaylist();
-            if (angular.isDefined(vm.song) === false) {
+            if (angular.isDefined(vm.playlist) === false || vm.playlist.length === 0) {
                 toResult();
             }
         });
