@@ -16,10 +16,10 @@
         vm.renameCategoryFacet = data.facetName;
         vm.editType = data.editType;
 
-        if (PathService.depth(data.facetValue) === 1) {
-            path = data.facetValue;
-        } else {
+        if (vm.editType === 'id3Tag') {
             path = PathService.slice(data.facetValue, 1);
+        } else {
+            path = data.facetValue;
         }
 
         vm.renameCategory = {

@@ -21,18 +21,6 @@
                 editType: editType
             };
 
-            $rootScope.$on('apiId3TagUpdate', function (event, data) {
-                ngDialog.close($scope.dialog.id);
-                if (Solr.hasFilterQuery(data.facetName) === true) {
-                    Solr.rmFilterQuery(data.facetName, data.renameCategory.oldPath);
-                    Solr.addFilterQuery(data.facetName, data.renameCategory.newPath);
-                }
-                Solr.forceRequest().then(function (response) {
-                    $rootScope.$emit('solrDataUpdate', response.data);
-                });
-            });
-
-
             $scope.dialog = ngDialog.open({
                 "data" : data,
                 "template" : CONFIG.templatePath + 'Music/EditCategory.html',
@@ -41,6 +29,17 @@
                 "scope" : $scope
             });
         }
+
+        $rootScope.$on('apiId3TagUpdate', function (event, data) {
+            ngDialog.close($scope.dialog.id);
+            if (Solr.hasFilterQuery(data.facetName) === true) {
+                Solr.rmFilterQuery(data.facetName, data.renameCategory.oldPath);
+                Solr.addFilterQuery(data.facetName, data.renameCategory.newPath);
+            }
+            Solr.forceRequest().then(function (response) {
+                $rootScope.$emit('solrDataUpdate', response.data);
+            });
+        });
 
     }
 })();
