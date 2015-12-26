@@ -6,7 +6,7 @@
         .controller('MusicPlayerController', MusicPlayerController);
 
     /* @ngInject */
-    function MusicPlayerController ($timeout, angularPlayer, $location, $rootScope, CONFIG, $filter, ngDialog) {
+    function MusicPlayerController ($timeout, angularPlayer, $location, $rootScope, CONFIG, $filter, ngDialog, Mp3PlayerService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -17,13 +17,9 @@
         vm.playlist = {};
 
         vm.editPlaylist = editPlaylist;
+        vm.onDropComplete = onDropComplete;
 
-        function toResult () {
-            $timeout(function () {
-                $location.path(CONFIG.baseUrl + '/music/result');
-                $rootScope.$emit('locationChanged', 'result');
-            });
-        }
+        Mp3PlayerService.initialize();
 
         $timeout(function () {
             vm.song = angularPlayer.currentTrackData();
@@ -32,6 +28,33 @@
                 toResult();
             }
         });
+
+        function toResult () {
+            $timeout(function () {
+                $location.path(CONFIG.baseUrl + '/music/result');
+                $rootScope.$emit('locationChanged', 'result');
+            });
+        }
+
+        function onDropComplete(index, obj, evt) {
+            var objIndex = vm.playlist.indexOf(obj);
+            var oldList = vm.playlist;
+            var soundIds = [];
+            var l = oldList.length;
+            var newList = [];
+            for (var j = 0; j < l; j++) {
+                if (j === index) {
+                    newList.push(obj);
+                    soundIds.push(obj.id);
+                }
+                if (j !== objIndex) {
+                    newList.push(oldList[j]);
+                    soundIds.push(oldList[j].id);
+                }
+            }
+            soundManager.soundIDs = soundIds;
+            vm.playlist = newList;
+        }
 
         function editPlaylist() {
             $scope.dialog = ngDialog.open({

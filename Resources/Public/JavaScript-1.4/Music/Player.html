@@ -28,8 +28,14 @@
 		<div data-ng-controller="MusicResultController as musicResult">
 			<div class="row top10">
 				<div class="col-md-6">
-					<table class="table small-table">
-						<tr ng-repeat="song in musicPlayer.playlist" ng-class="{true: 'alert alert-info'}[musicPlayer.currentPlaying.id == song.id]">
+					<table class="draglist mp3list table small-table">
+						<tr
+								data-ng-repeat="song in musicPlayer.playlist"
+								data-ng-class="{true: 'alert alert-info'}[musicPlayer.song.id == song.id]"
+								ng-drop="true"
+								ng-drop-success="musicPlayer.onDropComplete($index, $data, $event)"
+								ng-drag-data="song"
+								ng-drag="true">
 							<td class="mp3-song-list-controls">
 								<button data-ng-if="musicPlayer.song.id != song.id" play-from-playlist="song" class="btn btn-default btn-xs">
 									<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
