@@ -21,6 +21,10 @@
             return AppConfiguration.getNamespacedResourceUrl('documentListRemoveResource');
         };
 
+        this.categoryUrl = function() {
+            return AppConfiguration.getRestBaseUrl() + '/categorypathdocumentlist';
+        };
+
         var buildRequest = function(path, docs) {
             var sorting = 1;
             var documentListItems = [];
@@ -82,6 +86,18 @@
 
         this.show = function (identifier) {
             var url =  this.url() + '?documentList[__identity]=' + identifier;
+            return $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+
+        this.showByPath = function (path) {
+            var url =  this.categoryUrl() + '?categoryPath=' + path;
             return $http({
                 method: 'GET',
                 url: url,

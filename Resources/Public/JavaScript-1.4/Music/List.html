@@ -1,78 +1,39 @@
-<div data-ng-controller="DocumentListController as documentList">
-	<div data-ng-controller="MusicResultController as musicResult">
-		<div class="row top10" data-ng-if="documentList.view === 'list'">
-			<div class="col-md-12">
+<div data-ng-controller="FilterController as filter">
+	<div data-ng-controller="MusicFilterController as musicFilter">
+		<div class="row top5">
+			<div class="col-md-3">
 				<ul>
-					<li data-ng-repeat="list in documentList.documentLists" data-ng-click="documentList.show(list.__identity)">
-						{{list.category.path}}
+					<li ng-repeat="(key, value) in musicList.providers">
+							<span ng-click="document.addFilterQuery('hPaths', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
+								({{value}})
+							</span>
+
+							<span
+									class="glyphicon glyphicon-pencil"
+									aria-hidden="true"
+									data-ng-click="musicFilter.showRenameCategoryForm('hPaths', key, 'category')">
+							</span>
 					</li>
 				</ul>
-
 			</div>
-		</div>
-		<div class="row top10" data-ng-if="documentList.view === 'show'">
-			<div class="col-md-12">
+			<div class="col-md-3" data-ng-if="musicList.lists">
+				<ul>
+					<li ng-repeat="(key, value) in musicList.lists">
+							<span ng-click="document.addFilterQuery('hPaths', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
+								({{value}})
+							</span>
 
-				<div class="row">
-					<div class="col-md-3">
-						<span class="label label-default">{{documentList.documentList.category.path}}</span>
-					</div>
-					<div class="col-md-9">
-						<button data-ng-click="documentList.list()" class="btn btn-default" >list</button>
-						<button data-ng-click="documentList.removeList(documentList.documentList.__identity)" class="btn btn-danger" >delete</button>
-						<button data-ng-click="documentList.saveList()" class="btn btn-danger" >save</button>
-
-						<button class="btn btn-success" data-ng-click="musicResult.playAll(musicList.docs)">
-							<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-						</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="co-md-12">
-						<table class="draglist mp3list table table-striped">
-							<tr
-									data-ng-repeat="item in documentList.documentList.documentListItems"
-									ng-drop="true"
-									ng-drop-success="documentList.onDropComplete($index, $data, $event)"
-									ng-drag-data="item"
-									ng-drag="true">
-
-								<td class="mp3-song-list-controls">
-									<button class="btn btn-default btn-xs" data-ng-click="musicResult.playOne(item.document.solrDoc)">
-										<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
-									</button>
-									<button class="btn btn-default btn-xs" data-ng-click="musicResult.playOne(item.document.solrDoc)">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-									</button>
-									<button class="btn btn-default btn-xs" ng-click="musicResult.editDoc(item.document.solrDoc)">
-										<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-									</button>
-								</td>
-
-								<td>
-									<span ng-show="item.document.solrDoc.artist">{{item.document.solrDoc.artist.substr(0, 30)}}</span>
-									<span ng-hide="item.document.solrDoc.artist">{{item.document.solrDoc.fsArtist.substr(0, 30)}}</span>
-									<strong ng-hide="item.document.solrDoc.artist" class="text-danger">!</strong>
-								</td>
-								<td>
-									<span ng-show="item.document.solrDoc.album">{{item.document.solrDoc.album.substr(0, 30)}}</span>
-									<span ng-hide="item.document.solrDoc.album">{{item.document.solrDoc.fsAlbum.substr(0, 30)}}</span>
-									<strong ng-hide="item.document.solrDoc.album" class="text-danger">!</strong>
-								</td>
-								<td>
-									<span ng-show="item.document.solrDoc.track" >{{("00" + item.document.solrDoc.track).substr(-2, 2)}}</span>
-									<span ng-hide="item.document.solrDoc.track" >{{("00" + item.document.solrDoc.fsTrack).substr(-2, 2)}}</span>
-									<strong ng-hide="item.document.solrDoc.track" class="text-danger">!</strong>
-									<span ng-show="item.document.solrDoc.title" >{{item.document.solrDoc.title.substr(0, 30)}}</span>
-									<span ng-hide="item.document.solrDoc.title" >{{item.document.solrDoc.fsTitle.substr(0, 30)}}</span>
-									<strong ng-hide="item.document.solrDoc.title" class="text-danger">!</strong>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
+							<span
+									class="glyphicon glyphicon-pencil"
+									aria-hidden="true"
+									data-ng-click="musicFilter.showRenameCategoryForm('hPaths', key, 'category')">
+							</span>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
 </div>
+

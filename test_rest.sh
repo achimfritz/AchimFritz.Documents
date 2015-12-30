@@ -1,5 +1,9 @@
 #!/bin/bash
 
+curl -i -X GET "http://dev.dev.local.dev/achimfritz.documents/categorypathdocumentlist/index?categoryPath=alist/af/t1" -H "Content-Type: application/json" -H "Accept: application/json"
+echo ""
+exit;
+
 
 curl -i -X PUT "http://dev/achimfritz.documents/renamecategory/" -H "Content-Type: application/json" -H "Accept: application/json" -d '{	
 	"renameCategory": {

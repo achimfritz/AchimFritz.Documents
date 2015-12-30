@@ -6,13 +6,49 @@
         .controller('MusicListController', MusicListController);
 
     /* @ngInject */
-    function MusicListController (ngDialog, $rootScope, $timeout, Mp3PlayerService, Solr) {
+    function MusicListController (ngDialog, $rootScope, $timeout, Mp3PlayerService, Solr, PathService, DocumentListRestService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
 
         vm.docs = [];
+        vm.providers = {};
+        vm.lists = {};
 
+
+        // TODO DocumntController.initController(), rm Solr from ApiController
+        // or do not use DocumentController?
+
+        Solr.resetFilterQueries();
+        Solr.setParam('f_hPaths_facet_prefix', '1/list/');
+        Solr.forceRequest().then(function (response) {
+            vm.providers = response.data.facet_counts.facet_fields.hPaths;
+            $rootScope.$emit('solrDataUpdate', response.data);
+        });
+
+        $rootScope.$on('solrDataUpdate', function (event, data) {
+            var fq = Solr.getFilterQueries();
+            var current = fq['hPaths'];
+            if (angular.isDefined(current)) {
+                if (PathService.depth(current[0]) === 3) {
+                    vm.lists = data.facet_counts.facet_fields.hPaths;
+                } else if (PathService.depth(current[0]) === 4) {
+                    // new RestController DocumentListByCategory
+                    /*
+                    - merge documentList (sorting)
+                    - response.data.response.docs = vm.docs;
+                     $rootScope.$emit('solrDataUpdate', response.data);
+                     !!!
+                     */
+                }
+
+            }
+            //console.log(current);
+            //vm.lists = data.facet_counts.facet_fields.hPaths;
+            //console.log(vm.lists);
+        });
+
+        /*
         Mp3PlayerService.initialize();
 
         $rootScope.$on('documentListLoaded', function (event, data) {
@@ -36,6 +72,7 @@
                 $rootScope.$emit('solrDataUpdate', response.data);
             });
         });
+        */
 
     }
 })();
