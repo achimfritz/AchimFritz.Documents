@@ -6,7 +6,7 @@
         .controller('MusicEditPlaylistController', MusicEditPlaylistController);
 
     /* @ngInject */
-    function MusicEditPlaylistController ($scope, Mp3PlayerService) {
+    function MusicEditPlaylistController ($scope) {
 
         var vm = this;
         vm.playlist = $scope.ngDialogData;
@@ -30,7 +30,11 @@
         }
 
         function getPlaylistDocs() {
-            return Mp3PlayerService.getPlaylistDocs();
+            var docs = [];
+            angular.forEach(vm.playlist, function (val, key) {
+                docs.push(val.doc);
+            });
+            return docs;
         }
 
 

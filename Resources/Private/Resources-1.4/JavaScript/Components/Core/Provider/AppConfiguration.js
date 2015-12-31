@@ -27,11 +27,12 @@
                 getResourceUrl: function (name) {
                     return restBaseUrl + '/' + resources[name] + '/';
                 },
-                getRestBaseUrl: function (name) {
-                    return restBaseUrl + '/' + resources[name] + '/';
-                },
-                getNamespacedResourceUrl: function () {
+
+                getRestBaseUrl: function () {
                     return restBaseUrl;
+                },
+                getNamespacedResourceUrl: function (name) {
+                    return restBaseUrl + '/' + namespace + resources[name] + '/';
                 },
                 setApplicationRoot: function (newApplicationRoot) {
                     applicationRoot = newApplicationRoot;

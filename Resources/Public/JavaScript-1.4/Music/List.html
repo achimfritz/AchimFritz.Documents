@@ -3,7 +3,7 @@
 		<div class="row top5">
 			<div class="col-md-3">
 				<ul>
-					<li ng-repeat="(key, value) in musicList.providers">
+					<li ng-repeat="(key, value) in musicList.paths[0]">
 							<span ng-click="document.addFilterQuery('hPaths', key)">
 								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
 								({{value}})
@@ -17,10 +17,26 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-3" data-ng-if="musicList.lists">
+			<div class="col-md-3" data-ng-if="musicList.paths[1]">
 				<ul>
-					<li ng-repeat="(key, value) in musicList.lists">
+					<li ng-repeat="(key, value) in musicList.paths[1]">
 							<span ng-click="document.addFilterQuery('hPaths', key)">
+								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
+								({{value}})
+							</span>
+
+							<span
+									class="glyphicon glyphicon-pencil"
+									aria-hidden="true"
+									data-ng-click="musicFilter.showRenameCategoryForm('hPaths', key, 'category')">
+							</span>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-3" data-ng-if="musicList.paths[2]">
+				<ul>
+					<li ng-repeat="(key, value) in musicList.paths[2]">
+							<span ng-click="musicList.addFilterQuery('hPaths', key)">
 								<nav-path ng-attr-path="{{key}}" ng-attr-facet="hPaths"></nav-path>
 								({{value}})
 							</span>

@@ -42,6 +42,7 @@
         self.facetsToKeyValue = facetsToKeyValue;
         self.facetsToLabelValue = facetsToLabelValue;
         self.hasFilterQuery = hasFilterQuery;
+        self.setFacetPrefix = setFacetPrefix;
         self.init = init;
 
 
@@ -54,11 +55,8 @@
             hFacets = solrConfiguration.hFacets;
             manager = new AjaxSolr.Manager(settings);
             manager.init();
-            angular.forEach(facets, function (val) {
-                manager.store.addByValue('facet.field', val);
-            });
             angular.forEach(hFacets, function (val, key) {
-                manager.store.addByValue('f.' + key + '.facet.prefix', val);
+                setFacetPrefix(key, val);
             });
             initialized = true;
         }
@@ -129,6 +127,10 @@
 
         function hasFilterQuery(name) {
             return angular.isDefined(filterQueries[name]);
+        }
+
+        function setFacetPrefix(name, value) {
+            facetPrefixes[name] = value;
         }
 
         function rmFilterQuery(name, value) {
@@ -227,15 +229,19 @@
             manager.store.removeByValue('f.' + searchField + '.facet.prefix', lastWord);
             manager.store.removeByValue('facet.field', searchField);
             return Request.forceRequest(url);
-        };
+        }
 
         function buildUrl() {
             if (initialized === false) {
                 self.init();
             }
-            var params = getSolrParams();
-            angular.forEach(params, function (val, key) {
+            var solrParams = getSolrParams();
+
+            angular.forEach(solrParams, function (val, key) {
                 manager.store.addByValue(key, val);
+            });
+            angular.forEach(facets, function (val) {
+                manager.store.addByValue('facet.field', val);
             });
             // remove all fq
             manager.store.remove('fq');
