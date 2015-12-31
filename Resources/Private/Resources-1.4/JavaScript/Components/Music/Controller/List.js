@@ -6,19 +6,14 @@
         .controller('MusicListController', MusicListController);
 
     /* @ngInject */
-    function MusicListController (ngDialog, $rootScope, $timeout, Mp3PlayerService, Solr, PathService, DocumentListRestService) {
+    function MusicListController ($rootScope, $timeout, Solr, PathService, DocumentListRestService, $location, CONFIG) {
 
         var vm = this;
-        var $scope = $rootScope.$new();
 
-        vm.docs = [];
         vm.paths = [];
 
         vm.addFilterQuery = addFilterQuery;
 
-
-        // TODO DocumntController.initController(), rm Solr from ApiController
-        // or do not use DocumentController?
 
         Solr.resetFilterQueries();
         Solr.setFacetPrefix('hPaths', '0');
@@ -26,6 +21,7 @@
             vm.paths[0] = response.data.facet_counts.facet_fields.hPaths;
             $rootScope.$emit('solrDataUpdate', response.data);
         });
+
 
         $rootScope.$on('solrDataUpdate', function (event, data) {
             var fq = Solr.getFilterQueries();
@@ -36,7 +32,6 @@
 
                 } else if (PathService.depth(current[0]) === 3) {
                     vm.paths[2] = data.facet_counts.facet_fields.hPaths;
-
                 }
             }
         });
@@ -47,29 +42,46 @@
             Solr.addFilterQuery(name, value);
             if (filterType === 'list') {
                 var path = PathService.slice(value, 1);
+                var docs = [];
                 DocumentListRestService.showByPath(path).then(
                     function(response) {
                         var documentList = response.data.documentList;
+                        var cnt = documentList.documentListItems.length;
+                        Solr.setParam('rows', cnt);
                         Solr.forceRequest().then(function (response) {
                             angular.forEach(documentList.documentListItems, function (listItem) {
                                 angular.forEach(response.data.response.docs, function (solrDoc) {
                                     if (solrDoc.identifier === listItem.document['__identity']) {
-                                        vm.docs.push(solrDoc);
+                                        docs.push(solrDoc);
                                     }
                                 });
                             });
-                            response.data.response.docs = vm.docs;
+                            response.data.response.docs = docs;
                             $rootScope.$emit('solrDataUpdate', response.data);
-                            //console.log(vm.docs);
+                            $timeout(function () {
+                                $location.path(CONFIG.baseUrl + '/music/result');
+                                $rootScope.$emit('locationChanged', 'result');
+                            });
                         });
                     },
                     function(response) {
-
+                        // standard on error
+                        Solr.forceRequest().then(function (response) {
+                            $rootScope.$emit('solrDataUpdate', response.data);
+                            $timeout(function () {
+                                $location.path(CONFIG.baseUrl + '/music/result');
+                                $rootScope.$emit('locationChanged', 'result');
+                            });
+                        });
                     }
                 );
             } else {
                 Solr.forceRequest().then(function (response) {
                     $rootScope.$emit('solrDataUpdate', response.data);
+                    $timeout(function () {
+                        $location.path(CONFIG.baseUrl + '/music/result');
+                        $rootScope.$emit('locationChanged', 'result');
+                    });
                 });
             }
 
