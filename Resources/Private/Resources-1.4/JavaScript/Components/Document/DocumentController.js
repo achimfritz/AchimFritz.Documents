@@ -30,6 +30,7 @@
         vm.nextPage = nextPage;
         vm.showAllRows = showAllRows;
         vm.newRandom = newRandom;
+        vm.clearSearch = clearSearch;
 
 
         // not used by the view
@@ -100,12 +101,16 @@
             vm.update();
         }
 
+        function clearSearch() {
+            Solr.setParam('q', '*:*');
+            vm.search = '';
+            vm.update();
+        }
+
         function update() {
             if (vm.search !== undefined) {
                 if (vm.search !== '') {
                     Solr.setParam('q', vm.search);
-                } else {
-                    Solr.setParam('q', '*:*');
                 }
             }
 

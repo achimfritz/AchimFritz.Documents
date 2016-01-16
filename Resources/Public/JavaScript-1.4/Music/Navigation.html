@@ -26,6 +26,10 @@
 		</div>
 
 		<div class="col-md-4">
+			<button class="btn btn-default btn-danger" data-ng-if="document.params.q != '*:*'" role="button" data-ng-click="document.clearSearch()">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				{{document.search}}
+			</button>
 			<span ng-repeat="(key, values) in document.filterQueries">
 				<button role="button" class="btn btn-default btn-danger" ng-click="document.rmFilterQuery(key, value)"
 						ng-repeat="value in values">
