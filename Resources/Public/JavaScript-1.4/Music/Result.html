@@ -1,100 +1,103 @@
-<div class="row">
-	<div class="col-md-2 col-md-offset-5 text-center">
-		<span class="label label-default">found {{document.data.response.numFound}} (displaying {{document.params.rows}})</span>
-	</div>
-</div>
+<div data-ng-controller="DocumentController as document">
 
-<div class="row top5">
-	<div class="col-md-2">
-		<button class="btn btn-success" data-ng-click="musicResult.playAll(document.data.response.docs)">
-			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-		</button>
-		<button class="btn btn-default" data-ng-click="musicResult.addAll(document.data.response.docs)">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-		</button>
-		<button data-ng-if="document.params.sort === document.random" class="btn btn-default" data-ng-click="document.newRandom()">
-			<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-		</button>
+	<div class="row">
+		<div class="col-md-2 col-md-offset-5 text-center">
+			<span class="label label-default">found {{document.data.response.numFound}} (displaying {{document.params.rows}})</span>
+		</div>
 	</div>
 
-	<div class="col-md-2">
-		<select class="form-control" id="sort" data-ng-model="document.params.sort" data-ng-change="document.update()">
-			<option value="album asc, artist asc, track asc">album artist track</option>
-			<option value="mDateTime desc">mDateTime desc</option>
-			<option value="mDateTime asc">mDateTime asc</option>
-			<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
-			<option value="artist asc">artist asc</option>
-			<option value="{{document.random}}">random</option>
-		</select>
+	<div class="row top5">
+		<div class="col-md-2">
+			<button class="btn btn-success" data-ng-click="musicResult.playAll(document.data.response.docs)">
+				<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+			</button>
+			<button class="btn btn-default" data-ng-click="musicResult.addAll(document.data.response.docs)">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button>
+			<button data-ng-if="document.params.sort === document.random" class="btn btn-default" data-ng-click="document.newRandom()">
+				<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+			</button>
+		</div>
+
+		<div class="col-md-2">
+			<select class="form-control" id="sort" data-ng-model="document.params.sort" data-ng-change="document.update()">
+				<option value="album asc, artist asc, track asc">album artist track</option>
+				<option value="mDateTime desc">mDateTime desc</option>
+				<option value="mDateTime asc">mDateTime asc</option>
+				<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
+				<option value="artist asc">artist asc</option>
+				<option value="{{document.random}}">random</option>
+			</select>
+		</div>
+
+		<div class="col-md-6">
+			<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
+		</div>
+		<div class="col-md-2 text-right">
+			<button class="btn btn-default" type="button" data-ng-click="document.showAllRows()"
+					data-ng-if="document.data.response.numFound < 500 && document.data.response.numFound > document.params.rows">
+				all
+			</button>
+			<button class="btn btn-default" type="button" data-ng-click="document.changeRows(10)"
+					data-ng-if="document.data.response.numFound > document.params.rows">
+				more
+			</button>
+			<button class="btn btn-default" type="button" data-ng-click="document.changeRows(-10)"
+					data-ng-if="document.params.rows > 10">
+				less
+			</button>
+		</div>
 	</div>
 
-	<div class="col-md-6">
-		<dir-pagination-controls on-page-change="document.nextPage(newPageNumber)"></dir-pagination-controls>
-	</div>
-	<div class="col-md-2 text-right">
-		<button class="btn btn-default" type="button" data-ng-click="document.showAllRows()"
-				data-ng-if="document.data.response.numFound < 500 && document.data.response.numFound > document.params.rows">
-			all
-		</button>
-		<button class="btn btn-default" type="button" data-ng-click="document.changeRows(10)"
-				data-ng-if="document.data.response.numFound > document.params.rows">
-			more
-		</button>
-		<button class="btn btn-default" type="button" data-ng-click="document.changeRows(-10)"
-				data-ng-if="document.params.rows > 10">
-			less
-		</button>
-	</div>
-</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<table class="table table-striped small-table">
+				<tr dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound">
+					<td class="mp3-song-list-controls">
+						<button class="btn btn-default btn-xs" data-ng-click="musicResult.playOne(doc)">
+							<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
+						</button>
+						<button class="btn btn-default btn-xs" data-ng-click="musicResult.addOne(doc)">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-default btn-xs" ng-click="musicResult.editDoc(doc)">
+							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+						</button>
+					</td>
 
-<div class="row">
-	<div class="col-md-8 col-md-offset-2">
-		<table class="table table-striped small-table">
-			<tr dir-paginate="doc in document.data.response.docs | itemsPerPage: document.params.rows" total-items="document.data.response.numFound">
-				<td class="mp3-song-list-controls">
-					<button class="btn btn-default btn-xs" data-ng-click="musicResult.playOne(doc)">
-						<span class="glyphicon glyphicon-play" aria-hidden="true" ></span>
-					</button>
-					<button class="btn btn-default btn-xs" data-ng-click="musicResult.addOne(doc)">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</button>
-					<button class="btn btn-default btn-xs" ng-click="musicResult.editDoc(doc)">
-						<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-					</button>
-				</td>
+					<td>
+						<button ng-show="doc.artist" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('artist', doc.artist)">
+							<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+						</button>
+						<button ng-hide="doc.artist" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('fsArtist', doc.fsArtist)">
+							<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+						</button>
 
-				<td>
-					<button ng-show="doc.artist" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('artist', doc.artist)">
-						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
-					</button>
-					<button ng-hide="doc.artist" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('fsArtist', doc.fsArtist)">
-						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
-					</button>
-
-					<span ng-show="doc.artist">{{doc.artist.substr(0, 30)}}</span>
-					<span ng-hide="doc.artist">{{doc.fsArtist.substr(0, 30)}}</span>
-					<strong ng-hide="doc.artist" class="text-danger">!</strong>
-				</td>
-				<td>
-					<button ng-show="doc.album" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('album', doc.album)">
-						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
-					</button>
-					<button ng-hide="doc.album" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('fsAlbum', doc.fsAlbum)">
-						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
-					</button>
-					<span ng-show="doc.album">{{doc.album.substr(0, 30)}}</span>
-					<span ng-hide="doc.album">{{doc.fsAlbum.substr(0, 30)}}</span>
-					<strong ng-hide="doc.album" class="text-danger">!</strong>
-				</td>
-				<td>
-					<span ng-show="doc.track" >{{("00" + doc.track).substr(-2, 2)}}</span>
-					<span ng-hide="doc.track" >{{("00" + doc.fsTrack).substr(-2, 2)}}</span>
-					<strong ng-hide="doc.track" class="text-danger">!</strong>
-					<span ng-show="doc.title" >{{doc.title.substr(0, 30)}}</span>
-					<span ng-hide="doc.title" >{{doc.fsTitle.substr(0, 30)}}</span>
-					<strong ng-hide="doc.title" class="text-danger">!</strong>
-				</td>
-			</tr>
-		</table>
+						<span ng-show="doc.artist">{{doc.artist.substr(0, 30)}}</span>
+						<span ng-hide="doc.artist">{{doc.fsArtist.substr(0, 30)}}</span>
+						<strong ng-hide="doc.artist" class="text-danger">!</strong>
+					</td>
+					<td>
+						<button ng-show="doc.album" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('album', doc.album)">
+							<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+						</button>
+						<button ng-hide="doc.album" class="btn btn-default btn-xs" ng-click="document.addFilterQuery('fsAlbum', doc.fsAlbum)">
+							<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+						</button>
+						<span ng-show="doc.album">{{doc.album.substr(0, 30)}}</span>
+						<span ng-hide="doc.album">{{doc.fsAlbum.substr(0, 30)}}</span>
+						<strong ng-hide="doc.album" class="text-danger">!</strong>
+					</td>
+					<td>
+						<span ng-show="doc.track" >{{("00" + doc.track).substr(-2, 2)}}</span>
+						<span ng-hide="doc.track" >{{("00" + doc.fsTrack).substr(-2, 2)}}</span>
+						<strong ng-hide="doc.track" class="text-danger">!</strong>
+						<span ng-show="doc.title" >{{doc.title.substr(0, 30)}}</span>
+						<span ng-hide="doc.title" >{{doc.fsTitle.substr(0, 30)}}</span>
+						<strong ng-hide="doc.title" class="text-danger">!</strong>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

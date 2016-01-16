@@ -10,20 +10,21 @@
 
         var vm = this;
         vm.items = [
-            {name: 'result', active: true, location: 'result'},
-            {name: 'playlists', active: false, location: 'list'},
-            {name: 'filter', active: false, location: 'filter'},
-            {name: 'player', active: false, location: 'player'}
+            {name: 'home', active: false, location: 'index'},
+            {name: 'result', active: true, location: 'music/result'},
+            {name: 'playlists', active: false, location: 'music/list'},
+            {name: 'filter', active: false, location: 'music/filter'},
+            {name: 'player', active: false, location: 'music/player'}
         ];
         vm.forward = forward;
 
         var path = $location.path();
         if (path === CONFIG.baseUrl + '/music' || path === CONFIG.baseUrl + '/music/') {
             $timeout(function () {
-                forward('result');
+                forward('music/result');
             });
         }
-        var newLocation = path.replace(CONFIG.baseUrl + '/music/', '');
+        var newLocation = path.replace(CONFIG.baseUrl + '/', '');
         setActive(newLocation);
 
 
@@ -39,10 +40,10 @@
 
         function forward(newLocation) {
             setActive(newLocation);
-            $location.path('app/music/' + newLocation);
+            $location.path('app/' + newLocation);
         }
 
-        $rootScope.$on('locationChanged', function (event, data) {
+        $rootScope.$on('music:locationChanged', function (event, data) {
             setActive(data);
         });
 

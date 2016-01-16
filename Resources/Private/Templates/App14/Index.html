@@ -4,9 +4,17 @@
 	<main class="container-fluid">
 		<!-- do not use data-ng-app because angular soundmanager has an selector of ng-app -->
 		<div class="container-fluid" ng-app="achimfritz.app" data-ng-controller="AppController as app">
-			<div data-ng-controller="ConfigurationController as configuration"></div>
-			<div ng-viewport="main"></div>
+			<div data-ng-viewport="configuration"></div>
+			<toaster-container></toaster-container>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1" data-ng-viewport="navigation"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1" data-ng-viewport="main"></div>
+			</div>
 		</div>
 	</main>
 </f:section>
+
+
 

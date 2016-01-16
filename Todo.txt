@@ -33,3 +33,12 @@ view stuff
 - rating
 - newest
 - more/less than one song
+
+
+home
+- server
+- accounting
+- mp3
+- image
+- tv
+- contacts

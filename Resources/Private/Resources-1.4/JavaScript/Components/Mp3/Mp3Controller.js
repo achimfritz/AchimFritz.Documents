@@ -33,48 +33,6 @@
         vm.initController();
 
         function initController() {
-            AppConfiguration.setNamespace('mp3');
-            WidgetConfiguration.setNamespace('Mp3');
-
-
-            WidgetConfiguration.setWidgets({
-                result: true,
-                filter: false,
-                ratingFilter: false,
-                integrity: false,
-                lists: false,
-                player: false
-            });
-
-            FilterConfiguration.setFilters({
-                artist: true,
-                genre: true,
-                fsProvider: true,
-                fsGenre: true,
-                album: false,
-                artistLetter: false,
-                year: false,
-                hPaths: false,
-                fsArtist: false,
-                fsAlbum: false
-            });
-            FilterConfiguration.setConfiguration({
-                categories: ['hPaths'],
-                id3Tags: ['artist', 'album', 'genre', 'year']
-            });
-            SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
-            SolrConfiguration.setHFacets({hPaths: '0'});
-            //SolrConfiguration.setParam('sort', 'album asc, artist asc, track asc');
-            SolrConfiguration.setParam('sort', 'mDateTime desc');
-            SolrConfiguration.setParam('rows', 15);
-            SolrConfiguration.setParam('facet_limit', 15);
-            SolrConfiguration.setParam('facet_sort', 'count');
-            SolrConfiguration.setParam('f_artistLetter_facet_sort', 'index');
-            SolrConfiguration.setParam('f_artistLetter_facet_limit', 35);
-           // SolrConfiguration.setParam('f_hPaths_facet_prefix', '2/');
-            SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
-            SolrConfiguration.setSetting('servlet', 'mp3');
-
             vm.cddb = {
                 'path': '',
                 'format': 1,
@@ -124,11 +82,12 @@
             vm.togglePlayer(true);
         });
 
-        $rootScope.$on('solrDataUpdate', function (event, data) {
+        var listener = $scope.$on('solrDataUpdate', function (event, data) {
             vm.zip.name = '';
             vm.cddb.path = '';
             var params = Solr.getParams();
             if (params['q'] !== '*:*') {
+                // TODO
                 $rootScope.$emit('openWidget', 'filter');
             }
             var found = false;
@@ -143,6 +102,11 @@
             if (found === false) {
                 vm.infoDoc = null;
             }
+        });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
         });
 
     }

@@ -58,34 +58,31 @@
                             });
                             response.data.response.docs = docs;
                             $rootScope.$emit('solrDataUpdate', response.data);
-                            $timeout(function () {
-                                $location.path(CONFIG.baseUrl + '/music/result');
-                                $rootScope.$emit('locationChanged', 'result');
-                            });
+                            toResult();
                         });
                     },
                     function(response) {
                         // standard on error
                         Solr.forceRequest().then(function (response) {
                             $rootScope.$emit('solrDataUpdate', response.data);
-                            $timeout(function () {
-                                $location.path(CONFIG.baseUrl + '/music/result');
-                                $rootScope.$emit('locationChanged', 'result');
-                            });
+                            toResult();
                         });
                     }
                 );
             } else {
                 Solr.forceRequest().then(function (response) {
                     $rootScope.$emit('solrDataUpdate', response.data);
-                    $timeout(function () {
-                        $location.path(CONFIG.baseUrl + '/music/result');
-                        $rootScope.$emit('locationChanged', 'result');
-                    });
+                    toResult();
                 });
             }
 
         }
 
+        function toResult() {
+            $timeout(function () {
+                $location.path(CONFIG.baseUrl + '/music/result');
+                $rootScope.$emit('music:locationChanged', 'music/result');
+            });
+        }
     }
 })();

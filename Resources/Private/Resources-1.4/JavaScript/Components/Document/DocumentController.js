@@ -9,6 +9,7 @@
     function DocumentController (Solr, $rootScope) {
 
         var vm = this;
+        var $scope = $rootScope.$new();
 
         vm.filterQueries = {};
         vm.data = {};
@@ -38,9 +39,9 @@
 
         function initController() {
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
-            Solr.request().then(function (response){
-                $rootScope.$emit('solrDataUpdate', response.data);
-            })
+            vm.filterQueries = Solr.getFilterQueries();
+            vm.data = Solr.getData();
+            vm.params = Solr.getParams();
         }
 
         function newRandom() {
@@ -100,7 +101,6 @@
         }
 
         function update() {
-
             if (vm.search !== undefined) {
                 if (vm.search !== '') {
                     Solr.setParam('q', vm.search);
@@ -110,14 +110,20 @@
             }
 
             Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
+                Solr.setData(response.data);
             })
         }
 
-        $rootScope.$on('solrDataUpdate', function (event, data) {
+        var listener = $scope.$on('solrDataUpdate', function (event, data) {
             vm.filterQueries = Solr.getFilterQueries();
-            vm.data = data;
+            vm.data = Solr.getData();
             vm.params = Solr.getParams();
         });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
+        });
+
     }
 })();

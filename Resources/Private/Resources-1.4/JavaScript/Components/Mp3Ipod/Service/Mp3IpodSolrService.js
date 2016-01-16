@@ -18,15 +18,6 @@
 
         function initialize() {
             if (initialized === false) {
-                SolrConfiguration.setParam('facet_limit', 9999999);
-
-                SolrConfiguration.setFacets(['artist', 'genre', 'album', 'spell']);
-                SolrConfiguration.setHFacets({});
-                SolrConfiguration.setSetting('servlet', 'mp3');
-
-                Solr.init();
-                //Solr.setParam('rows', 999);
-                //Solr.setParam('sort', 'track asc, fsTrack asc, album asc, artist asc');
                 initialized = true;
             }
         }

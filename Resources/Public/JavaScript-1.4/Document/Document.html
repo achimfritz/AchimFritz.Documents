@@ -1,4 +1,5 @@
 <h1>Document</h1>
+<h3>results: {{document.data.response.numFound}}</h3>
 
 	<form novalidate class="simple-form" ng-submit="document.update()">
 		<div class="form-group row">
@@ -39,8 +40,6 @@
 		{{doc.name}}
 	</div>
 
-
-	<p>results: {{document.data.response.numFound}}</p>
 
 	<ul data-ng-repeat="(key, values) in document.filterQueries">
 		<li data-ng-repeat="value in values">

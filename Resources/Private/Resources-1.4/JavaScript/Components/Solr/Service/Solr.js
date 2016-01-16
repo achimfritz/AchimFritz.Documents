@@ -7,7 +7,7 @@
         .module('achimfritz.solr')
         .service('Solr', Solr);
 
-    function Solr(SolrConfiguration, Request, PathService) {
+    function Solr(SolrConfiguration, Request, PathService, $rootScope) {
 
         var self = this;
 
@@ -21,6 +21,7 @@
         var facetPrefixes = {};
         var filterQueries = {};
         var initialized = false;
+        var data = {};
 
         self.request = request;
         self.forceRequest = forceRequest;
@@ -44,10 +45,20 @@
         self.hasFilterQuery = hasFilterQuery;
         self.setFacetPrefix = setFacetPrefix;
         self.init = init;
+        self.reset = reset;
+        self.getData = getData;
+        self.setData = setData;
 
+        function getData() {
+            return data;
+        }
+
+        function setData(newData) {
+            data = newData;
+            $rootScope.$broadcast('solrDataUpdate', data);
+        }
 
         function init() {
-
             solrConfiguration = SolrConfiguration.getConfiguration();
             settings = solrConfiguration.settings;
             params = solrConfiguration.params;
@@ -59,6 +70,12 @@
                 setFacetPrefix(key, val);
             });
             initialized = true;
+        }
+
+        function reset() {
+            filterQueries = {};
+            hFacets = {};
+            facetPrefixes = {};
         }
 
         function facetsToKeyValue(facets) {

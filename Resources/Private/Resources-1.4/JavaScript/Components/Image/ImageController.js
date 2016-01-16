@@ -6,7 +6,7 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, WidgetConfiguration, SolrConfiguration, AppConfiguration, FilterConfiguration) {
+    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, Solr) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -31,41 +31,7 @@
         vm.initController();
 
         function initController() {
-
-            AppConfiguration.setNamespace('image');
-
-            SolrConfiguration.setFacets(['pathParts', 'day', 'month', 'hCategories', 'hPaths', 'hLocations', 'year', 'tags', 'parties', 'mainDirectoryName', 'collections']);
-            SolrConfiguration.setHFacets({
-                hPaths: '0',
-                hCategories: '1/categories',
-                hLocations: '1/locations'
-            });
-            SolrConfiguration.setSetting('servlet', 'image');
-            WidgetConfiguration.setNamespace('Image');
-            WidgetConfiguration.setWidgets({
-                result: true,
-                filter: false,
-                solrIntegrity: false,
-                clipboard: false,
-                integrity: false
-            });
-            FilterConfiguration.setFilters({
-                pathParts: true,
-                hCategories: false,
-                hLocations: false,
-                hPaths: false,
-                year: true,
-                month: false,
-                day: false,
-                tags: false,
-                parties: false,
-                mainDirectoryName: false,
-                collections: false
-            });
-            FilterConfiguration.setConfiguration({
-                categories: ['hPaths', 'hLocations', 'hCategories', 'parties', 'tags']
-            });
-
+            vm.data = Solr.getData();
             hotkeys.bindTo($scope).add({
                 combo: 'ctrl',
                 action: 'keydown',
@@ -97,6 +63,7 @@
             angular.forEach(vm.data.response.docs, function (val, key) {
                 val.selected = '';
             });
+            // TODO
             $rootScope.$emit('docsUpdate', vm.data.response.docs);
         }
 
@@ -157,10 +124,14 @@
             });
         }
 
-        $rootScope.$on('solrDataUpdate', function (event, data) {
-            vm.data = data;
-            $rootScope.$emit('docsUpdate', data.response.docs);
-        })
+        var listener = $scope.$on('solrDataUpdate', function (event, data) {
+            vm.data = Solr.getData();
+        });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
+        });
 
     }
 })();

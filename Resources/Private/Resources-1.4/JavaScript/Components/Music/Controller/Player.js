@@ -32,7 +32,7 @@
         function toResult () {
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/result');
-                $rootScope.$emit('locationChanged', 'result');
+                $rootScope.$emit('music:locationChanged', 'music/result');
             });
         }
 

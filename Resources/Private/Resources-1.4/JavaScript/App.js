@@ -23,6 +23,7 @@
             'achimfritz.mp3',
             'achimfritz.mp3ipod',
             'achimfritz.music',
+            'achimfritz.home',
             'achimfritz.image'
         ])
         .constant('CONFIG', {
@@ -43,32 +44,42 @@
 
         $router.config([
             {
-                path: CONFIG.baseUrl + '',
+                path: CONFIG.baseUrl + '/index',
                 components: {
-                    main: 'default'
+                    configuration: 'homeConfiguration',
+                    main: 'homeDefault',
+                    navigation: 'homeNavigation'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/urlbuilder',
                 components: {
-                    main: 'urlBuilder'
+                    configuration: 'homeConfiguration',
+                    main: 'urlBuilder',
+                    navigation: 'homeNavigation'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/document',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'document'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/image',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'image'
                 }
             },
@@ -76,6 +87,7 @@
             {
                 path: CONFIG.baseUrl + '/music',
                 components: {
+                    configuration: 'homeConfiguration',
                     main: 'musicResult',
                     navigation: 'musicNavigation'
                 }
@@ -85,6 +97,7 @@
             {
                 path: CONFIG.baseUrl + '/music/result',
                 components: {
+                    configuration: 'homeConfiguration',
                     main: 'musicResult',
                     navigation: 'musicNavigation'
                 }
@@ -93,6 +106,7 @@
             {
                 path: CONFIG.baseUrl + '/music/list',
                 components: {
+                    configuration: 'homeConfiguration',
                     main: 'musicList',
                     navigation: 'musicNavigation'
                 }
@@ -101,6 +115,7 @@
             {
                 path: CONFIG.baseUrl + '/music/filter',
                 components: {
+                    configuration: 'homeConfiguration',
                     main: 'musicFilter',
                     navigation: 'musicNavigation'
                 }
@@ -109,6 +124,7 @@
             {
                 path: CONFIG.baseUrl + '/music/player',
                 components: {
+                    configuration: 'homeConfiguration',
                     main: 'musicPlayer',
                     navigation: 'musicNavigation'
                 }
@@ -117,12 +133,16 @@
             {
                 path: CONFIG.baseUrl + '/mp3ipod',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodIndex'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/genre',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodGenre'
                 }
             },
@@ -134,18 +154,24 @@
             {
                 path: CONFIG.baseUrl + '/mp3ipod/artist/:genre',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodArtist'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/album/:genre/:artist',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodAlbum'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodResult'
                 }
             },
@@ -154,12 +180,16 @@
             {
                 path: CONFIG.baseUrl + '/mp3ipod/search/:search',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodSearch'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/list',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodList'
                 }
             },
@@ -167,18 +197,24 @@
             {
                 path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album/:list/:search',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodResult'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:genre/:artist/:album/:list/:search',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodCurrentPlaying'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3ipod/playlist/:genre/:artist/:album/:list/:search',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3IpodPlaylist'
                 }
             },
@@ -186,12 +222,16 @@
             {
                 path: CONFIG.baseUrl + '/imagelist',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'imageList'
                 }
             },
             {
                 path: CONFIG.baseUrl + '/mp3list',
                 components: {
+                    configuration: 'homeConfiguration',
+                    navigation: 'homeNavigation',
                     main: 'mp3List'
                 }
             }
@@ -207,12 +247,6 @@
     /* @ngInject */
     function TemplateMapping($componentLoaderProvider, CONFIG) {
 
-        /*
-        $componentLoaderProvider.setTemplateMapping(function (name) {
-            var templateName = name.charAt(0).toUpperCase() + name.slice(1);
-            return CONFIG.templatePath + templateName + '/' + templateName + '.html';
-        });
-*/
         $componentLoaderProvider.setTemplateMapping(function (name) {
             var res = name.split('mp3Ipod');
             if (res.length === 2) {
@@ -222,10 +256,13 @@
             if (res.length === 2) {
                 return CONFIG.templatePath + 'Music/' + res[1] + '.html';
             }
+            res = name.split('home');
+            if (res.length === 2) {
+                return CONFIG.templatePath + 'Home/' + res[1] + '.html';
+            }
             return {
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
                 'document': CONFIG.templatePath + 'Document/Document.html',
-                'default': CONFIG.templatePath + 'Default/Default.html',
                 'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
                 'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
                 'imageList': CONFIG.templatePath + 'Image/ImageList.html',
