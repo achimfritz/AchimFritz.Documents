@@ -143,7 +143,7 @@ class CategoryRepository extends Repository {
 
 	/**
 	 * @param Category $category 
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findChilds(Category $category) {
 		$path = $category->getPath();
@@ -152,7 +152,7 @@ class CategoryRepository extends Repository {
 
 	/**
 	 * @param string $pathHead
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findByPathHead($pathHead) {
 		$query = $this->createQuery();

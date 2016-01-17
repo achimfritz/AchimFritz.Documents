@@ -36,7 +36,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param string $head
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findByHead($head) {
 		$query = $this->createQuery();
@@ -48,7 +48,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param string $head
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findByTail($tail) {
 		$query = $this->createQuery();
@@ -60,7 +60,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param Category $category 
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findByCategory(Category $category) {
 		$query = $this->createQuery();
@@ -71,7 +71,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findByCategoryPaths(array $paths) {
 		$categories = new \Doctrine\Common\Collections\ArrayCollection();
@@ -86,7 +86,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findInAllCategories(\Doctrine\Common\Collections\Collection $categories) {
 		$query = $this->createQuery();
@@ -99,7 +99,7 @@ class DocumentRepository extends Repository {
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
 	 */
 	public function findInOneCategories(\Doctrine\Common\Collections\Collection $categories) {
 		$query = $this->createQuery();
@@ -158,7 +158,7 @@ class DocumentRepository extends Repository {
 
  /**
   * @param array $names 
-	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
   */
  public function findByNames(array $names) {
 		$query = $this->createQuery();

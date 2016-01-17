@@ -32,7 +32,7 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 	 * @throws Exception
 	 */
 	public function createIntegrity($directory) {
-		throw new AchimFritz\Documents\Domain\FileSystem\Factory\Mp3Document\Exception('not implemented', 1432389131);
+		throw new Exception('not implemented', 1432389131);
 	}
 
 	/**

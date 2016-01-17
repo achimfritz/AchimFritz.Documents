@@ -60,6 +60,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 */
 	protected $documentFactory;
 
+	/**
+	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
+	 * @Flow\Inject
+	 */
+	protected $categoryRepository;
+
 
 	/**
 	 * list --directory=2015_05_05_venedig
@@ -358,6 +364,41 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 			$this->outputLine('INFO: summary ' . $path . ': ' . $cntFs . ' Files and ' . $cntDb . ' Documents');
 		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
 			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * @param string $pathHead
+	 * @param string $path
+	 * @return void
+	 */
+	public function addToCategoryCommand($pathHead = 'tags', $path = 'tags/bestof') {
+		$category = $this->categoryRepository->findOneByPath($path);
+		if ($category instanceof Category === FALSE) {
+			$this->outputLine('ERROR no category with path ' . $path);
+			$this->quit();
+		}
+		$categories = $this->categoryRepository->findByPathHead($pathHead);
+		$collection = new \Doctrine\Common\Collections\ArrayCollection();
+		foreach ($categories as $c) {
+			$collection->add($c);
+		}
+
+		$cnt = 0;
+		$documents = $this->documentRepository->findInOneCategories($collection);
+		foreach ($documents as $document) {
+			if ($document->hasCategory($category) === FALSE) {
+				$document->addCategory($category);
+				$this->documentRepository->update($document);
+				$cnt++;
+			}
+		}
+
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: add ' . $cnt . ' documents to ' . $path);
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: add to category with ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 

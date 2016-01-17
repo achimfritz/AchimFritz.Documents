@@ -6,6 +6,7 @@ namespace AchimFritz\Documents\Command;
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 
@@ -55,6 +56,35 @@ class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandCo
 	 */
 	protected function getConfiguration() {
 		return $this->imageDocumentConfiguration;
+	}
+
+	/**
+	 * @param string $path
+	 * @return void
+	 */
+	public function listDirectoriesByCategoryCommand($path = 'tags/bestof') {
+		$category = $this->categoryRepository->findOneByPath($path);
+		if ($category instanceof Category === FALSE) {
+			$this->outputLine('ERROR no category with path ' . $path);
+			$this->quit();
+		}
+		$directories = $this->directoryService->getDirectoriesInDirectory($this->getConfiguration()->getMountPoint());
+		$collected = array();
+		foreach ($directories as $directory) {
+			$collected[$directory->getBasename()] = 0;
+		}
+		$documents = $this->documentRepository->findByCategory($category);
+		foreach ($documents as $document) {
+			if (array_key_exists($document->getDirectoryName(), $collected) === FALSE) {
+				$this->outputLine('ERROR no such directory ' . $document->getDirectoryName());
+				$this->quit();
+			}
+			$collected[$document->getDirectoryName()]++;
+		}
+		foreach ($collected as $name => $cnt) {
+			$this->outputLine($name . ';' . $cnt);
+		}
+
 	}
 
 	/**
