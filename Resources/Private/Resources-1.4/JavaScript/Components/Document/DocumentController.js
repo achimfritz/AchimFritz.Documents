@@ -20,7 +20,6 @@
         // used by the view
         vm.addFilterQuery = addFilterQuery;
         vm.rmFilterQuery = rmFilterQuery;
-        vm.update = update;
         vm.changeRows = changeRows;
         vm.changeFacetCount = changeFacetCount;
         vm.overrideFilterQuery = overrideFilterQuery;
@@ -31,6 +30,7 @@
         vm.showAllRows = showAllRows;
         vm.newRandom = newRandom;
         vm.clearSearch = clearSearch;
+        vm.update = update;
 
 
         // not used by the view
@@ -39,87 +39,67 @@
         vm.initController();
 
         function initController() {
-            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+            vm.random = Solr.newRandom();
             vm.filterQueries = Solr.getFilterQueries();
             vm.data = Solr.getData();
             vm.params = Solr.getParams();
         }
 
         function newRandom() {
-            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
-            Solr.setParam('sort', vm.random);
-            vm.update();
+            vm.random = Solr.newRandomAndUpdate();
         }
 
         function nextPage(pageNumber) {
-            Solr.setParam('start', ((pageNumber - 1) * vm.params.rows).toString());
-            vm.update();
+            Solr.nextPageAndUpdate(pageNumber);
         }
 
         function changeRows(diff) {
-            Solr.changeRows(diff);
-            vm.update();
+            Solr.changeRowsAndUpdate(diff);
         }
 
         function showAllRows() {
-            Solr.setParam('rows', vm.data.response.numFound);
-            vm.update();
+            Solr.showAllRowsAndUpdate();
         }
 
         function resetFilterQueries() {
-            Solr.resetFilterQueries();
-            vm.update();
+            Solr.resetFilterQueriesAndUpdate();
         }
 
         function changeFacetCount(facetName, diff) {
-            Solr.changeFacetCount(facetName, diff);
-            vm.update();
+            Solr.changeFacetCountAndUpdate(facetName, diff);
         }
 
         function changeFacetSorting(facetName, sorting) {
-            Solr.changeFacetSorting(facetName, sorting);
-            vm.update();
+            Solr.changeFacetSortingAndUpdate(facetName, sorting);
         }
 
         function rmFilterQuery(name, value) {
-            Solr.rmFilterQuery(name, value);
-            vm.update();
+            Solr.rmFilterQueryAndUpdate(name, value);
         }
 
         function addFilterQuery(name, value) {
-            Solr.addFilterQuery(name, value);
-            vm.update();
+            Solr.addFilterQueryAndUpdate(name, value);
         }
 
         function overrideFilterQuery(name, value) {
-            Solr.overrideFilterQuery(name, value);
-            vm.update();
+            Solr.overrideFilterQueryAndUpdate(name, value);
         }
 
         function setSearch(search) {
+            Solr.setSearchAndUpate(search);
             vm.search = search;
-            vm.update();
         }
 
         function clearSearch() {
-            Solr.setParam('q', '*:*');
+            Solr.clearSearchAndUpdate();
             vm.search = '';
-            vm.update();
         }
 
         function update() {
-            if (vm.search !== undefined) {
-                if (vm.search !== '') {
-                    Solr.setParam('q', vm.search);
-                }
-            }
-
-            Solr.forceRequest().then(function (response) {
-                Solr.setData(response.data);
-            })
+            Solr.update();
         }
 
-        var listener = $scope.$on('solrDataUpdate', function (event, data) {
+        var listener = $scope.$on('solrDataUpdate', function(event, data) {
             vm.filterQueries = Solr.getFilterQueries();
             vm.data = Solr.getData();
             vm.params = Solr.getParams();

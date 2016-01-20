@@ -44,10 +44,35 @@
         self.facetsToLabelValue = facetsToLabelValue;
         self.hasFilterQuery = hasFilterQuery;
         self.setFacetPrefix = setFacetPrefix;
+
+        self.setSearch = setSearch;
+        self.clearSearch = clearSearch;
+        self.nextPage = nextPage;
+        self.newRandom = newRandom;
+        self.newRandomAndUpdate = newRandomAndUpdate;
+        self.nextPageAndUpdate = nextPageAndUpdate;
+        self.changeRowsAndUpdate = changeRowsAndUpdate;
+        self.showAllRowsAndUpdate = showAllRowsAndUpdate;
+        self.resetFilterQueriesAndUpdate = resetFilterQueriesAndUpdate;
+        self.changeFacetCountAndUpdate = changeFacetCountAndUpdate;
+        self.changeFacetSortingAndUpdate = changeFacetSortingAndUpdate;
+        self.rmFilterQueryAndUpdate = rmFilterQueryAndUpdate;
+        self.addFilterQueryAndUpdate = addFilterQueryAndUpdate;
+        self.overrideFilterQueryAndUpdate = overrideFilterQueryAndUpdate;
+        self.setSearchAndUpdate = setSearchAndUpdate;
+        self.clearSearchAndUpdate = clearSearchAndUpdate;
+
         self.init = init;
         self.reset = reset;
         self.getData = getData;
         self.setData = setData;
+        self.update = update;
+
+        function update() {
+            forceRequest().then(function (response) {
+                setData(response.data);
+            })
+        }
 
         function getData() {
             return data;
@@ -116,6 +141,85 @@
             } else {
                 return false;
             }
+        }
+
+        function nextPage(pageNumber) {
+            setParam('start', ((pageNumber - 1) * params.rows).toString());
+        }
+
+        function newRandom() {
+            var random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+            setParam('sort', random);
+            return random;
+        }
+
+        function newRandomAndUpdate() {
+            var random = newRandom();
+            update();
+            return random;
+        }
+
+        function nextPageAndUpdate(pageNumber) {
+            nextPage(pageNumber);
+            update();
+        }
+
+        function changeRowsAndUpdate(diff) {
+            changeRows(diff);
+            update();
+        }
+
+        function showAllRowsAndUpdate() {
+            showAllRows();
+            update();
+        }
+
+        function resetFilterQueriesAndUpdate() {
+            resetFilterQueries();
+            update();
+        }
+
+        function changeFacetCountAndUpdate(facetName, diff) {
+            changeFacetCount(facetName, diff);
+            update();
+        }
+
+        function changeFacetSortingAndUpdate(facetName, sorting) {
+            changeFacetSorting(facetName, sorting);
+            update();
+        }
+
+        function rmFilterQueryAndUpdate(name, value) {
+            rmFilterQuery(name, value);
+            update();
+        }
+
+        function addFilterQueryAndUpdate(name, value) {
+            addFilterQuery(name, value);
+            update();
+        }
+
+        function overrideFilterQueryAndUpdate(name, value) {
+            overrideFilterQuery(name, value);
+            update();
+        }
+
+        function setSearchAndUpdate(search) {
+            setSearch(search);
+            update();
+        }
+
+        function setSearch(search) {
+            setParam('q', search);
+        }
+
+        function clearSearchAndUpdate() {
+            clearSearch();
+            update();
+        }
+
+        function clearSearch() {
+            setParam('q', '*:*');
         }
 
 

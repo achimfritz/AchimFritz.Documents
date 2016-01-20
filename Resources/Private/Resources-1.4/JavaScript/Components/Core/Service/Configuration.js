@@ -106,6 +106,7 @@
                 SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
                 SolrConfiguration.setSetting('servlet', 'mp3');
 
+                //Solr.init();
                 callSolr();
             } else if (name === 'mp3ipod') {
                 resetSolr();
@@ -166,10 +167,7 @@
 
         function callSolr() {
             Solr.init();
-
-            Solr.forceRequest().then(function (response) {
-                    Solr.setData(response.data);
-            });
+            Solr.update();
 
         }
 

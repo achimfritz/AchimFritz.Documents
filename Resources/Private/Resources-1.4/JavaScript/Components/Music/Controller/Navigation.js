@@ -6,9 +6,10 @@
         .controller('MusicNavigationController', MusicNavigationController);
 
     /* @ngInject */
-    function MusicNavigationController ($location, CONFIG, $rootScope, $timeout) {
+    function MusicNavigationController ($location, CONFIG, $rootScope, $timeout, Solr, Mp3PlayerService, angularPlayer, $filter) {
 
         var vm = this;
+        var $scope = $rootScope.$new();
         vm.items = [
             {name: 'home', active: false, location: 'index'},
             {name: 'result', active: true, location: 'music/result'},
@@ -16,7 +17,27 @@
             {name: 'filter', active: false, location: 'music/filter'},
             {name: 'player', active: false, location: 'music/player'}
         ];
+        vm.search = '';
+        vm.params = {};
+        vm.filterQueries = {};
+
+        vm.song = {};
+        vm.playlist = {};
+        vm.currentPosition = 0;
+
         vm.forward = forward;
+        vm.update = update;
+        vm.clearSearch = clearSearch;
+        vm.rmFilterQuery = rmFilterQuery;
+
+
+        getSolrData();
+        Mp3PlayerService.initialize();
+
+        $timeout(function () {
+            vm.song = angularPlayer.currentTrackData();
+            vm.playlist = angularPlayer.getPlaylist();
+        });
 
         var path = $location.path();
         if (path === CONFIG.baseUrl + '/music' || path === CONFIG.baseUrl + '/music/') {
@@ -26,6 +47,63 @@
         }
         var newLocation = path.replace(CONFIG.baseUrl + '/', '');
         setActive(newLocation);
+
+
+
+        function rmFilterQuery(name, value) {
+            Solr.rmFilterQueryAndUpdate(name, value);
+        }
+        function clearSearch() {
+            Solr.clearSearchAndUpdate();
+            vm.search = '';
+        }
+        function update() {
+            Solr.update();
+        }
+
+
+        function getSolrData() {
+            var data = Solr.getData();
+            if (angular.isDefined(data.response) === true) {
+                vm.filterQueries = Solr.getFilterQueries();
+                vm.params = Solr.getParams();
+            }
+        }
+
+        var listener = $scope.$on('solrDataUpdate', function(event, data) {
+            getSolrData();
+        });
+
+        var musicListener = $scope.$on('currentTrack:position', function(event, data) {
+            $scope.$apply(function() {
+                vm.currentPosition = $filter('humanTime')(data);
+            });
+        });
+
+        var locationListener = $scope.$on('music:locationChanged', function (event, data) {
+            setActive(data);
+        });
+
+        var musicTrackListener = $scope.$on('track:id', function(event, data) {
+            vm.song = angularPlayer.currentTrackData();
+        });
+
+        var musicPlaylistListener = $scope.$on('player:playlist', function(event, playlist){
+            $scope.$apply(function() {
+                vm.playlist = playlist;
+            });
+        });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            // TODO
+            /*musicListener();
+            musicPlaylistListener();
+            musicTrackListener();
+            */
+            locationListener();
+            killerListener();
+        });
 
 
         function setActive(newLocation) {
@@ -43,9 +121,6 @@
             $location.path('app/' + newLocation);
         }
 
-        $rootScope.$on('music:locationChanged', function (event, data) {
-            setActive(data);
-        });
 
     }
 })();

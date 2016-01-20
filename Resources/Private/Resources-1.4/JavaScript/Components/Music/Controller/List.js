@@ -6,41 +6,67 @@
         .controller('MusicListController', MusicListController);
 
     /* @ngInject */
-    function MusicListController ($rootScope, $timeout, Solr, PathService, DocumentListRestService, $location, CONFIG) {
+    function MusicListController ($rootScope, Solr, PathService, DocumentListRestService, ngDialog, CONFIG, HPathService) {
 
         var vm = this;
+        var $scope = $rootScope.$new();
 
         vm.paths = [];
 
         vm.addFilterQuery = addFilterQuery;
 
+        vm.showRenameCategoryForm = showRenameCategoryForm;
 
-        Solr.resetFilterQueries();
-        Solr.setFacetPrefix('hPaths', '0');
-        Solr.forceRequest().then(function (response) {
-            vm.paths[0] = response.data.facet_counts.facet_fields.hPaths;
-            $rootScope.$emit('solrDataUpdate', response.data);
-        });
+        getSolrData();
 
-
-        $rootScope.$on('solrDataUpdate', function (event, data) {
-            var fq = Solr.getFilterQueries();
-            var current = fq['hPaths'];
-            if (angular.isDefined(current) && angular.isDefined(current[0])) {
-                if (PathService.depth(current[0]) === 2) {
-                    vm.paths[1] = data.facet_counts.facet_fields.hPaths;
-
-                } else if (PathService.depth(current[0]) === 3) {
-                    vm.paths[2] = data.facet_counts.facet_fields.hPaths;
+        function getSolrData() {
+            var data = Solr.getData();
+            if (angular.isDefined(data.response) === true) {
+                var fq = Solr.getFilterQueries();
+                var current = fq['hPaths'];
+                if (angular.isDefined(current) && angular.isDefined(current[0])) {
+                    HPathService.update(current[0], data.facet_counts.facet_fields.hPaths);
+                } else {
+                    HPathService.initData();
+                    HPathService.setDataByIndex(0, data.facet_counts.facet_fields.hPaths);
                 }
             }
+            vm.paths = HPathService.getData();
+        }
+
+        var listener = $scope.$on('solrDataUpdate', function(event, data) {
+            getSolrData();
         });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
+        });
+
+        function showRenameCategoryForm(facetName, facetValue, editType) {
+
+            var data = {
+                facetName: facetName,
+                facetValue: facetValue,
+                editType: editType
+            };
+
+            $scope.dialog = ngDialog.open({
+                "data" : data,
+                "template" : CONFIG.templatePath + 'Music/EditCategory.html',
+                "controller" : 'MusicEditCategoryController',
+                "controllerAs" : 'musicEditCategory',
+                "scope" : $scope
+            });
+        }
 
         function addFilterQuery(name, value) {
             var splitted = PathService.split(value);
             var filterType = splitted[1];
             Solr.addFilterQuery(name, value);
-            if (filterType === 'list') {
+            if (filterType === 'list' && PathService.depth(value) === 4) {
+                // TODO SolrDocumentListConnector.merge(path)
+
                 var path = PathService.slice(value, 1);
                 var docs = [];
                 DocumentListRestService.showByPath(path).then(
@@ -57,32 +83,17 @@
                                 });
                             });
                             response.data.response.docs = docs;
-                            $rootScope.$emit('solrDataUpdate', response.data);
-                            toResult();
+                            Solr.setData(response.data);
                         });
                     },
                     function(response) {
-                        // standard on error
-                        Solr.forceRequest().then(function (response) {
-                            $rootScope.$emit('solrDataUpdate', response.data);
-                            toResult();
-                        });
+                        Solr.update();
                     }
                 );
             } else {
-                Solr.forceRequest().then(function (response) {
-                    $rootScope.$emit('solrDataUpdate', response.data);
-                    toResult();
-                });
+                Solr.update();
             }
 
-        }
-
-        function toResult() {
-            $timeout(function () {
-                $location.path(CONFIG.baseUrl + '/music/result');
-                $rootScope.$emit('music:locationChanged', 'music/result');
-            });
         }
     }
 })();

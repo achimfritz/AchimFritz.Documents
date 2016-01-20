@@ -25,14 +25,14 @@
             vm.song = angularPlayer.currentTrackData();
             vm.playlist = angularPlayer.getPlaylist();
             if (angular.isDefined(vm.playlist) === false || vm.playlist.length === 0) {
-                toResult();
+                //toResult();
             }
         });
 
         function toResult () {
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/result');
-                $rootScope.$emit('music:locationChanged', 'music/result');
+                $rootScope.$broadcast('music:locationChanged', 'music/result');
             });
         }
 
