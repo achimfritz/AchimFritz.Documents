@@ -17,17 +17,25 @@
         vm.playlist = {};
 
         vm.editPlaylist = editPlaylist;
+        vm.editDoc = editDoc;
         vm.onDropComplete = onDropComplete;
 
-        Mp3PlayerService.initialize();
+        vm.initController = initController;
 
-        $timeout(function () {
-            vm.song = angularPlayer.currentTrackData();
-            vm.playlist = angularPlayer.getPlaylist();
-            if (angular.isDefined(vm.playlist) === false || vm.playlist.length === 0) {
-                //toResult();
-            }
-        });
+        vm.initController();
+
+        function initController() {
+
+            Mp3PlayerService.initialize();
+
+            $timeout(function () {
+                vm.song = angularPlayer.currentTrackData();
+                vm.playlist = angularPlayer.getPlaylist();
+                if (angular.isDefined(vm.playlist) === false || vm.playlist.length === 0) {
+                    toResult();
+                }
+            });
+        }
 
         function toResult () {
             $timeout(function () {
@@ -62,6 +70,16 @@
                 "template" : CONFIG.templatePath + 'Music/EditPlaylist.html',
                 "controller" : 'MusicEditPlaylistController',
                 "controllerAs" : 'musicEditPlaylist',
+                "scope" : $scope
+            });
+        }
+
+        function editDoc(doc) {
+            $scope.dialog = ngDialog.open({
+                "data" : doc,
+                "template" : CONFIG.templatePath + 'Music/EditDoc.html',
+                "controller" : 'MusicEditDocController',
+                "controllerAs" : 'musicEditDoc',
                 "scope" : $scope
             });
         }

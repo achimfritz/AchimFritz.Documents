@@ -10,6 +10,8 @@
 
         var vm = this;
         var $scope = $rootScope.$new();
+
+        /* navigation */
         vm.items = [
             {name: 'home', active: false, location: 'index'},
             {name: 'result', active: true, location: 'music/result'},
@@ -17,50 +19,74 @@
             {name: 'filter', active: false, location: 'music/filter'},
             {name: 'player', active: false, location: 'music/player'}
         ];
+        vm.forward = forward;
+
+        /* solr */
         vm.search = '';
         vm.params = {};
         vm.filterQueries = {};
-
-        vm.song = {};
-        vm.playlist = {};
-        vm.currentPosition = 0;
-
-        vm.forward = forward;
         vm.update = update;
         vm.clearSearch = clearSearch;
         vm.rmFilterQuery = rmFilterQuery;
 
+        /* player */
+        vm.song = {};
+        vm.playlist = {};
+        vm.currentPosition = 0;
 
-        getSolrData();
-        Mp3PlayerService.initialize();
+        vm.initController = initController;
 
-        $timeout(function () {
-            vm.song = angularPlayer.currentTrackData();
-            vm.playlist = angularPlayer.getPlaylist();
-        });
+        vm.initController();
 
-        var path = $location.path();
-        if (path === CONFIG.baseUrl + '/music' || path === CONFIG.baseUrl + '/music/') {
+        function initController() {
+            getSolrData();
+            Mp3PlayerService.initialize();
+
             $timeout(function () {
-                forward('music/result');
+                vm.song = angularPlayer.currentTrackData();
+                vm.playlist = angularPlayer.getPlaylist();
+            });
+
+            var path = $location.path();
+            if (path === CONFIG.baseUrl + '/music' || path === CONFIG.baseUrl + '/music/') {
+                $timeout(function () {
+                    forward('music/result');
+                });
+            }
+            var newLocation = path.replace(CONFIG.baseUrl + '/', '');
+            setActive(newLocation);
+        }
+
+        /* navigation */
+        function setActive(newLocation) {
+            angular.forEach(vm.items, function(item) {
+                if (item.location === newLocation) {
+                    item.active = true;
+                } else {
+                    item.active = false;
+                }
             });
         }
-        var newLocation = path.replace(CONFIG.baseUrl + '/', '');
-        setActive(newLocation);
 
+        function forward(newLocation) {
+            setActive(newLocation);
+            $location.path('app/' + newLocation);
+        }
 
+        /* solr */
 
         function rmFilterQuery(name, value) {
             Solr.rmFilterQueryAndUpdate(name, value);
         }
+
         function clearSearch() {
             Solr.clearSearchAndUpdate();
             vm.search = '';
         }
+
         function update() {
             Solr.update();
         }
-
 
         function getSolrData() {
             var data = Solr.getData();
@@ -81,6 +107,7 @@
         });
 
         var locationListener = $scope.$on('music:locationChanged', function (event, data) {
+            //console.log('music locationChanged');
             setActive(data);
         });
 
@@ -94,33 +121,21 @@
             });
         });
 
-        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+        /*
+        var s = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            console.log('locationChangeSucess');
+        });
+        */
+
+        var killerListener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
+            //console.log('locationChangeStart');
             listener();
-            // TODO
-            /*musicListener();
-            musicPlaylistListener();
-            musicTrackListener();
-            */
-            locationListener();
+            //musicListener();
+            //musicPlaylistListener();
+            //musicTrackListener();
+            //locationListener();
             killerListener();
         });
-
-
-        function setActive(newLocation) {
-            angular.forEach(vm.items, function(item) {
-                if (item.location === newLocation) {
-                    item.active = true;
-                } else {
-                    item.active = false;
-                }
-            });
-        }
-
-        function forward(newLocation) {
-            setActive(newLocation);
-            $location.path('app/' + newLocation);
-        }
-
 
     }
 })();

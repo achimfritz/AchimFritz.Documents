@@ -21,6 +21,7 @@
 
         function initialize() {
             if (initialized === false) {
+
                 angularPlayer.init();
                 initialized = true;
             }
