@@ -60,7 +60,6 @@
             Mp3PlayerService.playAll(docs);
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/player');
-                $rootScope.$broadcast('music:locationChanged', 'music/player');
             });
         }
 
@@ -72,7 +71,6 @@
             Mp3PlayerService.playOne(doc);
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/player');
-                $rootScope.$broadcast('music:locationChanged', 'music/player');
             });
         }
 

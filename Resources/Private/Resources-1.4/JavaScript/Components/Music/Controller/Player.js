@@ -25,9 +25,13 @@
         vm.initController();
 
         function initController() {
-
             Mp3PlayerService.initialize();
+            getPlayerData();
+        }
 
+        /* player */
+
+        function getPlayerData() {
             $timeout(function () {
                 vm.song = angularPlayer.currentTrackData();
                 vm.playlist = angularPlayer.getPlaylist();
@@ -40,7 +44,6 @@
         function toResult () {
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/result');
-                $rootScope.$broadcast('music:locationChanged', 'music/result');
             });
         }
 
@@ -84,17 +87,13 @@
             });
         }
 
-        $scope.$on('track:id', function(event, data) {
-            vm.song = angularPlayer.currentTrackData();
-        });
-
-        $scope.$on('currentTrack:position', function(event, data) {
+        var positionListener = $scope.$on('currentTrack:position', function(event, data) {
             $scope.$apply(function() {
                 vm.currentPostion = $filter('humanTime')(data);
             });
         });
 
-        $scope.$on('player:playlist', function(event, playlist){
+        var playlistListener = $scope.$on('player:playlist', function(event, playlist){
             $timeout(function () {
                 if (playlist.length === 0) {
                     toResult();
@@ -104,6 +103,19 @@
                 vm.playlist = playlist;
             });
         });
+
+
+        var listener = $scope.$on('track:id', function(event, data) {
+            vm.song = angularPlayer.currentTrackData();
+        });
+
+        var killerListener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
+            listener();
+            playlistListener();
+            positionListener();
+            killerListener();
+        });
+
 
     }
 })();
