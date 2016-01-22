@@ -111,7 +111,7 @@
                 Solr.addFilterQuery(data.facetName, data.renameCategory.newPath);
             }
             Solr.forceRequest().then(function (response) {
-                $rootScope.$emit('solrDataUpdate', response.data);
+                Solr.setData(response.data);
             });
         });
 
