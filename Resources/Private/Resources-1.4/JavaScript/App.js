@@ -36,212 +36,89 @@
         .run(xeditableConfig)
         .controller('AppController', AppController);
 
-
-
     /* @ngInject */
     function AppController ($router, CONFIG) {
 
+        var routes = [
+            'index',
+            'urlbuilder',
+            'document',
+            'mp3',
+            'image',
+            'imagelist',
+            'mp3list',
+            'music',
+            'music/result',
+            'music/filter',
+            'music/player',
+            'music/list',
+            'mp3ipod',
+            'mp3ipod/genre',
+            'mp3ipod/artist/:genre',
+            'mp3ipod/album/:genre/:artist',
+            'mp3ipod/result/:genre/:artist/:album',
+            'mp3ipod/search/:search',
+            'mp3ipod/list',
+            'mp3ipod/result/:genre/:artist/:album/:list/:search',
+            'mp3ipod/currentPlaying/:genre/:artist/:album/:list/:search',
+            'mp3ipod/playlist/:genre/:artist/:album/:list/:search'
+        ];
 
-        $router.config([
-            {
-                path: CONFIG.baseUrl + '/index',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'homeDefault',
-                    navigation: 'homeNavigation'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/urlbuilder',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'urlBuilder',
-                    navigation: 'homeNavigation'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/document',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'document'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/image',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'image'
-                }
-            },
+        var defaultRouterComponents = {
+            configuration: 'homeConfiguration',
+            main: 'homeDefault',
+            navigation: 'homeNavigation'
+        };
 
-            {
-                path: CONFIG.baseUrl + '/music',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'musicResult',
-                    navigation: 'musicNavigation'
-                }
-            },
+        var routeConfig = [];
+        var configs = [];
+        angular.forEach(routes, function (route) {
+            var config = {
+                path: CONFIG.baseUrl + '/' + route,
+                components: angular.copy(defaultRouterComponents)
+            };
+            configs[route] = config;
+        });
+        configs['urlbuilder'].components.main = 'urlBuilder';
+        configs['document'].components.main = 'document';
+        configs['mp3'].components.main = 'mp3';
+        configs['image'].components.main = 'image';
+        configs['mp3list'].components.main = 'mp3List';
+        configs['imagelist'].components.main = 'imageList';
 
+        configs['music'].components.main = 'music';
+        configs['music'].components.navigation = 'musicNavigation';
+        configs['music/result'].components.main = 'musicResult';
+        configs['music/result'].components.navigation = 'musicNavigation';
+        configs['music/filter'].components.main = 'musicFilter';
+        configs['music/filter'].components.navigation = 'musicNavigation';
+        configs['music/player'].components.main = 'musicPlayer';
+        configs['music/player'].components.navigation = 'musicNavigation';
+        configs['music/list'].components.main = 'musicList';
+        configs['music/list'].components.navigation = 'musicNavigation';
 
-            {
-                path: CONFIG.baseUrl + '/music/result',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'musicResult',
-                    navigation: 'musicNavigation'
-                }
-            },
+        configs['mp3ipod'].components.main = 'mp3IpodIndex';
+        configs['mp3ipod/genre'].components.main = 'mp3IpodGenre';
+        configs['mp3ipod/artist/:genre'].components.main = 'mp3IpodArtist';
+        configs['mp3ipod/album/:genre/:artist'].components.main = 'mp3IpodAlbum';
+        configs['mp3ipod/result/:genre/:artist/:album'].components.main = 'mp3IpodResult';
+        configs['mp3ipod/search/:search'].components.main = 'mp3IpodSearch';
+        configs['mp3ipod/list'].components.main = 'mp3IpodList';
+        configs['mp3ipod/result/:genre/:artist/:album/:list/:search'].components.main = 'mp3IpodResult';
+        configs['mp3ipod/currentPlaying/:genre/:artist/:album/:list/:search'].components.main = 'mp3IpodCurrentPlaying';
+        configs['mp3ipod/playlist/:genre/:artist/:album/:list/:search'].components.main = 'mp3IpodPlaylist';
 
-            {
-                path: CONFIG.baseUrl + '/music/list',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'musicList',
-                    navigation: 'musicNavigation'
-                }
-            },
+        for (var config in configs) {
+            routeConfig.push(configs[config]);
+        }
 
-            {
-                path: CONFIG.baseUrl + '/music/filter',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'musicFilter',
-                    navigation: 'musicNavigation'
-                }
-            },
-
-            {
-                path: CONFIG.baseUrl + '/music/player',
-                components: {
-                    configuration: 'homeConfiguration',
-                    main: 'musicPlayer',
-                    navigation: 'musicNavigation'
-                }
-            },
-
-            {
-                path: CONFIG.baseUrl + '/mp3ipod',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodIndex'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/genre',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodGenre'
-                }
-            },
-            /*
-            nur/ohne mit einem artist
-            filter on after search
-            sort newest
-             */
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/artist/:genre',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodArtist'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/album/:genre/:artist',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodAlbum'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodResult'
-                }
-            },
-
-
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/search/:search',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodSearch'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/list',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodList'
-                }
-            },
-
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/result/:genre/:artist/:album/:list/:search',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodResult'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/currentPlaying/:genre/:artist/:album/:list/:search',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodCurrentPlaying'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3ipod/playlist/:genre/:artist/:album/:list/:search',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3IpodPlaylist'
-                }
-            },
-
-            {
-                path: CONFIG.baseUrl + '/imagelist',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'imageList'
-                }
-            },
-            {
-                path: CONFIG.baseUrl + '/mp3list',
-                components: {
-                    configuration: 'homeConfiguration',
-                    navigation: 'homeNavigation',
-                    main: 'mp3List'
-                }
-            }
-        ]);
+        $router.config(routeConfig);
     }
 
     /* @ngInject */
     function paginationConfiguration(paginationTemplateProvider) {
         paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/dirPagination.tpl.html');
-    };
+    }
 
 
     /* @ngInject */
