@@ -13,7 +13,7 @@ use AchimFritz\Documents\Domain\Model\ImageDocument AS Document;
 /**
  * @Flow\Scope("singleton")
  */
-class ImageIndexService extends AbstractIndexService {
+class ImageIndexService extends FileSystemDocumentIndexService {
 
 	/**
 	 * @var string

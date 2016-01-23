@@ -13,7 +13,7 @@ use AchimFritz\Documents\Domain\Model\Document;
 /**
  * @Flow\Scope("singleton")
  */
-abstract class AbstractIndexService {
+class FileSystemDocumentIndexService {
 
 	/**
 	 * @var array
@@ -60,7 +60,9 @@ abstract class AbstractIndexService {
 	/**
 	 * @return string
 	 */
-	abstract protected function getMountPoint();
+	protected function getMountPoint() {
+		return $this->settings['fileSystemDocument']['mountPoint'];
+	}
 
 	/**
 	 * @param string $directory

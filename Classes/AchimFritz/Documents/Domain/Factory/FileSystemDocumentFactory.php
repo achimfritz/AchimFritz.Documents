@@ -25,12 +25,12 @@ class FileSystemDocumentFactory {
 		$document->setName($name);
 		$absolutePath = $mountPoint . PathService::PATH_DELIMITER . $name;
 		$splFileInfo = new \SplFileInfo($absolutePath);
-		if ($splFileInfo->isFile() === TRUE) {
+		if ($splFileInfo->isFile() === TRUE && $splFileInfo->isReadable() === TRUE) {
 			$mDateTime = new \DateTime('@' . $splFileInfo->getMTime());
 			$document->setMDateTime($mDateTime);
 			$document->setFileHash(sha1_file($splFileInfo->getRealPath()));
 		} else {
-			throw new Exception('no such file ' . $absolutePath, 1420478777);
+			throw new Exception('no such file or not readable: ' . $absolutePath, 1420478777);
 		}
 		return $document;
 	}

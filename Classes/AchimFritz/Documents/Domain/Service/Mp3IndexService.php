@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * @Flow\Scope("singleton")
  */
-class Mp3IndexService extends AbstractIndexService {
+class Mp3IndexService extends FileSystemDocumentIndexService {
 
 	/**
 	 * @var string

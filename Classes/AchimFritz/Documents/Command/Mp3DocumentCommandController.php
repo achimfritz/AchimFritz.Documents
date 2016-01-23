@@ -14,7 +14,7 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\Mp3Document\Cddb;
 /**
  * @Flow\Scope("singleton")
  */
-class Mp3DocumentCommandController extends AbstractFileSystemDocumentCommandController {
+class Mp3DocumentCommandController extends FileSystemDocumentCommandController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\Repository\Mp3DocumentRepository

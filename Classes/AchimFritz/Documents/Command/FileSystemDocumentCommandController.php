@@ -16,13 +16,19 @@ use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 /**
  * @Flow\Scope("singleton")
  */
-abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
+class FileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\DocumentExportService
 	 * @Flow\Inject
 	 */
 	protected $documentExportService;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Repository\FileSystemDocumentRepository
+	 * @Flow\Inject
+	 */
+	protected $documentRepository;
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\RenameService
@@ -65,6 +71,12 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 * @Flow\Inject
 	 */
 	protected $categoryRepository;
+
+	/**
+	 * @var \AchimFritz\Documents\Domain\Service\FileSystemDocumentIndexService
+	 * @Flow\Inject
+	 */
+	protected $indexService;
 
 
 	/**
@@ -194,10 +206,14 @@ abstract class AbstractFileSystemDocumentCommandController extends \TYPO3\Flow\C
 	 */
 	public function showDirectoryCommand($directory) {
 		$path = $this->getMountPoint() . PathService::PATH_DELIMITER . $directory;
-		$fileNames = $this->directoryService->getFileNamesInDirectory($path, $this->getFileExtension());
-		foreach ($fileNames AS $fileName) {
-			$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
-			$this->outputLine($document->getName() . ': ' . $document->getFileHash());
+		try {
+			$fileNames = $this->directoryService->getFileNamesInDirectory($path, $this->getFileExtension());
+			foreach ($fileNames AS $fileName) {
+				$document = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
+				$this->outputLine($document->getName() . ': ' . $document->getFileHash());
+			}
+		} catch (\AchimFritz\Documents\Exception $e) {
+			$this->outputLine('ERROR: ' . $directory . ' - ' . $e->getMessage() . ' - ' . $e->getCode());
 		}
 	}
 

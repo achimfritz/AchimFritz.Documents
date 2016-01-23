@@ -13,7 +13,7 @@ use AchimFritz\Documents\Domain\FileSystem\Facet\ImageDocument\PdfExport;
 /**
  * @Flow\Scope("singleton")
  */
-class ImageDocumentCommandController extends AbstractFileSystemDocumentCommandController {
+class ImageDocumentCommandController extends FileSystemDocumentCommandController {
 
 	/**
 	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\ImageDocument\PdfExportService
