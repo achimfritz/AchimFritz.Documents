@@ -44,7 +44,10 @@
             Solr.update();
         }
         function nextPage(pageNumber) {
-            Solr.nextPageAndUpdate(pageNumber);
+            var start = (pageNumber -1).toString();
+            if (start !== vm.params['start']) {
+                Solr.nextPageAndUpdate(pageNumber);
+            }
         }
         function showAllRows() {
             Solr.showAllRowsAndUpdate();
