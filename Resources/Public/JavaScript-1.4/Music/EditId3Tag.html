@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-5 col-md-offset-3">
+		<span class="label label-default">
+			rename all documents {{musicEditId3Tag.name}}
+		</span>
+		<span class="label label-info">
+			current:  {{musicEditId3Tag.value}}
+		</span>
+		<span class="label label-warning">
+			new: {{musicEditId3Tag.newValue}}
+		</span>
+	</div>
+</div>
+
+<div class="row">
+		<form data-ng-submit="musicEditId3Tag.update()">
+			<div class="form-group">
+				<div class="col-md-3 col-md-offset-3">
+					<input class="form-control" id="id3Tag" type="text"
+						   data-ng-model="musicEditId3Tag.newValue"
+						   data-autocomplete
+						   data-field="{{musicEditId3Tag.name}}"
+						   data-global="1" />
+				</div>
+				<div class="col-md-2">
+					<input class="form-control btn btn-danger" type="submit" value="Rename" />
+				</div>
+			</div>
+		</form>
+</div>

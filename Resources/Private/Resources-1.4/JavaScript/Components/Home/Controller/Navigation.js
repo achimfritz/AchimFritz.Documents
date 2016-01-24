@@ -6,40 +6,53 @@
         .controller('HomeNavigationController', HomeNavigationController);
 
     /* @ngInject */
-    function HomeNavigationController ($location, CONFIG) {
+    function HomeNavigationController ($location, CONFIG, $rootScope) {
 
         var vm = this;
+        var $scope = $rootScope.$new();
+        vm.current = '';
         vm.items = [
-            {name: 'home', active: true, location: 'index'},
-            {name: 'music', active: false, location: 'music/result'},
-            {name: 'urlbuilder', active: false, location: 'urlbuilder'},
-            {name: 'document', active: false, location: 'document'},
-            {name: 'mp3', active: false, location: 'mp3'},
-            {name: 'mp3list', active: false, location: 'mp3list'},
-            {name: 'mp3ipod', active: false, location: 'mp3ipod'},
-            {name: 'image', active: false, location: 'image'},
-            {name: 'imagelist', active: false, location: 'imagelist'}
+            {name: 'home', location: 'index'},
+            {name: 'music', location: 'music/result'},
+            {name: 'urlbuilder', location: 'urlbuilder'},
+            {name: 'document', location: 'document'},
+            {name: 'mp3', location: 'mp3'},
+            {name: 'mp3list', location: 'mp3list'},
+            {name: 'mp3ipod', location: 'mp3ipod'},
+            {name: 'image', location: 'image'},
+            {name: 'imagelist', location: 'imagelist'}
         ];
         vm.forward = forward;
 
-        var path = $location.path();
-        var newLocation = path.replace(CONFIG.baseUrl + '/', '');
-        setActive(newLocation);
+        vm.initController = initController;
 
-        function setActive(newLocation) {
-             angular.forEach(vm.items, function(item) {
-                if (item.location === newLocation) {
-                    item.active = true;
-                } else {
-                    item.active = false;
-                }
-            });
+        vm.initController();
+
+        function initController() {
+            var path = $location.path();
+            vm.current = path.replace(CONFIG.baseUrl + '/', '');
         }
 
         function forward(newLocation) {
-            setActive(newLocation);
             $location.path('app/' + newLocation);
         }
+
+        function resolveRelativePath(path) {
+            var res = path.split('/');
+            res.shift();
+            res.shift();
+            res.shift();
+            res.shift();
+            return res.join('/');
+        }
+
+
+        /* listener */
+
+        var listener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
+            vm.current = resolveRelativePath(next);
+            listener();
+        });
 
     }
 })();

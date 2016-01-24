@@ -79,22 +79,6 @@
 
                 AppConfiguration.setNamespace('mp3');
 
-                FilterConfiguration.setFilters({
-                    artist: true,
-                    album: true,
-                    genre: true,
-                    fsProvider: true,
-                    fsGenre: true,
-                    artistLetter: false,
-                    year: false,
-                    hPaths: false,
-                    fsArtist: false,
-                    fsAlbum: false
-                });
-                FilterConfiguration.setConfiguration({
-                    categories: ['hPaths'],
-                    id3Tags: ['artist', 'album', 'genre', 'year']
-                });
                 SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
                 SolrConfiguration.setHFacets({hPaths: '0'});
                 SolrConfiguration.setParam('sort', 'mDateTime desc');

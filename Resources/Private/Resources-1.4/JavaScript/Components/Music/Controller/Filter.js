@@ -6,10 +6,12 @@
         .controller('MusicFilterController', MusicFilterController);
 
     /* @ngInject */
-    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr, FilterConfiguration) {
+    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr) {
 
         var vm = this;
         var $scope = $rootScope.$new();
+        var id3TagFilters = ['artist', 'album', 'genre', 'year'];
+        var categoryFilters = ['hPaths'];
 
         // solr
         vm.filterQueries = {};
@@ -20,13 +22,13 @@
 
         // filters
         vm.filters = {};
-        vm.configuration = {};
-        vm.renameCategory = false;
-        vm.renameCategoryFacet = '';
-        vm.editType = '';
         vm.toggleFilter = toggleFilter;
-        vm.showRenameCategoryForm = showRenameCategoryForm;
-        vm.isEditable = isEditable;
+
+        // forms
+        vm.isEditableId3Tag = isEditableId3Tag;
+        vm.isEditableCategory = isEditableCategory;
+        vm.showId3TagForm = showId3TagForm;
+        vm.showCategoryForm = showCategoryForm;
 
         vm.initController = initController;
 
@@ -34,22 +36,22 @@
 
         function initController() {
             getSolrData();
-            vm.filters = FilterConfiguration.getFilters();
-            vm.configuration = FilterConfiguration.getConfiguration();
+
+            vm.filters = {
+                artist: true,
+                album: true,
+                genre: true,
+                fsProvider: true,
+                fsGenre: true,
+                artistLetter: false,
+                year: false,
+                hPaths: false,
+                fsArtist: false,
+                fsAlbum: false
+            };
         }
 
         /* filter */
-
-        function isEditable(editType, key) {
-            if (angular.isDefined(vm.configuration[editType])) {
-                var config = vm.configuration[editType];
-                if (config.indexOf(key) >= 0) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         function toggleFilter(name) {
             if (vm.filters[name] === false) {
                 vm.filters[name] = true;
@@ -58,15 +60,35 @@
             }
         }
 
+        /* forms */
 
-        function showRenameCategoryForm(facetName, facetValue, editType) {
+        function isEditableId3Tag(name) {
+            return id3TagFilters.indexOf(name) >= 0;
+        }
 
+        function isEditableCategory(name) {
+            return categoryFilters.indexOf(name) >= 0;
+        }
+
+        function showId3TagForm(tagName, tagValue) {
             var data = {
-                facetName: facetName,
-                facetValue: facetValue,
-                editType: editType
+                name: tagName,
+                value: tagValue
             };
+            $scope.dialog = ngDialog.open({
+                "data" : data,
+                "template" : CONFIG.templatePath + 'Music/EditId3Tag.html',
+                "controller" : 'MusicEditId3TagController',
+                "controllerAs" : 'musicEditId3Tag',
+                "scope" : $scope
+            });
+        }
 
+        function showCategoryForm(facetName, facetValue) {
+            var data = {
+                name: facetName,
+                value: facetValue
+            };
             $scope.dialog = ngDialog.open({
                 "data" : data,
                 "template" : CONFIG.templatePath + 'Music/EditCategory.html',
@@ -104,15 +126,9 @@
             getSolrData();
         });
 
-        $rootScope.$on('apiId3TagUpdate', function (event, data) {
-            ngDialog.close($scope.dialog.id);
-            if (Solr.hasFilterQuery(data.facetName) === true) {
-                Solr.rmFilterQuery(data.facetName, data.renameCategory.oldPath);
-                Solr.addFilterQuery(data.facetName, data.renameCategory.newPath);
-            }
-            Solr.forceRequest().then(function (response) {
-                Solr.setData(response.data);
-            });
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
         });
 
     }

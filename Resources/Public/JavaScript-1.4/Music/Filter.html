@@ -40,16 +40,16 @@
 								</span>
 
 								<span
-										data-ng-show="musicFilter.isEditable('categories', name)"
+										data-ng-show="musicFilter.isEditableCategory(name)"
 										class="glyphicon glyphicon-pencil"
 										aria-hidden="true"
-										data-ng-click="musicFilter.showRenameCategoryForm(name, key, 'category')">
+										data-ng-click="musicFilter.showCategoryForm(name, key, 'category')">
 								</span>
 								<span
-										data-ng-show="musicFilter.isEditable('id3Tags', name)"
+										data-ng-show="musicFilter.isEditableId3Tag(name)"
 										class="glyphicon glyphicon-pencil"
 										aria-hidden="true"
-										data-ng-click="musicFilter.showRenameCategoryForm(name, key, 'id3Tag')">
+										data-ng-click="musicFilter.showId3TagForm(name, key)">
 								</span>
 							</li>
 						</ul>

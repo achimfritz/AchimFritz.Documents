@@ -246,8 +246,18 @@
             }
         }
 
-        function hasFilterQuery(name) {
-            return angular.isDefined(filterQueries[name]);
+        function hasFilterQuery(name, value) {
+            if (angular.isDefined(value) === true && angular.isDefined(filterQueries[name]) === true) {
+                var filterQueryValues = filterQueries[name];
+                angular.forEach(filterQueryValues, function (val) {
+                   if (val === value) {
+                       return true;
+                   }
+                });
+                return false;
+            } else {
+                return angular.isDefined(filterQueries[name]);
+            }
         }
 
         function setFacetPrefix(name, value) {

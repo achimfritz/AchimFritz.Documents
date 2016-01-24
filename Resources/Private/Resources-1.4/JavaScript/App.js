@@ -65,6 +65,7 @@
         ];
 
         var defaultRouterComponents = {
+            flashMessage: 'homeFlashMessage',
             configuration: 'homeConfiguration',
             main: 'homeDefault',
             navigation: 'homeNavigation'

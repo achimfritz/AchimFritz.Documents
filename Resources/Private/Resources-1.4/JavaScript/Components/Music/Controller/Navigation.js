@@ -43,8 +43,7 @@
                     forward('music/result');
                 });
             }
-            var newLocation = path.replace(CONFIG.baseUrl + '/', '');
-            vm.current = newLocation;
+            vm.current = path.replace(CONFIG.baseUrl + '/', '');
         }
 
         function forward(newLocation) {
