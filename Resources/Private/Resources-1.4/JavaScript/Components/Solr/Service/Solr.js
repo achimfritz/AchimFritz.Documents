@@ -49,6 +49,7 @@
         self.clearSearch = clearSearch;
         self.nextPage = nextPage;
         self.newRandom = newRandom;
+        self.showAllRows = showAllRows;
         self.newRandomAndUpdate = newRandomAndUpdate;
         self.nextPageAndUpdate = nextPageAndUpdate;
         self.changeRowsAndUpdate = changeRowsAndUpdate;
@@ -177,6 +178,10 @@
         function resetFilterQueriesAndUpdate() {
             resetFilterQueries();
             update();
+        }
+
+        function showAllRows() {
+            setParam('rows', data.response.numFound);
         }
 
         function changeFacetCountAndUpdate(facetName, diff) {
