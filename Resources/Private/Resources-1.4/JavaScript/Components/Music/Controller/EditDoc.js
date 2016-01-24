@@ -6,9 +6,12 @@
         .controller('MusicEditDocController', MusicEditDocController);
 
     /* @ngInject */
-    function MusicEditDocController ($scope, ngDialog, $rootScope) {
+    function MusicEditDocController ($scope, ngDialog, $rootScope, CoreApiService, Solr) {
 
         var vm = this;
+        var $listenerScope = $rootScope.$new();
+
+        vm.rate = rate;
 
         vm.cddbSearch = '';
         vm.category = '';
@@ -21,6 +24,10 @@
             'url': ''
         };
 
+        function rate(rate) {
+            CoreApiService.rate(rate);
+        }
+
         docUpdate();
 
         function docUpdate() {
@@ -28,9 +35,17 @@
             vm.cddbSearch = vm.doc.fsArtist + ' ' + vm.doc.fsAlbum;
         }
 
+        var listener = $listenerScope.$on('core:apiCallSuccess', function(event, data) {
+            Solr.update();
+        });
 
-        $rootScope.$on('solrDataUpdate', function (event, data) {
+        var dialogListener = $listenerScope.$on('ngDialog.closing', function (e, $dialog) {
+            solrListener();
+            listener();
+            dialogListener();
+        });
 
+        var solrListener = $listenerScope.$on('solrDataUpdate', function (event, data) {
             var found = false;
             angular.forEach(data.response.docs, function(doc) {
                 if (doc.identifier === vm.doc.identifier) {

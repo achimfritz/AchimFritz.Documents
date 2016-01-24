@@ -21,8 +21,8 @@
 	<div class="col-md-2">
 		<select class="form-control" id="sort" data-ng-model="musicResult.params.sort" data-ng-change="musicResult.update()">
 			<option value="album asc, artist asc, track asc">album artist track</option>
-			<option value="mDateTime desc">mDateTime desc</option>
-			<option value="mDateTime asc">mDateTime asc</option>
+			<option value="mDateTime desc, fsTitle asc">mDateTime desc</option>
+			<option value="mDateTime asc, fsTitle asc">mDateTime asc</option>
 			<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
 			<option value="artist asc">artist asc</option>
 			<option value="{{musicResult.random}}">random</option>

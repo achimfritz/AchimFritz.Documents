@@ -148,16 +148,13 @@
             setParam('start', ((pageNumber - 1) * params.rows).toString());
         }
 
-        function newRandom() {
-            var random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+        function newRandom(random) {
             setParam('sort', random);
-            return random;
         }
 
-        function newRandomAndUpdate() {
-            var random = newRandom();
+        function newRandomAndUpdate(random) {
+            newRandom(random);
             update();
-            return random;
         }
 
         function nextPageAndUpdate(pageNumber) {

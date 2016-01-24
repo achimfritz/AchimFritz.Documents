@@ -15,12 +15,12 @@
 					<td>Title</td>
 						<td><button data-ng-show="musicEditDoc.doc.titleRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.titleRating}}</button></td>
 					<td>
-						<button ng-click="api.rate({name: 'title', rate: 1, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">1</button>
-						<button ng-click="api.rate({name: 'title', rate: 2, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">2</button>
-						<button ng-click="api.rate({name: 'title', rate: 3, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">3</button>
-						<button ng-click="api.rate({name: 'title', rate: 4, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">4</button>
-						<button ng-click="api.rate({name: 'title', rate: 5, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">5</button>
-						<button ng-click="api.rate({name: 'title', rate: 6, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">6</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 1, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 2, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 3, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 4, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 5, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="musicEditDoc.rate({name: 'title', rate: 6, value: musicEditDoc.doc.name})" class="btn btn-xs btn-default">6</button>
 					</td>
 				</tr>
 			</table>
@@ -31,12 +31,12 @@
 					<td>Artist</td>
 					<td><button ng-show="musicEditDoc.doc.artistRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.artistRating}}</button></td>
 					<td>
-						<button ng-click="api.rate({name: 'artist', rate: 1, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">1</button>
-						<button ng-click="api.rate({name: 'artist', rate: 2, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">2</button>
-						<button ng-click="api.rate({name: 'artist', rate: 3, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">3</button>
-						<button ng-click="api.rate({name: 'artist', rate: 4, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">4</button>
-						<button ng-click="api.rate({name: 'artist', rate: 5, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">5</button>
-						<button ng-click="api.rate({name: 'artist', rate: 6, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">6</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 1, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 2, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 3, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 4, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 5, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="musicEditDoc.rate({name: 'artist', rate: 6, value: musicEditDoc.doc.artist})" class="btn btn-xs btn-default">6</button>
 					</td>
 				</tr>
 			</table>
@@ -47,12 +47,12 @@
 					<td>Album</td>
 					<td><button ng-show="musicEditDoc.doc.albumRating" class="btn-xs btn btn-info">{{musicEditDoc.doc.albumRating}}</button></td>
 					<td>
-						<button ng-click="api.rate({name: 'album', rate: 1, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">1</button>
-						<button ng-click="api.rate({name: 'album', rate: 2, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">2</button>
-						<button ng-click="api.rate({name: 'album', rate: 3, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">3</button>
-						<button ng-click="api.rate({name: 'album', rate: 4, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">4</button>
-						<button ng-click="api.rate({name: 'album', rate: 5, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">5</button>
-						<button ng-click="api.rate({name: 'album', rate: 6, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">6</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 1, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">1</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 2, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">2</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 3, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">3</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 4, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">4</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 5, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">5</button>
+						<button ng-click="musicEditDoc.rate({name: 'album', rate: 6, value: musicEditDoc.doc.album})" class="btn btn-xs btn-default">6</button>
 					</td>
 				</tr>
 			</table>

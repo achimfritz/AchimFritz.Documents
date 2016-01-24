@@ -35,10 +35,11 @@
 
         getSolrData();
 
-        vm.random = Solr.newRandom();
+        vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
 
         function newRandom() {
-            vm.random = Solr.newRandomAndUpdate();
+            vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+            vm.random = Solr.newRandomAndUpdate(vm.random);
         }
         function update() {
             Solr.update();
