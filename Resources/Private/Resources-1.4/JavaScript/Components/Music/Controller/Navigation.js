@@ -47,6 +47,7 @@
         }
 
         function forward(newLocation) {
+            vm.current = newLocation;
             $location.path('app/' + newLocation);
         }
 
@@ -89,10 +90,8 @@
             getSolrData();
         });
 
-        var killerListener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
-            var name = resolveRelativePath(next);
-            vm.current = name;
-            killerListener();
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
         });
 
     }

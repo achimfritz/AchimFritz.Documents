@@ -34,25 +34,8 @@
         }
 
         function forward(newLocation) {
+            vm.current = newLocation;
             $location.path('app/' + newLocation);
         }
-
-        function resolveRelativePath(path) {
-            var res = path.split('/');
-            res.shift();
-            res.shift();
-            res.shift();
-            res.shift();
-            return res.join('/');
-        }
-
-
-        /* listener */
-
-        var listener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
-            vm.current = resolveRelativePath(next);
-            listener();
-        });
-
     }
 })();

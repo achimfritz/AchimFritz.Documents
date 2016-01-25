@@ -53,34 +53,7 @@
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.remove(path, docs).then(restSuccess, restError);
         }
-        function listMerge(path, docs) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DocumentListRestService.merge(path, docs).then(restSuccess, restError);
-        }
-        function listMergeOne(path, doc) {
-            return listMerge(path, [ doc ]);
-        }
 
-
-        function updateId3Tag (mp3DocumentId3Tag) {
-            $rootScope.$broadcast('core:apiCallStart');
-            Mp3DocumentId3TagRestService.update(mp3DocumentId3Tag).then(restSuccess, restError);
-        }
-
-        function rate(rating) {
-            $rootScope.$broadcast('core:apiCallStart');
-            RatingRestService.update(rating).then(restSuccess, restError);
-        }
-
-        function cddbUpdate(cddb) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DownloadRestService.updateCddb(cddb).then(restSuccesse, restError);
-        }
-
-        function folderUpdate(cddb) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DownloadRestService.updateFolder(cddb).then(restSuccess, restError);
-        }
 
         function zipDownload(zip, docs) {
             $rootScope.$broadcast('core:apiCallStart');
@@ -110,9 +83,44 @@
             );
         }
 
+        /* documentList */
+
+        function listMerge(path, docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.merge(path, docs).then(restSuccess, restError);
+        }
+        function listMergeOne(path, doc) {
+            return listMerge(path, [ doc ]);
+        }
+
+
+        /* category */
+
         function categoryUpdate(renameCategory) {
             $rootScope.$broadcast('core:apiCallStart');
             CategoryRestService.update(renameCategory).then(restSuccess, restError);
+        }
+
+        /* mp3 only */
+
+        function updateId3Tag(mp3DocumentId3Tag) {
+            $rootScope.$broadcast('core:apiCallStart');
+            Mp3DocumentId3TagRestService.update(mp3DocumentId3Tag).then(restSuccess, restError);
+        }
+
+        function cddbUpdate(cddb) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DownloadRestService.updateCddb(cddb).then(restSuccess, restError);
+        }
+
+        function folderUpdate(cddb) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DownloadRestService.updateFolder(cddb).then(restSuccess, restError);
+        }
+
+        function rate(rating) {
+            $rootScope.$broadcast('core:apiCallStart');
+            RatingRestService.update(rating).then(restSuccess, restError);
         }
 
         function id3TagUpdate(renameCategory) {
