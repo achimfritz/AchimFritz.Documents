@@ -6,7 +6,7 @@
         .controller('MusicFilterController', MusicFilterController);
 
     /* @ngInject */
-    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr) {
+    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr, MusicFilterService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -36,28 +36,12 @@
 
         function initController() {
             getSolrData();
-
-            vm.filters = {
-                artist: true,
-                album: true,
-                genre: true,
-                fsProvider: true,
-                fsGenre: true,
-                artistLetter: false,
-                year: false,
-                hPaths: false,
-                fsArtist: false,
-                fsAlbum: false
-            };
+            vm.filters = MusicFilterService.getFilters()
         }
 
         /* filter */
         function toggleFilter(name) {
-            if (vm.filters[name] === false) {
-                vm.filters[name] = true;
-            } else {
-                vm.filters[name] = false;
-            }
+            vm.filters = MusicFilterService.toggleFilter(name);
         }
 
         /* forms */
