@@ -3,7 +3,7 @@
 		<ul class="nav nav-pills">
 			<li
 					data-ng-repeat="item in musicNavigation.items"
-					data-ng-class="{'active' : item.location === musicNavigation.current}">
+					data-ng-class="{'active' : item.location === musicNavigation.current.location}">
 				<a href="javascript:void(0)" data-ng-click="musicNavigation.forward(item.location)">
 					{{item.name}}
 				</a>

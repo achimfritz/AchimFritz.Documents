@@ -12,7 +12,7 @@
         var $scope = $rootScope.$new();
 
         /* navigation */
-        vm.current = '';
+        vm.current = {location: ''};
         vm.items = [
             {name: 'home', location: 'index'},
             {name: 'result', location: 'music/result'},
@@ -43,11 +43,11 @@
                     forward('music/result');
                 });
             }
-            vm.current = path.replace(CONFIG.baseUrl + '/', '');
+            vm.current.location = path.replace(CONFIG.baseUrl + '/', '');
         }
 
         function forward(newLocation) {
-            vm.current = newLocation;
+            vm.current.location = newLocation;
             $location.path('app/' + newLocation);
         }
 
@@ -74,14 +74,28 @@
             }
         }
 
+
         /* listener */
 
         var listener = $scope.$on('solrDataUpdate', function(event, data) {
             getSolrData();
         });
 
+
         var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            var path = next.split('/app/')
+            vm.current.location = path[1];
             listener();
+
+            // TODO cannot kill listener ???
+
+            /*
+            console.log('x');
+            $timeout(function () {
+                //killerListener();
+            });
+            */
+
         });
 
     }
