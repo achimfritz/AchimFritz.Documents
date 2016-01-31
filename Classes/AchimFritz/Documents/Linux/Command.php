@@ -15,7 +15,7 @@ class Command {
 
 	/**
 	 * @param string $directoryName 
-	 * @return void
+	 * @return array
 	 */
 	public function burnWavCd($directoryName) {
 		$cmd = 'wodim dev=/dev/sr0 fs=4096k driveropts=burnproof -v -useinfo speed=24 -dao -eject -pad -audio ' . $directoryName . '.wav';
@@ -23,8 +23,42 @@ class Command {
 	}
 
 	/**
+	 * @param string $mp3File
+	 * @param string $wavFile
+	 * @return array
+	 * @throws Exception
+	 */
+	public function mp3ToWav($mp3File, $wavFile) {
+		if (file_exists($mp3File) === FALSE) {
+			throw new Exception('no such file ' . $mp3File, 1454253523);
+		}
+		if (file_exists($wavFile) === TRUE) {
+			throw new Exception('wav file exists ' . $wavFile, 1454253524);
+		}
+		$cmd = 'mpg123 -y -w' . $mp3File . ' ' . $wavFile;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
+	 * @param string $wavFile
+	 * @param string $mp3File
+	 * @return array
+	 * @throws Exception
+	 */
+	public function wavToMp3($wavFile, $mp3File) {
+		if (file_exists($wavFile) === FALSE) {
+			throw new Exception('no such file ' . $mp3File, 1454253525);
+		}
+		if (file_exists($mp3File) === TRUE) {
+			throw new Exception('mp3 file exists ' . $mp3File, 1454253526);
+		}
+		$cmd = 'bladeenc ' . $wavFile . ' ' . $mp3File;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
 	 * @param string $directoryName 
-	 * @return void
+	 * @return array
 	 */
 	public function burnDataCd($directoryName) {
 		$cmd = 'genisoimage -o /tmp/image.iso -f -J -r -l ' . $directoryName;
