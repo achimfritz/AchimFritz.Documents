@@ -52,7 +52,7 @@ class Command {
 		if (file_exists($mp3File) === TRUE) {
 			throw new Exception('mp3 file exists ' . $mp3File, 1454253526);
 		}
-		$cmd = 'bladeenc ' . $wavFile . ' ' . $mp3File;
+		$cmd = 'ffmpeg -i ' . $wavFile . ' -acodec mp3 -ac 2 -ab 320k ' . $mp3File;
 		return $this->executeCommand($cmd);
 	}
 
