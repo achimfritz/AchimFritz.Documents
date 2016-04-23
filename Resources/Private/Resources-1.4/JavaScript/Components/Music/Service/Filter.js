@@ -15,6 +15,7 @@
             genre: true,
             fsProvider: true,
             fsGenre: true,
+            bitrate: false,
             artistLetter: false,
             year: false,
             hPaths: false,

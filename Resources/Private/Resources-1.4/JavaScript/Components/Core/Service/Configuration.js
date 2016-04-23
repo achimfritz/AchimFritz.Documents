@@ -79,7 +79,7 @@
 
                 AppConfiguration.setNamespace('mp3');
 
-                SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
+                SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'bitrate', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
                 SolrConfiguration.setHFacets({hPaths: '0'});
                 SolrConfiguration.setParam('sort', 'mDateTime desc, fsTitle asc');
                 SolrConfiguration.setParam('rows', 15);
