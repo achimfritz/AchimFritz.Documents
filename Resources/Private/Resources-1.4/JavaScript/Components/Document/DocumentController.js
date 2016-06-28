@@ -86,7 +86,7 @@
         }
 
         function setSearch(search) {
-            Solr.setSearchAndUpate(search);
+            Solr.setSearchAndUpdate(search);
             vm.search = search;
         }
 
