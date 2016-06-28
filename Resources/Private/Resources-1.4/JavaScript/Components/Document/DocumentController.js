@@ -96,6 +96,7 @@
         }
 
         function update() {
+            Solr.setSearchAndUpdate(vm.search);
             Solr.update();
         }
 
