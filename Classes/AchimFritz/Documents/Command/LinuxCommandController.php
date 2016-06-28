@@ -42,6 +42,45 @@ class LinuxCommandController extends \TYPO3\Flow\Cli\CommandController {
 	}
 
 	/**
+	 * burnwavcd --directoryName=/mp3/tmp
+	 *
+	 * @param string $directoryName
+	 * @return void
+	 */
+	public function burnWavCdCommand($directoryName) {
+		try {
+			$this->command->burnWavCd($directoryName);
+			$this->outputLine('SUCCESS: image created');
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
+	 * mp3towav --directoryName=/mp3/tmp
+	 *
+	 * @param string $directoryName
+	 * @return void
+	 */
+	public function mp3ToWavCommand($directoryName) {
+		try {
+			$files = $this->directoryService->getSplFileInfosInDirectory($directoryName, 'mp3');
+			foreach ($files AS $file) {
+				$info = $file->getPathInfo();
+				$directory = $info->getRealPath();
+				$wav = $directory . PathService::PATH_DELIMITER . $file->getBasename('.mp3') . '.wav';
+				try {
+					$this->command->mp3ToWave($file->getRealPath(), $wav);
+				} catch (\AchimFritz\Documents\Linux\Exception $e) {
+					$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+				}
+			}
+		} catch (\AchimFritz\Documents\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
 	 * wavtomp3 --directoryName=/mp3/tmp
 	 *
 	 * @param string $directoryName

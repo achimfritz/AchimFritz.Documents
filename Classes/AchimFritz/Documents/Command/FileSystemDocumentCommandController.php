@@ -419,6 +419,34 @@ class FileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandControl
 	}
 
 	/**
+	 * @param string $path
+	 * @param string $new
+	 * @return void
+	 */
+	public function copyCategoryCommand($path = 'collections/2012_12_15_gisela_bilderrahmen', $new = 'collections/2012_12_15_gisela_bilderrahmen_ohne_mona') {
+		$category = $this->categoryRepository->findOneByPath($path);
+		$newCategory = new Category();
+		$newCategory->setPath($new);
+		$this->categoryRepository->add($newCategory);
+		if ($category instanceof Category) {
+			$documents = $this->documentRepository->findByCategory($category);
+			foreach ($documents as $document) {
+				$document->addCategory($newCategory);
+				$cnt++;
+				$this->documentRepository->update($document);
+			}
+		} else {
+			$this->outputLine('ERROR: category not found ' . $path);
+		}
+		try {
+			$this->documentPersistenceManager->persistAll();
+			$this->outputLine('SUCCESS: add ' . $cnt . ' documents to ' . $new);
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->outputLine('ERROR: add to category with ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
 	 * @return \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
 	 */
 	protected function getConfiguration() {

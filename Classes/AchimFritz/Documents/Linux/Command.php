@@ -18,7 +18,7 @@ class Command {
 	 * @return array
 	 */
 	public function burnWavCd($directoryName) {
-		$cmd = 'wodim dev=/dev/sr0 fs=4096k driveropts=burnproof -v -useinfo speed=24 -dao -eject -pad -audio ' . $directoryName . '.wav';
+		$cmd = 'wodim dev=/dev/sr0 fs=4096k driveropts=burnproof -v -useinfo speed=24 -dao -eject -pad -audio ' . $directoryName . '/*.wav';
 		return $this->executeCommand($cmd);
 	}
 

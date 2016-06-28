@@ -56,6 +56,28 @@ class JobCommandController extends \TYPO3\Flow\Cli\CommandController {
 	/**
 	 * @return void
 	 */
+	public function removeWaitingCommand() {
+		$jobs = $this->jobRepository->findByStatus(Job::STATUS_WAITING);
+		$this->outputLine('found ' . count($jobs) . ' jobs');
+		foreach ($jobs as $job) {
+			$this->jobRepository->remove($job);
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	public function removeRunningCommand() {
+		$jobs = $this->jobRepository->findByStatus(Job::STATUS_RUNNING);
+		$this->outputLine('found ' . count($jobs) . ' jobs');
+		foreach ($jobs as $job) {
+			$this->jobRepository->remove($job);
+		}
+	}
+
+	/**
+	 * @return void
+	 */
 	public function runCommand() {
 		$job = $this->jobRepository->findOneByStatus(Job::STATUS_RUNNING);
 		if ($job instanceof Job === TRUE) {
