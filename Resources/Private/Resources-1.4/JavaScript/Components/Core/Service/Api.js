@@ -40,10 +40,7 @@
             $rootScope.$broadcast('core:apiCallStart');
             DocumentCollectionRestService.remove(path, docs).then(restSuccess, restError);
         }
-        function writeId3Tag(tagPath, docs) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DocumentCollectionRestService.writeTag(tagPath, docs).then(restSuccess, restError);
-        }
+
         function categoryMergeOne(path, doc) {
             return categoryMerge(path, [ doc ]);
         }
@@ -54,20 +51,6 @@
             DocumentListRestService.remove(path, docs).then(restSuccess, restError);
         }
 
-
-        function zipDownload(zip, docs) {
-            $rootScope.$broadcast('core:apiCallStart');
-            ExportRestService.zipDownload(zip, docs).then(
-                function (data) {
-                    restSuccess(data);
-                    var blob = new Blob([data.data], {
-                        type: 'application/zip'
-                    });
-                    saveAs(blob, zip.name + '.zip');
-                },
-                restError
-            );
-        }
 
         function pdfDownload(pdf, docs) {
             $rootScope.$broadcast('core:apiCallStart');
@@ -89,8 +72,25 @@
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.merge(path, docs).then(restSuccess, restError);
         }
+
         function listMergeOne(path, doc) {
             return listMerge(path, [ doc ]);
+        }
+
+        /* documents */
+
+        function zipDownload(zip, docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            ExportRestService.zipDownload(zip, docs).then(
+                function (data) {
+                    restSuccess(data);
+                    var blob = new Blob([data.data], {
+                        type: 'application/zip'
+                    });
+                    saveAs(blob, zip.name + '.zip');
+                },
+                restError
+            );
         }
 
 
@@ -102,6 +102,11 @@
         }
 
         /* mp3 only */
+
+        function writeId3Tag(tagPath, docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentCollectionRestService.writeTag(tagPath, docs).then(restSuccess, restError);
+        }
 
         function updateId3Tag(mp3DocumentId3Tag) {
             $rootScope.$broadcast('core:apiCallStart');

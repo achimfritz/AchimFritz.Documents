@@ -86,7 +86,8 @@
             var path = next.split('/app/')
             vm.current.location = path[1];
             listener();
-
+            console.log('x');
+            killerListener();
             // TODO cannot kill listener ???
 
             /*

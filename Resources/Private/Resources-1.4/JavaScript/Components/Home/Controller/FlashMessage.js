@@ -11,7 +11,9 @@
         var vm = this;
         var $scope = $rootScope.$new();
 
-        vm.spinner = false;
+        vm.view = {
+            spinner: false
+         };
 
         function showFlashMessages(flashMessages) {
             angular.forEach(flashMessages, function (flashMessage) {
@@ -30,12 +32,13 @@
         /* listener */
 
         var apiCallStartListener = $scope.$on('core:apiCallStart', function() {
-            vm.spinner = true;
+            console.log('aaa');
+            vm.view.spinner = true;
         });
 
         var apiCallSuccessListener = $scope.$on('core:apiCallSuccess', function(ev, data) {
             showFlashMessages(data.data.flashMessages);
-            vm.spinner = false;
+            vm.view.spinner = false;
         });
 
         var apiCallErrorListener = $scope.$on('core:apiCallError', function(ev, data) {
@@ -49,14 +52,15 @@
                     toaster.pop(severity, data.status, data.statusText);
                 }
             }
-            vm.spinner = false;
+            vm.view.spinner = false;
         });
 
         var listener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
-            apiCallStartListener();
-            apiCallErrorListener();
-            apiCallSuccessListener();
-            listener();
+            //apiCallStartListener();
+            //apiCallErrorListener();
+            //apiCallSuccessListener();
+            //listener();
+            //console.log('xxx');
         });
 
     }

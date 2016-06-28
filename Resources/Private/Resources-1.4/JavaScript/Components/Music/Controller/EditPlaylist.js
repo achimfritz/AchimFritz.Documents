@@ -6,37 +6,53 @@
         .controller('MusicEditPlaylistController', MusicEditPlaylistController);
 
     /* @ngInject */
-    function MusicEditPlaylistController ($scope) {
+    function MusicEditPlaylistController ($scope, CoreApiService, ngDialog, $rootScope) {
 
         var vm = this;
-        vm.playlist = $scope.ngDialogData;
+        var docs = [];
+        var $localScope = $rootScope.$new();
 
-        vm.zip = {
-            'name': 'download',
-            'useThumb': false,
-            'useFullPath': false
+        vm.view = {
+            tag: '',
+            list: '',
+            zip: {
+                name: 'download',
+                useThumb: false,
+                useFullPath: false
+            }
         };
-        vm.tagPath = '';
 
-        vm.getPlaylistDocs = getPlaylistDocs;
+        vm.actions = {
+            updateId3Tag: updateId3TagAction,
+            zipDownload: zipDownloadAction,
+            listMerge: listMergeAction
+        };
 
-        docUpdate();
+        initController();
 
-        function docUpdate() {
-            var first = vm.playlist[0];
-            var doc = first.doc;
-            vm.zip.name = doc.fsArtist + '_' + doc.fsAlbum;
-            vm.zip.name = vm.zip.name.replace(/ /g, '');
-        }
-
-        function getPlaylistDocs() {
-            var docs = [];
-            angular.forEach(vm.playlist, function (val, key) {
+        function initController() {
+            angular.forEach($scope.ngDialogData, function (val, key) {
                 docs.push(val.doc);
             });
-            return docs;
+            var name = docs[0].fsArtist + '_' + docs[0].fsAlbum;
+            vm.view.zip.name = name.replace(/ /g, '');
         }
 
+        function updateId3TagAction() {
+            CoreApiService.writeId3Tag(vm.view.tag, docs);
+        }
 
+        function listMergeAction() {
+            CoreApiService.listMerge(vm.view.list, docs);
+        }
+
+        function zipDownloadAction() {
+            CoreApiService.zipDownload(vm.view.zip, docs);
+        }
+
+        var listener = $localScope.$on('core:apiCallSuccess', function(event, data) {
+            ngDialog.close($scope.dialog.id);
+            listener();
+        });
     }
 })();
