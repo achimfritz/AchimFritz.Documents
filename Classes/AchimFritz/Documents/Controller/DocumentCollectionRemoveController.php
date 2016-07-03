@@ -28,6 +28,12 @@ class DocumentCollectionRemoveController extends RestController {
 	protected $documentPersistenceManager;
 
 	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
+	 */
+	protected $documentRepository;
+
+	/**
 	 * @var string
 	 */
 	protected $resourceArgumentName = 'documentCollection';
@@ -67,6 +73,29 @@ class DocumentCollectionRemoveController extends RestController {
 			$this->redirectToRequest($this->request->getReferringRequest());
 		} else {
 			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+		}
+	}
+
+	/**
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
+	 * @return void
+	 */
+	public function deleteAction(DocumentCollection $documentCollection) {
+		$documents = $documentCollection->getDocuments();
+		$cnt = count($documents);
+		try {
+			foreach ($documents as $document) {
+				$this->documentRepository->remove($document);
+			}
+			$this->documentPersistenceManager->persistAll();
+			$this->addFlashMessage($cnt . ' Documents removed');
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			$this->handleException($e);
+		}
+		if ($this->request->getReferringRequest() instanceof ActionRequest) {
+			$this->redirectToRequest($this->request->getReferringRequest());
+		} else {
+			$this->redirect('list', 'Document');
 		}
 	}
 
