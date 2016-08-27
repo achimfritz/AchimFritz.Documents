@@ -155,6 +155,7 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected function deploy($verbose) {
 		$this->deployment->initialize();
 		$this->deployment->deploy();
+		#$this->deployment->simulate();
 	}
 
 

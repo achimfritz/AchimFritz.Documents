@@ -59,6 +59,10 @@ class IntegrityFactory extends \AchimFritz\Documents\Domain\FileSystem\Factory\I
 			throw new Exception('cannot get files in ' . $path, 1419867691);
 		}
 
+		if (count($fsDocs) === 0) {
+			throw new Exception('cannot get files in ' . $path, 1419867791);
+		}
+
 		// thumbs
 		$path = FLOW_PATH_WEB . PathService::PATH_DELIMITER . $webPath . PathService::PATH_DELIMITER . $directory;
 		try {
