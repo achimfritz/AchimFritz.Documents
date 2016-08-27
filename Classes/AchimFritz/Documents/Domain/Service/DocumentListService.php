@@ -69,6 +69,7 @@ class DocumentListService {
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentList $documentList
 	 * @return \AchimFritz\Documents\Domain\Model\DocumentList $documentList
+	 * @throws Exception
 	 */
 	public function remove(DocumentList $documentList) {
 		$category = $this->categoryRepository->findOneByPath($documentList->getCategory()->getPath());
@@ -92,5 +93,6 @@ class DocumentListService {
 		$this->documentListRepository->update($persistedDocumentList);
 		return $persistedDocumentList;
 	}
+	
 
 }

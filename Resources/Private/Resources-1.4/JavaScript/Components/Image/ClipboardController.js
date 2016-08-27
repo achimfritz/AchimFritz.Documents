@@ -6,7 +6,7 @@
         .controller('ClipboardController', ClipboardController);
 
     /* @ngInject */
-    function ClipboardController ($rootScope, FlashMessageService, ExportRestService, DocumentListRestService, DocumentCollectionRestService) {
+    function ClipboardController ($rootScope) {
 
         var vm = this;
         vm.docs = [];

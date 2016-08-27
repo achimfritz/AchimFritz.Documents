@@ -23,6 +23,7 @@
         vm.categoryRemove = categoryRemove;
         vm.categoryMerge = categoryMerge;
         vm.categoryMergeOne = categoryMergeOne;
+        vm.deleteFiles = deleteFiles;
 
         vm.categoryUpdate = categoryUpdate;
         vm.id3TagUpdate = id3TagUpdate;
@@ -38,6 +39,10 @@
         vm.restError = restError;
         vm.restSuccessAndUpdate = restSuccessAndUpdate;
 
+        function deleteFiles(docs) {
+            vm.finished = false;
+            DocumentCollectionRestService.deleteFiles(docs).then(vm.restSuccess, vm.restError);
+        }
 
         function categoryMerge(path, docs) {
             vm.finished = false;

@@ -40,6 +40,29 @@
             })
         };
 
+        this.deleteFiles = function (docs) {
+            var url = 'achimfritz.documents/documentcollectionremove/';
+            var documents = [];
+            angular.forEach(docs, function (val, key) {
+                documents.push(val.identifier);
+            });
+
+            var data = {
+                'documentCollection': {
+                    'documents': documents
+                }
+            };
+            return $http({
+                method: 'DELETE',
+                url: url,
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+        };
+
         this.remove = function (path, docs) {
             var url = 'achimfritz.documents/documentcollectionremove/';
             var data = buildRequest(path, docs);

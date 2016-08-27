@@ -52,6 +52,17 @@ class DocumentCollectionRemoveController extends RestController {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function initializeDeleteAction() {
+		$propertyMappingConfiguration = $this->arguments[$this->resourceArgumentName]->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration->allowAllProperties();
+		$propertyMappingConfiguration->forProperty('documents');
+		$sub = $propertyMappingConfiguration->getConfigurationFor('documents');
+		$sub->allowAllProperties();
+	}
+
+	/**
 	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
 	 * @return void
 	 */
@@ -67,6 +78,34 @@ class DocumentCollectionRemoveController extends RestController {
 			$this->redirectToRequest($this->request->getReferringRequest());
 		} else {
 			$this->redirect('list', 'Category', NULL, array('category' => $documentCollection->getCategory()));
+		}
+	}
+
+	/**
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
+	 * @return void
+	 */
+	public function deleteAction(DocumentCollection $documentCollection) {
+		try {
+			$this->documentCollectionService->removeAndDeleteFiles($documentCollection);
+			try {
+				$this->documentPersistenceManager->persistAll();
+				$this->addFlashMessage('Documents removed and Files deleted');
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				$this->handleException($e);
+			}
+			if ($this->request->getReferringRequest() instanceof ActionRequest) {
+				$this->redirectToRequest($this->request->getReferringRequest());
+			} else {
+				$this->redirect('list', 'Document');
+			}
+		} catch (\AchimFritz\Documents\Exception $e) {
+			$this->handleException($e);
+			if ($this->request->getReferringRequest() instanceof ActionRequest) {
+				$this->redirectToRequest($this->request->getReferringRequest());
+			} else {
+				$this->redirect('list', 'Document');
+			}
 		}
 	}
 

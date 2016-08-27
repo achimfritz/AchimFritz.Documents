@@ -21,6 +21,7 @@
         self.categoryRemove = categoryRemove;
         self.categoryMerge = categoryMerge;
         self.categoryMergeOne = categoryMergeOne;
+        self.deleteFiles = deleteFiles;
 
         self.categoryUpdate = categoryUpdate;
         self.id3TagUpdate = id3TagUpdate;
@@ -39,6 +40,10 @@
         function categoryRemove(path, docs) {
             $rootScope.$broadcast('core:apiCallStart');
             DocumentCollectionRestService.remove(path, docs).then(restSuccess, restError);
+        }
+        function deleteFiles(docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentCollectionRestService.deleteFiles(docs).then(restSuccess, restError);
         }
 
         function categoryMergeOne(path, doc) {

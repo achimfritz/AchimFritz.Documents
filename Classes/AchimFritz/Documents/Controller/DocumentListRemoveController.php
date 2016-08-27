@@ -74,7 +74,7 @@ class DocumentListRemoveController extends RestController {
 			} else {
 				$this->redirect('list', 'DocumentList', NULL, array('documentList' => $documentList));
 			}
-		} catch (AchimFritz\Documents\Domain\Service\Exception $e) {
+		} catch (\AchimFritz\Documents\Exception $e) {
 			$this->handleException($e);
 			if ($this->request->getReferringRequest() instanceof ActionRequest) {
 				$this->redirectToRequest($this->request->getReferringRequest());

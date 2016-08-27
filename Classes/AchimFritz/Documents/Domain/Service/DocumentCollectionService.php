@@ -77,4 +77,25 @@ class DocumentCollectionService {
 		return $cnt;
 	}
 
+	/**
+	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
+	 * @return void
+	 * @throws Exception
+	 */
+	public function removeAndDeleteFiles(DocumentCollection $documentCollection) {
+		// TODO check documentList ...
+		// TOOD solr reload
+		foreach($documentCollection->getDocuments() as $document) {
+			foreach ($document->getAdditionalFilePaths() as $filePath) {
+				if (file_exists($filePath) === TRUE && @unlink($filePath) === FALSE) {
+					throw new Exception ('cannot remove ' . $filePath, 1468510840);
+				}
+			}
+			if (@unlink($document->getAbsolutePath()) === FALSE) {
+				throw new Exception ('cannot remove ' . $document->getAbsolutePath(), 1468510841);
+			}
+			$this->documentRepository->remove($document);
+		}
+	}
+
 }

@@ -88,4 +88,15 @@ class ImageDocument extends FileSystemDocument {
 		return FLOW_PATH_WEB . $this->getWebPath();
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getAdditionalFilePaths() {
+		return array(
+			$this->getWebBigPath(),
+			$this->getWebPreviewPath(),
+			$this->getWebThumbPath()
+		);
+	}
+
 }

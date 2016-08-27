@@ -195,4 +195,19 @@ class Command {
 		$cmd = 'rm -r ' . $directory;
 		return $this->executeCommand($cmd);
 	}
+
+	/**
+	 * @param string $in
+	 * @param string $geometry (w or wxh or xh)
+	 * @param $out
+	 * @return array
+	 * @throws Exception
+	 */
+	public function convertImage($in, $geometry, $out) {
+		if (file_exists($in) === FALSE) {
+			throw new Exception('no such file or not writeable ' . $in, 1471277884);
+		}
+		$cmd = 'convert -geometry ' . $geometry . ' ' . $in . ' ' . $out;
+		return $this->executeCommand($cmd);
+	}
 }

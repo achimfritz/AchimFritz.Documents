@@ -127,4 +127,11 @@ class FileSystemDocument extends Document {
 		}
 		return $this->splFileInfo;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function getAdditionalFilePaths() {
+		return array();
+	}
 }

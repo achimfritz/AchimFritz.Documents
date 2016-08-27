@@ -58,6 +58,7 @@
                 }
             });
         }
+        
 
         function emptyList() {
             angular.forEach(vm.data.response.docs, function (val, key) {
