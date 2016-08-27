@@ -28,6 +28,12 @@ class DocumentCollectionRemoveController extends RestController {
 	protected $documentPersistenceManager;
 
 	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\Repository\DocumentRepository
+	 */
+	protected $documentRepository;
+
+	/**
 	 * @var string
 	 */
 	protected $resourceArgumentName = 'documentCollection';
