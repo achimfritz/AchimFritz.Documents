@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Facet\DocumentCollection;
 use AchimFritz\Documents\Domain\Model\Category;
 use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\Controller\ActionRequest;
+use TYPO3\Flow\Mvc\ActionRequest;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 class DocumentCollectionRemoveController extends RestController {
@@ -93,13 +93,8 @@ class DocumentCollectionRemoveController extends RestController {
 	 */
 	public function deleteAction(DocumentCollection $documentCollection) {
 		try {
-			$this->documentCollectionService->removeAndDeleteFiles($documentCollection);
-			try {
-				$this->documentPersistenceManager->persistAll();
-				$this->addFlashMessage('Documents removed and Files deleted');
-			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
-				$this->handleException($e);
-			}
+			$cnt = $this->documentCollectionService->removeAndDeleteFiles($documentCollection);
+			$this->addFlashMessage($cnt . ' Documents removed from FS');
 			if ($this->request->getReferringRequest() instanceof ActionRequest) {
 				$this->redirectToRequest($this->request->getReferringRequest());
 			} else {

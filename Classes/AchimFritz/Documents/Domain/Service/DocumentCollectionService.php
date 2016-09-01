@@ -34,6 +34,18 @@ class DocumentCollectionService {
 	 */
 	protected $documentPolicy;
 
+	/**
+	 * @Flow\Inject
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Service\FilesDeleter
+	 */
+	protected $filesDeleter;
+
+	/**
+	 * @var \AchimFritz\Documents\Persistence\DocumentsPersistenceManager
+	 * @Flow\Inject
+	 */
+	protected $documentPersistenceManager;
+
 
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
@@ -78,24 +90,49 @@ class DocumentCollectionService {
 	}
 
 	/**
-	 * @param \AchimFritz\Documents\Domain\Model\DocumentCollection $documentCollection
-	 * @return void
+	 * @param \AchimFritz\Documents\Domain\Facet\DocumentCollection $documentCollection
+	 * @return int
 	 * @throws Exception
 	 */
 	public function removeAndDeleteFiles(DocumentCollection $documentCollection) {
-		// TODO check documentList ...
-		// TOOD solr reload
-		foreach($documentCollection->getDocuments() as $document) {
+		$filePaths = array();
+		$documents = $documentCollection->getDocuments();
+		// remove from persistenct
+		try {
+			foreach ($documents as $document) {
+				$this->documentRepository->remove($document);
+			}
+			$this->documentPersistenceManager->persistAll();
+		} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+			throw new Exception('cannot remove documents from persistence', 1472713044);
+		}
+
+		// collect files
+		foreach($documents as $document) {
 			foreach ($document->getAdditionalFilePaths() as $filePath) {
-				if (file_exists($filePath) === TRUE && @unlink($filePath) === FALSE) {
-					throw new Exception ('cannot remove ' . $filePath, 1468510840);
+				if (file_exists($filePath) === TRUE) {
+					$filePaths[] = $filePath;
 				}
 			}
-			if (@unlink($document->getAbsolutePath()) === FALSE) {
-				throw new Exception ('cannot remove ' . $document->getAbsolutePath(), 1468510841);
-			}
-			$this->documentRepository->remove($document);
+			$filePaths[] = $document->getAbsolutePath();
 		}
+
+		// remove FS
+		try {
+			$this->filesDeleter->delete($filePaths);
+		} catch (\AchimFritz\Documents\Domain\FileSystem\Service\Exception $e) {
+			// rollback persistence
+			foreach ($documents as $document) {
+				$this->documentRepository->add($document);
+			}
+			try {
+				$this->documentPersistenceManager->persistAll();
+			} catch (\AchimFritz\Documents\Persistence\Exception $e) {
+				throw new Exception('cannot add documents to persistence', 1472713046);
+			}
+			throw new Exception('cannot remove documents from FS', 1472713047);
+		}
+		return count($documents);
 	}
 
 }
