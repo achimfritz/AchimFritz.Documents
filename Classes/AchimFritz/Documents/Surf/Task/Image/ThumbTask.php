@@ -51,7 +51,9 @@ class ThumbTask extends Task {
 		$cnt = 0;
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . '/' . $fsDoc;
-			$imageSize = getimagesize($absolutePath);
+			if (!$imageSize = getimagesize($absolutePath)) {
+				throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot get imagesize of ' . $absolutePath, 1473941790);
+			}
 			foreach ($dimensions AS $dimension) {
 				$cnt ++;
 				$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory . '/' . $fsDoc;
