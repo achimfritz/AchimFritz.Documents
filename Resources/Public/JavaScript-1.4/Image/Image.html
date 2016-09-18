@@ -16,6 +16,20 @@
 						<div class="row">
 							<ng-include src="widget.getTemplate('Search')"></ng-include>
 							<ng-include src="widget.getTemplate('Widget')"></ng-include>
+							<div class="col-md-1 col-md-offset-1">
+								<div class="radio">
+									<label>
+										<input type="radio" data-ng-model="image.mode" value="view">View Mode
+									</label>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="radio">
+									<label>
+										<input id="select-mode" type="radio" data-ng-model="image.mode" value="select">Select
+									</label>
+								</div>
+							</div>
 						</div>
 
 						<div class="row">
