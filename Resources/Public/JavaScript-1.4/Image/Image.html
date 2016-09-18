@@ -5,14 +5,12 @@
 
 				<div data-ng-controller="WidgetController as widget">
 
-					<toaster-container></toaster-container>
 
 					<overlay finished="api.finished"></overlay>
 					<div data-ng-if="!api.finished" class="spinner">
 						<spinner></spinner>
 					</div>
 
-					<div class="well image-top" data-spy="affix" data-offset-top="0">
 						<div class="row">
 							<ng-include src="widget.getTemplate('Search')"></ng-include>
 							<ng-include src="widget.getTemplate('Widget')"></ng-include>
@@ -51,7 +49,6 @@
 						<ng-include src="widget.getTemplate('SolrIntegrity')"></ng-include>
 						<ng-include src="widget.getTemplate('Integrity')"></ng-include>
 						<ng-include src="widget.getTemplate('Clipboard')"></ng-include>
-					</div>
 					<div class="image-bottom">
 						<ng-include src="widget.getTemplate('Result')"></ng-include>
 					</div>

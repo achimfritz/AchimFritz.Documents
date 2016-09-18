@@ -1,3 +1,5 @@
+<div class="image-top" data-spy="affix" data-offset-top="0"> 
+<div class="well" data-ng-if="widget.widgets.clipboard">
 <div class="row" data-ng-if="widget.widgets.clipboard">
 	<div class="col-md-2">
 		<h4>clipboard: {{clipboard.docs.length}} documents</h4>
@@ -10,6 +12,20 @@
 		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'documentList'}" ng-click="clipboard.showForm('documentList')">List</button>
 		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'delete'}" ng-click="clipboard.showForm('delete')">deleteFiles</button>
 	</div>
+							<div class="col-md-1 col-md-offset-1">
+								<div class="radio">
+									<label>
+										<input type="radio" data-ng-model="image.mode" value="view">View Mode
+									</label>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="radio">
+									<label>
+										<input id="select-mode" type="radio" data-ng-model="image.mode" value="select">Select
+									</label>
+								</div>
+							</div>
 </div>
 <div class="row" data-ng-if="widget.widgets.clipboard">
 	<div class="col-md-12">
@@ -104,4 +120,5 @@
 
 	</div>
 </div>
-
+</div>
+</div>
