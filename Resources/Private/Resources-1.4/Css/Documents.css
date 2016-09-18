@@ -63,6 +63,13 @@ ul.typo3-widget-paginator li {
 	width: 1250px;
 }
 
+div.image-top {
+	z-index: 1000;
+	width: 100%;
+	top: 0;
+}
+
+
 
 
 div.overlay {

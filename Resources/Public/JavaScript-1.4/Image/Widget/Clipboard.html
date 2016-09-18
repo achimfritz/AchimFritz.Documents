@@ -2,34 +2,34 @@
 	<div class="col-md-2">
 		<h4>clipboard: {{clipboard.docs.length}} documents</h4>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-5">
 		<button class="btn btn-default" ng-click="image.emptyList()">empty</button>
-		<button class="btn btn-default" ng-click="clipboard.showForm('category')">category</button>
-		<button class="btn btn-default" ng-click="clipboard.showForm('zip')">ZIP</button>
-		<button class="btn btn-default" ng-click="clipboard.showForm('pdf')">PDF</button>
-		<button class="btn btn-default" ng-click="clipboard.showForm('documentList')">List</button>
-		<button class="btn btn-danger" ng-click="clipboard.showForm('delete')">deleteFiles</button>
-		<strong>{{clipboard.form}}</strong>
+		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'category'}" ng-click="clipboard.showForm('category')">category</button>
+		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'zip'}" ng-click="clipboard.showForm('zip')">ZIP</button>
+		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'pdf'}" ng-click="clipboard.showForm('pdf')">PDF</button>
+		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'documentList'}" ng-click="clipboard.showForm('documentList')">List</button>
+		<button class="btn btn-default" data-ng-class="{'btn-primary': clipboard.form === 'delete'}" ng-click="clipboard.showForm('delete')">deleteFiles</button>
 	</div>
-
-	<div class="col-md-6">
+</div>
+<div class="row" data-ng-if="widget.widgets.clipboard">
+	<div class="col-md-12">
 
 		<form data-ng-if="clipboard.form === 'delete'" novalidate class="form-horizontal">
 			<div class="form-group row">
-				<div class="col-md-8">
+				<div class="col-md-4">
 					<input class="form-control btn-danger" type="submit" ng-click="api.deleteFiles(clipboard.docs)" value="Remove all Documents and delete Files" />
 				</div>
 			</div>
 		</form>
 		<form data-ng-if="clipboard.form === 'category'" novalidate class="form-horizontal">
 			<div class="form-group row">
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<input class="form-control" id="category" type="text" data-ng-model="clipboard.category" data-autocomplete data-global="1" />
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<input class="form-control btn btn-danger" type="submit" ng-click="api.categoryMerge(clipboard.category, clipboard.docs)" value="Merge all Documents into Category" />
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<input class="form-control btn-danger" type="submit" ng-click="api.categoryRemove(clipboard.category, clipboard.docs)" value="Remove all Documents from Category" />
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 		</form>
 
 		<form data-ng-if="clipboard.form === 'zip'" class="form-horizontal">
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="name" class="col-md-1 control-label">Name</label>
 				<div class="col-md-2">
 					<input type="text" class="form-control" data-ng-model="clipboard.zip.name" id="name" required="required" />
@@ -74,7 +74,7 @@
 		</form>
 
 		<form data-ng-if="clipboard.form === 'pdf'" class="form-horizontal">
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="columns" class="col-md-2 control-label">Columns</label>
 				<div class="col-md-1">
 					<input type="text" class="form-control" data-ng-model="clipboard.pdf.columns" id="columns" value="3" />

@@ -41,7 +41,7 @@
 
         function deleteFiles(docs) {
             vm.finished = false;
-            DocumentCollectionRestService.deleteFiles(docs).then(vm.restSuccess, vm.restError);
+            DocumentCollectionRestService.deleteFiles(docs).then(vm.restSuccessAndUpdate, vm.restError);
         }
 
         function categoryMerge(path, docs) {
