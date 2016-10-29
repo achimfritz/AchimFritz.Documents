@@ -14,6 +14,19 @@ use TYPO3\Flow\Annotations as Flow;
 class Command {
 
 	/**
+	 * @param string $isoImage
+	 * @return array
+	 */
+	public function burnIsoImageDvd($isoImage) {
+		$splFileInfo = new \SplFileInfo($isoImage);
+		if (is_file($isoImage) === FALSE || $splFileInfo->getExtension() !== 'iso') {
+			throw new Exception('no iso file ' . $isoImage, 1476636792);
+		}
+		$cmd = 'growisofs --dvd-compat -Z /dev/sr0=' . $isoImage;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
 	 * @param string $directoryName 
 	 * @return array
 	 */
@@ -78,7 +91,11 @@ class Command {
 			throw new Exception('no such file ' . $timestampFile, 1435403125);
 		}
 		$cmd = 'grep "' . $name . '" ' . $timestampFile . ' |awk -F "|" {\'print $1\'}';
+		var_dump($cmd);
 		$res = $this->executeCommand($cmd);
+		if (empty($res[0]) === TRUE || trim($res[0]) === '') {
+			throw new Exception('no result ' . $cmd , 1477749936);
+		}
 		return $res[0];
 	}
 
