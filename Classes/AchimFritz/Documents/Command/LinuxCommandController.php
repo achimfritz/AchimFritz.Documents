@@ -27,6 +27,21 @@ class LinuxCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $directoryService;
 
 	/**
+	 * burnDvdIso --isoFile=/tmp/image.iso
+	 *
+	 * @param string $isoFile
+	 * @return void
+	 */
+	public function burnDvdIsoCommand($isoFile) {
+		try {
+			$this->command->burnIsoImageDvd($isoFile);
+			$this->outputLine('SUCCESS: image burned');
+		} catch (\AchimFritz\Documents\Linux\Exception $e) {
+			$this->outputLine('ERROR: ' . $e->getMessage() . ' - ' . $e->getCode());
+		}
+	}
+
+	/**
 	 * burndatacd --directoryName=/mp3/tmp
 	 *
 	 * @param string $directoryName
