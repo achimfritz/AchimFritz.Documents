@@ -1,59 +1,41 @@
-
-
 		<div class="row top5">
 			<div class="col-md-12">
 				<ul class="nav nav-pills">
 					<li
-							data-ng-repeat="(name, enabled) in musicFilter.filters"
-							data-ng-class="{'active' : enabled}">
-						<a href="javascript:void(0)" data-ng-click="musicFilter.toggleFilter(name)">
-							{{name.substr(0, 13)}}
+							data-ng-repeat="facet in musicFilter.facets"
+							data-ng-class="{'active' : facet.isVisible}">
+						<a href="javascript:void(0)" data-ng-click="musicFilter.toggleFilter(facet.name)">
+							{{facet.name.substr(0, 13)}}
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 
-
-
 		<div class="row top5">
 
-			<div data-ng-repeat="(name, enabled) in musicFilter.filters">
-				<div data-ng-if="enabled">
-					<div class="col-md-3">
-						<span class="label label-default">{{name}}</span>
-							<button class="btn btn-default btn-xs" data-ng-click="musicFilter.toggleFilter(name)">
-								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-							</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetSorting(name, 'index')">index</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetSorting(name, 'count')">count</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(name, 10)">+10</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(name, 100)">+100</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(name, -10)">-10</button>
-						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(name, -100)">-100</button>
+			<div data-ng-repeat="facet in musicFilter.facets">
+					<div class="col-md-3" data-ng-if="facet.isVisible">
+						<span class="label label-default">{{facet.name}}</span>
+						<button class="btn btn-default btn-xs" data-ng-click="musicFilter.toggleFilter(facet.name)">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetSorting(facet.name, 'index')">index</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetSorting(facet.name, 'count')">count</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(facet.name, 10)">+10</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(facet.name, 100)">+100</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(facet.name, -10)">-10</button>
+						<button class="btn btn-default btn-xs" ng-click="musicFilter.changeFacetCount(facet.name, -100)">-100</button>
+
 
 						<ul>
-							<li ng-repeat="(key, value) in musicFilter.data.facet_counts.facet_fields[name]">
-								<span ng-click="musicFilter.addFilterQuery(name, key)">
-									<nav-path ng-attr-path="{{key}}" ng-attr-facet="{{name}}"></nav-path>
-									({{value}})
-								</span>
-
-								<span
-										data-ng-show="musicFilter.isEditableCategory(name)"
-										class="glyphicon glyphicon-pencil"
-										aria-hidden="true"
-										data-ng-click="musicFilter.showCategoryForm(name, key, 'category')">
-								</span>
-								<span
-										data-ng-show="musicFilter.isEditableId3Tag(name)"
-										class="glyphicon glyphicon-pencil"
-										aria-hidden="true"
-										data-ng-click="musicFilter.showId3TagForm(name, key)">
+							<li ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
+								<span ng-click="musicFilter.addFilterQuery(facet.name, field.index)">
+									<nav-path ng-attr-path="{{field.index}}" ng-attr-facet="{{facet.index}}"></nav-path>
+									({{field.count}})
 								</span>
 							</li>
 						</ul>
 					</div>
-				</div>
 			</div>
 		</div>

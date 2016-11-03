@@ -12,9 +12,7 @@
     function FacetFactory(Solr, SolrConfiguration) {
 
         var solrConfiguration = SolrConfiguration.getConfiguration();
-        console.log(solrConfiguration);
         var visibleFacets = solrConfiguration.visibleFacets;
-        console.log(visibleFacets);
         var facets = [];
 
         var isVisibleFacet = function (facet) {
