@@ -89,6 +89,7 @@
                 SolrConfiguration.setParam('f_artistLetter_facet_limit', 35);
                 SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
                 SolrConfiguration.setSetting('servlet', 'mp3');
+                SolrConfiguration.setVisibleFacets({artist: true, album: true});
 
                 //Solr.init();
                 callSolr();

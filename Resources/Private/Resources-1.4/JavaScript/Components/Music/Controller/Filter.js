@@ -6,7 +6,7 @@
         .controller('MusicFilterController', MusicFilterController);
 
     /* @ngInject */
-    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr, MusicFilterService) {
+    function MusicFilterController (ngDialog, $rootScope, CONFIG, Solr, FacetFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -16,12 +16,12 @@
         // solr
         vm.filterQueries = {};
         vm.data = {};
+        vm.facets = [];
         vm.changeFacetSorting = changeFacetSorting;
         vm.changeFacetCount = changeFacetCount;
         vm.addFilterQuery = addFilterQuery;
 
         // filters
-        vm.filters = {};
         vm.toggleFilter = toggleFilter;
 
         // forms
@@ -36,12 +36,11 @@
 
         function initController() {
             getSolrData();
-            vm.filters = MusicFilterService.getFilters()
         }
 
         /* filter */
         function toggleFilter(name) {
-            vm.filters = MusicFilterService.toggleFilter(name);
+            vm.facets = FacetFactory.toggleFacet(name);
         }
 
         /* forms */
@@ -100,7 +99,8 @@
             var data = Solr.getData();
             if (angular.isDefined(data.response) === true) {
                 vm.filterQueries = Solr.getFilterQueries();
-                vm.data = Solr.getData();
+                vm.data = data;
+                vm.facets = FacetFactory.updateFacets(data);
             }
         }
 

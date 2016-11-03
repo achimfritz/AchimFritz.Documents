@@ -62,6 +62,7 @@
         self.overrideFilterQueryAndUpdate = overrideFilterQueryAndUpdate;
         self.setSearchAndUpdate = setSearchAndUpdate;
         self.clearSearchAndUpdate = clearSearchAndUpdate;
+        self.getFacetSorting = getFacetSorting;
 
         self.init = init;
         self.reset = reset;
@@ -78,6 +79,7 @@
         function getData() {
             return data;
         }
+
 
         function setData(newData) {
             data = newData;
@@ -228,6 +230,15 @@
         function changeFacetSorting(facetName, sorting) {
             var solrKey = 'f_' + facetName + '_facet_sort';
             params[solrKey] = sorting;
+        }
+
+        function getFacetSorting(facetName) {
+            var solrKey = 'f_' + facetName + '_facet_sort';
+            if (angular.isDefined(params[solrKey])) {
+                return params[solrKey];
+            } else {
+                return 'count';
+            }
         }
 
         function changeFacetCount(facetName, diff) {
