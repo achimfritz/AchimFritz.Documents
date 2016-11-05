@@ -78,16 +78,26 @@ class OrientationTask extends Task {
 				$commands[] = $correctCommand;
 			}
 			if ($cnt > 50) {
-				$this->shell->executeOrSimulate($commands, $node, $deployment);
+				#$commands = array('pwd');
+				$cmd = implode(' && ', $commands);
+				echo $cmd;
+				echo "\n";
+				exec($cmd);
+
+				#$this->shell->executeOrSimulate($commands, $node, $deployment);
 				$cnt = 0;
 				$commands = array();
 			}
 		}
 		$geeqieMetadata = $this->configuration->getGeeqieMetadataPath() . $path;
 		$commands[] = 'if [ -d ' . $geeqieMetadata . ' ]; then mv ' . $geeqieMetadata . ' ' . $geeqieMetadata . '_done; fi';
+				$cmd = implode(' && ', $commands);
+				echo $cmd;
+				echo "\n";
+				exec($cmd);
 
 
-		$this->shell->executeOrSimulate($commands, $node, $deployment);
+		#$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
 	}
 

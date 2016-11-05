@@ -91,7 +91,6 @@ class Command {
 			throw new Exception('no such file ' . $timestampFile, 1435403125);
 		}
 		$cmd = 'grep "' . $name . '" ' . $timestampFile . ' |awk -F "|" {\'print $1\'}';
-		var_dump($cmd);
 		$res = $this->executeCommand($cmd);
 		if (empty($res[0]) === TRUE || trim($res[0]) === '') {
 			throw new Exception('no result ' . $cmd , 1477749936);
