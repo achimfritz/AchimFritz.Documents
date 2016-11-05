@@ -1,3 +1,38 @@
+<div class="row top5">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li
+					data-ng-repeat="facet in image.facets"
+					data-ng-class="{'active' : facet.isVisible}">
+				<a href="javascript:void(0)" data-ng-click="image.toggleFilter(facet.name)">
+					{{facet.name.substr(0, 13)}}
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="row top5">
+
+	<div data-ng-repeat="facet in image.facets">
+		<div class="col-md-3" data-ng-if="facet.isVisible">
+			<span class="label label-default">{{facet.name}}</span>
+			<button class="btn btn-default btn-xs" data-ng-click="image.toggleFilter(facet.name)">
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			</button>
+
+
+
+			<ul>
+				<li ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
+									<nav-path ng-attr-path="{{field.index}}" ng-attr-facet="{{facet.index}}"></nav-path>
+									({{field.count}})
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
 <div data-ng-controller="DocumentController as document">
 	<div data-ng-controller="ApiController as api">
 		<div data-ng-controller="ClipboardController as clipboard">

@@ -6,10 +6,11 @@
         .controller('ImageController', ImageController);
 
     /* @ngInject */
-    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, Solr) {
+    function ImageController ($rootScope, CONFIG, ngDialog, hotkeys, Solr, FacetFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
+
         vm.templatePaths = {};
         vm.finished = true;
         vm.mode = 'view';
@@ -17,6 +18,9 @@
         vm.data = {};
         vm.strgPressed = false;
         vm.shiftPressed = false;
+
+        vm.facets = [];
+        vm.toggleFilter = toggleFilter;
 
         // used by the view
         vm.itemClick = itemClick;
@@ -29,6 +33,10 @@
         vm.initController = initController;
 
         vm.initController();
+
+        function toggleFilter(name) {
+            vm.facets = FacetFactory.toggleFacet(name);
+        }
 
         function initController() {
             vm.data = Solr.getData();
@@ -127,6 +135,7 @@
 
         var listener = $scope.$on('solrDataUpdate', function (event, data) {
             vm.data = Solr.getData();
+            vm.facets = FacetFactory.updateFacets(vm.data);
         });
 
         var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {

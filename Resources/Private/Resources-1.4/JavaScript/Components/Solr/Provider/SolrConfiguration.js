@@ -30,7 +30,8 @@
                 hFacets: {
                     hPaths: '0',
                     hCategories: '1/categories'
-                }
+                },
+                visibleFacets: {}
             };
         };
 
@@ -59,6 +60,9 @@
                 },
                 setFacets: function (facets) {
                     configuration.facets = facets;
+                },
+                setVisibleFacets: function(visibleFacets) {
+                    configuration.visibleFacets = visibleFacets;
                 }
             }
         };
