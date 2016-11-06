@@ -41,10 +41,9 @@ class ThumbTask extends Task {
 		$integrity = $this->integrityFactory->createIntegrity($directory);
 		$fsDocs = $integrity->getFilesystemDocuments();
 		$commands = array();
-		$dimensions = array(array('1920', '1080'), array('800', '600'), array('1280', '1024'), array('320', '240'), array('64', '48'));
-		// convert from.jpg -thumbnail 133x100 -background black -gravity center -extent 133x100 to.jpg
+		$dimensions = array('1920x1080','800x600', '1280x1024', '320x240', '64x48');
 		foreach ($dimensions AS $dimension) {
-			$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory;
+			$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension . '/' . $directory;
 			if (file_exists($thumbPath) === FALSE) {
 				$commands[] = 'mkdir -p ' . $thumbPath;
 			}
@@ -52,18 +51,10 @@ class ThumbTask extends Task {
 		$cnt = 0;
 		foreach ($fsDocs AS $fsDoc) {
 			$absolutePath = $path . '/' . $fsDoc;
-			if (!$imageSize = @getimagesize($absolutePath)) {
-				throw new \TYPO3\Surf\Exception\TaskExecutionException('cannot get imagesize of ' . $absolutePath, 1473941790);
-			}
 			foreach ($dimensions AS $dimension) {
 				$cnt ++;
-				$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory . '/' . $fsDoc;
-				if ($imageSize[0] > $imageSize[1]) {
-					$param = $dimension[0];
-				} else {
-					$param = 'x' . $dimension[1];
-				}
-				$commands[] = ' convert -geometry ' . $param . ' ' . $absolutePath . ' ' . $thumbPath;
+				$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension . '/' . $directory . '/' . $fsDoc;
+				$commands[] = ' convert -thumbnail ' . $dimension . ' ' . $absolutePath . ' ' . $thumbPath;
 				if ($cnt > 50) {
 					$this->shell->executeOrSimulate($commands, $node, $deployment);
 					$cnt = 0;
@@ -71,7 +62,6 @@ class ThumbTask extends Task {
 				}
 			}
 		}
-
 
 		$this->shell->executeOrSimulate($commands, $node, $deployment);
 		
