@@ -20,7 +20,8 @@
             {name: 'mp3list', location: 'mp3list'},
             {name: 'mp3ipod', location: 'mp3ipod'},
             {name: 'image', location: 'image'},
-            {name: 'imagelist', location: 'imagelist'}
+            {name: 'imagelist', location: 'imagelist'},
+            {name: 'image v2', location: 'image/result'}
         ];
         vm.forward = forward;
 

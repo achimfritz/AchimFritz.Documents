@@ -69,8 +69,16 @@ div.image-top {
 	top: 0;
 }
 
+div.image-doc .ngdialog-overlay {
+	background: none;
+}
 
-
+div.image-doc .control {
+	position: absolute;
+	cursor: pointer;
+	top: 0px;
+	left: 0px;
+}
 
 div.overlay {
   position: absolute;

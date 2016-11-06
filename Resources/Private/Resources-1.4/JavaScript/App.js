@@ -47,6 +47,8 @@
             'image',
             'imagelist',
             'mp3list',
+            'image/result',
+            'image/filter',
             'music',
             'music/result',
             'music/filter',
@@ -86,6 +88,11 @@
         configs['image'].components.main = 'image';
         configs['mp3list'].components.main = 'mp3List';
         configs['imagelist'].components.main = 'imageList';
+
+        configs['image/result'].components.main = 'imageResult';
+        configs['image/result'].components.navigation = 'imageNavigation';
+        configs['image/filter'].components.main = 'imageFilter';
+        configs['image/filter'].components.navigation = 'imageNavigation';
 
         configs['music'].components.main = 'music';
         configs['music'].components.navigation = 'musicNavigation';
@@ -133,6 +140,10 @@
             res = name.split('music');
             if (res.length === 2) {
                 return CONFIG.templatePath + 'Music/' + res[1] + '.html';
+            }
+            res = name.split('image');
+            if (res.length === 2 && res[1] !== '') {
+                return CONFIG.templatePath + 'Image/' + res[1] + '.html';
             }
             res = name.split('home');
             if (res.length === 2) {

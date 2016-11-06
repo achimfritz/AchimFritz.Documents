@@ -1,0 +1,42 @@
+<div class="row">
+
+	<div class="col-md-4">
+		<ul>
+			<li>{{imageEditDoc.doc.identifier}}</li>
+			<li>{{imageEditDoc.doc.name}}</li>
+			<li>{{imageEditDoc.doc.year}}</li>
+			<li>{{imageEditDoc.doc.mDateTime}}</li>
+		</ul>
+
+		<div class="row">
+			<form data-ng-submit="imageEditDoc.categoryMergeOne()">
+				<div class="col-md-6">
+					<input class="form-control" id="id3Tag" type="text"
+						   data-ng-model="imageEditDoc.category"
+						   data-autocomplete
+						   data-field="paths"
+						   data-global="1" />
+				</div>
+				<div class="col-md-6">
+					<input type="submit"  value="Submit" class="btn btn-default"/>
+				</div>
+			</form>
+		</div>
+		
+
+		<div data-ng-if="imageEditDoc.doc.tags">
+			<h3>tags</h3>
+			<ul>
+				<li ng-repeat="item in imageEditDoc.doc.tags">{{item}}</li>
+			</ul>
+		</div>
+		<h3>locations</h3>
+		<ul>
+			<li ng-repeat="item in imageEditDoc.doc.locations">{{item}}</li>
+		</ul>
+		<h3>categories</h3>
+		<ul>
+			<li ng-repeat="item in imageEditDoc.doc.categories track by $index">{{item}}</li>
+		</ul>
+	</div>
+</div>

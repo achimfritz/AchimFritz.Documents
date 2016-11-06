@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-md-1 col-md-offset-1">
+		<div class="radio">
+			<label>
+				<input type="radio" data-ng-model="imageResult.mode" value="view">View Mode
+			</label>
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div class="radio">
+			<label>
+				<input id="select-mode" type="radio" data-ng-model="imageResult.mode" value="select">Select
+			</label>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<button class="btn btn-danger " ng-click="imageResult.showAllRows()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
+		<button class="btn btn-default" ng-click="imageResult.changeRows(20)">more</button>
+		<button class="btn btn-default" ng-click="imageResult.changeRows(-20)">less</button>
+		<button class="btn btn-default" ng-click="imageResult.changeImageSize(-20)">smaller</button>
+		<button class="btn btn-default" ng-click="imageResult.changeImageSize(20)">bigger</button>
+	</div>
+	<div class="col-md-6 text-center">
+		<dir-pagination-controls on-page-change="imageResult.nextPage(newPageNumber)"></dir-pagination-controls>
+	</div>
+	<div class="col-md-1">
+		<span class="btn btn-primary">{{imageResult.result.docs.length}} von {{imageResult.result.numFound}}</span>
+	</div>
+	<div class="col-md-2">
+		<ng-include src="widget.getTemplate('Sort')"></ng-include>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 text-center">
+		<div dir-paginate="doc in imageResult.result.docs | itemsPerPage: imageResult.result.docs.length" total-items="imageResult.result.numFound" class="iso-item {{doc.selected}}"  data-ng-click="imageResult.itemClick(doc)" >
+			<img height="{{imageResult.imageHeight}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
+		</div>
+	</div>
+</div>

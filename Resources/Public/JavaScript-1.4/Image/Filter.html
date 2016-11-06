@@ -1,0 +1,41 @@
+		<div class="row top5">
+			<div class="col-md-12">
+				<ul class="nav nav-pills">
+					<li
+							data-ng-repeat="facet in imageFilter.facets"
+							data-ng-class="{'active' : facet.isVisible}">
+						<a href="javascript:void(0)" data-ng-click="imageFilter.toggleFilter(facet.name)">
+							{{facet.name.substr(0, 13)}}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row top5">
+
+			<div data-ng-repeat="facet in imageFilter.facets">
+					<div class="col-md-3" data-ng-if="facet.isVisible">
+						<span class="label label-default">{{facet.name}}</span>
+						<button class="btn btn-default btn-xs" data-ng-click="imageFilter.toggleFilter(facet.name)">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetSorting(facet.name, 'index')">index</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetSorting(facet.name, 'count')">count</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetCount(facet.name, 10)">+10</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetCount(facet.name, 100)">+100</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetCount(facet.name, -10)">-10</button>
+						<button class="btn btn-default btn-xs" ng-click="imageFilter.changeFacetCount(facet.name, -100)">-100</button>
+
+
+						<ul>
+							<li ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
+								<span ng-click="imageFilter.addFilterQuery(facet.name, field.index)">
+									<nav-path ng-attr-path="{{field.index}}" ng-attr-facet="{{facet.index}}"></nav-path>
+									({{field.count}})
+								</span>
+							</li>
+						</ul>
+					</div>
+			</div>
+		</div>
