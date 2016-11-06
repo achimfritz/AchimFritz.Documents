@@ -41,8 +41,8 @@ class ThumbTask extends Task {
 		$integrity = $this->integrityFactory->createIntegrity($directory);
 		$fsDocs = $integrity->getFilesystemDocuments();
 		$commands = array();
-		$dimensions = array(array('800', '600'), array('1280', '1024'), array('320', '240'), array('64', '48'));
-		#$dimensions = array(array('1280', '1024'));
+		$dimensions = array(array('1920', '1080'), array('800', '600'), array('1280', '1024'), array('320', '240'), array('64', '48'));
+		// convert from.jpg -thumbnail 133x100 -background black -gravity center -extent 133x100 to.jpg
 		foreach ($dimensions AS $dimension) {
 			$thumbPath = $this->configuration->getThumbPath() . '/' . $dimension[0] . 'x' . $dimension[1] . '/' . $directory;
 			if (file_exists($thumbPath) === FALSE) {
