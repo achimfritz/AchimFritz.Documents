@@ -6,10 +6,12 @@
         .controller('ImageResultController', ImageResultController);
 
     /* @ngInject */
-    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr) {
+    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr, CoreApiService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
+
+        vm.coreApi = CoreApiService;
 
         vm.params = {};
         vm.random = 0;

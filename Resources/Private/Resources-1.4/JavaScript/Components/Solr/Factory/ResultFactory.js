@@ -13,7 +13,17 @@
 
         var result = {
             numFound:  0,
-            docs: []
+            docs: [],
+            clipboard: []
+        };
+
+        var updateClipboard = function () {
+            result.clipboard = [];
+            angular.forEach(result.docs, function (doc) {
+                if (doc.selected === 'selected') {
+                    result.clipboard.push(doc);
+                }
+            });
         };
 
         return {
@@ -24,6 +34,7 @@
                     doc.selected = '';
                     result.docs.push(doc);
                 });
+                result.clipboard = [];
                 return result;
             },
             itemClick: function(doc, strgPressed, shiftPressed) {
@@ -56,6 +67,7 @@
                     // add always me
                     doc.selected = 'selected';
                 }
+                updateClipboard();
                 return result;
             },
             getPrev: function (current) {

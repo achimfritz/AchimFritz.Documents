@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-md-3 col-md-offset-1">
 				<span class="btn btn-primary">{{imageResult.result.docs.length}} von {{imageResult.result.numFound}}</span>
-				<span data-ng-if="imageResult.form !== 'close'" class="btn btn-primary">clipboard: {{imageResult.result.docs.length}} documents</span>
+				<span data-ng-if="imageResult.form !== 'close'" class="btn btn-primary">clipboard: {{imageResult.result.clipboard.length}} documents</span>
 			</div>
 		</div>
 		<div class="row">
@@ -56,7 +56,7 @@
 					<form data-ng-if="imageResult.form === 'delete'" novalidate class="form-horizontal">
 						<div class="form-group row">
 							<div class="col-md-4">
-								<input class="form-control btn-danger" type="submit" ng-click="api.deleteFiles(imageResult.docs)" value="Remove all Documents and delete Files" />
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.deleteFiles(imageResult.result.clipboard)" value="Remove all Documents and delete Files" />
 							</div>
 						</div>
 					</form>
@@ -66,10 +66,10 @@
 								<input class="form-control" id="category" type="text" data-ng-model="imageResult.category" data-autocomplete data-global="1" />
 							</div>
 							<div class="col-md-3">
-								<input class="form-control btn btn-danger" type="submit" ng-click="api.categoryMerge(imageResult.category, imageResult.result.docs)" value="Merge all Documents into Category" />
+								<input class="form-control btn btn-danger" type="submit" ng-click="imageResult.coreApi.categoryMerge(imageResult.category, imageResult.result.clipboard)" value="Merge all Documents into Category" />
 							</div>
 							<div class="col-md-3">
-								<input class="form-control btn-danger" type="submit" ng-click="api.categoryRemove(imageResult.category, imageResult.result.docs)" value="Remove all Documents from Category" />
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.categoryRemove(imageResult.category, imageResult.result.clipboard)" value="Remove all Documents from Category" />
 							</div>
 						</div>
 					</form>
@@ -80,10 +80,10 @@
 								<input class="form-control" id="documentList" type="text" data-ng-model="imageResult.category" data-autocomplete data-global="true" />
 							</div>
 							<div class="col-md-4">
-								<input class="form-control btn btn-danger" type="submit" ng-click="api.listMerge(imageResult.category, imageResult.result.docs)" value="Merge all Documents into List" />
+								<input class="form-control btn btn-danger" type="submit" ng-click="imageResult.coreApi.listMerge(imageResult.category, imageResult.result.clipboard)" value="Merge all Documents into List" />
 							</div>
 							<div class="col-md-4">
-								<input class="form-control btn-danger" type="submit" ng-click="api.listRemove(imageResult.category, imageResult.result.docs)" value="Remove all Documents from List" />
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.listRemove(imageResult.category, imageResult.result.clipboard)" value="Remove all Documents from List" />
 							</div>
 						</div>
 					</form>
@@ -107,7 +107,7 @@
 								</label>
 							</div>
 							<div class="col-md-2">
-								<input class="form-control btn-danger" type="submit" ng-click="api.zipDownload(imageResult.zip, imageResult.result.docs)" value="ZIP Download" />
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.zipDownload(imageResult.zip, imageResult.result.clipboard)" value="ZIP Download" />
 							</div>
 						</div>
 					</form>
@@ -135,7 +135,7 @@
 								</select>
 							</div>
 							<div class="col-md-2">
-								<input class="form-control btn-danger" type="submit" ng-click="api.pdfDownload(imageResult.pdf, imageResult.result.docs)" value="PDF Download" />
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.pdfDownload(imageResult.pdf, imageResult.result.clipboard)" value="PDF Download" />
 							</div>
 						</div>
 					</form>
