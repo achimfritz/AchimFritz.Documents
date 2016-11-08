@@ -69,6 +69,10 @@ div.image-top {
 	top: 0;
 }
 
+div.image-top.affix{
+	left: 0px;
+}
+
 div.image-doc .ngdialog-overlay {
 	background: none;
 }
