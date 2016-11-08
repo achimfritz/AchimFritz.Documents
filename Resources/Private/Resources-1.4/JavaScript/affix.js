@@ -2,7 +2,7 @@
     'use strict';
 
     $(window).on('load', function () {
-        $(window).off('click.bs.affix.data-api');
+        //$(window).off('click.bs.affix.data-api');
     });
 
 })(jQuery);

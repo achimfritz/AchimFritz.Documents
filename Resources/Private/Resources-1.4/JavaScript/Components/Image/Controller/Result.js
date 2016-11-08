@@ -18,9 +18,23 @@
         vm.strgPressed = false;
         vm.shiftPressed = false;
         vm.mode = 'view';
+        // clipboard
+        vm.form = 'close';
+        vm.category = '';
+        vm.pdf = {
+            'columns': 3,
+            'size': 4,
+            'dpi': 72
+        };
+        vm.zip = {
+            'name': 'download',
+            'useThumb': false,
+            'useFullPath': false
+        };
 
         // used by the view
         vm.itemClick = itemClick;
+        vm.showForm = showForm;
 
         vm.newRandom = newRandom;
         vm.nextPage = nextPage;
@@ -76,6 +90,10 @@
                     scope: $scope
                 });
             }
+        }
+
+        function showForm(form) {
+            vm.form = form;
         }
 
         function newRandom() {
