@@ -6,7 +6,7 @@
         .service('CoreApiService', CoreApiService);
 
     /* @ngInject */
-    function CoreApiService(ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
+    function CoreApiService(IntegrityRestService, JobRestService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
 
         var self = this;
         var $scope = $rootScope.$new();
@@ -31,6 +31,35 @@
         self.cddbUpdate = cddbUpdate;
         self.writeId3Tag = writeId3Tag;
         self.folderUpdate = folderUpdate;
+
+        // integrity
+        this.integrityList = function() {
+            $rootScope.$broadcast('core:apiCallStart');
+            IntegrityRestService.list().then(restSuccess, restError);
+
+        };
+
+        this.integrityShow = function(directory) {
+            $rootScope.$broadcast('core:apiCallStart');
+            IntegrityRestService.show(directory).then(restSuccess, restError);
+
+        };
+
+        // job
+        this.jobShow = function (identifier) {
+            $rootScope.$broadcast('core:apiCallStart', {noSpinner: true});
+            JobRestService.show(identifier).then(restSuccess, restError);
+        };
+
+        this.jobList = function () {
+            $rootScope.$broadcast('core:apiCallStart');
+            JobRestService.list().then(restSuccess, restError);
+        };
+
+        this.jobCreate = function (job) {
+            $rootScope.$broadcast('core:apiCallStart');
+            JobRestService.create(job).then(restSuccess, restError);
+        };
 
 
         function categoryMerge(path, docs) {

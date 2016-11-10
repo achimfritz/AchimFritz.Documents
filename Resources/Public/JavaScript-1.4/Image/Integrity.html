@@ -1,0 +1,127 @@
+<div class="row well well-sm" data-ng-if="imageIntegrity.job['__identity']">
+	<div class="col-md-12">
+		<button type="button" class="close" aria-label="Close" ng-click="imageIntegrity.resetJob()">
+			<span aria-hidden="true">&times;</span></button>
+
+		<h4>Job Status: {{imageIntegrity.job.status}}</h4>
+		<div class="col-md-12">
+					<pre>
+						{{imageIntegrity.job.log}}
+					</pre>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12" data-ng-if="imageIntegrity.view === 'list'">
+		<div class="row">
+			<div class="col-md-2">
+				<input class="form-control" ng-model="imageIntegrity.directory" type="text" />
+			</div>
+			<div class="col-md-2">
+				<button ng-click="imageIntegrity.createJob('copyAndInit', imageIntegrity.directory)" class="btn btn-default btn-danger" >Copy And Init</button>
+			</div>
+		</div>
+
+		<table class="table table-striped">
+			<tr ng-repeat="integrity in imageIntegrity.integrities" data-ng-if="integrity.countDiffers">
+				<td>{{integrity.name}}</td>
+				<td>{{integrity.countFileSystem}}</td>
+				<td>{{integrity.countSolr}}</td>
+				<td ng-click="imageIntegrity.coreApi.integrityShow(integrity.name)">
+					<button class="btn btn-default btn-xs">show</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+	<div class="col-md-12" data-ng-if="imageIntegrity.view === 'show'">
+
+
+		<div class="row">
+			<div class="col-md-3">
+				<table class="table table-striped">
+					<tr>
+						<td><strong>{{imageIntegrity.integrity.name}}</strong></td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>Count FS</td>
+						<td>{{imageIntegrity.integrity.countFileSystem}}</td>
+					</tr>
+					<tr>
+						<td>Count Solr</td>
+						<td>{{imageIntegrity.integrity.countSolr}}</td>
+					</tr>
+					<tr>
+						<td>Count Thumbs</td>
+						<td>{{imageIntegrity.integrity.thumbs.length}}</td>
+					</tr>
+					<tr>
+						<td>Count Persisted</td>
+						<td>{{imageIntegrity.integrity.persistedDocuments.length}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-3">
+				<table class="table table-striped">
+					<tr>
+						<td>timestamp initialized</td>
+						<td>{{imageIntegrity.integrity.timestampsAreInitialized}}</td>
+					</tr>
+					<tr>
+						<td>images rotated</td>
+						<td>{{imageIntegrity.integrity.imageIsRotated}}</td>
+					</tr>
+					<tr>
+						<td>is exif</td>
+						<td>{{imageIntegrity.integrity.isExif}}</td>
+					</tr>
+					<tr>
+						<td>geeqie metadata exists</td>
+						<td>{{imageIntegrity.integrity.geeqieMetadataExists}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-3">
+				<table class="table table-striped">
+					<tr>
+						<td>ready for rotation</td>
+						<td>{{imageIntegrity.integrity.readyForRotation}}</td>
+					</tr>
+					<tr>
+						<td>ready for thumbs</td>
+						<td>{{imageIntegrity.integrity.readyForThumbs}}</td>
+					</tr>
+					<tr>
+						<td>next Step</td>
+						<td>{{imageIntegrity.integrity.nextStep}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-3">
+				<h4>next Step: {{imageIntegrity.integrity.nextStep}}</h4>
+				<button ng-hide="imageIntegrity.integrity.countDiffers"
+						ng-click="imageIntegrity.solr.addFilterQueryAndUpdate('mainDirectoryName', imageIntegrity.integrity.name)"
+						class="btn btn-default btn-danger">solr
+				</button>
+				<button ng-show="imageIntegrity.integrity.countDiffers && imageIntegrity.integrity.nextStep != ''"
+						ng-click="imageIntegrity.createJob(imageIntegrity.integrity.nextStep, imageIntegrity.integrity.name)"
+						class="btn btn-default btn-danger">create next Step {{imageIntegrity.integrity.nextStep}}
+				</button>
+				<div class="alert alert-info" role="alert"
+					 ng-show="imageIntegrity.integrity.countDiffers && imageIntegrity.integrity.nextStep == ''">
+					Opps no next step but no solr documents ... (maybe not exif nor a metadata file exists?)
+				</div>
+				<div class="alert alert-info" role="alert"
+					 ng-show="imageIntegrity.integrity.countDiffers && imageIntegrity.integrity.nextStep == ''">
+					although create thumbs (own risk)
+				</div>
+				<button ng-show="imageIntegrity.integrity.countDiffers && imageIntegrity.integrity.nextStep == ''"
+						ng-click="imageIntegrity.createJob('thumb', imageIntegrity.integrity.name)"
+						class="btn btn-default btn-danger">create next Step thumb
+				</button>
+				<button ng-click="imageIntegrity.coreApi.integrityList()" class="btn btn-default">list</button>
+			</div>
+		</div>
+	</div>
+</div>

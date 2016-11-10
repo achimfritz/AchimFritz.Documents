@@ -16,7 +16,9 @@
         vm.items = [
             {name: 'home', location: 'index'},
             {name: 'result', location: 'image/result'},
-            {name: 'filter', location: 'image/filter'}
+            {name: 'filter', location: 'image/filter'},
+            {name: 'docList', location: 'image/docList'},
+            {name: 'integrity', location: 'image/integrity'}
         ];
         vm.forward = forward;
 

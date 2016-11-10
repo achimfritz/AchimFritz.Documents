@@ -30,10 +30,15 @@
         }
 
         /* listener */
+        var apiCallStartListener = $scope.$on('core:apiCallStart', function(ev, data) {
+            if (angular.isUndefined(data) || data.noSpinner !== true) {
+                vm.view.spinner = true;
+            }
 
-        var apiCallStartListener = $scope.$on('core:apiCallStart', function() {
-            console.log('aaa');
-            vm.view.spinner = true;
+        });
+
+        var flashMessageListener = $scope.$on('home:flashMessage', function (ev, flashMessages){
+            showFlashMessages(flashMessages);
         });
 
         var apiCallSuccessListener = $scope.$on('core:apiCallSuccess', function(ev, data) {
