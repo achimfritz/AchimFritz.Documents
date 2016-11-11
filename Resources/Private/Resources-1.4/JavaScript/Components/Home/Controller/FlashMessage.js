@@ -29,6 +29,14 @@
             });
         }
 
+        function showValidationErrors(validationErrors) {
+            angular.forEach(validationErrors, function (validationError) {
+                angular.forEach(validationError.errors, function (error) {
+                    showFlashMessages([{severity: 'error', message: error.message + ' - ' + error.code}]);
+                });
+            });
+        }
+
         /* listener */
         var apiCallStartListener = $scope.$on('core:apiCallStart', function(ev, data) {
             if (angular.isUndefined(data) || data.noSpinner !== true) {
@@ -43,6 +51,7 @@
 
         var apiCallSuccessListener = $scope.$on('core:apiCallSuccess', function(ev, data) {
             showFlashMessages(data.data.flashMessages);
+            showValidationErrors(data.data.validationErrors);
             vm.view.spinner = false;
         });
 
@@ -58,6 +67,9 @@
                 }
             }
             vm.view.spinner = false;
+            if (angular.isDefined(data) && angular.isDefined(data.data) && angular.isDefined(data.data.validationErrors)) {
+                showValidationErrors(data.data.validationErrors);
+            }
         });
 
         var listener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
