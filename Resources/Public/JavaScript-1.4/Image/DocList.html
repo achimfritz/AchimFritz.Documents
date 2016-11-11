@@ -6,7 +6,7 @@
 					<tr data-ng-repeat="documentList in imageDocList.documentLists">
 						<td>{{documentList.category.path}}</td>
 						<td><button data-ng-click="imageDocList.coreApi.listShow(documentList.__identity)" class="btn btn-default btn-xs" >show</button></td>
-						<td><button data-ng-click="imageDocList.coreApi.listRemove(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
+						<td><button data-ng-click="imageDocList.coreApi.listDelete(documentList.__identity)" class="btn btn-danger btn-xs" >delete</button></td>
 					</tr>
 				</table>
 			</div>
@@ -20,10 +20,10 @@
 			</div>
 			<div class="col-md-9">
 				<button data-ng-click="imageDocList.coreApi.listList()" class="btn btn-default" >list</button>
-				<button data-ng-click="imageDocList.coreApi.listRemove(imageDocList.documentList.__identity)" class="btn btn-danger" >delete</button>
-				<button data-ng-click="imageDocList.showBig(true)" class="btn btn-default" data-ng-if="imageList.big === false">show big</button>
-				<button data-ng-click="imageDocList.showBig(false)" class="btn btn-default" data-ng-if="imageList.big">hide big</button>
-				<button data-ng-click="imageDocList.saveList()" class="btn btn-danger" >save</button>
+				<button data-ng-click="imageDocList.showBig(true)" class="btn btn-default" data-ng-if="imageDocList.big === false">show big</button>
+				<button data-ng-click="imageDocList.showBig(false)" class="btn btn-default" data-ng-if="imageDocList.big">hide big</button>
+				<button data-ng-click="imageDocList.coreApi.listUpdate(imageDocList.documentList)" class="btn btn-success" >save</button>
+				<button data-ng-click="imageDocList.coreApi.listDelete(imageDocList.documentList.__identity)" class="btn btn-danger" >delete</button>
 			</div>
 		</div>
 		<div class="row">

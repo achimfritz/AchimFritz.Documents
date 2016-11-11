@@ -58,7 +58,7 @@
         };
 
         /* documentList */
-        this.listList = function(identifier) {
+        this.listList = function() {
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.list().then(restSuccess, restError);
         };
@@ -66,14 +66,26 @@
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.show(identifier).then(restSuccess, restError);
         };
+        this.listUpdate = function(list) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.update(list).then(restSuccess, restError);
+        };
+        this.listDelete = function(identifier) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.delete(identifier).then(restSuccess, restError);
+        };
+
+        // TODO listRemoveDocs
         this.listRemove = function (path, docs) {
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.remove(path, docs).then(restSuccess, restError);
         };
+        // listMergeDocs
         this.listMerge = function (path, docs) {
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.merge(path, docs).then(restSuccess, restError);
         };
+        // listMergeDoc
         this.listMergeOne = function (path, doc) {
             return listMerge(path, [ doc ]);
         };
