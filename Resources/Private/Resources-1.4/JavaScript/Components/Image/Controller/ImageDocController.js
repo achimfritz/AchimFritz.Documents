@@ -69,7 +69,9 @@
         }
         
         function fullPath() {
-            return 'thumbs/1280x1024/' + vm.doc.name;
+            // TODO
+            return 'thumbs/1920x1080/' + vm.doc.name;
+            //return 'thumbs/1280x1024/' + vm.doc.name;
             
         }
 
