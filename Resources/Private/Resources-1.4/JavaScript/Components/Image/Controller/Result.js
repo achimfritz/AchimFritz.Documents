@@ -6,10 +6,12 @@
         .controller('ImageResultController', ImageResultController);
 
     /* @ngInject */
-    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr) {
+    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr, CoreApiService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
+
+        vm.coreApi = CoreApiService;
 
         vm.params = {};
         vm.random = 0;
@@ -18,9 +20,23 @@
         vm.strgPressed = false;
         vm.shiftPressed = false;
         vm.mode = 'view';
+        // clipboard
+        vm.form = 'close';
+        vm.category = '';
+        vm.pdf = {
+            'columns': 3,
+            'size': 4,
+            'dpi': 72
+        };
+        vm.zip = {
+            'name': 'download',
+            'useThumb': false,
+            'useFullPath': false
+        };
 
         // used by the view
         vm.itemClick = itemClick;
+        vm.showForm = showForm;
 
         vm.newRandom = newRandom;
         vm.nextPage = nextPage;
@@ -76,6 +92,10 @@
                     scope: $scope
                 });
             }
+        }
+
+        function showForm(form) {
+            vm.form = form;
         }
 
         function newRandom() {

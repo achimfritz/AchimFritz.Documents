@@ -6,17 +6,13 @@
         .service('CoreApiService', CoreApiService);
 
     /* @ngInject */
-    function CoreApiService(ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
+    function CoreApiService(IntegrityRestService, JobRestService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
 
         var self = this;
         var $scope = $rootScope.$new();
 
         self.pdfDownload = pdfDownload;
         self.zipDownload = zipDownload;
-
-        self.listMerge = listMerge;
-        self.listRemove = listRemove;
-        self.listMergeOne = listMergeOne;
 
         self.categoryRemove = categoryRemove;
         self.categoryMerge = categoryMerge;
@@ -31,6 +27,68 @@
         self.cddbUpdate = cddbUpdate;
         self.writeId3Tag = writeId3Tag;
         self.folderUpdate = folderUpdate;
+
+        // integrity
+        this.integrityList = function() {
+            $rootScope.$broadcast('core:apiCallStart');
+            IntegrityRestService.list().then(restSuccess, restError);
+
+        };
+
+        this.integrityShow = function(directory) {
+            $rootScope.$broadcast('core:apiCallStart');
+            IntegrityRestService.show(directory).then(restSuccess, restError);
+
+        };
+
+        // job
+        this.jobShow = function (identifier) {
+            $rootScope.$broadcast('core:apiCallStart', {noSpinner: true});
+            JobRestService.show(identifier).then(restSuccess, restError);
+        };
+
+        this.jobList = function () {
+            $rootScope.$broadcast('core:apiCallStart');
+            JobRestService.list().then(restSuccess, restError);
+        };
+
+        this.jobCreate = function (job) {
+            $rootScope.$broadcast('core:apiCallStart');
+            JobRestService.create(job).then(restSuccess, restError);
+        };
+
+        /* documentList */
+        this.listList = function() {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.list().then(restSuccess, restError);
+        };
+        this.listShow = function(identifier) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.show(identifier).then(restSuccess, restError);
+        };
+        this.listUpdate = function(list) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.update(list).then(restSuccess, restError);
+        };
+        this.listDelete = function(identifier) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.delete(identifier).then(restSuccess, restError);
+        };
+
+        // TODO listRemoveDocs
+        this.listRemove = function (path, docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.remove(path, docs).then(restSuccess, restError);
+        };
+        // listMergeDocs
+        this.listMerge = function (path, docs) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.merge(path, docs).then(restSuccess, restError);
+        };
+        // listMergeDoc
+        this.listMergeOne = function (path, doc) {
+            return listMerge(path, [ doc ]);
+        };
 
 
         function categoryMerge(path, docs) {
@@ -51,12 +109,6 @@
         }
 
 
-        function listRemove(path, docs) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DocumentListRestService.remove(path, docs).then(restSuccess, restError);
-        }
-
-
         function pdfDownload(pdf, docs) {
             $rootScope.$broadcast('core:apiCallStart');
             ExportRestService.pdfDownload(pdf, docs).then(
@@ -71,16 +123,6 @@
             );
         }
 
-        /* documentList */
-
-        function listMerge(path, docs) {
-            $rootScope.$broadcast('core:apiCallStart');
-            DocumentListRestService.merge(path, docs).then(restSuccess, restError);
-        }
-
-        function listMergeOne(path, doc) {
-            return listMerge(path, [ doc ]);
-        }
 
         /* documents */
 

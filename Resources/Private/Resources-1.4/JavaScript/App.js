@@ -49,6 +49,8 @@
             'mp3list',
             'image/result',
             'image/filter',
+            'image/integrity',
+            'image/docList',
             'music',
             'music/result',
             'music/filter',
@@ -93,6 +95,10 @@
         configs['image/result'].components.navigation = 'imageNavigation';
         configs['image/filter'].components.main = 'imageFilter';
         configs['image/filter'].components.navigation = 'imageNavigation';
+        configs['image/docList'].components.main = 'imageDocList';
+        configs['image/docList'].components.navigation = 'imageNavigation';
+        configs['image/integrity'].components.main = 'imageIntegrity';
+        configs['image/integrity'].components.navigation = 'imageNavigation';
 
         configs['music'].components.main = 'music';
         configs['music'].components.navigation = 'musicNavigation';

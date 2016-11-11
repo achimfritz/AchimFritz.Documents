@@ -6,7 +6,7 @@
         .controller('ImageNavigationController', ImageNavigationController);
 
     /* @ngInject */
-    function ImageNavigationController ($location, CONFIG, $rootScope, $timeout, Solr) {
+    function ImageNavigationController ($location, CONFIG, $rootScope, Solr, ngDialog) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -16,7 +16,9 @@
         vm.items = [
             {name: 'home', location: 'index'},
             {name: 'result', location: 'image/result'},
-            {name: 'filter', location: 'image/filter'}
+            {name: 'filter', location: 'image/filter'},
+            {name: 'docList', location: 'image/docList'},
+            {name: 'integrity', location: 'image/integrity'}
         ];
         vm.forward = forward;
 
@@ -27,16 +29,25 @@
         vm.update = update;
         vm.clearSearch = clearSearch;
         vm.rmFilterQuery = rmFilterQuery;
+        vm.showSolrIntegrity = showSolrIntegrity;
 
-        vm.initController = initController;
-
-        vm.initController();
+        initController();
 
         function initController() {
             getSolrData();
+            console.log('init');
 
             var path = $location.path();
             vm.current.location = path.replace(CONFIG.baseUrl + '/', '');
+        }
+
+        function showSolrIntegrity() {
+            $scope.dialog = ngDialog.open({
+                template: CONFIG.templatePath + 'Image/SolrIntegrity.html',
+                controller: 'ImageSolrIntegrityController',
+                controllerAs: 'imageSolrIntegrity',
+                scope: $scope
+            });
         }
 
         function forward(newLocation) {
@@ -64,21 +75,20 @@
             if (angular.isDefined(data.response) === true) {
                 vm.filterQueries = Solr.getFilterQueries();
                 vm.params = Solr.getParams();
+                if (vm.params.q !== '*:*') {
+                    vm.search = vm.params.q;
+                }
             }
         }
-
-
-        /* listener */
 
         var listener = $scope.$on('solrDataUpdate', function(event, data) {
             getSolrData();
         });
 
-
         var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
             var path = next.split('/app/')
             vm.current.location = path[1];
-            listener();
+            //listener();
             killerListener();
             // TODO cannot kill listener ???
 

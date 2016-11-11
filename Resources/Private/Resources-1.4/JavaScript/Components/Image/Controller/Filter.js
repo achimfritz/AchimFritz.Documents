@@ -6,66 +6,53 @@
         .controller('ImageFilterController', ImageFilterController);
 
     /* @ngInject */
-    function ImageFilterController (ngDialog, $rootScope, CONFIG, Solr, FacetFactory) {
+    function ImageFilterController(ngDialog, $rootScope, CONFIG, Solr, FacetFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
-        var categoryFilters = ['hPaths'];
+        var categoryFilters = ['hPaths', 'hLocations', 'hCategories'];
 
-        // solr
-        vm.filterQueries = {};
-        vm.data = {};
+        vm.solr = Solr;
+        vm.facetFactory = FacetFactory;
         vm.facets = [];
-        vm.changeFacetSorting = changeFacetSorting;
-        vm.changeFacetCount = changeFacetCount;
-        vm.addFilterQuery = addFilterQuery;
 
-        // filters
-        vm.toggleFilter = toggleFilter;
-
-        // forms
-        //vm.showCategoryForm = showCategoryForm;
+        vm.showCategoryForm = showCategoryForm;
+        vm.isEditableCategory = isEditableCategory;
 
         getSolrData();
 
-        /* filter */
-        function toggleFilter(name) {
-            vm.facets = FacetFactory.toggleFacet(name);
+        function isEditableCategory(name) {
+            return categoryFilters.indexOf(name) >= 0;
         }
 
-        /* forms */
+        function showCategoryForm(facetName, facetValue) {
+            var data = {
+                name: facetName,
+                value: facetValue
+            };
 
+            $scope.dialog = ngDialog.open({
+                data: data,
+                template: CONFIG.templatePath + 'Image/EditCategory.html',
+                controller: 'ImageEditCategoryController',
+                controllerAs: 'imageEditCategory',
+                scope: $scope
+            });
 
-        /* solr */
-
-        function changeFacetCount(facetName, diff) {
-            Solr.changeFacetCountAndUpdate(facetName, diff);
-        }
-
-        function changeFacetSorting(facetName, sorting) {
-            Solr.changeFacetSortingAndUpdate(facetName, sorting);
-        }
-
-        function addFilterQuery(name, value) {
-            Solr.addFilterQueryAndUpdate(name, value);
         }
 
         function getSolrData() {
             var data = Solr.getData();
             if (angular.isDefined(data.response) === true) {
-                vm.filterQueries = Solr.getFilterQueries();
-                vm.data = data;
                 vm.facets = FacetFactory.updateFacets(data);
             }
         }
 
-        /* listener */
-
-        var listener = $scope.$on('solrDataUpdate', function(event, data) {
+        var listener = $scope.$on('solrDataUpdate', function (event, data) {
             getSolrData();
         });
 
-        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+        var killerListener = $scope.$on('$locationChangeStart', function (ev, next, current) {
             listener();
             killerListener();
         });

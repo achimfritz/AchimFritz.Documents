@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-5 col-md-offset-3">
+		<span class="label label-default">
+			rename all documents {{imageEditCategory.name}}
+		</span>
+		<span class="label label-info">
+			current:  {{imageEditCategory.value}}
+		</span>
+		<span class="label label-warning">
+			new: {{imageEditCategory.newValue}}
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<form data-ng-submit="imageEditCategory.update()">
+		<div class="form-group">
+			<div class="col-md-3 col-md-offset-3">
+				<input class="form-control" id="id3Tag" type="text"
+					   data-ng-model="imageEditCategory.newValue"
+					   data-autocomplete
+					   data-field="{{imageEditCategory.autocompleteField}}"
+					   data-global="1" />
+			</div>
+			<div class="col-md-2">
+				<input class="form-control btn btn-danger" type="submit" value="Rename" />
+			</div>
+		</div>
+	</form>
+</div>

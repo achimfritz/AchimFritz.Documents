@@ -1,34 +1,155 @@
-<div class="row">
-	<div class="col-md-1 col-md-offset-1">
-		<div class="radio">
-			<label>
-				<input type="radio" data-ng-model="imageResult.mode" value="view">View Mode
-			</label>
+<!-- clipboard -->
+
+<div class="image-top" data-spy="affix" data-offset-top="100" >
+	<div class="well well-sm">
+		<div class="row">
+			<div class="col-md-1">
+				<button class="btn btn-default" data-ng-if="imageResult.form === 'close'" ng-click="imageResult.showForm('category')">clipboard</button>
+				<button class="btn btn-default" data-ng-if="imageResult.form !== 'close'" ng-click="imageResult.showForm('close')">close</button>
+			</div>
+			<div class="col-md-1">
+				<div class="radio">
+					<label>
+						<input type="radio" data-ng-model="imageResult.mode" value="view">View Mode
+					</label>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<div class="radio">
+					<label>
+						<input type="radio" data-ng-model="imageResult.mode" value="select">Select
+					</label>
+				</div>
+			</div>
+			<div class="col-md-3 col-md-offset-1">
+				<span class="btn btn-primary">{{imageResult.result.docs.length}} von {{imageResult.result.numFound}}</span>
+				<span data-ng-if="imageResult.form !== 'close'" class="btn btn-primary">clipboard: {{imageResult.result.clipboard.length}} documents</span>
+			</div>
 		</div>
-	</div>
-	<div class="col-md-1">
-		<div class="radio">
-			<label>
-				<input id="select-mode" type="radio" data-ng-model="imageResult.mode" value="select">Select
-			</label>
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-danger " ng-click="imageResult.showAllRows()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
+				<button class="btn btn-default" ng-click="imageResult.changeRows(20)">more</button>
+				<button class="btn btn-default" ng-click="imageResult.changeRows(-20)">less</button>
+				<button class="btn btn-default" ng-click="imageResult.changeImageSize(-20)">smaller</button>
+				<button class="btn btn-default" ng-click="imageResult.changeImageSize(20)">bigger</button>
+			</div>
+			<div class="col-md-6">
+				<dir-pagination-controls on-page-change="imageResult.nextPage(newPageNumber)"></dir-pagination-controls>
+			</div>
+		</div>
+
+	<div data-ng-if="imageResult.form !== 'close'">
+			<div class="row" >
+				<div class="col-md-4">
+					<button class="btn btn-default" ng-click="image.emptyList()">empty</button>
+					<button class="btn btn-default" data-ng-class="{'btn-primary': imageResult.form === 'category'}" ng-click="imageResult.showForm('category')">category</button>
+					<button class="btn btn-default" data-ng-class="{'btn-primary': imageResult.form === 'zip'}" ng-click="imageResult.showForm('zip')">ZIP</button>
+					<button class="btn btn-default" data-ng-class="{'btn-primary': imageResult.form === 'pdf'}" ng-click="imageResult.showForm('pdf')">PDF</button>
+					<button class="btn btn-default" data-ng-class="{'btn-primary': imageResult.form === 'documentList'}" ng-click="imageResult.showForm('documentList')">List</button>
+					<button class="btn btn-default" data-ng-class="{'btn-primary': imageResult.form === 'delete'}" ng-click="imageResult.showForm('delete')">deleteFiles</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+
+					<form data-ng-if="imageResult.form === 'delete'" novalidate class="form-horizontal">
+						<div class="form-group row">
+							<div class="col-md-4">
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.deleteFiles(imageResult.result.clipboard)" value="Remove all Documents and delete Files" />
+							</div>
+						</div>
+					</form>
+					<form data-ng-if="imageResult.form === 'category'" novalidate class="form-horizontal">
+						<div class="form-group row">
+							<div class="col-md-4">
+								<input class="form-control" id="category" type="text" data-ng-model="imageResult.category" data-autocomplete data-global="1" />
+							</div>
+							<div class="col-md-3">
+								<input class="form-control btn btn-danger" type="submit" ng-click="imageResult.coreApi.categoryMerge(imageResult.category, imageResult.result.clipboard)" value="Merge all Documents into Category" />
+							</div>
+							<div class="col-md-3">
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.categoryRemove(imageResult.category, imageResult.result.clipboard)" value="Remove all Documents from Category" />
+							</div>
+						</div>
+					</form>
+
+					<form data-ng-if="imageResult.form === 'documentList'" novalidate class="form-horizontal">
+						<div class="form-group row">
+							<div class="col-md-3">
+								<input class="form-control" id="documentList" type="text" data-ng-model="imageResult.category" data-autocomplete data-global="true" />
+							</div>
+							<div class="col-md-4">
+								<input class="form-control btn btn-danger" type="submit" ng-click="imageResult.coreApi.listMerge(imageResult.category, imageResult.result.clipboard)" value="Merge all Documents into List" />
+							</div>
+							<div class="col-md-4">
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.listRemove(imageResult.category, imageResult.result.clipboard)" value="Remove all Documents from List" />
+							</div>
+						</div>
+					</form>
+
+					<form data-ng-if="imageResult.form === 'zip'" class="form-horizontal">
+						<div class="form-group row">
+							<label for="name" class="col-md-1 control-label">Name</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" data-ng-model="imageResult.zip.name" id="name" required="required" />
+							</div>
+							<div class="checkbox col-md-2">
+								<label>
+									<input type="checkbox" value="1" data-ng-model="imageResult.zip.useThumb" />
+									use Thumb
+								</label>
+							</div>
+							<div class="checkbox col-md-2">
+								<label>
+									<input type="checkbox" value="1" data-ng-model="imageResult.zip.useFullPath" />
+									use Full Path
+								</label>
+							</div>
+							<div class="col-md-2">
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.zipDownload(imageResult.zip, imageResult.result.clipboard)" value="ZIP Download" />
+							</div>
+						</div>
+					</form>
+
+					<form data-ng-if="imageResult.form === 'pdf'" class="form-horizontal">
+						<div class="form-group row">
+							<label for="columns" class="col-md-2 control-label">Columns</label>
+							<div class="col-md-1">
+								<input type="text" class="form-control" data-ng-model="imageResult.pdf.columns" id="columns" value="3" />
+							</div>
+							<label for="dpi" class="col-md-1 control-label">DPI</label>
+							<div class="col-md-1">
+								<input type="text" class="form-control" data-ng-model="imageResult.pdf.dpi" id="dpi" value="300" />
+							</div>
+							<label for="size" class="col-md-1 control-label">Size</label>
+							<div class="col-md-1">
+								<select class="form-control" data-ng-model="imageResult.pdf.size" id="size">
+									<option value="0">A0</option>
+									<option value="1">A1</option>
+									<option value="2">A2</option>
+									<option value="3">A3</option>
+									<option value="4">A4</option>
+									<option value="5">A5</option>
+									<option value="6">A6</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<input class="form-control btn-danger" type="submit" ng-click="imageResult.coreApi.pdfDownload(imageResult.pdf, imageResult.result.clipboard)" value="PDF Download" />
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
+
+<!-- Result -->
+
 <div class="row">
-	<div class="col-md-3">
-		<button class="btn btn-danger " ng-click="imageResult.showAllRows()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
-		<button class="btn btn-default" ng-click="imageResult.changeRows(20)">more</button>
-		<button class="btn btn-default" ng-click="imageResult.changeRows(-20)">less</button>
-		<button class="btn btn-default" ng-click="imageResult.changeImageSize(-20)">smaller</button>
-		<button class="btn btn-default" ng-click="imageResult.changeImageSize(20)">bigger</button>
-	</div>
-	<div class="col-md-6 text-center">
-		<dir-pagination-controls on-page-change="imageResult.nextPage(newPageNumber)"></dir-pagination-controls>
-	</div>
-	<div class="col-md-1">
-		<span class="btn btn-primary">{{imageResult.result.docs.length}} von {{imageResult.result.numFound}}</span>
-	</div>
 	<div class="col-md-2">
 		<ng-include src="widget.getTemplate('Sort')"></ng-include>
 	</div>
