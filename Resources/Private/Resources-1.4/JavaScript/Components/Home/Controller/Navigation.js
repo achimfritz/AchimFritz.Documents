@@ -14,6 +14,7 @@
         vm.items = [
             {name: 'home', location: 'index'},
             {name: 'music', location: 'music/result'},
+            {name: 'mp3Ipod', location: 'mp3ipod'},
             {name: 'urlbuilder', location: 'urlbuilder'},
             {name: 'document', location: 'document'},
             {name: 'image', location: 'image/result'}
