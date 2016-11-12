@@ -28,14 +28,27 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-danger " ng-click="imageResult.showAllRows()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
-				<button class="btn btn-default" ng-click="imageResult.changeRows(20)">more</button>
-				<button class="btn btn-default" ng-click="imageResult.changeRows(-20)">less</button>
+				<button class="btn btn-danger " ng-click="imageResult.solr.showAllRowsAndUpdate()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
+				<button class="btn btn-default" ng-click="imageResult.solr.changeRowsAndUpdate(20)">more</button>
+				<button class="btn btn-default" ng-click="imageResult.solr.changeRowsAndUpdate(-20)">less</button>
 				<button class="btn btn-default" ng-click="imageResult.changeImageSize(-20)">smaller</button>
 				<button class="btn btn-default" ng-click="imageResult.changeImageSize(20)">bigger</button>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<dir-pagination-controls on-page-change="imageResult.nextPage(newPageNumber)"></dir-pagination-controls>
+			</div>
+			<div class="col-md-2">
+				<select class="form-control" id="sort" data-ng-model="imageResult.params.sort" data-ng-change="imageResult.solr.update()">
+					<option value="mDateTime desc">mDateTime desc</option>
+					<option value="mDateTime asc">mDateTime asc</option>
+					<option value="name asc">name asc</option>
+					<option value="name desc">name desc</option>
+				</select>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-default" data-ng-click="imageResult.newRandom()">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>random
+				</button>
 			</div>
 		</div>
 
@@ -148,12 +161,6 @@
 
 
 <!-- Result -->
-
-<div class="row">
-	<div class="col-md-2">
-		<ng-include src="widget.getTemplate('Sort')"></ng-include>
-	</div>
-</div>
 
 <div class="row">
 	<div class="col-md-12 text-center">

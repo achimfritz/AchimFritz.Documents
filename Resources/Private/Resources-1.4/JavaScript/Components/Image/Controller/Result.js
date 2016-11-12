@@ -34,16 +34,15 @@
             'useFullPath': false
         };
 
+        vm.solr = Solr;
+
         // used by the view
         vm.itemClick = itemClick;
         vm.showForm = showForm;
 
         vm.newRandom = newRandom;
         vm.nextPage = nextPage;
-        vm.update = update;
 
-        vm.showAllRows =  showAllRows;
-        vm.changeRows = changeRows;
         vm.changeImageSize = changeImageSize;
 
 
@@ -103,21 +102,11 @@
             vm.random = Solr.newRandomAndUpdate(vm.random);
         }
 
-        function update() {
-            Solr.update();
-        }
-
         function nextPage(pageNumber) {
             var start = (pageNumber -1).toString();
             if (start !== vm.params['start']) {
                 Solr.nextPageAndUpdate(pageNumber);
             }
-        }
-        function showAllRows() {
-            Solr.showAllRowsAndUpdate();
-        }
-        function changeRows(diff) {
-            Solr.changeRowsAndUpdate(diff);
         }
 
         function changeImageSize(diff) {

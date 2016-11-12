@@ -6,7 +6,7 @@
         .controller('ImageEditDocController', ImageEditDocController);
 
     /* @ngInject */
-    function ImageEditDocController ($scope, ngDialog, $rootScope, CoreApiService, Solr) {
+    function ImageEditDocController ($scope, CoreApiService) {
 
         var vm = this;
 
@@ -18,9 +18,6 @@
         function categoryMergeOne() {
             CoreApiService.listMergeOne(vm.category, vm.doc);
         }
-
-
-
 
     }
 })();

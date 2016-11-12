@@ -14,6 +14,7 @@
 
         vm.fullPath = fullPath;
         vm.editDoc = editDoc;
+        vm.closeDialog = closeDialog;
 
         
         initController();
@@ -33,6 +34,10 @@
                     updateCurrentDialogs();
                 }
             });
+        }
+
+        function closeDialog() {
+            $scope.closeThisDialog();
         }
 
         function updateCurrentDialogs() {

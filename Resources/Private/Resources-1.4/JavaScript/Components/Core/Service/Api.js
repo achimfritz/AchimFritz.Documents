@@ -87,7 +87,7 @@
         };
         // listMergeDoc
         this.listMergeOne = function (path, doc) {
-            return listMerge(path, [ doc ]);
+            return this.listMerge(path, [ doc ]);
         };
 
 
