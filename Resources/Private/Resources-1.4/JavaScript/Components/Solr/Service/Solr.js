@@ -69,6 +69,21 @@
         self.getData = getData;
         self.setData = setData;
         self.update = update;
+        self.fetchByParams = fetchByParams;
+
+        function fetchByParams(params) {
+            solrConfiguration = SolrConfiguration.getConfiguration();
+            settings = solrConfiguration.settings;
+            manager = new AjaxSolr.Manager(settings);
+            manager.init();
+            manager.store.addByValue('json.nl', 'map');
+            angular.forEach(params, function (val, key) {
+                var a = key.replace(/_/g, '.');
+                manager.store.addByValue(a, val);
+            });
+            var url = manager.buildUrl();
+            return Request.forceRequest(url);
+        }
 
         function update() {
             forceRequest().then(function (response) {

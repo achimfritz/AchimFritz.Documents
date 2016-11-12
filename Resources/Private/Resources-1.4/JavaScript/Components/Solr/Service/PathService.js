@@ -11,6 +11,10 @@
 
         this.delimiter = '/';
 
+        this.setDelimiter = function(delimiter) {
+            this.delimiter = delimiter;
+        };
+
         // 0/foo -> 2
         this.depth = function (path) {
             var splitPath = path.split(this.delimiter);

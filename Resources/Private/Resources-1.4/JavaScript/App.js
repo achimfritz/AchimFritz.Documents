@@ -56,6 +56,7 @@
             'music/filter',
             'music/player',
             'music/list',
+            'music/docList',
             'mp3ipod',
             'mp3ipod/genre',
             'mp3ipod/artist/:genre',
@@ -110,6 +111,8 @@
         configs['music/player'].components.navigation = 'musicNavigation';
         configs['music/list'].components.main = 'musicList';
         configs['music/list'].components.navigation = 'musicNavigation';
+        configs['music/docList'].components.main = 'musicDocList';
+        configs['music/docList'].components.navigation = 'musicNavigation';
 
         configs['mp3ipod'].components.main = 'mp3IpodIndex';
         configs['mp3ipod/genre'].components.main = 'mp3IpodGenre';

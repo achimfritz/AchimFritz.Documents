@@ -35,7 +35,6 @@
 
         function initController() {
             getSolrData();
-            console.log('init');
 
             var path = $location.path();
             vm.current.location = path.replace(CONFIG.baseUrl + '/', '');

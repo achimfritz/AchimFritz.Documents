@@ -18,7 +18,8 @@
             {name: 'result', location: 'music/result'},
             {name: 'playlists', location: 'music/list'},
             {name: 'filter', location: 'music/filter'},
-            {name: 'player', location: 'music/player'}
+            {name: 'player', location: 'music/player'},
+            {name: 'docList', location: 'music/docList'}
         ];
         vm.forward = forward;
 
@@ -86,12 +87,10 @@
             var path = next.split('/app/')
             vm.current.location = path[1];
             listener();
-            console.log('x');
             killerListener();
             // TODO cannot kill listener ???
 
             /*
-            console.log('x');
             $timeout(function () {
                 //killerListener();
             });
