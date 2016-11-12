@@ -3,10 +3,10 @@
     'use strict';
     angular
         .module('achimfritz.urlBuilder')
-            .controller('UrlBuilderController', UrlBuilderController);
+            .controller('UrlBuilderIndexController', UrlBuilderIndexController);
 
     /* @ngInject */
-    function UrlBuilderController ($sce) {
+    function UrlBuilderIndexController ($sce) {
         var vm = this;
 
         vm.url = '';

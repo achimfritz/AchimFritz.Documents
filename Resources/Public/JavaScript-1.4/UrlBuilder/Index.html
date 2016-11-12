@@ -1,25 +1,25 @@
 <h1>Url Builder</h1>
 <div class="col-xs-8 col-xs-offset-2">
-	<form class="form-horizontal" data-ng-submit="urlBuilder.updateUrl()">
+	<form class="form-horizontal" data-ng-submit="urlBuilderIndex.updateUrl()">
 		<div class="form-group">
 			<label class="control-label col-sm-2">Url</label>
 			<div class="col-sm-8 text-left">
-				<input class="form-control" data-ng-model="urlBuilder.url" type="text" />
+				<input class="form-control" data-ng-model="urlBuilderIndex.url" type="text" />
 			</div>
 			<div class="col-sm-2 text-left">
 				<input type="submit" value="submit" class="btn btn-success" />
-				<a href="{{urlBuilder.url}}" target="_blank"><button type="button" class="btn btn-success">open</button></a>
+				<a href="{{urlBuilderIndex.url}}" target="_blank"><button type="button" class="btn btn-success">open</button></a>
 			</div>
 		</div>
 	</form>
 </div>
 
-<div class="col-xs-4 col-xs-offset-4" data-ng-if="urlBuilder.urlPath">
-	<form class="form-horizontal" data-ng-submit="urlBuilder.updateUrlPath()">
+<div class="col-xs-4 col-xs-offset-4" data-ng-if="urlBuilderIndex.urlPath">
+	<form class="form-horizontal" data-ng-submit="urlBuilderIndex.updateUrlPath()">
 		<div class="form-group">
 			<label class="control-label col-sm-2">urlPath</label>
 			<div class="col-sm-8 text-left">
-				<input class="form-control" data-ng-model="urlBuilder.urlPath" type="text" />
+				<input class="form-control" data-ng-model="urlBuilderIndex.urlPath" type="text" />
 			</div>
 			<div class="col-sm-2 text-left">
 				<input type="submit" value="submit" class="btn btn-success" />
@@ -28,8 +28,8 @@
 	</form>
 </div>
 
-<div class="col-xs-4 col-xs-offset-4" data-ng-repeat="queryPart in urlBuilder.queryParts">
-	<form class="form-horizontal"  data-ng-submit="urlBuilder.updateQueryPart(queryPart)">
+<div class="col-xs-4 col-xs-offset-4" data-ng-repeat="queryPart in urlBuilderIndex.queryParts">
+	<form class="form-horizontal"  data-ng-submit="urlBuilderIndex.updateQueryPart(queryPart)">
 		<div class="form-group">
 			<label class="control-label col-sm-4">{{queryPart.key}}</label>
 			<div class="col-sm-4 text-left">
@@ -39,20 +39,20 @@
 				<input type="submit" value="submit" class="btn btn-success" />
 			</div>
 			<div class="col-sm-2 text-left">
-				<button type="button" class="btn btn-danger" data-ng-click="urlBuilder.removeQueryPart(queryPart)">remove</button>
+				<button type="button" class="btn btn-danger" data-ng-click="urlBuilderIndex.removeQueryPart(queryPart)">remove</button>
 			</div>
 		</div>
 	</form>
 </div>
 
 <div class="col-xs-4 col-xs-offset-4">
-	<form class="form-horizontal"  data-ng-submit="urlBuilder.addQueryPart()">
+	<form class="form-horizontal"  data-ng-submit="urlBuilderIndex.addQueryPart()">
 		<div class="form-group">
 			<div class="col-sm-4">
-				<input class="form-control" data-ng-model="urlBuilder.newQueryPart.key" type="text" />
+				<input class="form-control" data-ng-model="urlBuilderIndex.newQueryPart.key" type="text" />
 			</div>
 			<div class="col-sm-4 text-left">
-				<input class="form-control" data-ng-model="urlBuilder.newQueryPart.val" type="text" />
+				<input class="form-control" data-ng-model="urlBuilderIndex.newQueryPart.val" type="text" />
 			</div>
 			<div class="col-sm-2 text-left">
 				<input type="submit" value="submit" class="btn btn-success" />
@@ -62,6 +62,6 @@
 </div>
 
 
-<div class="col-xs-12" data-ng-if="urlBuilder.iframe">
-	<iframe src="{{urlBuilder.iframe}}" width="100%" resizeable="1"></iframe>
+<div class="col-xs-12" data-ng-if="urlBuilderIndex.iframe">
+	<iframe src="{{urlBuilderIndex.iframe}}" width="100%" resizeable="1"></iframe>
 </div>

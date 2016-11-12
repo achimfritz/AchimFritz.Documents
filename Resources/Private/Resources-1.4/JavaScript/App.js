@@ -43,7 +43,6 @@
             'image/filter',
             'image/integrity',
             'image/docList',
-            'music',
             'music/result',
             'music/filter',
             'music/player',
@@ -77,8 +76,8 @@
             };
             configs[route] = config;
         });
-        configs['urlbuilder'].components.main = 'urlBuilder';
-        configs['document'].components.main = 'document';
+        configs['urlbuilder'].components.main = 'urlBuilderIndex';
+        configs['document'].components.main = 'documentIndex';
 
         configs['image/result'].components.main = 'imageResult';
         configs['image/result'].components.navigation = 'imageNavigation';
@@ -89,8 +88,6 @@
         configs['image/integrity'].components.main = 'imageIntegrity';
         configs['image/integrity'].components.navigation = 'imageNavigation';
 
-        configs['music'].components.main = 'music';
-        configs['music'].components.navigation = 'musicNavigation';
         configs['music/result'].components.main = 'musicResult';
         configs['music/result'].components.navigation = 'musicNavigation';
         configs['music/filter'].components.main = 'musicFilter';
@@ -130,26 +127,21 @@
     function TemplateMapping($componentLoaderProvider, CONFIG) {
 
         $componentLoaderProvider.setTemplateMapping(function (name) {
-            var res = name.split('mp3Ipod');
-            if (res.length === 2) {
-                return CONFIG.templatePath + 'Mp3Ipod/' + res[1] + '.html';
+
+            var moduleNames = ['mp3Ipod', 'music', 'image', 'urlBuilder', 'document', 'home'];
+            var path = '';
+            angular.forEach(moduleNames, function(moduleName) {
+                var res = name.split(moduleName);
+                if (res.length === 2) {
+                    var ucfirst = moduleName[0].toUpperCase() + moduleName.substring(1);
+                    path = CONFIG.templatePath + ucfirst + '/' + res[1] + '.html';
+
+                }
+            });
+            if (path === '') {
+                console.log('cannto resolve path for ' + name);
             }
-            res = name.split('music');
-            if (res.length === 2) {
-                return CONFIG.templatePath + 'Music/' + res[1] + '.html';
-            }
-            res = name.split('image');
-            if (res.length === 2 && res[1] !== '') {
-                return CONFIG.templatePath + 'Image/' + res[1] + '.html';
-            }
-            res = name.split('home');
-            if (res.length === 2) {
-                return CONFIG.templatePath + 'Home/' + res[1] + '.html';
-            }
-            return {
-                'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
-                'document': CONFIG.templatePath + 'Document/Document.html'
-            }[name];
+            return path;
         });
     }
 
