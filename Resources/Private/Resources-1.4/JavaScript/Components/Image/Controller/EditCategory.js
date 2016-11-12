@@ -50,10 +50,18 @@
                     newPath: vm.newValue
                 };
             } else {
-                renameCategory = {
-                    oldPath: vm.name + PathService.delimiter + vm.value,
-                    newPath: vm.name + PathService.delimiter + vm.newValue
-                };
+                if (vm.name === '') {
+                    renameCategory = {
+                        oldPath: vm.value,
+                        newPath: vm.newValue
+                    };
+
+                } else {
+                    renameCategory = {
+                        oldPath: vm.name + PathService.delimiter + vm.value,
+                        newPath: vm.name + PathService.delimiter + vm.newValue
+                    };
+                }
             }
             CoreApiService.categoryUpdate(renameCategory);
         }

@@ -18,7 +18,8 @@
             {name: 'result', location: 'image/result'},
             {name: 'filter', location: 'image/filter'},
             {name: 'docList', location: 'image/docList'},
-            {name: 'integrity', location: 'image/integrity'}
+            {name: 'integrity', location: 'image/integrity'},
+            {name: 'sitemap', location: 'image/sitemap'}
         ];
         vm.forward = forward;
 

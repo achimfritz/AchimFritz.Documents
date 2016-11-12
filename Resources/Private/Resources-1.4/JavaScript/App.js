@@ -43,6 +43,7 @@
             'image/filter',
             'image/integrity',
             'image/docList',
+            'image/sitemap',
             'music/result',
             'music/filter',
             'music/player',
@@ -85,6 +86,8 @@
         configs['image/filter'].components.navigation = 'imageNavigation';
         configs['image/docList'].components.main = 'imageDocList';
         configs['image/docList'].components.navigation = 'imageNavigation';
+        configs['image/sitemap'].components.main = 'imageSitemap';
+        configs['image/sitemap'].components.navigation = 'imageNavigation';
         configs['image/integrity'].components.main = 'imageIntegrity';
         configs['image/integrity'].components.navigation = 'imageNavigation';
 

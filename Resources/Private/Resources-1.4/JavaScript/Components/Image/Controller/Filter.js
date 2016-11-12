@@ -38,7 +38,6 @@
                 controllerAs: 'imageEditCategory',
                 scope: $scope
             });
-
         }
 
         function getSolrData() {
