@@ -11,6 +11,8 @@
         var vm = this;
         var $scope = $rootScope.$new();
 
+        vm.solr = Solr;
+
         vm.paths = [];
 
         vm.showCategoryForm = showCategoryForm;

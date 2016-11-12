@@ -6,6 +6,7 @@ namespace AchimFritz\Documents\Solr;
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\Service\PathService;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Model\Document;
 use AchimFritz\Documents\Domain\Model\ImageDocument;
@@ -105,6 +106,9 @@ class InputDocumentFactory implements InputDocumentFactoryInterface {
 			$inputDocument->addField('year', $document->getYear());
 			$inputDocument->addField('month', $document->getMonth());
 			$inputDocument->addField('day', $document->getDay());
+			$inputDocument->addField('hDates', '0/' . $document->getYear());
+			$inputDocument->addField('hDates', '1/' . $document->getYear(). PathService::PATH_DELIMITER . $document->getMonth());
+			$inputDocument->addField('hDates', '2/' . $document->getYear(). PathService::PATH_DELIMITER . $document->getMonth() . PathService::PATH_DELIMITER . $document->getDay());
 			$categories = $document->getCategories();
 			foreach ($categories AS $category) {
 				$paths = $this->pathService->splitPath($category->getPath());
