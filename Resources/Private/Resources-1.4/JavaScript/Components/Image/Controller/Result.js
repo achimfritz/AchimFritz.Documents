@@ -84,7 +84,7 @@
             } else {
                 $scope.dialog = ngDialog.open({
                     data: doc,
-                    template: CONFIG.templatePath + 'Image/Doc.html',
+                    template: CONFIG.templatePath + 'Image/ImageDoc.html',
                     controller: 'ImageDocController',
                     controllerAs: 'imageDoc',
                     className: 'image-doc',
