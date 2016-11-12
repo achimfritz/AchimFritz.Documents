@@ -6,7 +6,7 @@
         .controller('MusicPlayerController', MusicPlayerController);
 
     /* @ngInject */
-    function MusicPlayerController ($timeout, angularPlayer, $location, $rootScope, CONFIG, $filter, ngDialog, Mp3PlayerService) {
+    function MusicPlayerController ($timeout, angularPlayer, $location, $rootScope, CONFIG, $filter, ngDialog, MusicPlayerService) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -25,7 +25,7 @@
         vm.initController();
 
         function initController() {
-            Mp3PlayerService.initialize();
+            MusicPlayerService.initialize();
             getPlayerData();
         }
 

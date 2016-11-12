@@ -6,7 +6,7 @@
         .service('CoreConfigurationService', CoreConfigurationService);
 
     /* @ngInject */
-    function CoreConfigurationService (SolrConfiguration, AppConfiguration, Solr, $rootScope, WidgetConfiguration, FilterConfiguration, $location) {
+    function CoreConfigurationService (SolrConfiguration, AppConfiguration, Solr, $rootScope, $location) {
 
 
         function getModuleName(path) {
@@ -30,50 +30,7 @@
         }
 
         function loadModuleConfiguration(name) {
-            if (name === 'mp3') {
-                resetSolr();
-                loadFrontendConfiguration();
-
-                AppConfiguration.setNamespace('mp3');
-                WidgetConfiguration.setNamespace('Mp3');
-                WidgetConfiguration.setWidgets({
-                    result: true,
-                    filter: false,
-                    ratingFilter: false,
-                    integrity: false,
-                    lists: false,
-                    player: false
-                });
-
-                FilterConfiguration.setFilters({
-                    artist: true,
-                    genre: true,
-                    fsProvider: true,
-                    fsGenre: true,
-                    album: false,
-                    artistLetter: false,
-                    year: false,
-                    hPaths: false,
-                    fsArtist: false,
-                    fsAlbum: false
-                });
-                FilterConfiguration.setConfiguration({
-                    categories: ['hPaths'],
-                    id3Tags: ['artist', 'album', 'genre', 'year']
-                });
-                SolrConfiguration.setFacets(['artist', 'album', 'fsArtist', 'fsAlbum', 'artistLetter', 'genre', 'year', 'fsProvider', 'fsGenre', 'hPaths']);
-                SolrConfiguration.setHFacets({hPaths: '0'});
-                SolrConfiguration.setParam('sort', 'mDateTime desc');
-                SolrConfiguration.setParam('rows', 15);
-                SolrConfiguration.setParam('facet_limit', 15);
-                SolrConfiguration.setParam('facet_sort', 'count');
-                SolrConfiguration.setParam('f_artistLetter_facet_sort', 'index');
-                SolrConfiguration.setParam('f_artistLetter_facet_limit', 35);
-                SolrConfiguration.setParam('f_hPaths_facet_limit', 35);
-                SolrConfiguration.setSetting('servlet', 'mp3');
-
-                callSolr();
-            } else if (name === 'music') {
+            if (name === 'music') {
                 resetSolr();
                 loadFrontendConfiguration();
 
@@ -119,34 +76,6 @@
                     hLocations: '1/locations'
                 });
                 SolrConfiguration.setSetting('servlet', 'image');
-                WidgetConfiguration.setNamespace('Image');
-                WidgetConfiguration.setWidgets({
-                    result: true,
-                    filter: false,
-                    solrIntegrity: false,
-                    clipboard: false,
-                    integrity: false
-                });
-                FilterConfiguration.setFilters({
-                    pathParts: true,
-                    hCategories: false,
-                    hLocations: false,
-                    hPaths: false,
-                    categories: true,
-                    locations: true,
-                    mainDirectoryName: true,
-                    motto: true,
-                    year: true,
-                    month: false,
-                    day: false,
-                    tags: false,
-                    parties: false,
-                    collections: false
-                });
-                FilterConfiguration.setConfiguration({
-                    categories: ['hPaths', 'hLocations', 'hCategories', 'parties', 'tags']
-                });
-
                 callSolr();
             }
         }

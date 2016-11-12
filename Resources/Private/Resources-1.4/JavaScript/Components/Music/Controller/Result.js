@@ -6,7 +6,7 @@
         .controller('MusicResultController', MusicResultController);
 
     /* @ngInject */
-    function MusicResultController (Mp3PlayerService, $location, $timeout, CONFIG, $rootScope, ngDialog, Solr) {
+    function MusicResultController (MusicPlayerService, $location, $timeout, CONFIG, $rootScope, ngDialog, Solr) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -30,7 +30,7 @@
         vm.changeRows = changeRows;
         vm.addFilterQuery = addFilterQuery;
 
-        Mp3PlayerService.initialize();
+        MusicPlayerService.initialize();
 
 
         getSolrData();
@@ -61,25 +61,25 @@
         }
 
         function playAll(docs) {
-            Mp3PlayerService.playAll(docs);
+            MusicPlayerService.playAll(docs);
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/player');
             });
         }
 
         function addAll(docs) {
-            Mp3PlayerService.addAll(docs);
+            MusicPlayerService.addAll(docs);
         }
 
         function playOne(doc) {
-            Mp3PlayerService.playOne(doc);
+            MusicPlayerService.playOne(doc);
             $timeout(function () {
                 $location.path(CONFIG.baseUrl + '/music/player');
             });
         }
 
         function addOne(doc) {
-            Mp3PlayerService.addOne(doc);
+            MusicPlayerService.addOne(doc);
         }
 
         function editDoc(doc) {

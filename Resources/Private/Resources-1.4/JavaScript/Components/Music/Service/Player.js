@@ -2,11 +2,11 @@
 (function () {
     'use strict';
     angular
-        .module('achimfritz.mp3')
-        .service('Mp3PlayerService', Mp3PlayerService);
+        .module('achimfritz.music')
+        .service('MusicPlayerService', MusicPlayerService);
 
     /* @ngInject */
-    function Mp3PlayerService (angularPlayer, $timeout) {
+    function MusicPlayerService (angularPlayer, $timeout) {
 
         var self = this;
         var initialized = false;

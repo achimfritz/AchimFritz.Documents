@@ -14,13 +14,9 @@
             'angularUtils.directives.dirPagination',
             'localytics.directives',
             'achimfritz.core',
-            'achimfritz.widget',
-            'achimfritz.filter',
             'achimfritz.solr',
             'achimfritz.urlBuilder',
             'achimfritz.document',
-            'achimfritz.documentlist',
-            'achimfritz.mp3',
             'achimfritz.mp3ipod',
             'achimfritz.music',
             'achimfritz.home',
@@ -43,10 +39,6 @@
             'index',
             'urlbuilder',
             'document',
-            'mp3',
-            'image',
-            'imagelist',
-            'mp3list',
             'image/result',
             'image/filter',
             'image/integrity',
@@ -87,10 +79,6 @@
         });
         configs['urlbuilder'].components.main = 'urlBuilder';
         configs['document'].components.main = 'document';
-        configs['mp3'].components.main = 'mp3';
-        configs['image'].components.main = 'image';
-        configs['mp3list'].components.main = 'mp3List';
-        configs['imagelist'].components.main = 'imageList';
 
         configs['image/result'].components.main = 'imageResult';
         configs['image/result'].components.navigation = 'imageNavigation';
@@ -160,11 +148,7 @@
             }
             return {
                 'urlBuilder': CONFIG.templatePath + 'UrlBuilder/UrlBuilder.html',
-                'document': CONFIG.templatePath + 'Document/Document.html',
-                'mp3': CONFIG.templatePath + 'Mp3/Mp3.html',
-                'mp3List': CONFIG.templatePath + 'Mp3/Mp3List.html',
-                'imageList': CONFIG.templatePath + 'Image/ImageList.html',
-                'image': CONFIG.templatePath + 'Image/Image.html'
+                'document': CONFIG.templatePath + 'Document/Document.html'
             }[name];
         });
     }

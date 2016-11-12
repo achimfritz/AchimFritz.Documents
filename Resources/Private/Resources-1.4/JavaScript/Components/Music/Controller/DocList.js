@@ -6,7 +6,7 @@
         .controller('MusicDocListController', MusicDocListController);
 
     /* @ngInject */
-    function MusicDocListController (AppConfiguration, CoreApiService, $rootScope, $timeout, $location, Mp3PlayerService, CONFIG, Solr) {
+    function MusicDocListController (AppConfiguration, CoreApiService, $rootScope, $timeout, $location, MusicPlayerService, CONFIG, Solr) {
 
         var vm = this;
         var $listenerScope = $rootScope.$new();
@@ -44,7 +44,7 @@
                         }
                     });
                 });
-                Mp3PlayerService.playAll(docs);
+                MusicPlayerService.playAll(docs);
             });
             
         }

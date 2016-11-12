@@ -6,7 +6,7 @@
         .controller('Mp3IpodResultController', Mp3IpodResultController);
 
     /* @ngInject */
-    function Mp3IpodResultController ($location, $routeParams, Mp3IpodSolrService, angularPlayer, $timeout, Mp3PlayerService, $rootScope, Solr) {
+    function Mp3IpodResultController ($location, $routeParams, Mp3IpodSolrService, angularPlayer, $timeout, MusicPlayerService, $rootScope, Solr) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -36,7 +36,7 @@
             vm.genre = $routeParams.genre;
             vm.artist = $routeParams.artist;
             vm.album = $routeParams.album;
-            Mp3PlayerService.initialize();
+            MusicPlayerService.initialize();
             Mp3IpodSolrService.initialize();
 
             Mp3IpodSolrService.setFilterParams(vm.genre, vm.artist, vm.album);
@@ -54,20 +54,20 @@
         }
 
         function playAll() {
-            Mp3PlayerService.playAll(vm.docs);
+            MusicPlayerService.playAll(vm.docs);
             vm.toCurrentPlaying();
         }
 
         function addAll() {
-            Mp3PlayerService.addAll(vm.docs);
+            MusicPlayerService.addAll(vm.docs);
         }
 
         function addOne(doc) {
-            Mp3PlayerService.addOne(doc);
+            MusicPlayerService.addOne(doc);
         }
 
         function playOne(doc) {
-            Mp3PlayerService.playOne(doc);
+            MusicPlayerService.playOne(doc);
             vm.toCurrentPlaying();
         }
 
