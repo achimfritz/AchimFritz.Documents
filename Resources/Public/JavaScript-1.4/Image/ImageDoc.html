@@ -1,6 +1,8 @@
-<span class="control label label-default">
-	<span  data-ng-click="imageDoc.editDoc()">EDIT</span><span>&nbsp;|&nbsp;</span><span data-ng-click="imageDoc.closeDialog()">CLOSE</span>
-</span>
+<div class="control">
+	<span class="label label-default" data-ng-click="imageDoc.editDoc()">EDIT</span>
+	<span class="label label-default" data-ng-click="imageDoc.closeDialog()">CLOSE</span>
+</div>
+
 
 <div class="row text-center">
 	<img data-ng-src="{{imageDoc.fullPath()}}" />

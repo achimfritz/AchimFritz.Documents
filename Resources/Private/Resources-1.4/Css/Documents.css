@@ -76,6 +76,12 @@ div.image-top.affix{
 div.image-doc .ngdialog-overlay {
 	background: none;
 }
+div.image-doc {
+	overflow: hidden;
+}
+div.image-doc .ngdialog-content {
+	background: black;
+}
 
 div.image-doc .control {
 	position: absolute;
