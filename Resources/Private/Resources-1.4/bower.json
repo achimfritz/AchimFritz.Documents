@@ -17,6 +17,7 @@
     "ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
     "angular-soundmanager2": "*",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
-    "angular-chosen-localytics": "~1.0.7"
+    "angular-chosen-localytics": "~1.0.7",
+    "angular-bootstrap-affix": "~0.2.2"
   }
 }

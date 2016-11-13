@@ -49,6 +49,7 @@
         initController();
 
         function initController() {
+            
             getSolrData();
             vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
             hotkeys.bindTo($scope).add({

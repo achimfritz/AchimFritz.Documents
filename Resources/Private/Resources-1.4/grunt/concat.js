@@ -9,8 +9,7 @@ module.exports = {
         src: [
             "JavaScript/Components/**/Module.js",
             "JavaScript/Components/**/*.js",
-            "JavaScript/App.js",
-            "JavaScript/affix.js"
+            "JavaScript/App.js"
         ],
         dest: '../../Public/Build-1.4/Main.js'
     },
@@ -22,13 +21,14 @@ module.exports = {
             'bower_components/bootstrap/js/tooltip.js',
             'bower_components/bootstrap/js/modal.js',
             'bower_components/bootstrap/js/tab.js',
-            'bower_components/bootstrap/js/affix.js',
             'bower_components/bootstrap/js/dropdown.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-new-router/dist/router.es5.js',
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/AngularJS-Toaster/toaster.js',
+            'bower_components/angular-jquery/src/jquery.js',
+            'bower_components/angular-bootstrap-affix/src/bootstrap-affix.js',
             'bower_components/file-saver/FileSaver.js',
             'bower_components/angular-hotkeys/build/hotkeys.js',
             'bower_components/ngDialog/js/ngDialog.js',

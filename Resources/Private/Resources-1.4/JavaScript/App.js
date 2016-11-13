@@ -12,6 +12,8 @@
             'cfp.hotkeys',
             'ngDraggable',
             'angularUtils.directives.dirPagination',
+            'mgcrea.jquery',
+            'mgcrea.bootstrap.affix',
             'localytics.directives',
             'achimfritz.core',
             'achimfritz.solr',
