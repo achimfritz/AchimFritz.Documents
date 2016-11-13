@@ -24,12 +24,10 @@
 		</div>
 		
 
-		<div data-ng-if="imageEditDoc.doc.tags">
-			<h3>tags</h3>
-			<ul>
-				<li ng-repeat="item in imageEditDoc.doc.tags">{{item}}</li>
-			</ul>
-		</div>
+		<h3>tags</h3>
+		<ul>
+			<li ng-repeat="item in imageEditDoc.doc.tags">{{item}}</li>
+		</ul>
 		<h3>locations</h3>
 		<ul>
 			<li ng-repeat="item in imageEditDoc.doc.locations">{{item}}</li>
@@ -37,6 +35,10 @@
 		<h3>categories</h3>
 		<ul>
 			<li ng-repeat="item in imageEditDoc.doc.categories track by $index">{{item}}</li>
+		</ul>
+		<h3>motto</h3>
+		<ul>
+			<li ng-repeat="item in imageEditDoc.doc.motto track by $index">{{item}}</li>
 		</ul>
 	</div>
 </div>
