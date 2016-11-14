@@ -6,10 +6,9 @@
         .controller('ImageIntegrityController', ImageIntegrityController);
 
     /* @ngInject */
-    function ImageIntegrityController (CoreApiService, $filter, $rootScope, AppConfiguration, $timeout, Solr) {
+    function ImageIntegrityController (CoreApiService, $filter, CoreApplicationScopeFactory, AppConfiguration, $timeout, Solr) {
 
         var vm = this;
-        var $listenerScope = $rootScope.$new();
 
         vm.view = 'list';
         vm.job = {};
@@ -42,7 +41,7 @@
             }, 1500)
         }
 
-        var listener = $listenerScope.$on('core:apiCallSuccess', function(event, data) {
+        CoreApplicationScopeFactory.registerListener('ImageIntegrityController', 'core:apiCallSuccess', function(event, data) {
             if (angular.isDefined(data.data.integrities)){
                 vm.integrities = data.data.integrities;
                 vm.view = 'list';

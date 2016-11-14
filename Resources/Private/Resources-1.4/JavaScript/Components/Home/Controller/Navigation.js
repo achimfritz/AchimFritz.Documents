@@ -6,10 +6,10 @@
         .controller('HomeNavigationController', HomeNavigationController);
 
     /* @ngInject */
-    function HomeNavigationController ($location, CONFIG, $rootScope) {
+    function HomeNavigationController ($location, CONFIG) {
 
         var vm = this;
-        var $scope = $rootScope.$new();
+
         vm.current = '';
         vm.items = [
             {name: 'home', location: 'index'},
@@ -19,16 +19,11 @@
             {name: 'document', location: 'document'},
             {name: 'image', location: 'image/result'}
         ];
+
         vm.forward = forward;
 
-        vm.initController = initController;
-
-        vm.initController();
-
-        function initController() {
-            var path = $location.path();
-            vm.current = path.replace(CONFIG.baseUrl + '/', '');
-        }
+        var path = $location.path();
+        vm.current = path.replace(CONFIG.baseUrl + '/', '');
 
         function forward(newLocation) {
             vm.current = newLocation;

@@ -6,10 +6,9 @@
         .controller('HomeFlashMessageController', HomeFlashMessageController);
 
     /* @ngInject */
-    function HomeFlashMessageController ($rootScope, toaster) {
+    function HomeFlashMessageController (toaster, CoreApplicationScopeFactory) {
 
         var vm = this;
-        var $scope = $rootScope.$new();
 
         vm.view = {
             spinner: false
@@ -37,25 +36,25 @@
             });
         }
 
+
         /* listener */
-        var apiCallStartListener = $scope.$on('core:apiCallStart', function(ev, data) {
+        CoreApplicationScopeFactory.registerListener('HomeFlashMessageController', 'core:apiCallStart', function(ev, data) {
             if (angular.isUndefined(data) || data.noSpinner !== true) {
                 vm.view.spinner = true;
             }
-
         });
 
-        var flashMessageListener = $scope.$on('home:flashMessage', function (ev, flashMessages){
+        CoreApplicationScopeFactory.registerListener('HomeFlashMessageController', 'home:flashMessage', function (ev, flashMessages){
             showFlashMessages(flashMessages);
         });
 
-        var apiCallSuccessListener = $scope.$on('core:apiCallSuccess', function(ev, data) {
+        CoreApplicationScopeFactory.registerListener('HomeFlashMessageController', 'core:apiCallSuccess', function(ev, data) {
             showFlashMessages(data.data.flashMessages);
             showValidationErrors(data.data.validationErrors);
             vm.view.spinner = false;
         });
 
-        var apiCallErrorListener = $scope.$on('core:apiCallError', function(ev, data) {
+        CoreApplicationScopeFactory.registerListener('HomeFlashMessageController', 'core:apiCallError', function(ev, data) {
             if (angular.isDefined(data) && angular.isDefined(data.data) && angular.isDefined(data.data.flashMessages)) {
                 showFlashMessages(data.data.flashMessages);
             } else {
@@ -70,14 +69,6 @@
             if (angular.isDefined(data) && angular.isDefined(data.data) && angular.isDefined(data.data.validationErrors)) {
                 showValidationErrors(data.data.validationErrors);
             }
-        });
-
-        var listener = $scope.$on('$locationChangeSuccess', function(ev, next, current) {
-            //apiCallStartListener();
-            //apiCallErrorListener();
-            //apiCallSuccessListener();
-            //listener();
-            //console.log('xxx');
         });
 
     }

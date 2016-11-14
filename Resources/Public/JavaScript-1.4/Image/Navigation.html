@@ -18,7 +18,7 @@
 
 	<div class="col-md-3">
 		<div class="row text-center">
-			<form data-ng-submit="imageNavigation.update()">
+			<form data-ng-submit="imageNavigation.solr.setSearchAndUpdate(imageNavigation.search)">
 				<div class="col-md-6">
 					<input class="form-control" type="text" data-autocomplete data-field="spell" data-global="0"
 						   data-ng-model="imageNavigation.search"/>
@@ -36,7 +36,7 @@
 			{{imageNavigation.search}}
 		</button>
 		<span ng-repeat="(key, values) in imageNavigation.filterQueries">
-			<button role="button" class="btn btn-default btn-danger" ng-click="imageNavigation.rmFilterQuery(key, value)"
+			<button role="button" class="btn btn-default btn-danger" ng-click="imageNavigation.solr.rmFilterQueryAndUpdate(key, value)"
 					ng-repeat="value in values">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}"></filter-query>

@@ -229,7 +229,11 @@
         }
 
         function setSearch(search) {
-            setParam('q', search);
+            if (search === '') {
+                setParam('q', '*:*');
+            } else {
+                setParam('q', search);
+            }
         }
 
         function clearSearchAndUpdate() {

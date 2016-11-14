@@ -6,8 +6,9 @@
         .service('CoreConfigurationService', CoreConfigurationService);
 
     /* @ngInject */
-    function CoreConfigurationService (SolrConfiguration, AppConfiguration, Solr, $rootScope, $location) {
+    function CoreConfigurationService (SolrConfiguration, AppConfiguration, Solr, CoreApplicationScopeFactory, $location) {
 
+        loadModuleConfiguration(getModuleName($location.absUrl()));
 
         function getModuleName(path) {
             var res = path.split('/');
@@ -81,18 +82,17 @@
             }
         }
 
-        loadModuleConfiguration(getModuleName($location.absUrl()));
-
         function callSolr() {
             Solr.init();
             Solr.update();
 
         }
 
-        $rootScope.$on('$locationChangeSuccess', function(ev, next, current) {
+        CoreApplicationScopeFactory.registerListener('CoreConfigurationService', '$locationChangeSuccess', function(ev, next, current) {
             if (getModuleName(current) !== getModuleName(next)) {
                 loadModuleConfiguration(getModuleName(next));
             }
         });
+
     }
 })();

@@ -6,10 +6,9 @@
         .controller('ImageDocListController', ImageDocListController);
 
     /* @ngInject */
-    function ImageDocListController (AppConfiguration, CoreApiService, $rootScope) {
+    function ImageDocListController (AppConfiguration, CoreApiService, CoreApplicationScopeFactory) {
 
         var vm = this;
-        var $listenerScope = $rootScope.$new();
 
         vm.big = false;
         vm.documentLists = [];
@@ -44,7 +43,7 @@
             vm.big = showBig;
         }
 
-        var listener = $listenerScope.$on('core:apiCallSuccess', function(event, data) {
+        CoreApplicationScopeFactory,registerListener('ImageDocListController', 'core:apiCallSuccess', function(event, data) {
             if (angular.isDefined(data.data.documentLists)){
                 vm.documentLists = data.data.documentLists;
                 vm.view = 'list';

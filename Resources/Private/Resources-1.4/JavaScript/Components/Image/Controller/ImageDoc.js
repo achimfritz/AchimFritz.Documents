@@ -6,7 +6,7 @@
         .controller('ImageDocController', ImageDocController);
 
     /* @ngInject */
-    function ImageDocController ($scope, hotkeys, ResultFactory, ngDialog, CONFIG, $timeout) {
+    function ImageDocController ($scope, hotkeys, ResultFactory, ngDialog, CONFIG) {
 
         var vm = this;
         var currentDialog = null;

@@ -9,7 +9,6 @@
     function CoreApiService(IntegrityRestService, JobRestService, ExportRestService, DocumentListRestService, DocumentCollectionRestService, CategoryRestService, Mp3DocumentId3TagRestService, DownloadRestService, RatingRestService, $rootScope, PathService, Solr) {
 
         var self = this;
-        var $scope = $rootScope.$new();
 
         self.pdfDownload = pdfDownload;
         self.zipDownload = zipDownload;

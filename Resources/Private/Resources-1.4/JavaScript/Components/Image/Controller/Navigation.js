@@ -6,7 +6,7 @@
         .controller('ImageNavigationController', ImageNavigationController);
 
     /* @ngInject */
-    function ImageNavigationController ($location, CONFIG, $rootScope, Solr, ngDialog) {
+    function ImageNavigationController ($location, CONFIG, $rootScope, Solr, ngDialog, CoreApplicationScopeFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -27,9 +27,9 @@
         vm.search = '';
         vm.params = {};
         vm.filterQueries = {};
-        vm.update = update;
+        vm.solr = Solr;
+
         vm.clearSearch = clearSearch;
-        vm.rmFilterQuery = rmFilterQuery;
         vm.showSolrIntegrity = showSolrIntegrity;
 
         initController();
@@ -55,19 +55,9 @@
             $location.path('app/' + newLocation);
         }
 
-        /* solr */
-
-        function rmFilterQuery(name, value) {
-            Solr.rmFilterQueryAndUpdate(name, value);
-        }
-
         function clearSearch() {
             Solr.clearSearchAndUpdate();
             vm.search = '';
-        }
-
-        function update() {
-            Solr.setSearchAndUpdate(vm.search);
         }
 
         function getSolrData() {
@@ -81,17 +71,13 @@
             }
         }
 
-        var listener = $scope.$on('solrDataUpdate', function(event, data) {
+        CoreApplicationScopeFactory.registerListener('ImageNavigationController', 'solrDataUpdate', function(event, data) {
             getSolrData();
         });
 
-        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+        CoreApplicationScopeFactory.registerListener('ImageNavigationController','$locationChangeStart', function(ev, next, current) {
             var path = next.split('/app/')
             vm.current.location = path[1];
-            //listener();
-            killerListener();
-            // TODO cannot kill listener ???
-
 
         });
 

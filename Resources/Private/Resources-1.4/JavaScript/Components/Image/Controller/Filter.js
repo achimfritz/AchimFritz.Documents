@@ -6,7 +6,7 @@
         .controller('ImageFilterController', ImageFilterController);
 
     /* @ngInject */
-    function ImageFilterController(ngDialog, $rootScope, CONFIG, Solr, FacetFactory) {
+    function ImageFilterController(ngDialog, $rootScope, CONFIG, Solr, FacetFactory, CoreApplicationScopeFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -47,13 +47,8 @@
             }
         }
 
-        var listener = $scope.$on('solrDataUpdate', function (event, data) {
+        CoreApplicationScopeFactory.registerListener('ImageFilterController', 'solrDataUpdate', function (event, data) {
             getSolrData();
-        });
-
-        var killerListener = $scope.$on('$locationChangeStart', function (ev, next, current) {
-            listener();
-            killerListener();
         });
 
     }

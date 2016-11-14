@@ -1,7 +1,7 @@
 <h1>Document</h1>
 <h3>results: {{documentIndex.data.response.numFound}}</h3>
 
-	<form novalidate class="simple-form" ng-submit="documentIndex.update()">
+	<form novalidate class="simple-form" data-ng-submit="documentIndex.solr.setSearchAndUpdate(documentIndex.search)">
 		<div class="form-group row">
 			<div class="col-md-2">
 			</div>
@@ -17,15 +17,15 @@
 			</div>
 			<div class="col-md-1">
 				<label class="control-label" for="rows">rows: </label>
-				<input type="text" class="form-control" id="rows" data-ng-model="documentIndex.params.rows" ng-change="documentIndex.update()" />
+				<input type="text" class="form-control" id="rows" data-ng-model="documentIndex.params.rows" data-ng-change="documentIndex.solr.setSearchAndUpdate(documentIndex.search)" />
 			</div>
 			<div class="col-md-1">
 				<label class="control-label" for="facet_limit">facet.limit: </label>
-				<input type="text" class="form-control" id="facet_limit" data-ng-model="documentIndex.params.facet_limit" ng-change="documentIndex.update()" />
+				<input type="text" class="form-control" id="facet_limit" data-ng-model="documentIndex.params.facet_limit" data-ng-change="documentIndex.solr.setSearchAndUpdate(documentIndex.search)" />
 			</div>
 			<div class="col-md-1">
 				<label class="control-label" for="sort">sort: </label>
-				<select class="form-control" id="sort" data-ng-model="documentIndex.params.sort" ng-change="documentIndex.update()">
+				<select class="form-control" id="sort" data-ng-model="documentIndex.params.sort" data-ng-change="documentIndex.solr.setSearchAndUpdate(documentIndex.search)">
 					<option value="mDateTime desc">mDateTime desc</option>
 					<option value="mDateTime asc">mDateTime asc</option>
 					<option value="name desc">name desc</option>
@@ -42,7 +42,7 @@
 
 	<ul data-ng-repeat="(key, values) in documentIndex.filterQueries">
 		<li data-ng-repeat="value in values">
-			<button class="btn btn-danger" ng-click="documentIndex.solr.rmFilterQueryAndUpdate(key, value)">
+			<button class="btn btn-danger" data-ng-click="documentIndex.solr.rmFilterQueryAndUpdate(key, value)">
 			{{key}}
 			<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}" />
 			</button>

@@ -6,10 +6,9 @@
         .controller('ImageEditCategoryController', ImageEditCategoryController);
 
     /* @ngInject */
-    function ImageEditCategoryController ($scope, CoreApiService, PathService, Solr, $rootScope, ngDialog) {
+    function ImageEditCategoryController ($scope, CoreApiService, PathService, Solr, CoreApplicationScopeFactory, ngDialog) {
 
         var vm = this;
-        var $listenerScope = $rootScope.$new();
         var path = $scope.ngDialogData.value;
 
         vm.name = $scope.ngDialogData.name;
@@ -28,7 +27,7 @@
             vm.autocompleteField = 'paths';
         }
 
-        var listener = $listenerScope.$on('core:apiCallSuccess', function(event, data) {
+        CoreApplicationScopeFactory.registerListener('ImageEditCategoryController', 'core:apiCallSuccess', function(event, data) {
             var newValue = vm.newValue;
             if (Solr.isHFacet(vm.name) === true) {
                 newValue = PathService.prependLevel(vm.newValue);
@@ -39,7 +38,6 @@
             }
             Solr.update();
             ngDialog.close($scope.dialog.id);
-            listener();
         });
 
         function update() {

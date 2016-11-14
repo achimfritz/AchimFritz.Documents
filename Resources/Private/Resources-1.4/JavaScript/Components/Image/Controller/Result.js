@@ -6,7 +6,7 @@
         .controller('ImageResultController', ImageResultController);
 
     /* @ngInject */
-    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr, CoreApiService) {
+    function ImageResultController (ResultFactory, CONFIG, $rootScope, hotkeys, ngDialog, Solr, CoreApiService, CoreApplicationScopeFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -123,13 +123,8 @@
             }
         }
 
-        var listener = $scope.$on('solrDataUpdate', function(event, data) {
+        CoreApplicationScopeFactory.registerListener('ImageResultController', 'solrDataUpdate', function(event, data) {
             getSolrData();
-        });
-
-        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
-            listener();
-            killerListener();
         });
 
     }
