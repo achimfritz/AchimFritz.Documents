@@ -34,11 +34,6 @@ class FileSystemDocument extends Document {
 	protected $mDateTime;
 
 	/**
-	 * @var \SplFileInfo
-	 */
-	protected $splFileInfo;
-
-	/**
 	 * @var \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
 	 * @Flow\Inject
 	 */
@@ -129,10 +124,7 @@ class FileSystemDocument extends Document {
 	 * @return \SplFileInfo
 	 */
 	public function getSplFileInfo() {
-		if (!$this->splFileInfo instanceof \SplFileInfo) {
-			$this->splFileInfo = new \SplFileInfo($this->getAbsolutePath());
-		}
-		return $this->splFileInfo;
+		return new \SplFileInfo($this->getAbsolutePath());
 	}
 
 	/**
