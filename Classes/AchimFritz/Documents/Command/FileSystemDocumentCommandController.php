@@ -99,6 +99,20 @@ class FileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandControl
 	}
 
 	/**
+	 * @param string $directory
+	 * @return void
+	 */
+	public function saveTstampCommand($directory) {
+		$documents = $this->documentRepository->findByHead($directory);
+		if (count($documents) === 0) {
+			$this->outputLine('WARNING: no documents found');
+		}
+		foreach ($documents AS $document) {
+			$this->outputLine($document->getName() . ' ' . $document->getMDateTimeForFsStat());
+		}
+	}
+
+	/**
 	 * deleteAll --confirmed=FALSE
 	 *
 	 * @param boolean $confirmed

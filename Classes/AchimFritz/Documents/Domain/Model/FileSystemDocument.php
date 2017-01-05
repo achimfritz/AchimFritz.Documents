@@ -47,6 +47,13 @@ class FileSystemDocument extends Document {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getMDateTimeForFsStat() {
+		return $this->getMDateTime()->format('YmdHi.s');
+	}
+
+	/**
 	 * @return string fileHash
 	 */
 	public function getFileHash() {
