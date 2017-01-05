@@ -29,6 +29,7 @@
                 $(element).autocomplete({
                     source: function (request, response) {
                         var item = request.term;
+                        // request.term.toLowerCase();
                         Solr.getAutocomplete(item, field, global).then(function (data) {
                             var q = data.data.responseHeader.params.q;
                             var results = Solr.facetsToLabelValue(data.data.facet_counts.facet_fields[field], q);
