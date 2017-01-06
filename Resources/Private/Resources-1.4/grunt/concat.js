@@ -11,7 +11,7 @@ module.exports = {
             "JavaScript/Components/**/*.js",
             "JavaScript/App.js"
         ],
-        dest: '../../Public/Build-1.4/Main.js'
+        dest: '../../Public/Build-1.4/js/Main.js'
     },
 
     libs: {
@@ -44,7 +44,7 @@ module.exports = {
             'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/angular-xeditable/dist/js/xeditable.js'
         ],
-        dest: '../../Public/Build-1.4/Libs.js'
+        dest: '../../Public/Build-1.4/js/Libs.js'
     },
     csslibs: {
         src: [
@@ -57,12 +57,12 @@ module.exports = {
             'bower_components/chosen/chosen.min.css',
             'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
-        dest: '../../Public/Build-1.4/Libs.css'
+        dest: '../../Public/Build-1.4/css/Libs.css'
     },
     css: {
         src: [
             'Css/**/*.css'
         ],
-        dest: '../../Public/Build-1.4/Main.css'
+        dest: '../../Public/Build-1.4/css/Main.css'
     }
 };
