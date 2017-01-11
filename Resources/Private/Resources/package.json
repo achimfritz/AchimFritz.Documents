@@ -5,6 +5,7 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-less": "*",
     "grunt-contrib-uglify": "*",
+    "grunt-contrib-copy": "*",
     "grunt-contrib-watch": "*",
     "grunt-jslint": "*",
     "grunt-newer": "*",

@@ -19,13 +19,19 @@ class AppController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @return void
 	 */
-	public function mp2Action() {
+	public function mp3Action() {
 	}
 
 	/**
 	 * @return void
 	 */
-	public function mp3Action() {
+	public function mp3listAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function mp3ipodAction() {
 	}
 
 	/**
@@ -33,6 +39,32 @@ class AppController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function imageAction() {
 	}
+
+	/**
+	 * @return void
+	 */
+	public function imagelistAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function urlbuilderAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function indexAction() {
+	}
+
+
+	/**
+	 * @return void
+	 */
+	public function musicAction() {
+	}
+
 
 
 }

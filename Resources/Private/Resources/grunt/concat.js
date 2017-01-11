@@ -5,48 +5,15 @@ module.exports = {
     options: {
         separator: '\r\n'
     },
-    documentApp: {
+    main: {
         src: [
-            'JavaScript/Solr/Module.js',
-            'JavaScript/Solr/**/*.js',
-            'JavaScript/Document/App.js',
-            'JavaScript/Document/**/*.js',
+            "JavaScript/Components/**/Module.js",
+            "JavaScript/Components/**/*.js",
+            "JavaScript/App.js"
         ],
-        dest: '../../Public/Build/Document.js'
+        dest: '../../Public/Build/js/Main.js'
     },
-    imageApp: {
-        src: [
-            'JavaScript/Solr/Module.js',
-            'JavaScript/Solr/**/*.js',
-            'JavaScript/App/Module.js',
-            'JavaScript/App/**/*.js',
-            'JavaScript/Image/App.js',
-            'JavaScript/Image/**/*.js',
-        ],
-        dest: '../../Public/Build/Image.js'
-    },
-    mp2App: {
-        src: [
-            'JavaScript/Solr/Module.js',
-            'JavaScript/Solr/**/*.js',
-            'JavaScript/App/Module.js',
-            'JavaScript/App/**/*.js',
-            'JavaScript/Mp2/App.js',
-            'JavaScript/Mp2/**/*.js',
-        ],
-        dest: '../../Public/Build/Mp2.js'
-    },
-    mp3App: {
-        src: [
-            'JavaScript/Solr/Module.js',
-            'JavaScript/Solr/**/*.js',
-            'JavaScript/App/Module.js',
-            'JavaScript/App/**/*.js',
-            'JavaScript/Mp3/App.js',
-            'JavaScript/Mp3/**/*.js',
-        ],
-        dest: '../../Public/Build/Mp3.js'
-    },
+
     libs: {
         src: [
             'bower_components/jquery/dist/jquery.js',
@@ -55,25 +22,29 @@ module.exports = {
             'bower_components/bootstrap/js/modal.js',
             'bower_components/bootstrap/js/tab.js',
             'bower_components/bootstrap/js/dropdown.js',
-            'bower_components/bootstrap/js/collapse.js',
             'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
+            'bower_components/angular-sanitize/angular-sanitize.js',
+            'bower_components/angular-new-router/dist/router.es5.js',
             'bower_components/angular-animate/angular-animate.js',
+            'bower_components/AngularJS-Toaster/toaster.js',
+            'bower_components/angular-jquery/src/jquery.js',
+            'bower_components/angular-bootstrap-affix/src/bootstrap-affix.js',
+            'bower_components/file-saver/FileSaver.js',
+            'bower_components/angular-hotkeys/build/hotkeys.js',
             'bower_components/ngDialog/js/ngDialog.js',
             'bower_components/ngDraggable/ngDraggable.js',
-            'bower_components/file-saver/FileSaver.js',
             'bower_components/angular-utils-pagination/dirPagination.js',
             'bower_components/ajax-solr/core/Core.js',
             'bower_components/ajax-solr/core/AbstractManager.js',
             'bower_components/ajax-solr/core/Parameter.js',
             'bower_components/ajax-solr/core/ParameterStore.js',
-            'bower_components/AngularJS-Toaster/toaster.js',
             'bower_components/angular-soundmanager2/src/modules/soundmanager2.js',
             'bower_components/angular-soundmanager2/src/*.js',
-            'bower_components/angular-xeditable/dist/js/xeditable.js',
-            'bower_components/isotope/dist/isotope.pkgd.js'
+            'bower_components/chosen/chosen.jquery.min.js',
+            'bower_components/angular-chosen-localytics/chosen.js',
+            'bower_components/angular-xeditable/dist/js/xeditable.js'
         ],
-        dest: '../../Public/Build/Libs.js'
+        dest: '../../Public/Build/js/Libs.js'
     },
     csslibs: {
         src: [
@@ -82,14 +53,16 @@ module.exports = {
             'bower_components/ngDialog/css/ngDialog.css',
             'bower_components/AngularJS-Toaster/toaster.css',
             'bower_components/angular-xeditable/dist/css/xeditable.css',
+            'bower_components/angular-hotkeys/build/hotkeys.css',
+            'bower_components/chosen/chosen.min.css',
             'bower_components/ngDialog/css/ngDialog-theme-default.css'
         ],
-        dest: '../../Public/Build/Libs.css'
+        dest: '../../Public/Build/css/Libs.css'
     },
     css: {
         src: [
             'Css/**/*.css'
         ],
-        dest: '../../Public/Build/Main.css'
+        dest: '../../Public/Build/css/Main.css'
     }
 };

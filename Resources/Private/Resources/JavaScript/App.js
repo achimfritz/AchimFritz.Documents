@@ -25,7 +25,7 @@
             'achimfritz.image'
         ])
         .constant('CONFIG', {
-            templatePath: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/',
+            templatePath: '/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/',
             baseUrl: '/app'
         })
         .config(TemplateMapping)
@@ -124,7 +124,7 @@
 
     /* @ngInject */
     function paginationConfiguration(paginationTemplateProvider) {
-        paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript-1.4/dirPagination.tpl.html');
+        paginationTemplateProvider.setPath('/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/dirPagination.tpl.html');
     }
 
 

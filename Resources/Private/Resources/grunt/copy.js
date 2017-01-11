@@ -4,7 +4,7 @@
 module.exports = {
     main: {
         files: [
-            {expand: true, cwd: 'bower_components/bootstrap/fonts', src: '**', dest: '../../Public/Build-1.4/fonts/'}
+            {expand: true, cwd: 'bower_components/bootstrap/fonts', src: '**', dest: '../../Public/Build/fonts/'}
         ]
     }
 };

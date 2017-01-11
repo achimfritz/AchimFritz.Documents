@@ -1,28 +1,23 @@
 {
   "name": "achimfritz.Documents",
   "dependencies": {
-    "bootstrap": "3.1.1",
-    "angular": "1.3.2",
-    "angular-route": "1.3.0",
-    "angular-animate": "1.3.2",
-    "jquery": "~2.1.1",
-    "jquery-ui": "~1.11.3",
+    "bootstrap": "latest",
+    "angular": "1.5.0",
+    "angular-sanitize": "latest",
+    "angular-new-router": "https://github.com/angular/router.git#d6e4c4d6de006af1420fe5884c742f17a966d26c",
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "AngularJS-Toaster": "latest",
+    "angular-utils-pagination": "latest",
     "components-font-awesome": "*",
-				"ngDraggable": "*",
-				"angular-xeditable": "~0.1.8",
-				"file-saver": "*",
-				"ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
-				"ngDialog": "*",
-				"isotope": "*",
-				"angular-utils-pagination": "*",
-				"angular-soundmanager2": "*",
-    "AngularJS-Toaster": "~0.4.8"
-  },
-  "resolutions": {
-    "angular": "1.3.2"
-  },
-  "devDependencies": {
-    "angular-mocks": "1.3.0",
-    "angular": "1.3.2"
+    "angular-xeditable": "latest",
+    "file-saver": "*",
+    "ngDialog": "*",
+    "ngDraggable": "*",
+    "ajax-solr": "git@github.com:evolvingweb/ajax-solr.git",
+    "angular-soundmanager2": "*",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.5.0",
+    "angular-chosen-localytics": "~1.0.7",
+    "angular-bootstrap-affix": "~0.2.2"
   }
 }
