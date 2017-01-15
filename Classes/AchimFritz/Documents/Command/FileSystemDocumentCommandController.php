@@ -177,6 +177,24 @@ class FileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandControl
 	}
 
 	/**
+	 * showbyhasn --hash=14c621173ede72853376bbbbce5a38c3b40276c5
+	 *
+	 * @param string $hash
+	 * @return void
+	 */
+	public function showByHashCommand($hash) {
+		$document = $this->documentRepository->findOneByFileHash($hash);
+		if ($document instanceof Document) {
+			$this->outputLine($document->getName() . ' - ' . $document->getFileHash());
+			foreach ($document->getCategories() AS $category) {
+				$this->outputLine($category->getPath());
+			}
+		} else {
+			$this->outputLine('WARNING: no document found ' . $hash);
+		}
+	}
+
+	/**
 	 * delete --name=2006_10_23_roland_scan_roland_gisela/fritzam_digcam_hochzeit_britta_dsci0048.jpg
 	 *
 	 * @param string $name
