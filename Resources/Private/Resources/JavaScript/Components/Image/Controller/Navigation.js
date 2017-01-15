@@ -6,7 +6,7 @@
         .controller('ImageNavigationController', ImageNavigationController);
 
     /* @ngInject */
-    function ImageNavigationController ($location, CONFIG, $rootScope, Solr, ngDialog, CoreApplicationScopeFactory) {
+    function ImageNavigationController ($location, CONFIG, $rootScope, Solr, ngDialog, CoreApplicationScopeFactory, $timeout) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -38,6 +38,11 @@
             getSolrData();
 
             var path = $location.path();
+            if (path === CONFIG.baseUrl + '/image' || path === CONFIG.baseUrl + '/image/') {
+                $timeout(function () {
+                    forward('image/result');
+                });
+            }
             vm.current.location = path.replace(CONFIG.baseUrl + '/', '');
         }
 

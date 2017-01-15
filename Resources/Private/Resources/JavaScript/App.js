@@ -41,11 +41,13 @@
             'index',
             'urlbuilder',
             'document',
+            'image',
             'image/result',
             'image/filter',
             'image/integrity',
             'image/docList',
             'image/sitemap',
+            'music',
             'music/result',
             'music/filter',
             'music/player',
@@ -82,6 +84,7 @@
         configs['urlbuilder'].components.main = 'urlBuilderIndex';
         configs['document'].components.main = 'documentIndex';
 
+        configs['image'].components.navigation = 'imageNavigation';
         configs['image/result'].components.main = 'imageResult';
         configs['image/result'].components.navigation = 'imageNavigation';
         configs['image/filter'].components.main = 'imageFilter';
@@ -92,7 +95,8 @@
         configs['image/sitemap'].components.navigation = 'imageNavigation';
         configs['image/integrity'].components.main = 'imageIntegrity';
         configs['image/integrity'].components.navigation = 'imageNavigation';
-
+        
+        configs['music'].components.navigation = 'musicNavigation';
         configs['music/result'].components.main = 'musicResult';
         configs['music/result'].components.navigation = 'musicNavigation';
         configs['music/filter'].components.main = 'musicFilter';
