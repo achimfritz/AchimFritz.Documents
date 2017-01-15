@@ -17,7 +17,7 @@
 			<div data-ng-repeat="facet in imageFilter.facets">
 					<div class="col-md-3" data-ng-if="facet.isVisible">
 						<span class="label label-default">{{facet.name}}</span>
-						<button class="btn btn-default btn-xs" data-ng-click="imageFilter.toggleFilter(facet.name)">
+						<button class="btn btn-default btn-xs" data-ng-click="imageFilter.facetFactory.toggleFacet(facet.name)">
 							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 						</button>
 						<button class="btn btn-default btn-xs" ng-click="imageFilter.solr.changeFacetSortingAndUpdate(facet.name, 'index')">index</button>

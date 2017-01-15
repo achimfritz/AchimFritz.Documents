@@ -47,8 +47,14 @@
             }
         }
 
-        CoreApplicationScopeFactory.registerListener('ImageFilterController', 'solrDataUpdate', function (event, data) {
+
+        var listener = $scope.$on('solrDataUpdate', function(event, data) {
             getSolrData();
+        });
+
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
+            listener();
+            killerListener();
         });
 
     }

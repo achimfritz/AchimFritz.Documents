@@ -6,7 +6,7 @@
         .controller('MusicNavigationController', MusicNavigationController);
 
     /* @ngInject */
-    function MusicNavigationController ($location, CONFIG, $rootScope, $timeout, Solr) {
+    function MusicNavigationController ($location, CONFIG, $rootScope, $timeout, Solr, CoreApplicationScopeFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -27,9 +27,9 @@
         vm.search = '';
         vm.params = {};
         vm.filterQueries = {};
+        vm.solr = Solr;
         vm.update = update;
         vm.clearSearch = clearSearch;
-        vm.rmFilterQuery = rmFilterQuery;
 
         vm.initController = initController;
 
@@ -53,10 +53,6 @@
         }
 
         /* solr */
-
-        function rmFilterQuery(name, value) {
-            Solr.rmFilterQueryAndUpdate(name, value);
-        }
 
         function clearSearch() {
             Solr.clearSearchAndUpdate();
@@ -88,15 +84,8 @@
             vm.current.location = path[1];
             listener();
             killerListener();
-            // TODO cannot kill listener ???
-
-            /*
-            $timeout(function () {
-                //killerListener();
-            });
-            */
-
         });
+
 
     }
 })();

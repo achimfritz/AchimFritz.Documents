@@ -71,14 +71,17 @@
             }
         }
 
-        CoreApplicationScopeFactory.registerListener('ImageNavigationController', 'solrDataUpdate', function(event, data) {
+        /* listener */
+
+        var listener = $scope.$on('solrDataUpdate', function(event, data) {
             getSolrData();
         });
 
-        CoreApplicationScopeFactory.registerListener('ImageNavigationController','$locationChangeStart', function(ev, next, current) {
+        var killerListener = $scope.$on('$locationChangeStart', function(ev, next, current) {
             var path = next.split('/app/')
             vm.current.location = path[1];
-
+            listener();
+            killerListener();
         });
 
     }
