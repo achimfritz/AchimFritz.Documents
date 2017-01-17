@@ -13,6 +13,7 @@
 
         vm.song = {};
         vm.currentPostion = 0;
+        vm.currentDuration = 0;
 
         vm.playlist = {};
 
@@ -92,6 +93,12 @@
                 vm.currentPostion = $filter('humanTime')(data);
             });
         });
+
+        var durationListener = $scope.$on('currentTrack:duration', function(event, data) {
+            $scope.$apply(function() {
+                vm.currentDuration = $filter('humanTime')(data);
+            });
+        })
 
         var playlistListener = $scope.$on('player:playlist', function(event, playlist){
             $timeout(function () {
