@@ -6,6 +6,7 @@ namespace AchimFritz\Documents\Domain\Service;
  *                                                                        *
  *                                                                        */
 
+use AchimFritz\Documents\Domain\Model\FileSystemDocument;
 use TYPO3\Flow\Annotations as Flow;
 use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\Document;
@@ -83,8 +84,7 @@ class FileSystemDocumentIndexService {
 					$this->documentRepository->add($document);
 				} elseif ($update === TRUE) {
 					$dummy = $this->documentFactory->create($directory . PathService::PATH_DELIMITER . $fileName, $this->getMountPoint());
-					$document->setMDateTime($dummy->getMDateTime());
-					$document->setFileHash($dummy->getFileHash());
+					$document = $this->updateDocumentWithNewCreated($document, $dummy);
 					$this->documentRepository->update($document);
 					$cnt++;
 				}
@@ -106,6 +106,17 @@ class FileSystemDocumentIndexService {
 			throw new Exception('got Persistence Exception with ' . $e->getMessage() . ' - ' . $e->getCode(), 1419428824);
       }	
 		return $cnt;
+	}
+
+	/**
+	 * @param FileSystemDocument $document
+	 * @param FileSystemDocument $createdDocument
+	 * @return FileSystemDocument
+	 */
+	protected function updateDocumentWithNewCreated(FileSystemDocument $document, FileSystemDocument $createdDocument) {
+		$document->setMDateTime($createdDocument->getMDateTime());
+		$document->setFileHash($createdDocument->getFileHash());
+		return $document;
 	}
 
 }

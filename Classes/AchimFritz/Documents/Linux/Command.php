@@ -36,6 +36,19 @@ class Command {
 	}
 
 	/**
+	 * @param string $file
+	 * @return array
+	 * @throws Exception
+	 */
+	public function movieInfo($file) {
+		if (file_exists($file) === FALSE) {
+			throw new Exception('no such file ' . $file, 1484933915);
+		}
+		$cmd = 'ffprobe -v error -show_format -show_streams -print_format json ' . $file;
+		return $this->executeCommand($cmd);
+	}
+
+	/**
 	 * @param string $mp3File
 	 * @param string $wavFile
 	 * @return array

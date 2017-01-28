@@ -1,5 +1,5 @@
 <?php
-namespace AchimFritz\Documents\Solr;
+namespace AchimFritz\Documents\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "AchimFritz.Documents".  *
@@ -7,17 +7,10 @@ namespace AchimFritz\Documents\Solr;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use AchimFritz\Documents\Domain\Model\Document;
 
 /**
+ * @Flow\Scope("singleton")
  */
-interface InputDocumentFactoryInterface {
-
-	/**
-	 * @param \AchimFritz\Documents\Domain\Model\Document $document
-	 * @return void
-	 * @throws \AchimFritz\Documents\Linux\Exception
-	 */
-	public function create(Document $document);
+class MovieDocumentRepository extends FileSystemDocumentRepository {
 
 }

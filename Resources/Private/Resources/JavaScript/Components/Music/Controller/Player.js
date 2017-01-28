@@ -98,7 +98,7 @@
             $scope.$apply(function() {
                 vm.currentDuration = $filter('humanTime')(data);
             });
-        })
+        });
 
         var playlistListener = $scope.$on('player:playlist', function(event, playlist){
             $timeout(function () {

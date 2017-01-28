@@ -78,6 +78,12 @@ class FileSystemDocumentCommandController extends \TYPO3\Flow\Cli\CommandControl
 	 */
 	protected $indexService;
 
+	/**
+	 * @var \AchimFritz\Documents\Domain\FileSystem\Factory\IntegrityFactory
+	 * @Flow\Inject
+	 */
+	protected $integrityFactory;
+
 
 	/**
 	 * list --directory=2015_05_05_venedig
