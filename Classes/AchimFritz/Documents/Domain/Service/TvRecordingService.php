@@ -33,6 +33,9 @@ STREAM_PROCESS=$(cat /tmp/STREAM-record.pid)
 sleep ' . $length . '
 kill $STREAM_PROCESS
 rm /tmp/STREAM-record.pid';
+		if ($tvRecording->getShutdownAfter() === TRUE) {
+			$content .= ' && sudo poweroff';
+		}
 		if (file_put_contents($recordFile, $content) === FALSE) {
 			throw new \AchimFritz\Documents\Linux\Exception('cannot write recordFile ' . $recordFile, 1441469434);
 		}

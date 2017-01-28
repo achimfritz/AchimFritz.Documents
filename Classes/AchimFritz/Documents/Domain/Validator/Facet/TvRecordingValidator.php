@@ -20,8 +20,19 @@ class TvRecordingValidator extends \TYPO3\Flow\Validation\Validator\GenericObjec
 	 * @return void
 	 */
 	public function isValid($value) {
-		$starttime = $value->getStarttime();
-		$arr = explode(':', $starttime);
+		$this->validateTime($value->getStarttime());
+		$this->validateTime($value->getEndtime());
+		if ($value->getLength() <= 0) {
+			$this->addError('length is <= 0 ' . $value->getLength() , 1485607789);
+		}
+	}
+
+	/**
+	 * @param $time
+	 * @return void
+	 */
+	protected function validateTime($time) {
+		$arr = explode(':', $time);
 		if (count($arr) !== 2) {
 			$this->addError('not in hh:mm format', 1441468579);
 		} else {

@@ -29,17 +29,23 @@ class TvRecording {
 	 * @var string
 	 * @Flow\Validate(type="NotEmpty")
 	 */
-	protected $title;
+	protected $endtime;
 
 	/**
-	 * @var integer
+	 * @var string
 	 * @Flow\Validate(type="NotEmpty")
 	 */
-	protected $length;
+	protected $title;
 
 
 	/**
-	 * @return tvChannel
+	 * @var bool
+	 */
+	protected $shutdownAfter = false;
+
+
+	/**
+	 * @return \AchimFritz\Documents\Domain\Model\TvChannel
 	 */
 	public function getTvChannel() {
 		return $this->tvChannel;
@@ -67,6 +73,7 @@ class TvRecording {
 	public function setStarttime($starttime) {
 		$this->starttime = $starttime;
 	}
+	
 
 	/**
 	 * @return string
@@ -82,20 +89,49 @@ class TvRecording {
 	public function setTitle($title) {
 		$this->title = $title;
 	}
+	
+
+	/**
+	 * @return string
+	 */
+	public function getEndtime() {
+		return $this->endtime;
+	}
+
+	/**
+	 * @param string $endtime
+	 */
+	public function setEndtime($endtime)  {
+		$this->endtime = $endtime;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getShutdownAfter() {
+		return $this->shutdownAfter;
+	}
+
+	/**
+	 * @param boolean $shutdownAfter
+	 */
+	public function setShutdownAfter($shutdownAfter) {
+		$this->shutdownAfter = $shutdownAfter;
+	}
 
 	/**
 	 * @return integer
 	 */
 	public function getLength() {
-		return $this->length;
-	}
-
-	/**
-	 * @param integer $length
-	 * @return void
-	 */
-	public function setLength($length) {
-		$this->length = $length;
+		list($starttimeH, $starttimeM) = explode(':', $this->getStarttime());
+		list($endtimeH, $endtimeM) = explode(':', $this->getEndtime());
+		if ((int)$starttimeH > (int)$endtimeH) {
+			$hDiff = ((((int)$endtimeH + 24) - (int)$starttimeH) * 60);
+		} else {
+			$hDiff = (((int)$endtimeH - (int)$starttimeH) * 60);
+		}
+		$mDiff = (int)$endtimeM - (int)$starttimeM;
+		return $hDiff + $mDiff;
 	}
 
 }
