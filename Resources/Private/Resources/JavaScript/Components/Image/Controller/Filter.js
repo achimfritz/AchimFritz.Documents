@@ -6,7 +6,7 @@
         .controller('ImageFilterController', ImageFilterController);
 
     /* @ngInject */
-    function ImageFilterController(ngDialog, $rootScope, CONFIG, Solr, FacetFactory, CoreApplicationScopeFactory) {
+    function ImageFilterController(ngDialog, $rootScope, CONFIG, Solr, FacetFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
