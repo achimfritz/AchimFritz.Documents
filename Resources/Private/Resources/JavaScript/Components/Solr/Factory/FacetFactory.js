@@ -44,6 +44,16 @@
             getFacets: function() {
                 return facets;
             },
+            setVisible: function(name, visible) {
+                visibleFacets[name] = visible;
+                /*
+                angular.forEach(facets, function(facet) {
+                    if (facet.name === name) {
+                        facet.isVisible = visible;
+                    }
+                });
+                */
+            },
             toggleFacet: function(name) {
                 if (angular.isUndefined(visibleFacets[name]) || visibleFacets[name] === false) {
                     visibleFacets[name] = true;

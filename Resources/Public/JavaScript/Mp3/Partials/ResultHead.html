@@ -1,0 +1,30 @@
+
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-success" data-ng-click="mp3Index.musicPlayerService.playAll(mp3Index.data.response.docs)">
+					<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default" data-ng-click="mp3Index.musicPlayerService.addAll(mp3Index.data.response.docs)">
+					<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
+						data-ng-if="mp3Index.data.response.numFound < 500 && mp3Index.data.response.numFound > mp3Index.params.rows">
+					<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(10)"
+						data-ng-if="mp3Index.data.response.numFound > mp3Index.params.rows">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(-10)"
+						data-ng-if="mp3Index.params.rows > 10">
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</button>
+			</div>
+				<div class="col-md-6">
+				<dir-pagination-controls
+						template-url="/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Music/Ui/Pagination.html"
+						on-page-change="mp3Index.solr.nextPageAndUpdate(newPageNumber)"></dir-pagination-controls>
+				</div>
+
+			</div>
+		</div>

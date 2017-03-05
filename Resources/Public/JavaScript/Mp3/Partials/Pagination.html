@@ -1,0 +1,12 @@
+<button data-ng-click="setCurrent(1)" class="btn btn-default" data-ng-class="{ disabled : pagination.current == 1 }">
+	<span class="glyphicon glyphicon-step-backward" aria-hidden="true" ></span>
+</button>
+<button data-ng-click="setCurrent(pagination.current - 1)" class="btn btn-default" data-ng-class="{ disabled : pagination.current == 1 }">
+	<span class="glyphicon glyphicon-triangle-left" aria-hidden="true" ></span>
+</button>
+<button data-ng-click="setCurrent(pagination.current + 1)" class="btn btn-default" data-ng-class="{ disabled : pagination.current == pagination.last }">
+	<span class="glyphicon glyphicon-triangle-right" aria-hidden="true" ></span>
+</button>
+<button data-ng-click="setCurrent(pagination.last)" class="btn btn-default" data-ng-class="{ disabled : pagination.current == pagination.last }">
+	<span class="glyphicon glyphicon-step-forward" aria-hidden="true" ></span>
+</button>

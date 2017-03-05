@@ -60,6 +60,21 @@
                 SolrConfiguration.setHFacets({});
                 SolrConfiguration.setSetting('servlet', 'mp3');
                 callSolr();
+            } else if (name === 'mp3') {
+                resetSolr();
+                loadFrontendConfiguration();
+                AppConfiguration.setNamespace('mp3');
+
+                SolrConfiguration.setFacets(['artist', 'album', 'genre', 'hPaths']);
+                SolrConfiguration.setHFacets({hPaths: '0'});
+                SolrConfiguration.setParam('sort', 'mDateTime desc, fsTitle asc');
+                SolrConfiguration.setParam('rows', 15);
+                SolrConfiguration.setParam('facet_limit', 5);
+                SolrConfiguration.setParam('facet_sort', 'count');
+                SolrConfiguration.setSetting('servlet', 'mp3');
+                SolrConfiguration.setVisibleFacets({artist: true, genre: true, hPaths: true});
+
+                callSolr();
             } else if (name === 'document') {
                 resetSolr();
                 loadFrontendConfiguration();

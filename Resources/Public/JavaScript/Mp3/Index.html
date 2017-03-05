@@ -1,0 +1,48 @@
+
+<div class="row">
+	<div class="col-md-2">
+		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/CurrentFilter.html'"></ng-include>
+		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/Filter.html'"></ng-include>
+	</div>
+	<div class="col-md-4">
+		<div class="row">
+			<form data-ng-submit="mp3Index.update()">
+				<div class="col-md-8">
+					<input class="form-control" type="text" data-autocomplete data-field="spell" data-global="0"
+						   data-ng-model="mp3Index.search"/>
+				</div>
+				<div class="col-md-4">
+					<input type="submit" value="Submit" class="btn btn-default"/>
+				</div>
+			</form>
+		</div>
+		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultHead.html'"></ng-include>
+		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultTable.html'"></ng-include>
+	</div>
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerActions.html'"></ng-include>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<img data-ng-if="mp3Index.song.doc.webThumbPath" data-ng-src="{{mp3Index.song.doc.webThumbPath}}"
+					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+				<img data-ng-if="!mp3Index.song.doc.webThumbPath" data-ng-src="/_Resources/Static/Packages/AchimFritz.Documents/Images/DefaultFolder.jpg"
+					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+			</div>
+		</div>
+		<div class="row" data-ng-if="mp3Index.song.doc">
+			<div class="col-md-12">
+				{{ mp3Index.song.doc.artist}} / {{ mp3Index.song.doc.album }} /
+				{{ mp3Index.currentPostion }} / {{ mp3Index.currentDuration }} / {{ mp3Index.song.doc.length }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerTable.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+</div>

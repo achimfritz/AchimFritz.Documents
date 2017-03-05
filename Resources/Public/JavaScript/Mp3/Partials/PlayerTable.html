@@ -1,0 +1,26 @@
+<table class="draglist mp3list table small-table table-striped">
+	<tr
+			data-ng-repeat="song in mp3Index.playlist"
+			data-ng-class="{true: 'alert alert-info'}[mp3Index.song.id == song.id]"
+			ng-drop="true"
+			ng-drop-success="mp3Index.onDropComplete($index, $data, $event)"
+			ng-drag-data="song"
+			ng-drag="true">
+		<td class="mp3-song-list-controls">
+			<button data-ng-if="mp3Index.song.id != song.id" play-from-playlist="song" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+			</button>
+			<button data-ng-if="mp3Index.song.id == song.id" class="btn btn-default btn-xs">
+				<span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+			</button>
+			<button class="btn btn-default btn-xs" remove-from-playlist="song" data-index="{{$index}}">
+				<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			</button>
+
+		</td>
+		<td>
+			<span data-ng-if="song.doc.title" >{{song.doc.title.substr(0, 60)}}</span>
+			<span data-ng-if="!song.doc.title" >{{song.doc.fsTitle.substr(0, 60)}}</span>
+		</td>
+	</tr>
+</table>

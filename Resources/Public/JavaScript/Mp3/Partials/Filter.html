@@ -1,0 +1,44 @@
+
+
+<div data-ng-repeat="facet in mp3Index.facets">
+	<div  data-ng-if="facet.isVisible">
+		<ul class="list-group">
+			<li class="list-group-item">
+				<strong class="text-center">{{facet.name}}</strong>
+				<button class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetCountAndUpdate(facet.name, 10)">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetCountAndUpdate(facet.name, 100)">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetCountAndUpdate(facet.name, -10)">
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</button>
+				<button class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetCountAndUpdate(facet.name, -100)">
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</button>
+			</li>
+			<li class="list-group-item" ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
+							<span ng-click="mp3Index.solr.addFilterQueryAndUpdate(facet.name, field.index)">
+								<nav-path ng-attr-path="{{field.index}}" ng-attr-facet="{{facet.index}}"></nav-path>
+								({{field.count}})
+							</span>
+				<span
+						data-ng-show="mp3Index.isEditableCategory(facet.name)"
+						class="glyphicon glyphicon-pencil"
+						aria-hidden="true"
+						data-ng-click="mp3Index.showCategoryForm(facet.name, field.index)">
+						   </span>
+				<span
+						data-ng-show="mp3Index.isEditableId3Tag(facet.name)"
+						class="glyphicon glyphicon-pencil"
+						aria-hidden="true"
+						data-ng-click="mp3Index.showId3TagForm(facet.name, field.index)">
+							</span>
+
+			</li>
+		</ul>
+	</div>
+</div>

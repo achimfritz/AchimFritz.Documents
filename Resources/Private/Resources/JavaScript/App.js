@@ -20,6 +20,7 @@
             'achimfritz.urlBuilder',
             'achimfritz.document',
             'achimfritz.mp3ipod',
+            'achimfritz.mp3',
             'achimfritz.music',
             'achimfritz.home',
             'achimfritz.image'
@@ -47,6 +48,7 @@
             'image/integrity',
             'image/docList',
             'image/sitemap',
+            'mp3',
             'music',
             'music/result',
             'music/filter',
@@ -83,6 +85,8 @@
         });
         configs['urlbuilder'].components.main = 'urlBuilderIndex';
         configs['document'].components.main = 'documentIndex';
+        configs['mp3'].components.main = 'mp3Index';
+        configs['mp3'].components.navigation = 'mp3Navigation';
 
         configs['image'].components.navigation = 'imageNavigation';
         configs['image/result'].components.main = 'imageResult';
@@ -137,7 +141,7 @@
 
         $componentLoaderProvider.setTemplateMapping(function (name) {
 
-            var moduleNames = ['mp3Ipod', 'music', 'image', 'urlBuilder', 'document', 'home'];
+            var moduleNames = ['mp3Ipod', 'music', 'image', 'urlBuilder', 'document', 'home', 'mp3'];
             var path = '';
             angular.forEach(moduleNames, function(moduleName) {
                 var res = name.split(moduleName);
