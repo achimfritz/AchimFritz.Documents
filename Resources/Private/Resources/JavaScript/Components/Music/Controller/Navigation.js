@@ -19,8 +19,7 @@
             {name: 'playlists', location: 'music/list'},
             {name: 'filter', location: 'music/filter'},
             {name: 'player', location: 'music/player'},
-            {name: 'docList', location: 'music/docList'},
-            {name: 'ui', location: 'music/ui'}
+            {name: 'docList', location: 'music/docList'}
         ];
         vm.forward = forward;
 
