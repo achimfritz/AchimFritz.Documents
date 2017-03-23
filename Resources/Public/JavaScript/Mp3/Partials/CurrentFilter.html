@@ -1,10 +1,13 @@
-<ul class="list-group" data-ng-if="mp3Index.filterQueries">
-	<li class="list-group-item" ng-repeat="(key, values) in mp3Index.filterQueries" data-ng-if="values.length">
+<div data-ng-if="mp3Index.hasFilterQueries">
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="(key, values) in mp3Index.filterQueries" data-ng-if="values.length">
 		<span
 				ng-click="mp3Index.solr.rmFilterQueryAndUpdate(key, value)"
 				ng-repeat="value in values">
 			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 			<filter-query ng-attr-path="{{value}}" ng-attr-facet="{{key}}"></filter-query>
 		</span>
-	</li>
-</ul>
+		</li>
+	</ul>
+</div>
+

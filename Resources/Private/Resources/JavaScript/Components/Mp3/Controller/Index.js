@@ -17,8 +17,10 @@
         vm.data = {};
         vm.params = {};
         vm.filterQueries = {};
+        vm.hasFilterQueries = false;
         vm.facets = [];
         vm.search = '';
+        vm.afOnly = false;
 
         // player
         vm.song = {};
@@ -40,10 +42,20 @@
         vm.isEditableCategory = isEditableCategory;
         vm.showId3TagForm = showId3TagForm;
         vm.showCategoryForm = showCategoryForm;
+        vm.editPlaylist = editPlaylist;
         vm.update = update;
+        vm.afOnlyChanged = afOnlyChanged;
 
         MusicPlayerService.initialize();
         getSolrData();
+
+        function afOnlyChanged() {
+            if (vm.afOnly === true) {
+                Solr.addFilterQueryAndUpdate('fsProvider', 'af');
+            } else {
+                Solr.rmFilterQueryAndUpdate('fsProvider', 'af');
+            }
+        }
 
         function onDropComplete(index, obj, evt) {
             var objIndex = vm.playlist.indexOf(obj);
@@ -115,12 +127,23 @@
             });
         }
 
+        function editPlaylist() {
+            $scope.dialog = ngDialog.open({
+                "data" : vm.playlist,
+                "template" : CONFIG.templatePath + 'Music/EditPlaylist.html',
+                "controller" : 'MusicEditPlaylistController',
+                "controllerAs" : 'musicEditPlaylist',
+                "scope" : $scope
+            });
+        }
+
         function getSolrData() {
             var data = Solr.getData();
             if (angular.isDefined(data.response) === true) {
                 vm.data = Solr.getData();
                 vm.params = Solr.getParams();
                 vm.filterQueries = Solr.getFilterQueries();
+                vm.hasFilterQueries = Object.keys(vm.filterQueries).length > 0;
                 if (angular.isDefined(vm.filterQueries.artist) && vm.filterQueries.artist.length > 0){
                     FacetFactory.setVisible('artist', false);
                     FacetFactory.setVisible('album', true);
@@ -129,7 +152,6 @@
                     FacetFactory.setVisible('album', false);
                 }
                 vm.facets = FacetFactory.updateFacets(data);
-
             }
         }
 

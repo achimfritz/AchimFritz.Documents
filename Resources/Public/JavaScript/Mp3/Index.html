@@ -1,25 +1,36 @@
 
-<div class="row">
-	<div class="col-md-2">
+<div class="row well">
+	<form data-ng-submit="mp3Index.update()">
+		<div class="col-md-3 col-md-offset-4">
+			<input class="form-control" type="text" data-autocomplete data-field="spell" data-global="0"
+				   data-ng-model="mp3Index.search"/>
+		</div>
+		<div class="col-md-1">
+			<input type="submit" value="Submit" class="btn btn-default"/>
+		</div>
+	</form>
+</div>
+
+<div class="row top10">
+	<div class="col-md-4 col-lg-4">
 		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/CurrentFilter.html'"></ng-include>
 		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/Filter.html'"></ng-include>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-8 col-lg-4">
+
 		<div class="row">
-			<form data-ng-submit="mp3Index.update()">
-				<div class="col-md-8">
-					<input class="form-control" type="text" data-autocomplete data-field="spell" data-global="0"
-						   data-ng-model="mp3Index.search"/>
-				</div>
-				<div class="col-md-4">
-					<input type="submit" value="Submit" class="btn btn-default"/>
-				</div>
-			</form>
+			<div class="col-md-6">
+				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultHead.html'"></ng-include>
+			</div>
+			<div class="col-md-6">
+				<dir-pagination-controls
+						template-url="/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/Pagination.html"
+						on-page-change="mp3Index.solr.nextPageAndUpdate(newPageNumber)"></dir-pagination-controls>
+			</div>
 		</div>
-		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultHead.html'"></ng-include>
 		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultTable.html'"></ng-include>
 	</div>
-	<div class="col-md-4">
+	<div class="col-lg-4">
 		<div class="row">
 			<div class="col-md-12">
 				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerActions.html'"></ng-include>
