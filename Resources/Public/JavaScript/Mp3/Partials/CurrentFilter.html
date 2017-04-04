@@ -1,6 +1,6 @@
 <div data-ng-if="mp3Index.hasFilterQueries">
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="(key, values) in mp3Index.filterQueries" data-ng-if="values.length">
+		<li class="list-group-item" ng-repeat="(key, values) in mp3Index.filterQueries" data-ng-if="values.length && key !== 'fsProvider'">
 		<span
 				ng-click="mp3Index.solr.rmFilterQueryAndUpdate(key, value)"
 				ng-repeat="value in values">
