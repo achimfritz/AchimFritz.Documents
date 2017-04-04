@@ -13,6 +13,8 @@
         var id3TagFilters = ['artist', 'album', 'genre', 'year'];
         var categoryFilters = ['hPaths'];
 
+        vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+
         // solr
         vm.data = {};
         vm.params = {};
