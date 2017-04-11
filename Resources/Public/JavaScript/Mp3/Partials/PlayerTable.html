@@ -1,4 +1,4 @@
-<table class="draglist mp3list table small-table table-striped">
+<table class="draglist mp3list table asmall-table table-striped">
 	<tr
 			data-ng-repeat="song in mp3Index.playlist"
 			data-ng-class="{true: 'alert alert-info'}[mp3Index.song.id == song.id]"
@@ -19,8 +19,8 @@
 
 		</td>
 		<td>
-			<span data-ng-if="song.doc.title" >{{song.doc.title.substr(0, 60)}}</span>
-			<span data-ng-if="!song.doc.title" >{{song.doc.fsTitle.substr(0, 60)}}</span>
+			<span data-ng-if="song.doc.title" >{{song.doc.title.substr(0, 30)}}</span>
+			<span data-ng-if="!song.doc.title" >{{song.doc.fsTitle.substr(0, 30)}}</span>
 		</td>
 	</tr>
 </table>

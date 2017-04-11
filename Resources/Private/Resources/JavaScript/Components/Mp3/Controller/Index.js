@@ -14,6 +14,7 @@
         var categoryFilters = ['hPaths'];
 
         vm.random = 'random_' + Math.floor((Math.random() * 100000) + 1) + ' asc';
+        vm.showPlaylist = false;
 
         // solr
         vm.data = {};
@@ -47,6 +48,7 @@
         vm.editPlaylist = editPlaylist;
         vm.update = update;
         vm.afOnlyChanged = afOnlyChanged;
+        vm.togglePlaylist = togglePlaylist;
 
         MusicPlayerService.initialize();
         getSolrData();
@@ -77,6 +79,14 @@
             }
             soundManager.soundIDs = soundIds;
             vm.playlist = newList;
+        }
+
+        function togglePlaylist() {
+            if (vm.showPlaylist === true) {
+                vm.showPlaylist = false;
+            } else {
+                vm.showPlaylist = true;
+            }
         }
 
         function update() {

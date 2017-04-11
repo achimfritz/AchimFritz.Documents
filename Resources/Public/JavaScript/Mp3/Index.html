@@ -1,4 +1,6 @@
 
+
+
 <div class="row well">
 	<div class="col-md-4 text-right">
 
@@ -21,18 +23,53 @@
 	</form>
 </div>
 
+
+<div data-ng-if="mp3Index.playlist.length">
+	<div class="row text-center">
+		<div class="col-md-3 col-lg-2">
+			<div data-ng-if="mp3Index.song.doc">
+				<img data-ng-if="mp3Index.song.doc.webThumbPath" data-ng-src="{{mp3Index.song.doc.webThumbPath}}"
+					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+				<img data-ng-if="!mp3Index.song.doc.webThumbPath" data-ng-src="/_Resources/Static/Packages/AchimFritz.Documents/Images/DefaultFolder.jpg"
+					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+			</div>
+		</div>
+		<div class="col-md-9 col-lg-10">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 data-ng-if="mp3Index.song.doc">
+						{{ mp3Index.currentPostion }} / {{ mp3Index.currentDuration }}
+						{{mp3Index.song.doc.title}} / {{ mp3Index.song.doc.artist}} / {{ mp3Index.song.doc.album }} /
+
+					</h3>
+					<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerActions.html'"></ng-include>
+				</div>
+			</div>
+
+			<div data-ng-if="mp3Index.showPlaylist" class="row">
+				<div class="col-md-12">
+					<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerTable.html'"></ng-include>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+
 <div class="row top10">
-	<div class="col-md-4 col-lg-3">
+	<div class="col-md-3">
 		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/CurrentFilter.html'"></ng-include>
 		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/Filter.html'"></ng-include>
 	</div>
-	<div class="col-md-8 col-lg-5">
+	<div class="col-md-9">
 
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-sm-5">
 				hits: {{mp3Index.params.rows}}/{{mp3Index.data.response.numFound}}
 			</div>
-			<div class="col-md-4">
+			<div class="col-sm-4">
 				pages:
 				<dir-pagination-controls
 						template-url="/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/PaginationPages.html"
@@ -44,15 +81,15 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-sm-5 col-xs-6">
 				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultHead.html'"></ng-include>
 			</div>
-			<div class="col-md-4">
+			<div class="col-sm-4 col-xs-6">
 				<dir-pagination-controls
 						template-url="/_Resources/Static/Packages/AchimFritz.Documents/JavaScript/Mp3/Partials/Pagination.html"
 						on-page-change="mp3Index.solr.nextPageAndUpdate(newPageNumber)"></dir-pagination-controls>
 			</div>
-			<div class="col-md-3">
+			<div class="col-sm-3 col-xs-6">
 				<select class="form-control" id="sort" data-ng-model="mp3Index.params.sort" data-ng-change="mp3Index.solr.update()">
 					<option value="album asc, artist asc, track asc">album artist track</option>
 					<option value="mDateTime desc, fsTitle asc">mDateTime desc</option>
@@ -63,36 +100,8 @@
 				</select>
 			</div>
 		</div>
-		<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultTable.html'"></ng-include>
-	</div>
-	<div class="col-lg-4">
-		<div class="row">
-			<div class="col-md-12">
-				<span data-ng-if="!mp3Index.song.doc">&nbsp;
-				</span>
-				<span data-ng-if="mp3Index.song.doc">
-						{{mp3Index.song.doc.title}} / {{ mp3Index.song.doc.artist}} / {{ mp3Index.song.doc.album }} /
-						{{ mp3Index.currentPostion }} / {{ mp3Index.currentDuration }} / {{ mp3Index.song.doc.length }}
-				</span>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerActions.html'"></ng-include>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<img data-ng-if="mp3Index.song.doc.webThumbPath" data-ng-src="{{mp3Index.song.doc.webThumbPath}}"
-					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
-				<img data-ng-if="!mp3Index.song.doc.webThumbPath" data-ng-src="/_Resources/Static/Packages/AchimFritz.Documents/Images/DefaultFolder.jpg"
-					 alt="{{mp3Index.song.doc.title}}" width="100%"/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerTable.html'"></ng-include>
-			</div>
+		<div>
+			<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/ResultTable.html'"></ng-include>
 		</div>
 	</div>
 </div>

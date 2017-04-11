@@ -1,5 +1,5 @@
 
-		<table class="table table-striped small-table">
+		<table class="table table-striped asmall-table">
 			<tr dir-paginate="doc in mp3Index.data.response.docs | itemsPerPage: mp3Index.params.rows" total-items="mp3Index.data.response.numFound">
 				<td class="mp3-song-list-controls">
 					<button class="btn btn-default btn-xs" data-ng-click="mp3Index.musicPlayerService.playOne(doc)">
@@ -14,12 +14,36 @@
 				</td>
 
 				<td>
-					<span ng-show="doc.track" >{{("00" + doc.track).substr(-2, 2)}}</span>
-					<span ng-hide="doc.track" >{{("00" + doc.fsTrack).substr(-2, 2)}}</span>
-					<strong ng-hide="doc.track" class="text-danger">!</strong>
-					<span ng-show="doc.title" >{{doc.title.substr(0, 30)}}</span>
-					<span ng-hide="doc.title" >{{doc.fsTitle.substr(0, 30)}}</span>
-					<strong ng-hide="doc.title" class="text-danger">!</strong>
+					<button data-ng-if="doc.artist" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('artist', doc.artist)">
+						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+					</button>
+					<button data-ng-if="!doc.artist" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('fsArtist', doc.fsArtist)">
+						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+					</button>
+
+					<span data-ng-if="doc.artist">{{doc.artist.substr(0, 30)}}</span>
+					<span data-ng-if="!doc.artist">{{doc.fsArtist.substr(0, 30)}}</span>
+					<strong data-ng-if="!doc.artist" class="text-danger">!</strong>
+				</td>
+				<td>
+					<button data-ng-if="doc.album" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('album', doc.album)">
+						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+					</button>
+					<button data-ng-if="!doc.album" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('fsAlbum', doc.fsAlbum)">
+						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
+					</button>
+					<span data-ng-if="doc.album">{{doc.album.substr(0, 30)}}</span>
+					<span data-ng-if="!doc.album">{{doc.fsAlbum.substr(0, 30)}}</span>
+					<strong data-ng-if="!doc.album" class="text-danger">!</strong>
+				</td>
+
+				<td>
+					<span data-ng-if="doc.track" >{{("00" + doc.track).substr(-2, 2)}}</span>
+					<span data-ng-if="!doc.track" >{{("00" + doc.fsTrack).substr(-2, 2)}}</span>
+					<strong data-ng-if="!doc.track" class="text-danger">!</strong>
+					<span data-ng-if="doc.title" >{{doc.title.substr(0, 30)}}</span>
+					<span data-ng-if="!doc.title" >{{doc.fsTitle.substr(0, 30)}}</span>
+					<strong data-ng-if="!doc.title" class="text-danger">!</strong>
 				</td>
 			</tr>
 		</table>

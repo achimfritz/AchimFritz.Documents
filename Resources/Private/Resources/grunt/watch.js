@@ -12,5 +12,14 @@ module.exports = {
         options: {
             nospawn: true
         }
+    },
+    less: {
+        files: [
+            'Css/*.less'
+        ],
+        tasks: ['less' ],
+        options: {
+            nospawn: true
+        }
     }
 };
