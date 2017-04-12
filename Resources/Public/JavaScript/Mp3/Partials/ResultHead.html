@@ -9,6 +9,10 @@
 		data-ng-if="mp3Index.data.response.numFound < 500 && mp3Index.data.response.numFound > mp3Index.params.rows">
 	<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 </button>
+<button title="show all results" class="btn btn-default disabled" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
+		data-ng-if="mp3Index.data.response.numFound >= 500 && mp3Index.data.response.numFound <= mp3Index.params.rows">
+	<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+</button>
 <button title="show more results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(10)"
 		data-ng-if="mp3Index.data.response.numFound > mp3Index.params.rows">
 	<span class="glyphicon glyphicon glyphicon-resize-full" aria-hidden="true"></span>

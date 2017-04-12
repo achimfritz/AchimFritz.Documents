@@ -14,10 +14,10 @@
 				</td>
 
 				<td>
-					<button data-ng-if="doc.artist" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('artist', doc.artist)">
+					<button data-ng-if="doc.artist" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('artist', doc.artist)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
-					<button data-ng-if="!doc.artist" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('fsArtist', doc.fsArtist)">
+					<button data-ng-if="!doc.artist" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('fsArtist', doc.fsArtist)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
 
@@ -26,10 +26,10 @@
 					<strong data-ng-if="!doc.artist" class="text-danger">!</strong>
 				</td>
 				<td>
-					<button data-ng-if="doc.album" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('album', doc.album)">
+					<button data-ng-if="doc.album" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('album', doc.album)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
-					<button data-ng-if="!doc.album" class="btn btn-default btn-xs" ng-click="musicResult.addFilterQuery('fsAlbum', doc.fsAlbum)">
+					<button data-ng-if="!doc.album" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('fsAlbum', doc.fsAlbum)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
 					<span data-ng-if="doc.album">{{doc.album.substr(0, 30)}}</span>
