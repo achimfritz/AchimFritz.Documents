@@ -61,7 +61,7 @@ module.exports = {
     },
     css: {
         src: [
-            'Css/**/*.css'
+            'Css/*.css'
         ],
         dest: '../../Public/Build/css/Main.css'
     }

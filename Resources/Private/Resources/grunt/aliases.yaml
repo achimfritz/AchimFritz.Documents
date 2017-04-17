@@ -1,6 +1,7 @@
 standard:
   - concat
   - copy
+  - less
 default:
   - standard
 dev:
