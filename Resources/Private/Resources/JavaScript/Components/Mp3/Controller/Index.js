@@ -156,13 +156,18 @@
                 vm.params = Solr.getParams();
                 vm.filterQueries = Solr.getFilterQueries();
                 vm.hasFilterQueries = Object.keys(vm.filterQueries).length > 0;
-                if (angular.isDefined(vm.filterQueries.artist) && vm.filterQueries.artist.length > 0){
+
+                if (
+                    (angular.isDefined(vm.filterQueries.artist) && vm.filterQueries.artist.length > 0) ||
+                    (angular.isDefined(vm.filterQueries.genre) && vm.filterQueries.genre.length === 1 && vm.filterQueries.genre[0] === 'Soundtrack')
+                ){
                     FacetFactory.setVisible('artist', false);
                     FacetFactory.setVisible('album', true);
                 } else {
                     FacetFactory.setVisible('artist', true);
                     FacetFactory.setVisible('album', false);
                 }
+
                 vm.facets = FacetFactory.updateFacets(data);
             }
         }
