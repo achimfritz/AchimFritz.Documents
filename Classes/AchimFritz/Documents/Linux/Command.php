@@ -45,7 +45,10 @@ class Command {
 			throw new Exception('no such file ' . $file, 1484933915);
 		}
 		$cmd = 'ffprobe -v error -show_format -show_streams -print_format json ' . $file;
-		return $this->executeCommand($cmd);
+		$res = $this->executeCommand($cmd);
+		$str = implode("\n", $res);
+		$arr = json_decode($str);
+		return $arr;
 	}
 
 	/**
