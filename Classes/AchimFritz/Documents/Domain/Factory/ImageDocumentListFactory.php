@@ -36,7 +36,7 @@ class ImageDocumentListFactory extends FileSystemDocumentListFactory {
 	 * @return \AchimFritz\Documents\Configuration\FileSystemDocumentConfiguration
 	 */
 	protected function getConfiguration() {
-		return $this->imaageConfiguration;
+		return $this->imageConfiguration;
 	}
 
 	/**

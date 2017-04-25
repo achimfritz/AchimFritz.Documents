@@ -11,6 +11,7 @@ use AchimFritz\Documents\Domain\Service\PathService;
 use AchimFritz\Documents\Domain\Model\Category;
 use AchimFritz\Documents\Domain\Model\DocumentList;
 use AchimFritz\Documents\Domain\Model\DocumentListItem;
+use AchimFritz\Documents\Domain\Model\FileSystemDocument;
 
 /**
  * @Flow\Scope("singleton")
