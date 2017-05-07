@@ -19,6 +19,13 @@
 					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 				</button>
+				<button title="sort by count" data-ng-if="facet.orderBy === 'index'" class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'count')">
+					<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+				</button>
+
+				<button title="sort by index" data-ng-if="facet.orderBy !== 'index'" class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'index')">
+					<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+				</button>
 			</li>
 			<li class="list-group-item" ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
 							<span ng-click="mp3Index.solr.addFilterQueryAndUpdate(facet.name, field.index)">

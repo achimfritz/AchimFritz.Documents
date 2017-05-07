@@ -6,7 +6,7 @@
         .controller('Mp3IndexController', Mp3IndexController);
 
     /* @ngInject */
-    function Mp3IndexController (MusicPlayerService, CONFIG, $rootScope, Solr, $timeout, angularPlayer, ngDialog, $filter, FacetFactory) {
+    function Mp3IndexController (MusicPlayerService, CONFIG, $rootScope, Solr, angularPlayer, ngDialog, $filter, FacetFactory) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -154,6 +154,7 @@
             if (angular.isDefined(data.response) === true) {
                 vm.data = Solr.getData();
                 vm.params = Solr.getParams();
+                console.log(vm.params);
                 vm.filterQueries = Solr.getFilterQueries();
                 vm.hasFilterQueries = Object.keys(vm.filterQueries).length > 0;
 

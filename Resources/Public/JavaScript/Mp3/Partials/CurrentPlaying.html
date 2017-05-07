@@ -1,0 +1,35 @@
+<div class="row text-center">
+	<div class="col-md-3 col-lg-6">
+		<div data-ng-if="mp3Index.song.doc">
+			<img data-ng-if="mp3Index.song.doc.webThumbPath" data-ng-src="{{mp3Index.song.doc.webThumbPath}}"
+				 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+			<img data-ng-if="!mp3Index.song.doc.webThumbPath" data-ng-src="/_Resources/Static/Packages/AchimFritz.Documents/Images/DefaultFolder.jpg"
+				 alt="{{mp3Index.song.doc.title}}" width="100%"/>
+		</div>
+	</div>
+	<div class="col-md-9 col-lg-6">
+		<div class="row">
+			<div class="col-md-12">
+				<div data-ng-if="mp3Index.song.doc">
+					<h3>
+						 {{mp3Index.song.doc.title}} / {{ mp3Index.song.doc.artist}} / {{ mp3Index.song.doc.album }} /
+					</h3>
+					<h3>
+						{{mp3Index.playlist.length}}
+					</h3>
+					<h3>
+						{{ mp3Index.currentPostion }} / {{ mp3Index.currentDuration }}
+					</h3>
+				</div>
+				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerActions.html'"></ng-include>
+			</div>
+		</div>
+
+		<div data-ng-if="mp3Index.showPlaylist" class="row">
+			<div class="col-md-12">
+				<ng-include src="mp3Index.config.templatePath + 'Mp3/Partials/PlayerTable.html'"></ng-include>
+			</div>
+		</div>
+
+	</div>
+</div>

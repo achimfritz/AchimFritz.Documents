@@ -26,12 +26,15 @@
 					<strong data-ng-if="!doc.artist" class="text-danger">!</strong>
 				</td>
 				<td>
+
 					<button data-ng-if="doc.album" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('album', doc.album)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
 					<button data-ng-if="!doc.album" class="btn btn-default btn-xs" ng-click="mp3Index.solr.addFilterQueryAndUpdate('fsAlbum', doc.fsAlbum)">
 						<span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
 					</button>
+					<img  data-ng-if="doc.webThumbPath" data-ng-src="{{doc.webThumbPath}}"
+						  alt="{{doc.title}}" width="20"/>
 					<span data-ng-if="doc.album">{{doc.album.substr(0, 30)}}</span>
 					<span data-ng-if="!doc.album">{{doc.fsAlbum.substr(0, 30)}}</span>
 					<strong data-ng-if="!doc.album" class="text-danger">!</strong>
