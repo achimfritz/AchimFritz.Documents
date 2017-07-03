@@ -1,23 +1,27 @@
-
-<button title="play all" class="btn btn-default" data-ng-click="mp3Index.musicPlayerService.playAll(mp3Index.data.response.docs)">
-	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-</button>
-<button title="add all to playlist" class="btn btn-default" data-ng-click="mp3Index.musicPlayerService.addAll(mp3Index.data.response.docs)">
-	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>
-<button title="show all results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
-		data-ng-if="mp3Index.data.response.numFound < 500 && mp3Index.data.response.numFound > mp3Index.params.rows">
-	<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-</button>
-<button title="show all results" class="btn btn-default disabled" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
-		data-ng-if="mp3Index.data.response.numFound >= 500 && mp3Index.data.response.numFound <= mp3Index.params.rows">
-	<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-</button>
-<button title="show more results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(10)"
-		data-ng-if="mp3Index.data.response.numFound > mp3Index.params.rows">
-	<span class="glyphicon glyphicon glyphicon-resize-full" aria-hidden="true"></span>
-</button>
-<button title="show less results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(-10)"
-		data-ng-if="mp3Index.params.rows > 10">
-	<span class="glyphicon glyphicon glyphicon-resize-small" aria-hidden="true"></span>
-</button>
+<div class="col-xs-3 col-md-1 text-center">
+	<label>hits: {{mp3Index.params.rows}}/{{mp3Index.data.response.numFound}}</label>
+</div>
+<div class="col-xs-9  col-md-4">
+	<button title="play all" class="btn btn-default" data-ng-click="mp3Index.musicPlayerService.playAll(mp3Index.data.response.docs)">
+		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	</button>
+	<button title="add all to playlist" class="btn btn-default" data-ng-click="mp3Index.musicPlayerService.addAll(mp3Index.data.response.docs)">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</button>
+	<button title="show all results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
+			data-ng-if="mp3Index.data.response.numFound < 500 && mp3Index.data.response.numFound > mp3Index.params.rows">
+		<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+	</button>
+	<button title="show all results" class="btn btn-default disabled" type="button" data-ng-click="mp3Index.solr.showAllRowsAndUpdate()"
+			data-ng-if="mp3Index.data.response.numFound >= 500 && mp3Index.data.response.numFound <= mp3Index.params.rows">
+		<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+	</button>
+	<button title="show more results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(10)"
+			data-ng-if="mp3Index.data.response.numFound > mp3Index.params.rows">
+		<span class="glyphicon glyphicon glyphicon-resize-full" aria-hidden="true"></span>
+	</button>
+	<button title="show less results" class="btn btn-default" type="button" data-ng-click="mp3Index.solr.changeRowsAndUpdate(-10)"
+			data-ng-if="mp3Index.params.rows > 10">
+		<span class="glyphicon glyphicon glyphicon-resize-small" aria-hidden="true"></span>
+	</button>
+</div>

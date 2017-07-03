@@ -13,7 +13,8 @@
 
             scope: {
                 global: '@',
-                field: '@'
+                field: '@',
+                autosubmit: '@'
             },
 
             link: function (scope, element, attr) {
@@ -37,10 +38,9 @@
                     },
                     select: function( event, ui ) {
                         $(element).val(ui.item.value);
-                        //Solr.
-
-                        console.log(ui.item.value);
-                        Solr.setSearchAndUpdate(ui.item.value);
+                        if (angular.isDefined(scope.autosubmit)) {
+                            Solr.setSearchAndUpdate(ui.item.value);
+                        }
                     }
                 });
             }

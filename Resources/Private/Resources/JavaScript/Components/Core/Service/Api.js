@@ -65,6 +65,10 @@
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.show(identifier).then(restSuccess, restError);
         };
+        this.listShowByPath = function(path) {
+            $rootScope.$broadcast('core:apiCallStart');
+            DocumentListRestService.showByPath(path).then(restSuccess, restError);
+        };
         this.listUpdate = function(list) {
             $rootScope.$broadcast('core:apiCallStart');
             DocumentListRestService.update(list).then(restSuccess, restError);

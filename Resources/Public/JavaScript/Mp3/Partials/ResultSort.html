@@ -1,0 +1,14 @@
+<div class="col-xs-3 col-md-1 text-center">
+	<label>sort</label>
+</div>
+<div class="col-xs-6 col-md-2">
+	<select class="form-control" id="sort" data-ng-model="mp3Index.params.sort" data-ng-change="mp3Index.solr.update()">
+		<option value="album asc, artist asc, track asc">album artist track</option>
+		<option value="mDateTime desc, fsTitle asc">mDateTime desc</option>
+		<option value="mDateTime asc, fsTitle asc">mDateTime asc</option>
+		<option value="track asc, fsTrack asc, fsTitle asc">track asc</option>
+		<option value="artist asc">artist asc</option>
+		<option value="{{mp3Index.random}}">random</option>
+	</select>
+</div>
+

@@ -6,7 +6,7 @@
         .controller('Mp3IndexController', Mp3IndexController);
 
     /* @ngInject */
-    function Mp3IndexController (MusicPlayerService, CONFIG, $rootScope, Solr, angularPlayer, ngDialog, $filter, FacetFactory) {
+    function Mp3IndexController (MusicPlayerService, CONFIG, $rootScope, Solr, angularPlayer, ngDialog, $filter, PathService, FacetFactory, CoreApiService, AppConfiguration) {
 
         var vm = this;
         var $scope = $rootScope.$new();
@@ -23,7 +23,6 @@
         vm.hasFilterQueries = false;
         vm.facets = [];
         vm.search = '';
-        vm.afOnly = false;
 
         // player
         vm.song = {};
@@ -37,6 +36,12 @@
         vm.musicPlayerService = MusicPlayerService;
         vm.facetFactory = FacetFactory;
 
+        vm.views = {
+            allFilters: false
+        };
+        vm.toggleView = toggleView;
+        vm.toggleFilter = toggleFilter;
+
         // used by the view
 
         vm.onDropComplete = onDropComplete;
@@ -47,19 +52,20 @@
         vm.showCategoryForm = showCategoryForm;
         vm.editPlaylist = editPlaylist;
         vm.update = update;
-        vm.afOnlyChanged = afOnlyChanged;
         vm.togglePlaylist = togglePlaylist;
 
         MusicPlayerService.initialize();
+        AppConfiguration.setNamespace('mp3');
         getSolrData();
 
-        function afOnlyChanged() {
-            if (vm.afOnly === true) {
-                Solr.addFilterQueryAndUpdate('fsProvider', 'af');
+        function toggleView(view) {
+            if (vm.views[view] === false) {
+                vm.views[view] = true;
             } else {
-                Solr.rmFilterQueryAndUpdate('fsProvider', 'af');
+                vm.views[view] = false;
             }
         }
+
 
         function onDropComplete(index, obj, evt) {
             var objIndex = vm.playlist.indexOf(obj);
@@ -87,6 +93,10 @@
             } else {
                 vm.showPlaylist = true;
             }
+        }
+
+        function toggleFilter(name) {
+            vm.facets = FacetFactory.toggleFacet(name);
         }
 
         function update() {
@@ -154,9 +164,16 @@
             if (angular.isDefined(data.response) === true) {
                 vm.data = Solr.getData();
                 vm.params = Solr.getParams();
-                console.log(vm.params);
                 vm.filterQueries = Solr.getFilterQueries();
                 vm.hasFilterQueries = Object.keys(vm.filterQueries).length > 0;
+
+                if (angular.isDefined(vm.filterQueries.hPaths)) {
+                    var hPath = vm.filterQueries.hPaths[0];
+                    if (PathService.depth(hPath) === 4) {
+                        CoreApiService.listShowByPath(PathService.slice(hPath, 1));
+
+                    }
+                }
 
                 if (
                     (angular.isDefined(vm.filterQueries.artist) && vm.filterQueries.artist.length > 0) ||
@@ -172,6 +189,20 @@
                 vm.facets = FacetFactory.updateFacets(data);
             }
         }
+
+        $scope.$on('core:apiCallSuccess', function(event, data) {
+            if (angular.isDefined(data.data.documentList)) {
+                var docs = [];
+                angular.forEach(data.data.documentList.documentListItems, function (listDoc) {
+                    angular.forEach(vm.data.response.docs, function(solrDoc){
+                        if (solrDoc.identifier === listDoc.document['__identity']) {
+                            docs.push(solrDoc);
+                        }
+                    });
+                });
+                vm.data.response.docs = docs;
+            }
+        });
 
         $scope.$on('solrDataUpdate', function(event, data) {
             getSolrData();
