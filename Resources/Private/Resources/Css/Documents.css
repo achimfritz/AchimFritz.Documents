@@ -28,15 +28,6 @@
 .top1 { margin-top:0.1%; }
 
 
-.iso-item .iso-img-item {
-	padding: 3px;
-	float: left;
-}
-
-.iso-item.selected .iso-img-item {
-	padding: 1px;
-	border: 2px solid black;
-}
 
 ul.pagination {
 	margin: 0px;

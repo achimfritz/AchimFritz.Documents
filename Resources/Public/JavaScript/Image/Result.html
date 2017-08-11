@@ -1,6 +1,6 @@
 <!-- clipboard -->
 
-<div class="image-top" bs-affix data-offset-top="50" data-offset-bottom="0" >
+<div class="image-top " bs-affix data-offset-top="50" data-offset-bottom="0" >
 
 	<div class="well well-sm">
 		<div class="row">
@@ -165,8 +165,23 @@
 
 <div class="row">
 	<div class="col-md-12 text-center">
-		<div dir-paginate="doc in imageResult.result.docs | itemsPerPage: imageResult.result.docs.length" total-items="imageResult.result.numFound" class="iso-item {{doc.selected}}"  data-ng-click="imageResult.itemClick(doc)" >
-			<img height="{{imageResult.imageHeight}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
+		<div dir-paginate="doc in imageResult.result.docs | itemsPerPage: imageResult.result.docs.length"
+			 total-items="imageResult.result.numFound"
+			 class="iso-item {{doc.selected}}"
+			 data-ng-click="imageResult.itemClick(doc)"
+		>
+				<img height="{{imageResult.imageHeight}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
+				<div class="iso-img-info text-left">
+					<ul>
+						<li>{{doc.identifier}}</li>
+						<li>{{doc.name}}</li>
+						<li>{{doc.mDateTime}}</li>
+						<li><strong>tags:</strong><span data-ng-repeat="tag in doc.tags track by $index"> {{tag}}</span></li>
+						<li><strong>motto:</strong><span data-ng-repeat="motto in doc.motto track by $index"> {{motto}}</span></li>
+						<li><strong>categories:</strong><span data-ng-repeat="location in doc.locations track by $index"> {{location}}</span></li>
+						<li><strong>locations:</strong><span data-ng-repeat="category in doc.categories track by $index"> {{category}}</span></li>
+					</ul>
+				</div>
 		</div>
 	</div>
 </div>

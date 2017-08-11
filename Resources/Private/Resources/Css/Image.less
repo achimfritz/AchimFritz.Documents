@@ -1,0 +1,49 @@
+/* TODO need layout for selector */
+
+
+.documents-app {
+
+	.iso-item {
+
+		position: relative;
+		float: left;
+
+		&.selected {
+
+			img {
+
+				padding: 1px;
+				border: 2px solid black;
+			}
+		}
+
+		img {
+			padding: 3px;
+			opacity: 1;
+			display: block;
+
+			transition: .5s ease;
+			backface-visibility: hidden;
+		}
+
+		.iso-img-info {
+			transition: .5s ease;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			background-color: @brand-xlight;
+			color: @brand-dark;
+		}
+
+		&:hover {
+			img {
+				opacity: 0.3;
+			}
+			.iso-img-info {
+				opacity: 1;
+			}
+		}
+	}
+}
