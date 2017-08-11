@@ -1,28 +1,35 @@
 
 <div class="col-xs-12 col-md-3">
 	<ul class="list-group">
-		<li data-ng-if="!mp3Index.views.allFilters" class="list-group-item"
-			data-ng-click="mp3Index.toggleView('allFilters')">
+		<li data-ng-if="!mp3Index.views.allFilters"
+			class="list-group-item"
+			data-ng-click="mp3Index.toggleView('allFilters')"
+		>
 			<button class="btn btn-default btn-xs">
 				<span class="glyphicon glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
 			</button>
 			<strong>more</strong>
 		</li>
 
-		<li data-ng-if="mp3Index.views.allFilters" class="list-group-item"
-			data-ng-click="mp3Index.toggleView('allFilters')">
+		<li data-ng-if="mp3Index.views.allFilters"
+			class="list-group-item"
+			data-ng-click="mp3Index.toggleView('allFilters')"
+		>
 			<button class="btn btn-default btn-xs">
 				<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 			</button>
 			<strong>less</strong>
 		</li>
 
-		<li data-ng-if="mp3Index.views.allFilters && !facet.isVisible" data-ng-repeat="facet in mp3Index.facets" class="list-group-item">
-			<button class="btn btn-default btn-xs" ng-click="mp3Index.toggleFilter(facet.name)">
+		<li data-ng-if="mp3Index.views.allFilters && !facet.isVisible"
+			data-ng-repeat="facet in mp3Index.facets"
+			class="list-group-item"
+			data-ng-click="mp3Index.toggleFilter(facet.name)"
+		>
+			<button class="btn btn-default btn-xs">
 				<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
 			</button>
 			{{facet.name}}
-
 		</li>
 	</ul>
 </div>
@@ -31,22 +38,22 @@
 	<div data-ng-if="facet.isVisible" class="col-xs-12 col-md-3">
 		<ul class="list-group">
 			<li class="list-group-item">
-				<button class="btn btn-default btn-xs" ng-click="mp3Index.toggleFilter(facet.name)">
+				<button class="btn btn-default btn-xs" data-ng-click="mp3Index.toggleFilter(facet.name)">
 					<span data-ng-if="facet.isVisible" class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 				</button>
-				<strong class="text-center">{{facet.name}}</strong>
+				<strong class="text-center" data-ng-click="mp3Index.toggleFilter(facet.name)">{{facet.name}}</strong>
 
-				<button title="sort by count" data-ng-if="facet.orderBy === 'index'" class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'count')">
+				<button title="sort by count" data-ng-if="facet.orderBy === 'index'" class="btn btn-default btn-xs" data-ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'count')">
 					<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
 				</button>
 
-				<button title="sort by index" data-ng-if="facet.orderBy !== 'index'" class="btn btn-default btn-xs" ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'index')">
+				<button title="sort by index" data-ng-if="facet.orderBy !== 'index'" class="btn btn-default btn-xs" data-ng-click="mp3Index.solr.changeFacetSortingAndUpdate(facet.name, 'index')">
 					<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
 				</button>
 			</li>
 
 			<li class="list-group-item" ng-repeat="field in facet.fields| orderBy: facet.orderBy : 'count' === facet.orderBy ">
-				<span ng-click="mp3Index.solr.addFilterQueryAndUpdate(facet.name, field.index)">
+				<span data-ng-click="mp3Index.solr.addFilterQueryAndUpdate(facet.name, field.index)">
 					<nav-path ng-attr-path="{{field.index}}" ng-attr-facet="{{facet.index}}"></nav-path>
 					({{field.count}})
 				</span>
