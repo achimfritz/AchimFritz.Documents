@@ -42,6 +42,7 @@
 
         vm.newRandom = newRandom;
         vm.nextPage = nextPage;
+        vm.selectAll = selectAll;
 
         vm.changeImageSize = changeImageSize;
 
@@ -92,6 +93,10 @@
                     scope: $scope
                 });
             }
+        }
+
+        function selectAll() {
+            vm.result = ResultFactory.selectAll();
         }
 
         function showForm(form) {

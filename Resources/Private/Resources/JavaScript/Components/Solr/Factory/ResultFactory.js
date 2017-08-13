@@ -37,6 +37,13 @@
                 result.clipboard = [];
                 return result;
             },
+            selectAll: function() {
+                angular.forEach(result.docs, function (doc) {
+                    doc.selected = 'selected';
+                });
+                updateClipboard();
+                return result;
+            },
             itemClick: function(doc, strgPressed, shiftPressed) {
                 if (doc.selected === 'selected') {
                     doc.selected = '';

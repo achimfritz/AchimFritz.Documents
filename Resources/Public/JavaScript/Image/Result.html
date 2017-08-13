@@ -29,11 +29,12 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-danger " ng-click="imageResult.solr.showAllRowsAndUpdate()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
-				<button class="btn btn-default" ng-click="imageResult.solr.changeRowsAndUpdate(20)">more</button>
-				<button class="btn btn-default" ng-click="imageResult.solr.changeRowsAndUpdate(-20)">less</button>
-				<button class="btn btn-default" ng-click="imageResult.changeImageSize(-20)">smaller</button>
-				<button class="btn btn-default" ng-click="imageResult.changeImageSize(20)">bigger</button>
+				<button class="btn btn-danger " data-ng-click="imageResult.solr.showAllRowsAndUpdate()" data-ng-if="imageResult.result.numFound < 1000">all results</button>
+				<button class="btn btn-default" data-ng-click="imageResult.solr.changeRowsAndUpdate(20)">more</button>
+				<button class="btn btn-default" data-ng-click="imageResult.solr.changeRowsAndUpdate(-20)">less</button>
+				<button class="btn btn-default" data-ng-click="imageResult.changeImageSize(-20)">smaller</button>
+				<button class="btn btn-default" data-ng-click="imageResult.changeImageSize(20)">bigger</button>
+				<button class="btn btn-default" data-ng-click="imageResult.selectAll()">select all</button>
 			</div>
 			<div class="col-md-5">
 				<dir-pagination-controls on-page-change="imageResult.nextPage(newPageNumber)"></dir-pagination-controls>
