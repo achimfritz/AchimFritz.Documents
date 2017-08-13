@@ -71,7 +71,8 @@
             flashMessage: 'homeFlashMessage',
             configuration: 'homeConfiguration',
             main: 'homeDefault',
-            navigation: 'homeNavigation'
+            navigation: 'homeNavigation',
+            scrollToTop: 'homeScrollToTop'
         };
 
         var routeConfig = [];

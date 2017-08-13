@@ -10,7 +10,7 @@
 
         var vm = this;
         var $scope = $rootScope.$new();
-        var categoryFilters = ['hPaths', 'hLocations', 'hCategories'];
+        var categoryFilters = ['hPaths', 'hLocations', 'hCategories', 'tags', 'parties', 'collections'];
 
         vm.solr = Solr;
         vm.facetFactory = FacetFactory;
