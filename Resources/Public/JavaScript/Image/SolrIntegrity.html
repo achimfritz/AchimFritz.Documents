@@ -6,6 +6,7 @@
 		<button class="btn btn-default" ng-click="imageSolrIntegrity.setSearch('-categories:[\'\' TO *]')">no categories</button>
 		<button class="btn btn-default" ng-click="imageSolrIntegrity.setSearch('-mDateTime:[* TO *]')">no mDateTime</button>
 		<button class="btn btn-default" ng-click="imageSolrIntegrity.setSearch('tags:[\'\' TO *] AND -tags:all')">all tags</button>
+		<button class="btn btn-default" ng-click="imageSolrIntegrity.setSearch('-tags:[\'\' TO *]')">no tags</button>
 		<button class="btn btn-default" ng-click="imageSolrIntegrity.setSearch('tags:[\'\' TO *] AND -tags:lucky_bilderrahmen')">tagged but no lucky</button>
 	</div>
 </div>
