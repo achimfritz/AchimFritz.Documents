@@ -176,7 +176,7 @@
 					<ul>
 						<li>{{doc.identifier}}</li>
 						<li>{{doc.name}}</li>
-						<li>{{doc.mDateTime}}</li>
+						<li><solr-date data-ng-attr-datestring="{{doc.mDateTime}}"></solr-date></li>
 						<li><strong>tags:</strong><span data-ng-repeat="tag in doc.tags track by $index"> {{tag}}</span></li>
 						<li><strong>locations:</strong><span data-ng-repeat="location in doc.locations track by $index"> {{location}}</span></li>
 						<li><strong>categories:</strong><span data-ng-repeat="category in doc.categories track by $index"> {{category}}</span></li>

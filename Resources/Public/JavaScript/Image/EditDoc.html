@@ -1,40 +1,32 @@
 <div class="row">
 
-	<div class="col-md-4">
+	<div class="col-md-6 col-sm-12">
 		<ul>
 			<li>{{imageEditDoc.doc.identifier}}</li>
 			<li>{{imageEditDoc.doc.name}}</li>
-			<li>{{imageEditDoc.doc.year}}</li>
-			<li>{{imageEditDoc.doc.mDateTime}}</li>
+			<li><solr-date data-ng-attr-datestring="{{imageEditDoc.doc.mDateTime}}"></solr-date></li>
+			<li><strong>tags:</strong><span data-ng-repeat="tag in imageEditDoc.doc.tags track by $index"> {{tag}}</span></li>
+			<li><strong>locations:</strong><span data-ng-repeat="location in imageEditDoc.doc.locations track by $index"> {{location}}</span></li>
+			<li><strong>categories:</strong><span data-ng-repeat="category in imageEditDoc.doc.categories track by $index"> {{category}}</span></li>
 		</ul>
+	</div>
 
+	<div class="col-md-6 col-sm-12">
 		<div class="row">
 			<form data-ng-submit="imageEditDoc.categoryMergeOne()">
 				<div class="col-md-6">
-					<input class="form-control" id="id3Tag" type="text"
+					<input class="form-control"
+						   type="text"
 						   data-ng-model="imageEditDoc.category"
 						   data-autocomplete
 						   data-field="paths"
 						   data-global="1" />
 				</div>
 				<div class="col-md-6">
-					<input type="submit"  value="Submit" class="btn btn-default"/>
+					<input type="submit" value="Merge into Category" class="btn btn-default"/>
 				</div>
 			</form>
 		</div>
-		
 
-		<h3>tags</h3>
-		<ul>
-			<li ng-repeat="item in imageEditDoc.doc.tags">{{item}}</li>
-		</ul>
-		<h3>locations</h3>
-		<ul>
-			<li ng-repeat="item in imageEditDoc.doc.locations">{{item}}</li>
-		</ul>
-		<h3>categories</h3>
-		<ul>
-			<li ng-repeat="item in imageEditDoc.doc.categories track by $index">{{item}}</li>
-		</ul>
 	</div>
 </div>
