@@ -34,6 +34,21 @@ class ImageSurfCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$this->response->setExitCode($this->deployment->getStatus());
 	}
 
+    /**
+     * copyCommand($name, $verbose = TRUE)
+     *
+     * @param string $name
+     * @param boolean $verbose
+     */
+    public function exportStaticCommand($name, $verbose = TRUE) {
+        $application = new \AchimFritz\Documents\Surf\Application\Image\ExportStaticApplication();
+        $application->setTarget($name);
+        $this->deployment = $this->createDeployment($application, $verbose);
+        $this->deploy($verbose);
+        $this->outputLine('DONE done with exitCode ' . $this->deployment->getStatus());
+        $this->response->setExitCode($this->deployment->getStatus());
+    }
+
 	/**
 	 * initCommand($name, $verbose = TRUE)
 	 * 
