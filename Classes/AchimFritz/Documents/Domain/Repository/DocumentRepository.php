@@ -14,157 +14,171 @@ use TYPO3\Flow\Persistence\QueryInterface;
 /**
  * @Flow\Scope("singleton")
  */
-class DocumentRepository extends Repository {
+class DocumentRepository extends Repository
+{
 
-	/**
-	 * @var \AchimFritz\Documents\Solr\ClientWrapper
-	 * @Flow\Inject
-	 */
-	protected $solrClientWrapper;
+    /**
+     * @var array
+     */
+    protected $defaultOrderings = ['name' => QueryInterface::ORDER_ASCENDING];
 
-	/**
-	 * @Flow\Inject
-	 * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
-	 */   
-	protected $categoryRepository;
+    /**
+     * @var \AchimFritz\Documents\Solr\ClientWrapper
+     * @Flow\Inject
+     */
+    protected $solrClientWrapper;
 
-	/**
-	 * @var \AchimFritz\Documents\Solr\InputDocumentFactoryInterface
-	 * @Flow\Inject
-	 */
-	protected $solrInputDocumentFactory;
+    /**
+     * @Flow\Inject
+     * @var \AchimFritz\Documents\Domain\Repository\CategoryRepository
+     */
+    protected $categoryRepository;
 
-	/**
-	 * @param string $head
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findByHead($head) {
-		$query = $this->createQuery();
-		$query->setOrderings(array('name' => QueryInterface::ORDER_ASCENDING));
-		return $query->matching(
-			$query->like('name', $head . '/%', FALSE)
-		)->execute();
-	}
+    /**
+     * @var \AchimFritz\Documents\Solr\InputDocumentFactoryInterface
+     * @Flow\Inject
+     */
+    protected $solrInputDocumentFactory;
 
-	/**
-	 * @param string $head
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findByTail($tail) {
-		$query = $this->createQuery();
-		$query->setOrderings(array('name' => QueryInterface::ORDER_ASCENDING));
-		return $query->matching(
-			$query->like('name', '%/' . $tail, FALSE)
-		)->execute();
-	}
+    /**
+     * @param string $head
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByHead($head)
+    {
+        $query = $this->createQuery();
+        return $query->matching(
+            $query->like('name', $head . '/%', false)
+        )->execute();
+    }
 
-	/**
-	 * @param Category $category 
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findByCategory(Category $category) {
-		$query = $this->createQuery();
-		return $query->matching(
-			$query->contains('categories', $category)
-		)->execute();
-	}
+    /**
+     * @param string $head
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByTail($tail)
+    {
+        $query = $this->createQuery();
+        return $query->matching(
+            $query->like('name', '%/' . $tail, false)
+        )->execute();
+    }
 
-	/**
-	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findByCategoryPaths(array $paths) {
-		$categories = new \Doctrine\Common\Collections\ArrayCollection();
-		foreach ($paths as $path) {
-			$category = $this->categoryRepository->findOneByPath($path);
-			if ($category instanceof Category === TRUE) {
-				$categories->add($category);
-			}
-		}
-		return $this->findInAllCategories($categories);
-	}
+    /**
+     * @param Category $category
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByCategory(Category $category)
+    {
+        $query = $this->createQuery();
+        return $query->matching(
+            $query->contains('categories', $category)
+        )->execute();
+    }
 
-	/**
-	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findInAllCategories(\Doctrine\Common\Collections\Collection $categories) {
-		$query = $this->createQuery();
-		$constraints = [];
-		foreach ($categories AS $category) {
-			$constraints[] = $query->contains('categories', $category);
-		}
-		return $query->matching($query->logicalAnd($constraints))->execute();
-	}
+    /**
+     * @param \Doctrine\Common\Collections\Collection $categories
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByCategoryPaths(array $paths)
+    {
+        $categories = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach ($paths as $path) {
+            $category = $this->categoryRepository->findOneByPath($path);
+            if ($category instanceof Category === true) {
+                $categories->add($category);
+            }
+        }
+        return $this->findInAllCategories($categories);
+    }
 
-	/**
-	 * @param \Doctrine\Common\Collections\Collection $categories
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-	 */
-	public function findInOneCategories(\Doctrine\Common\Collections\Collection $categories) {
-		$query = $this->createQuery();
-		$constraints = [];
-		foreach ($categories AS $category) {
-			$constraints[] = $query->contains('categories', $category);
-		}
-		return $query->matching($query->logicalOr($constraints))->execute();
-	}
+    /**
+     * @param \Doctrine\Common\Collections\Collection $categories
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findInAllCategories(\Doctrine\Common\Collections\Collection $categories)
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        foreach ($categories AS $category) {
+            $constraints[] = $query->contains('categories', $category);
+        }
+        return $query->matching($query->logicalAnd($constraints))->execute();
+    }
 
-	/**
-	 * Adds an object to this repository.
-	 *
-	 * @param object $object The object to add
-	 * @return void
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
-	 * @throws \SolrClientException
-	 * @throws \AchimFritz\Documents\Linux\Exception
-	 * @api
-	 */
-	public function add($object) {
-		parent::add($object);
-		$solrInputDocument = $this->solrInputDocumentFactory->create($object);
-		$this->solrClientWrapper->addDocument($solrInputDocument);
-	}
+    /**
+     * @param \Doctrine\Common\Collections\Collection $categories
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findInOneCategories(\Doctrine\Common\Collections\Collection $categories)
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        foreach ($categories AS $category) {
+            $constraints[] = $query->contains('categories', $category);
+        }
+        return $query->matching($query->logicalOr($constraints))->execute();
+    }
 
-	/**
-	 * Removes an object from this repository.
-	 *
-	 * @param object $object The object to remove
-	 * @return void
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
-	 * @throws \SolrClientException
-	 * @api
-	 */
-	public function remove($object) {
-		parent::remove($object);
-		$identifier = $this->persistenceManager->getIdentifierByObject($object);
-		$this->solrClientWrapper->deleteById($identifier);
-	}
+    /**
+     * Adds an object to this repository.
+     *
+     * @param object $object The object to add
+     * @return void
+     * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @throws \SolrClientException
+     * @throws \AchimFritz\Documents\Linux\Exception
+     * @api
+     */
+    public function add($object)
+    {
+        parent::add($object);
+        $solrInputDocument = $this->solrInputDocumentFactory->create($object);
+        $this->solrClientWrapper->addDocument($solrInputDocument);
+    }
 
-	/**
-	 * Schedules a modified object for persistence.
-	 *
-	 * @param object $object The modified object
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
-	 * @throws \SolrClientException
-	 * @throws \AchimFritz\Documents\Linux\Exception
-	 * @api
-	 */
-	public function update($object) {
-		parent::update($object);
-		$solrInputDocument = $this->solrInputDocumentFactory->create($object);
-		$this->solrClientWrapper->addDocument($solrInputDocument);
-	}
+    /**
+     * Removes an object from this repository.
+     *
+     * @param object $object The object to remove
+     * @return void
+     * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @throws \SolrClientException
+     * @api
+     */
+    public function remove($object)
+    {
+        parent::remove($object);
+        $identifier = $this->persistenceManager->getIdentifierByObject($object);
+        $this->solrClientWrapper->deleteById($identifier);
+    }
 
- /**
-  * @param array $names 
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface
-  */
- public function findByNames(array $names) {
-		$query = $this->createQuery();
-		return $query->matching(
-			$query->in('name', $names)
-		)->execute();
- }
+    /**
+     * Schedules a modified object for persistence.
+     *
+     * @param object $object The modified object
+     * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+     * @throws \SolrClientException
+     * @throws \AchimFritz\Documents\Linux\Exception
+     * @api
+     */
+    public function update($object)
+    {
+        parent::update($object);
+        $solrInputDocument = $this->solrInputDocumentFactory->create($object);
+        $this->solrClientWrapper->addDocument($solrInputDocument);
+    }
+
+    /**
+     * @param array $names
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByNames(array $names)
+    {
+        $query = $this->createQuery();
+        return $query->matching(
+            $query->in('name', $names)
+        )->execute();
+    }
 
 }

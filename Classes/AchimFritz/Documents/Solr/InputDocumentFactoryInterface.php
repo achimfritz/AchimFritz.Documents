@@ -15,7 +15,7 @@ interface InputDocumentFactoryInterface {
 
 	/**
 	 * @param \AchimFritz\Documents\Domain\Model\Document $document
-	 * @return void
+	 * @return \SolrInputDocument
 	 * @throws \AchimFritz\Documents\Linux\Exception
 	 */
 	public function create(Document $document);
