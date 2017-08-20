@@ -20,6 +20,7 @@
         vm.strgPressed = false;
         vm.shiftPressed = false;
         vm.mode = 'view';
+        vm.infoDoc = null;
         // clipboard
         vm.form = 'close';
         vm.category = '';
@@ -83,7 +84,9 @@
         function itemClick(doc) {
             if (vm.mode === 'select') {
                 vm.result = ResultFactory.itemClick(doc, vm.strgPressed, vm.shiftPressed);
-            } else {
+            } else if (vm.mode === 'info') {
+                vm.infoDoc = doc;
+            } else if (vm.mode === 'view') {
                 $scope.dialog = ngDialog.open({
                     data: doc,
                     template: CONFIG.templatePath + 'Image/ImageDoc.html',

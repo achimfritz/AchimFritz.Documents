@@ -22,7 +22,14 @@
 					</label>
 				</div>
 			</div>
-			<div class="col-md-3 col-md-offset-1">
+			<div class="col-md-1">
+				<div class="radio">
+					<label>
+						<input type="radio" data-ng-model="imageResult.mode" value="info">Info
+					</label>
+				</div>
+			</div>
+			<div class="col-md-3">
 				<span class="btn btn-primary">{{imageResult.result.docs.length}} von {{imageResult.result.numFound}}</span>
 				<span data-ng-if="imageResult.form !== 'close'" class="btn btn-primary">clipboard: {{imageResult.result.clipboard.length}} documents</span>
 			</div>
@@ -168,11 +175,11 @@
 	<div class="col-md-12 text-center">
 		<div dir-paginate="doc in imageResult.result.docs | itemsPerPage: imageResult.result.docs.length"
 			 total-items="imageResult.result.numFound"
-			 class="iso-item {{doc.selected}}"
+			 data-ng-class="{'iso-item': true, 'selected': doc.selected === 'selected', 'info-mode': imageResult.mode === 'info'}"
 			 data-ng-click="imageResult.itemClick(doc)"
 		>
 				<img height="{{imageResult.imageHeight}}" class="iso-img-item" data-ng-src="{{doc.webPreviewPath}}" />
-				<div class="iso-img-info text-left">
+				<div class="iso-img-info text-left" data-ng-if="imageResult.mode === 'info'">
 					<ul>
 						<li>{{doc.identifier}}</li>
 						<li>{{doc.name}}</li>
@@ -182,6 +189,11 @@
 						<li><strong>categories:</strong><span data-ng-repeat="category in doc.categories track by $index"> {{category}}</span></li>
 					</ul>
 				</div>
+			<div data-ng-if="false && imageResult.infoDoc !== null && doc.identifier === imageResult.infoDoc.identifier && imageResult.mode === 'info'">
+				<div class="col-md-12">
+					<img class="img-responsive" data-ng-src="{{imageResult.infoDoc.webBigPath}}" />
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

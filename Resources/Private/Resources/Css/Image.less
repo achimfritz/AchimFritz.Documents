@@ -12,12 +12,11 @@
 
 			img {
 
-				padding: 1px;
 				border: 2px solid black;
 			}
 		}
 
-		img {
+		img.iso-img-item {
 			padding: 3px;
 			opacity: 1;
 			display: block;
@@ -37,12 +36,15 @@
 			color: @brand-dark;
 		}
 
-		&:hover {
-			img {
-				opacity: 0.3;
-			}
-			.iso-img-info {
-				opacity: 1;
+		&.info-mode {
+
+			&:hover {
+				img.iso-img-item {
+					opacity: 0.3;
+				}
+				.iso-img-info {
+					opacity: 1;
+				}
 			}
 		}
 	}
